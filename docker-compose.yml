@@ -1,0 +1,46 @@
+# Gesamtstack der AP-Lernapp: Backend (Fastify + SQLite) + Caddy (Frontend
+# statisch + Reverse-Proxy auf /api + automatisches HTTPS).
+#
+# Lokal testen:   SITE_ADDRESS=":80" docker compose up --build   -> http://localhost
+# Produktion:     .env mit DOMAIN/SITE_ADDRESS füllen, dann docker compose up -d --build
+#
+# Funktioniert unverändert auf Proxmox-LXC (mit Docker) und auf einem VPS
+# (z. B. Hostinger). Siehe DEPLOYMENT.md.
+
+services:
+  backend:
+    build: ./server
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_PATH: /app/data/lernapp.sqlite
+      SESSION_COOKIE_NAME: ${SESSION_COOKIE_NAME:-ap_session}
+    volumes:
+      - db_data:/app/data
+    expose:
+      - "3001"
+
+  web:
+    build:
+      context: ./lernapp
+      args:
+        VITE_BASE: /
+    restart: unless-stopped
+    environment:
+      # ":80" = nur HTTP (lokal). Echte Domain = automatisches HTTPS via Caddy.
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+      BACKEND_UPSTREAM: backend:3001
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  db_data:
+  caddy_data:
+  caddy_config:

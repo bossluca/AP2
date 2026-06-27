@@ -1,0 +1,201 @@
+{
+  "slug": "2023_Fruehjahr",
+  "eintraege": {
+    "2023_Frühjahr_1a": {
+      "frage_text": "Die **GartenGlück eG**, eine Genossenschaft von Bio-Gärtnereien, will ihre Filialleitungen neu mit Endgeräten ausstatten und prüft vier Gerätemodelle. Nennen Sie pro Modell je einen Vorteil und einen Nachteil:\n\n| Modell | Vorteil | Nachteil |\n|---|---|---|\n| Notebook | ? | ? |\n| All-in-One-PC | ? | ? |\n| Thin-Client | ? | ? |\n| Desktop-Rechner | ? | ? |",
+      "ueberschrift": "Vor- und Nachteile pro Gerätemodell (4 Punkte)",
+      "thema_tags": [
+        "Mobiles Arbeiten/Homeoffice",
+        "Hardware/Komponenten"
+      ]
+    },
+    "2023_Frühjahr_1b": {
+      "frage_text": "Um eine fundierte Kaufentscheidung zu treffen, soll für die vier Gerätemodelle der GartenGlück eG eine **Nutzwertanalyse** durchgeführt werden. Die Modelle werden anhand mehrerer gewichteter Kriterien (z. B. Mobilität, Anschaffungskosten, Energieverbrauch, Wartungsaufwand) bewertet.\n\nErgänzen Sie in der Nutzwertanalyse die fehlenden Bewertungspunkte in den weißen Feldern. Pro Kriterium darf jeder Punktwert nur **einmal** vergeben werden (1–4 Punkte, dabei ist 1 = am schlechtesten, 4 = am besten).",
+      "ueberschrift": "Nutzwertanalyse ergänzen",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft"
+      ]
+    },
+    "2023_Frühjahr_1d": {
+      "frage_text": "Geben Sie ein **weiteres sinnvolles Kriterium** an, das die GartenGlück eG zusätzlich in die Nutzwertanalyse ihrer Endgeräte aufnehmen könnte. **Begründen Sie** Ihren Vorschlag.",
+      "ueberschrift": "Weiteres Kriterium für die Nutzwertanalyse (2 Punkte)",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft"
+      ]
+    },
+    "2023_Frühjahr_2aa": {
+      "frage_text": "Die GartenGlück eG holt für die benötigten Notebooks Angebote von drei Lieferanten ein. **Ermitteln Sie den Bezugspreis pro Notebook** für jeden Anbieter, indem Sie die leeren Felder ergänzen:\n\n| | Laptop-Welt24 | OfficeTech GmbH | NordCom |\n|---|---|---|---|\n| Listen-EK-Preis/Stk. brutto | 742,00 EUR | 758,00 EUR | 950,00 EUR |\n| − Lieferantenrabatt | 0,00 EUR | 0,00 EUR | ? |\n| = Zieleinkaufspreis | 742,00 EUR | 758,00 EUR | ? |\n| − Lieferantenskonto | 0,00 EUR | 0,00 EUR | ? |\n| = Bareinkaufspreis | 742,00 EUR | 758,00 EUR | ? |\n| + Bezugskosten | ? | ? | ? |\n| = Bezugspreis | ? | ? | ? |\n\n**Gegeben für NordCom:** 15 % Lieferantenrabatt, 3 % Skonto. Die Bezugskosten richten sich nach der vereinbarten Lieferklausel. Die anfallenden Posten betragen jeweils (bezogen auf 100 Stück): Rollgeld 40,00 EUR, Fracht 90,00 EUR, Rollgeld ab Entladestation 50,00 EUR.\n\n- **Laptop-Welt24** liefert *\"frachtfrei\"* (Verkäufer trägt Rollgeld + Fracht, Käufer trägt das Rollgeld ab Entladestation).\n- **OfficeTech GmbH** liefert *\"frei Haus\"* (alle Bezugskosten trägt der Verkäufer).\n- **NordCom** liefert *\"ab Werk\"* (der Käufer trägt sämtliche Bezugskosten).",
+      "ueberschrift": "Bezugspreis ermitteln (10 Punkte)",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft",
+        "Mobiles Arbeiten/Homeoffice"
+      ]
+    },
+    "2023_Frühjahr_2ab": {
+      "frage_text": "Die GartenGlück eG entscheidet sich am Ende **nicht** für den Anbieter mit dem niedrigsten Bezugspreis, sondern für einen Lieferanten mit einem höheren Bezugspreis. **Nennen Sie drei mögliche Gründe** für diese Entscheidung.",
+      "ueberschrift": "Gründe für höheren Bezugspreis (3 Punkte)",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft",
+        "Kaufvertragsrecht"
+      ]
+    },
+    "2023_Frühjahr_2b": {
+      "frage_text": "Die GartenGlück eG benötigt insgesamt **2.800 Notebooks**. Ein zusätzlicher Anbieter, die **MobiLease Solutions GmbH**, unterbreitet zwei alternative Angebote:\n\n- **Kauf:** Lieferung aller 2.800 Notebooks zu einem Gesamtpreis von **240.000,00 EUR**.\n- **Leasing:** Leasingvertrag über **vier Jahre** mit einer monatlichen Leasingrate von **5.500,00 EUR** inklusive Kaufoption.",
+      "ueberschrift": "Leasing-Vergleich",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft",
+        "Kaufvertragsrecht",
+        "Mobiles Arbeiten/Homeoffice"
+      ]
+    },
+    "2023_Frühjahr_2ba": {
+      "frage_text": "**Beschreiben Sie das Grundprinzip des Leasings** am Beispiel des Angebots der MobiLease Solutions GmbH. Erklären Sie dabei insbesondere die **Eigentums- und Besitzverhältnisse** während der Vertragslaufzeit. *(4 Punkte)*",
+      "ueberschrift": "Grundprinzip und Eigentumsverhältnisse beim Leasing (4 Punkte)",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft"
+      ]
+    },
+    "2023_Frühjahr_2bb": {
+      "frage_text": "**Vergleichen Sie** den Kaufpreis (240.000,00 EUR) mit den Gesamtkosten des Leasingangebots der MobiLease Solutions GmbH (vier Jahre, monatlich 5.500,00 EUR). **Ermitteln Sie den Differenzbetrag** und geben Sie an, welche Variante günstiger ist. *(3 Punkte)*",
+      "ueberschrift": "Kosten von Kauf und Leasing vergleichen (3 Punkte)",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft"
+      ]
+    },
+    "2023_Frühjahr_2bc": {
+      "frage_text": "**Nennen Sie drei Vorteile**, die aus Sicht der GartenGlück eG für den Abschluss eines Leasingvertrags sprechen. *(3 Punkte)*",
+      "ueberschrift": "Vorteile eines Leasingvertrags (3 Punkte)",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft"
+      ]
+    },
+    "2023_Frühjahr_2bd": {
+      "frage_text": "Das Leasingangebot der MobiLease Solutions GmbH enthält eine **Kaufoption**. **Erläutern Sie**, was unter diesem Begriff zu verstehen ist. *(2 Punkte)*",
+      "ueberschrift": "Begriff Kaufoption erläutern (2 Punkte)",
+      "thema_tags": [
+        "Kostenrechnung/Wirtschaft",
+        "Kaufvertragsrecht"
+      ]
+    },
+    "2023_Frühjahr_3a": {
+      "frage_text": "Sie prüfen, wie sich die Sicherheit der Arbeitsplatzrechner auf Ebene der Betriebssysteme verbessern lässt. Zur Einordnung der Funktionsebenen eines PCs wird häufig ein **Schichten- bzw. Schalenmodell** verwendet, in dessen Mitte das Betriebssystem steht.\n\nBenennen Sie je **eine Schicht oberhalb und eine Schicht unterhalb** des Betriebssystems und beschreiben Sie mithilfe der Tabelle jeweils eine **Funktion** dieser Schicht.\n\n| Schicht | Funktion |\n|---|---|\n| (oberhalb des Betriebssystems) | ? |\n| Betriebssystem | (gegeben) |\n| (unterhalb des Betriebssystems) | ? |",
+      "ueberschrift": "Schichtenmodell des Betriebssystems (4 Punkte)",
+      "thema_tags": [
+        "Hardware/Komponenten"
+      ]
+    },
+    "2023_Frühjahr_3b": {
+      "frage_text": "Bei Ihrer Recherche zur Absicherung von Betriebssystemen stoßen Sie auf eine Veröffentlichung des **Bundesamts für Sicherheit in der Informationstechnik (BSI)**:\n\n> \"Viele erfolgreiche Angriffe auf Arbeitsplatzsysteme lassen sich bereits mit den im Betriebssystem enthaltenen Bordmitteln erkennen oder abwehren. Um Administratorinnen und Administratoren die sichere Konfiguration zu erleichtern, hat das BSI im Rahmen einer umfangreichen Studie zu Systemaufbau, Protokollierung und Härtung praxisnahe Handlungsempfehlungen veröffentlicht. Ein Schwerpunkt lag dabei auf der einfachen Umsetzbarkeit. Die empfohlenen Einstellungen stellt das BSI als direkt importierbare Gruppenrichtlinienobjekte (GPO) zum Download bereit.\"\n\nBeantworten Sie die folgenden Teilfragen zum Thema Betriebssystem-Sicherheit.",
+      "ueberschrift": "BSI – Fragen zur Betriebssystem-Sicherheit",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_3ba": {
+      "frage_text": "**Nennen Sie zwei allgemeine Aufgaben des BSI** (Bundesamt für Sicherheit in der Informationstechnik). *(2 Punkte)*",
+      "ueberschrift": "Aufgaben des BSI (2 Punkte)",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_3bb": {
+      "frage_text": "**Erklären Sie**, was unter der **\"Härtung\" (Hardening)** eines Betriebssystems zu verstehen ist. *(2 Punkte)*",
+      "ueberschrift": "Begriff Härtung erklären (2 Punkte)",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_3bc": {
+      "frage_text": "**Nennen Sie zwei konkrete Maßnahmen**, mit denen ein Betriebssystem gehärtet werden kann. *(2 Punkte)*",
+      "ueberschrift": "Beispiele für Härtungsmaßnahmen (2 Punkte)",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_3bd": {
+      "frage_text": "**Nennen Sie zwei Systemwerkzeuge (\"Bordmittel\")** eines Betriebssystems, mit denen sich die IT-Sicherheit eines Arbeitsplatzrechners erhöhen lässt. *(2 Punkte)*",
+      "ueberschrift": "Bordmittel zur Erhöhung der IT-Sicherheit (2 Punkte)",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_3be": {
+      "frage_text": "**Beschreiben Sie**, wofür **Gruppenrichtlinien (Group Policies)** auf Arbeitsplatzrechnern in einer Unternehmensumgebung eingesetzt werden können. *(4 Punkte)*",
+      "ueberschrift": "Einsatz von Gruppenrichtlinien (4 Punkte)",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_3ca": {
+      "frage_text": "**Beschreiben Sie**, inwiefern eine **Protokollierung (Logging)** zur Erhöhung der IT-Sicherheit auf den Arbeitsplatzrechnern beitragen kann. *(4 Punkte)*",
+      "ueberschrift": "Protokollierung zur Erhöhung der IT-Sicherheit (4 Punkte)",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_3cb": {
+      "frage_text": "**Beschreiben Sie** die besonderen **Datenschutzanforderungen**, die bei der Protokollierung (Logging) von Benutzeraktivitäten beachtet werden müssen. *(4 Punkte)*",
+      "ueberschrift": "Datenschutzanforderungen bei der Protokollierung (4 Punkte)",
+      "thema_tags": [
+        "Datenschutz/IT-Sicherheit"
+      ]
+    },
+    "2023_Frühjahr_4a": {
+      "frage_text": "Die **NordPolice Versicherung AG** möchte ihren Kundinnen und Kunden künftig anbieten, Schadensfälle schnell und unkompliziert online zu melden. Dazu soll ein **KI-gestützter Chatbot** eingeführt werden. Erstellen Sie eine Übersicht über die **Vor- und Nachteile** eines solchen Chatbots, getrennt nach wirtschaftlichen und sozialen Aspekten:\n\n| | Vorteile | Nachteile |\n|---|---|---|\n| wirtschaftliche Aspekte | ? | ? |\n| soziale Aspekte | ? | ? |",
+      "ueberschrift": "KI-Chatbot – Vor- und Nachteile (4 Punkte)",
+      "thema_tags": [
+        "Wirtschaftlichkeit/Kosten",
+        "Kommunikation/Soft Skills"
+      ]
+    },
+    "2023_Frühjahr_4b": {
+      "frage_text": "Die NordPolice Versicherung AG hat sich für die Einführung des Chatbots entschieden. In einem ersten Schritt des Projekts soll ein **Lastenheft** erstellt werden, das später durch ein Pflichtenheft des Auftragnehmers ergänzt wird.",
+      "ueberschrift": "Lastenheft und Pflichtenheft",
+      "thema_tags": [
+        "Projektmanagement"
+      ]
+    },
+    "2023_Frühjahr_4ba": {
+      "frage_text": "**Beschreiben Sie zwei Unterschiede** zwischen einem **Lastenheft** und einem **Pflichtenheft**. *(4 Punkte)*",
+      "ueberschrift": "Unterschiede Lastenheft / Pflichtenheft (4 Punkte)",
+      "thema_tags": [
+        "Projektmanagement"
+      ]
+    },
+    "2023_Frühjahr_4bb": {
+      "frage_text": "Sie wirken an der Erstellung des Lastenhefts für den Chatbot mit. Bisher enthält es lediglich die **Ausgangssituation**. **Nennen Sie zwei weitere Inhalte**, die neben der Ausgangssituation in ein Lastenheft gehören. *(2 Punkte)*",
+      "ueberschrift": "Weitere Inhalte eines Lastenhefts (2 Punkte)",
+      "thema_tags": [
+        "Projektmanagement"
+      ]
+    },
+    "2023_Frühjahr_4c": {
+      "frage_text": "Für die Schadensabwicklung der NordPolice Versicherung AG wird ein **UML-Klassendiagramm** entworfen. Für die Schadensarten **KFZ** und **Immobilie** sollen eigene Klassen modelliert werden.\n\n**Klasse `KFZ`** – Eigenschaften:\n- hersteller\n- typschluessel\n- neupreis\n- baujahr\n- laufleistung\n- schadenshoehe\n\nMethoden:\n- `restwertBerechnen()`\n- `auszahlen()`\n\n**Klasse `Immobilie`** – Eigenschaften:\n- neupreis\n- baujahr\n- wohnflaeche\n- lagebewertung\n- schadenshoehe\n\nMethoden:\n- `restwertBerechnen()`\n- `getLagebewertung()`\n- `auszahlen()`\n\n**Aufgabe:** Entwerfen Sie eine sinnvolle **Klassenhierarchie** mit einer gemeinsamen Oberklasse `Versicherungsobjekt`. Ordnen Sie gemeinsame Eigenschaften und Methoden der Oberklasse zu und nutzen Sie **Vererbung**.\n\n> Hinweis: Die Restwertberechnung erfolgt bei KFZ und Immobilie unterschiedlich. Zusätzliche Methoden, Konstruktoren und Zugriffsmodifikatoren sind nicht erforderlich.",
+      "ueberschrift": "UML-Klassendiagramm \"Versicherungsobjekt\" (8 Punkte)",
+      "thema_tags": [
+        "UML/Diagramme"
+      ]
+    },
+    "2023_Frühjahr_4d": {
+      "frage_text": "Die Daten der KFZ-Schadensregulierung werden in einer **relationalen Datenbank** gespeichert. Zentral ist die Zuordnung der Versicherungsnehmer zu ihren jeweiligen KFZ-Daten. Unter dem Attribut `fahrzeugtyp` wird zwischen SUV, Limousine, Geländewagen und Cabriolet unterschieden. Das Attribut `garage` wird mit dem Datentyp **BOOLEAN** gespeichert (TRUE = Fahrzeug steht in einer Garage).\n\nDie Tabelle `KFZ_Versicherung` enthält unter anderem die Attribute `vid` (Versicherungsnummer, Primärschlüssel), `abschlussdatum`, `versicherungssumme`, `fahrzeugtyp` und `garage`.",
+      "ueberschrift": "Relationale Datenbank KFZ-Versicherung",
+      "thema_tags": [
+        "Datenbank/SQL/ER-Modell"
+      ]
+    },
+    "2023_Frühjahr_4da": {
+      "frage_text": "Sie erhalten von der Versicherungszentrale den Auftrag, die **durchschnittliche Versicherungssumme über alle KFZ-Versicherungsverträge** zu ermitteln. Erstellen Sie dazu eine geeignete **SQL-Abfrage** auf die Tabelle `KFZ_Versicherung`. *(3 Punkte)*",
+      "ueberschrift": "SQL-Abfrage: durchschnittliche Versicherungssumme (3 Punkte)",
+      "thema_tags": [
+        "Datenbank/SQL/ER-Modell"
+      ]
+    },
+    "2023_Frühjahr_4db": {
+      "frage_text": "Sie erhalten den Auftrag, alle **Versicherungsnummern (`vid`)** zu ermitteln, die folgende Bedingungen erfüllen:\n\n- Der Vertrag wurde im **Mai 2022** abgeschlossen (`abschlussdatum`).\n- Die Versicherungssumme beträgt **mehr als 100.000,00 EUR**.\n- Das Fahrzeug wird **nicht** in einer Garage abgestellt (`garage`).\n\nErstellen Sie dazu eine geeignete **SQL-Abfrage** auf die Tabelle `KFZ_Versicherung`. *(4 Punkte)*",
+      "ueberschrift": "SQL-Abfrage mit mehreren Bedingungen (4 Punkte)",
+      "thema_tags": [
+        "Datenbank/SQL/ER-Modell"
+      ]
+    }
+  }
+}

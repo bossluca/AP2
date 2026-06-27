@@ -1,0 +1,21 @@
+{
+  "name": "ap-lernapp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Backend (Fastify + node:sqlite) für Multi-User-Fortschritt der AP-Lernapp",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.0.1",
+    "@node-rs/argon2": "^2.0.2",
+    "fastify": "^5.2.1"
+  }
+}

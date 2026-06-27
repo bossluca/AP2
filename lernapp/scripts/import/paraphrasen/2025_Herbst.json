@@ -1,0 +1,379 @@
+{
+  "slug": "2025_Herbst",
+  "eintraege": {
+    "2025_Herbst_1a": {
+      "frage_text": "Die Fahrradwerkstatt **VeloMeister GmbH** hat einen elektronischen Belegausdruck zu einer Lieferung von Ersatzteilen vorliegen. Darauf sind mehrere kaufmännisch bedeutsame Zeitpunkte vermerkt:\n\n- **Bestelldatum:** 03.04.2025\n- **Lieferdatum:** 09.04.2025\n- **Rechnungsdatum:** 10.04.2025\n- **Zahlungsziel:** 30.04.2025\n\nNennen Sie unter Angabe des jeweiligen Datums die Geschäftsvorgänge, die zum heutigen Zeitpunkt **bereits abgeschlossen** sind.",
+      "loesung_text": "Bereits stattgefunden haben:\n\n- **Bestellung** am 03.04.2025 (Bestelldatum)\n- **Lieferung** am 09.04.2025 (Lieferdatum)\n- **Rechnungserstellung** am 10.04.2025 (Rechnungsdatum)\n\nDas Zahlungsziel (30.04.2025) liegt in der Zukunft und zählt daher nicht zu den bereits stattgefundenen Vorgängen.",
+      "thema_tags": ["Kaufvertragsrecht", "Kostenrechnung/Wirtschaft"],
+      "schluesselwoerter": [
+        { "begriff": "Bestell", "synonyme": ["bestellt", "03.04", "03.04.2025"] },
+        { "begriff": "Lieferung", "synonyme": ["geliefert", "09.04", "09.04.2025"] },
+        { "begriff": "Rechnung", "synonyme": ["Rechnungserstellung", "10.04", "10.04.2025"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2025_Herbst_1b": {
+      "frage_text": "Bevor die **VeloMeister GmbH** die Eingangsrechnung zur Zahlung freigibt, gleicht sie die einzelnen Rechnungspositionen ab. Beschreiben Sie **drei verschiedene Kontrollvorgänge**, die dabei sinnvollerweise durchgeführt werden.",
+      "loesung_text": "Drei mögliche Kontrollvorgänge:\n\n- **Mengen- und Artikelabgleich:** Die in Rechnung gestellte Menge sowie die Artikelnummern und Bezeichnungen werden gegen Bestellung und Lieferschein geprüft.\n- **Preis- und Konditionsprüfung:** Einzelpreise, Gesamtpreise sowie vereinbarte Rabatte, Skonto und das Zahlungsziel werden mit Angebot bzw. Bestellung verglichen.\n- **Steuer- und Rechenprüfung:** Der korrekte Umsatzsteuersatz je Position (z. B. 19 %) sowie die Summenbildung aus Netto-, Steuer- und Bruttobetrag werden rechnerisch kontrolliert.",
+      "thema_tags": ["Kaufvertragsrecht", "Kostenrechnung/Wirtschaft"],
+      "schluesselwoerter": [
+        { "begriff": "Menge", "synonyme": ["Artikel", "Artikelnummer", "Mengenabgleich"] },
+        { "begriff": "Preis", "synonyme": ["Konditionen", "Rabatt", "Skonto"] },
+        { "begriff": "Steuer", "synonyme": ["Umsatzsteuer", "USt", "Summe", "Rechenprüfung"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2025_Herbst_1ca": {
+      "frage_text": "Die Eingangsrechnung der **VeloMeister GmbH** weist einen Bruttobetrag von **1.450,00 EUR** aus. Bei Zahlung innerhalb des Skontozeitraums dürfen **3 % Skonto** abgezogen werden.\n\nBerechnen Sie den Skontobetrag. Runden Sie kaufmännisch auf zwei Nachkommastellen und geben Sie den Rechenweg an.",
+      "loesung_text": "Skonto wird üblicherweise vom Bruttobetrag berechnet:\n\n1.450,00 EUR × 0,03 = 43,50 EUR\n\n**Skontobetrag = 43,50 EUR**\n\n(Hier ergibt sich bereits ein glatter Betrag; eine Rundung auf zwei Nachkommastellen verändert das Ergebnis nicht.)",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"],
+      "schluesselwoerter": [
+        { "begriff": "43,50", "synonyme": ["43.50", "43,50 EUR"] },
+        { "begriff": "0,03", "synonyme": ["3 %", "3%", "0.03"] },
+        { "begriff": "1.450", "synonyme": ["1450", "1.450,00"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_1cb": {
+      "frage_text": "Neben dem Skonto gibt es als weiteren Preisnachlass den **Rabatt**. Beschreiben Sie **zwei unterschiedliche Gründe**, aus denen ein Kunde einen Rabatt erhalten kann.",
+      "loesung_text": "Zwei mögliche Gründe für einen Rabatt (Beispiele):\n\n- **Mengen-/Staffelrabatt:** Bei Abnahme einer großen Stückzahl wird ein Preisnachlass gewährt.\n- **Treuerabatt:** Stammkunden erhalten für ihre langjährige Geschäftsbeziehung einen Nachlass.\n\nWeitere gültige Antworten: Einführungs-/Aktionsrabatt, Mängel-/Kulanzrabatt, Barzahlungsrabatt.",
+      "thema_tags": ["Kostenrechnung/Wirtschaft", "Kaufvertragsrecht"],
+      "schluesselwoerter": [
+        { "begriff": "Mengenrabatt", "synonyme": ["Staffelrabatt", "Menge", "Staffel"] },
+        { "begriff": "Treuerabatt", "synonyme": ["Stammkunde", "Treue"] },
+        { "begriff": "Aktionsrabatt", "synonyme": ["Einführungsrabatt", "Aktion", "Einführung"] },
+        { "begriff": "Mängelrabatt", "synonyme": ["Kulanz", "Mangel"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_1da": {
+      "frage_text": "Auf der Rechnung der **VeloMeister GmbH** ist ein **QR-Code für die Überweisung** (Giro-Code) aufgedruckt. Nennen Sie **zwei Informationen**, die in einem solchen Zahlungs-QR-Code typischerweise enthalten sind.",
+      "loesung_text": "Zwei mögliche Informationen im Zahlungs-QR-Code:\n\n- **Empfängername und IBAN** des Zahlungsempfängers\n- **Überweisungsbetrag**\n\nWeitere mögliche Angaben: Verwendungszweck, BIC.",
+      "thema_tags": ["QR-Code/Zahlungsverkehr"],
+      "schluesselwoerter": [
+        { "begriff": "IBAN", "synonyme": ["Empfänger", "Empfängername", "Kontonummer"] },
+        { "begriff": "Betrag", "synonyme": ["Überweisungsbetrag", "Summe"] },
+        { "begriff": "Verwendungszweck", "synonyme": ["Betreff", "Referenz"] },
+        { "begriff": "BIC", "synonyme": ["Bankleitzahl"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_1db": {
+      "frage_text": "Der Zahlungs-QR-Code auf der Rechnung der **VeloMeister GmbH** kann mit der Banking-App eingescannt werden. Nennen Sie **zwei Erleichterungen**, die sich dadurch beim Bezahlvorgang für den Kunden ergeben.",
+      "loesung_text": "Zwei Erleichterungen:\n\n- **Automatisches Ausfüllen** der Überweisungsfelder in der Banking-App, dadurch weniger Tippfehler bei IBAN und Betrag.\n- **Schnellerer Zahlungsvorgang** und eine **eindeutige Zuordnung** der Zahlung über den mitgelieferten Verwendungszweck.",
+      "thema_tags": ["QR-Code/Zahlungsverkehr"],
+      "schluesselwoerter": [
+        { "begriff": "automatisch", "synonyme": ["Ausfüllen", "vorausgefüllt", "Tippfehler"] },
+        { "begriff": "schneller", "synonyme": ["schnell", "zügig", "Zeitersparnis"] },
+        { "begriff": "Zuordnung", "synonyme": ["zuordnen", "eindeutig", "Verwendungszweck"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_1e": {
+      "frage_text": "Die **VeloMeister GmbH** plant, ihre Rechnungsbearbeitung auf ein neues, weitgehend automatisiertes Verfahren umzustellen. Viele bisher von Hand erledigte Vorgänge sollen künftig automatisch ablaufen, wodurch die Beschäftigten spürbar entlastet werden sollen. Trotzdem äußern Teile der Belegschaft Bedenken gegenüber der Umstellung.",
+      "thema_tags": ["Kommunikation/Soft Skills", "Projektmanagement"]
+    },
+    "2025_Herbst_1ea": {
+      "frage_text": "Nennen Sie **zwei Ursachen**, warum Beschäftigte die Einführung des automatisierten Rechnungsverfahrens ablehnen könnten.",
+      "loesung_text": "Zwei mögliche Ursachen für Ablehnung:\n\n- **Sorge um den eigenen Arbeitsplatz** bzw. Angst vor Kompetenz- oder Bedeutungsverlust.\n- **Fehlende Einbindung und Transparenz** im Einführungsprozess; dazu kommen Gewohnheit, Unsicherheit im Umgang mit dem neuen System und Schulungsaufwand.",
+      "thema_tags": ["Kommunikation/Soft Skills"],
+      "schluesselwoerter": [
+        { "begriff": "Arbeitsplatz", "synonyme": ["Jobverlust", "Kompetenzverlust", "Angst"] },
+        { "begriff": "Einbindung", "synonyme": ["Transparenz", "Beteiligung", "Information"] },
+        { "begriff": "Unsicherheit", "synonyme": ["Gewohnheit", "Überforderung", "Schulung"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_1eb": {
+      "frage_text": "Die Geschäftsführung der **VeloMeister GmbH** nimmt die Befürchtungen der Beschäftigten ernst. Beschreiben Sie **zwei Maßnahmen**, mit denen den Bedenken wirksam entgegengewirkt werden kann.",
+      "loesung_text": "Zwei mögliche Gegenmaßnahmen:\n\n- **Frühzeitige, offene Kommunikation und Beteiligung:** Die Beschäftigten werden rechtzeitig informiert und aktiv in die Gestaltung des neuen Prozesses einbezogen.\n- **Schulungen und begleiteter Pilotbetrieb:** Mitarbeitende werden geschult, der Umstieg erfolgt schrittweise mit Feedbackmöglichkeit; klare Rollenbeschreibungen und ein Support-Angebot begleiten den Wandel.",
+      "thema_tags": ["Kommunikation/Soft Skills", "Projektmanagement"],
+      "schluesselwoerter": [
+        { "begriff": "Kommunikation", "synonyme": ["informieren", "Beteiligung", "einbeziehen"] },
+        { "begriff": "Schulung", "synonyme": ["schulen", "Training", "Weiterbildung"] },
+        { "begriff": "Pilot", "synonyme": ["Pilotbetrieb", "schrittweise", "Testphase"] },
+        { "begriff": "Support", "synonyme": ["Unterstützung", "Begleitung", "Hotline"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_2a": {
+      "frage_text": "Die **VeloMeister GmbH** führt ein automatisches Rechnungsmanagementsystem ein, in das digitale Rechnungen direkt eingespeist werden. Nennen Sie jeweils **zwei Vorteile** und **zwei Nachteile** der digitalen Rechnung im Rahmen eines solchen Systems.",
+      "loesung_text": "**Vorteile:**\n- **Schnellerer Durchlauf durch Automatisierung:** weniger manuelle Schritte, schnellere Freigabe und Zahlung.\n- **Weniger Fehler und bessere Prüfbarkeit:** durch OCR/Strukturdaten, revisionssichere und durchsuchbare Ablage.\n\n**Nachteile:**\n- **Abhängigkeit von der IT:** Verfügbarkeit, Sicherheit und Dateiformate des Systems werden zum kritischen Faktor.\n- **Einführungs- und Schulungsaufwand:** Prozesse müssen geändert, Mitarbeitende geschult und Lieferanten eingebunden werden.",
+      "thema_tags": ["Datenformate", "Wirtschaftlichkeit/Kosten"],
+      "schluesselwoerter": [
+        { "begriff": "schneller", "synonyme": ["Automatisierung", "Durchlauf", "Zeitersparnis"] },
+        { "begriff": "Fehler", "synonyme": ["fehlerarm", "Prüfbarkeit", "OCR"] },
+        { "begriff": "Abhängigkeit", "synonyme": ["Verfügbarkeit", "IT-Ausfall", "Systemausfall"] },
+        { "begriff": "Schulung", "synonyme": ["Einführungsaufwand", "Aufwand", "Umstellung"] }
+      ],
+      "mindest_treffer": 4
+    },
+    "2025_Herbst_2b": {
+      "frage_text": "Als Auszubildender der IT-Abteilung der **VeloMeister GmbH** sollen Sie gemeinsam mit den Kolleginnen und Kollegen aus der Buchhaltung den Ablauf des Rechnungseingangsprozesses modellieren und übersichtlich darstellen.",
+      "thema_tags": ["UML/Diagramme", "Projektmanagement"]
+    },
+    "2025_Herbst_2ba": {
+      "frage_text": "Der Rechnungseingangsprozess der **VeloMeister GmbH** läuft wie folgt ab:\n\n- Nach dem Rechnungseingang erfolgt zunächst eine **automatische Prüfung**.\n- Ist diese Prüfung nicht in Ordnung, wird die Rechnung **abgelehnt** und der Prozess endet.\n- Andernfalls wird geprüft, ob der Rechnungsbetrag **größer oder gleich 800 EUR** ist.\n- Wenn ja, erfolgt zusätzlich eine **manuelle Prüfung**.\n- Ist die Rechnung laut manueller Prüfung nicht in Ordnung, wird sie ebenfalls **abgelehnt** und der Prozess endet.\n- Liegt der Betrag **unter 800 EUR** oder ist die manuelle Prüfung in Ordnung, werden die Rechnung **gleichzeitig bezahlt und archiviert**.\n- Danach ist der Prozess beendet.\n\nErstellen Sie zu diesem Ablauf ein **UML-Aktivitätsdiagramm**.",
+      "loesung_text": "Ablauf des Aktivitätsdiagramms:\n\nStart → **Automatische Prüfung** → Entscheidung „in Ordnung?\"\n\n- **nicht ok** → Ablehnung → Endknoten\n- **ok** → Entscheidung „Betrag ≥ 800 EUR?\"\n  - **ja** → **Manuelle Prüfung** → Entscheidung „in Ordnung?\"\n    - **nicht ok** → Ablehnung → Endknoten\n    - **ok** → **Fork (UND-Teilung):** Bezahlen ∥ Archivieren → **Join (Synchronisation)** → Endknoten\n  - **nein (< 800 EUR)** → **Fork (UND-Teilung):** Bezahlen ∥ Archivieren → **Join (Synchronisation)** → Endknoten\n\nVerwendete Symbole: ausgefüllter Kreis (Start), Raute (Entscheidung/Zusammenführung), Balken (UND-Teilung/Synchronisation), umrandeter Punkt (Endknoten).",
+      "thema_tags": ["UML/Diagramme"],
+      "schluesselwoerter": [
+        { "begriff": "Entscheidung", "synonyme": ["Raute", "Verzweigung", "Bedingung"] },
+        { "begriff": "Fork", "synonyme": ["UND-Teilung", "Parallel", "Teilung", "Balken"] },
+        { "begriff": "Synchronisation", "synonyme": ["Join", "Zusammenführung", "Vereinigung"] },
+        { "begriff": "Endknoten", "synonyme": ["Ende", "Endzustand", "Schlusspunkt"] },
+        { "begriff": "Ablehnung", "synonyme": ["ablehnen", "abgelehnt"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2025_Herbst_2bb": {
+      "frage_text": "Die IT-Leitung der **VeloMeister GmbH** überlegt, die automatische Rechnungsprüfung zusätzlich durch eine **KI-Unterstützung** zu ergänzen. Beschreiben Sie **zwei Argumente**, die für den Einsatz einer KI-gestützten Rechnungsprüfung sprechen.",
+      "loesung_text": "Zwei Argumente für die KI-Unterstützung:\n\n- **Automatische Plausibilitäts- und Anomalieerkennung:** Abweichende Preise oder Mengen sowie mögliche Betrugsmuster werden frühzeitig auffällig.\n- **Dokumentenextraktion und Abgleich:** Die KI liest Rechnungsdaten aus und gleicht sie automatisch mit Bestellung und Lieferschein ab; durch lernende Regeln sinkt der manuelle Aufwand mit der Zeit.",
+      "thema_tags": ["Kommunikation/Soft Skills", "Datenschutz/IT-Sicherheit"],
+      "schluesselwoerter": [
+        { "begriff": "Anomalie", "synonyme": ["Plausibilität", "Auffälligkeit", "Betrug", "Abweichung"] },
+        { "begriff": "Extraktion", "synonyme": ["auslesen", "Abgleich", "Erkennung", "OCR"] },
+        { "begriff": "Aufwand", "synonyme": ["Entlastung", "Zeitersparnis", "manuell"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_2c": {
+      "frage_text": "Bei der **VeloMeister GmbH** gehen pro Stunde durchschnittlich **18 Rechnungen** über den digitalen Rechnungseingang ein. Die Rechnungen treffen rund um die Uhr ein. Eine eingegangene Rechnung belegt im Mittel **150 kB** Speicherplatz.",
+      "thema_tags": ["Hardware/Speicher-Berechnung"]
+    },
+    "2025_Herbst_2ca": {
+      "frage_text": "Berechnen Sie den **Speicherbedarf pro Tag in KiB** für die eingehenden Rechnungen der **VeloMeister GmbH**. Runden Sie das Ergebnis auf ganze KiB und geben Sie den Rechenweg an. *(Annahme: 1 kB = 1.000 Byte, 1 KiB = 1.024 Byte.)*",
+      "loesung_text": "Rechnungen pro Tag: 18/h × 24 h = **432 Rechnungen/Tag**\n\nSpeicher je Rechnung: 150 kB = 150.000 Byte\n\nTagesbytes: 432 × 150.000 = 64.800.000 Byte\n\nUmrechnung in KiB: 64.800.000 / 1.024 = 63.281,25 KiB → **63.281 KiB** (auf ganze KiB gerundet)",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "schluesselwoerter": [
+        { "begriff": "432", "synonyme": ["432 Rechnungen"] },
+        { "begriff": "64.800.000", "synonyme": ["64800000", "64.800.000 Byte"] },
+        { "begriff": "63.281", "synonyme": ["63281", "63.281 KiB"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_2cb": {
+      "frage_text": "Die Rechnungen der **VeloMeister GmbH** werden vor der Archivierung mit einer **Kompression von 40 %** verkleinert (es verbleiben also 60 % des Datenvolumens). Berechnen Sie den **Jahresbedarf in GiB** für **365 Tage**. Runden Sie das Endergebnis auf zwei Nachkommastellen und geben Sie den Rechenweg an.\n\n*(Falls Sie bei der vorherigen Teilaufgabe kein Ergebnis erhalten haben, rechnen Sie mit 60.000 KiB/Tag.)*",
+      "loesung_text": "Ausgangswert: 63.281,25 KiB/Tag\n\nNach 40 % Kompression verbleiben 60 %:\n63.281,25 × 0,60 = 37.968,75 KiB/Tag\n\nJahresbedarf: 37.968,75 × 365 = 13.858.593,75 KiB/Jahr\n\nUmrechnung in GiB (1 GiB = 1.024² KiB = 1.048.576 KiB):\n13.858.593,75 / 1.048.576 ≈ **13,22 GiB**",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "schluesselwoerter": [
+        { "begriff": "0,60", "synonyme": ["0.60", "60 %", "60%"] },
+        { "begriff": "37.968", "synonyme": ["37968", "37.968,75"] },
+        { "begriff": "13,22", "synonyme": ["13.22", "13,22 GiB"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_2cc": {
+      "frage_text": "Die IT-Abteilung der **VeloMeister GmbH** möchte den Archivspeicher extern beziehen. Ein Anbieter berechnet pro **4 GiB** Speicherplatz **18,00 EUR Jahreskosten**. Ermitteln Sie die voraussichtlichen **Gesamtkosten über 8 Jahre**, wenn jährlich **12 GiB** Speicher benötigt werden.",
+      "loesung_text": "Benötigte Pakete pro Jahr: 12 GiB / 4 GiB = 3 Pakete\n\nJahreskosten: 3 × 18,00 EUR = 54,00 EUR\n\nGesamtkosten über 8 Jahre: 54,00 EUR × 8 = **432,00 EUR**",
+      "thema_tags": ["Hardware/Speicher-Berechnung", "Kostenrechnung/Wirtschaft"],
+      "schluesselwoerter": [
+        { "begriff": "54", "synonyme": ["54,00", "54 EUR", "54,00 EUR"] },
+        { "begriff": "432", "synonyme": ["432,00", "432 EUR", "432,00 EUR"] },
+        { "begriff": "3", "synonyme": ["drei", "3 Pakete"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_3a": {
+      "frage_text": "Die Zahnarztpraxis **DentalCare am Park** liest über ein Kartenlesegerät Patientendaten von der elektronischen Gesundheitskarte (eGK) ein. Begründen Sie, **warum diese Daten besonders hohen Sicherheitsanforderungen unterliegen**, und nennen Sie eine passende **rechtliche Grundlage**.",
+      "loesung_text": "Patientendaten von der eGK sind **Gesundheitsdaten** und damit eine **besondere Kategorie personenbezogener Daten**. Sie sind besonders schützenswert, da bei einem Missbrauch erhebliche Folgen für die Betroffenen entstehen können; Vertraulichkeit und Integrität müssen daher in besonderem Maße sichergestellt werden.\n\n**Rechtliche Grundlage:** Art. 9 DSGVO (Verarbeitung besonderer Kategorien personenbezogener Daten), ergänzt durch nationales Recht wie das BDSG bzw. das SGB V für den Gesundheitsbereich.",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "schluesselwoerter": [
+        { "begriff": "Gesundheitsdaten", "synonyme": ["besondere Kategorie", "personenbezogen", "sensibel"] },
+        { "begriff": "schützenswert", "synonyme": ["Vertraulichkeit", "besonders schutzwürdig", "Integrität"] },
+        { "begriff": "DSGVO", "synonyme": ["Art. 9", "Artikel 9", "BDSG", "SGB"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_3b": {
+      "frage_text": "In der Zahnarztpraxis **DentalCare am Park** verschaffen Sie sich einen Überblick über drei Authentifizierungsmittel: **Gesichtserkennung**, **PIN** und **Smartcard**. Ergänzen Sie die fehlenden Angaben in der Tabelle.\n\n| | Gesichtserkennung | PIN | Smartcard |\n|---|---|---|---|\n| Faktor | Biometrie | Wissen | Besitz |\n| Vorteil | ? | einfach, keine Zusatzhardware | ? |\n| Sicherheitsrisiko | ? | ? | ? |",
+      "loesung_text": "- **Gesichtserkennung (Biometrie):**\n  - Vorteil: schnell, nicht vergessbar, fest an die Person gebunden\n  - Risiko: Täuschung/Spoofing (z. B. durch Fotos), schlechte Lichtverhältnisse oder Veränderungen stören die Erkennung\n- **PIN (Wissen):**\n  - Vorteil: einfach umsetzbar, keine Zusatzhardware nötig, schnell änderbar\n  - Risiko: Erraten/Ausspähen (Shoulder-Surfing), zu kurze oder mehrfach verwendete PINs\n- **Smartcard (Besitz):**\n  - Vorteil: starker Faktor, sehr gut mit PIN zur Zwei-Faktor-Authentifizierung kombinierbar\n  - Risiko: Verlust oder Diebstahl; Missbrauch bei fehlender PIN oder unsicherer Aufbewahrung",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "schluesselwoerter": [
+        { "begriff": "Spoofing", "synonyme": ["Täuschung", "Fälschung", "Foto", "nachahmen"] },
+        { "begriff": "Zwei-Faktor", "synonyme": ["2-Faktor", "kombinierbar", "starker Faktor"] },
+        { "begriff": "Verlust", "synonyme": ["Diebstahl", "verloren", "gestohlen"] },
+        { "begriff": "Ausspähen", "synonyme": ["Shoulder-Surfing", "erraten", "schwache PIN"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2025_Herbst_3c": {
+      "frage_text": "Der Hersteller des Kartenlesegeräts in der Praxis **DentalCare am Park** empfiehlt, vor der ersten Inbetriebnahme ein **Softwareupdate** durchzuführen. Beschreiben Sie **einen Grund** für diese Empfehlung.",
+      "loesung_text": "Durch ein Softwareupdate werden **bekannte Sicherheitslücken geschlossen** sowie Kompatibilitäts- und Stabilitätsprobleme behoben. So wird etwa sichergestellt, dass das Gerät aktuelle, sichere Protokolle und gültige Zertifikate verwendet.",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "schluesselwoerter": [
+        { "begriff": "Sicherheitslück", "synonyme": ["Schwachstelle", "Lücke", "Patch", "Sicherheit"] },
+        { "begriff": "Kompatibilität", "synonyme": ["Stabilität", "Fehlerbehebung", "aktuell"] }
+      ],
+      "mindest_treffer": 1
+    },
+    "2025_Herbst_3d": {
+      "frage_text": "Der Hersteller des Kartenlesegeräts empfiehlt der Praxis **DentalCare am Park** außerdem, auf eine **sichere Lieferkette** zu achten, um Manipulationen am Gerät auszuschließen. Beschreiben Sie **ein mögliches Risiko** für die IT-Sicherheit, das von einem manipulierten Gerät ausgehen kann.",
+      "loesung_text": "Ein manipuliertes Gerät kann durch veränderte Hardware oder Firmware **vertrauliche Daten heimlich abgreifen** (z. B. Karten-, PIN- oder Signaturdaten) oder einen **Man-in-the-Middle-Angriff** ermöglichen. Dadurch könnten Patientendaten oder geheime Schlüssel an Unbefugte abfließen.",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "schluesselwoerter": [
+        { "begriff": "abgreif", "synonyme": ["abfließen", "Datenabgriff", "ausspähen", "mitlesen"] },
+        { "begriff": "Man-in-the-Middle", "synonyme": ["MITM", "Zwischenangriff", "abfangen"] },
+        { "begriff": "Manipulation", "synonyme": ["manipuliert", "Firmware", "verändert"] }
+      ],
+      "mindest_treffer": 1
+    },
+    "2025_Herbst_3e": {
+      "frage_text": "Für das Kartenlesegerät der Praxis **DentalCare am Park** wird ein Netzteil mit **24 V / 0,6 A** mitgeliefert. Alternativ lässt sich das Gerät auch über einen **USB-Port mit 5 V** mit Strom versorgen. Am selben PC hängen bereits weitere USB-Geräte wie Tastatur, Maus und Belegscanner.",
+      "thema_tags": ["Hardware/Komponenten", "Datenschutz/IT-Sicherheit"]
+    },
+    "2025_Herbst_3ea": {
+      "frage_text": "Ermitteln Sie **rechnerisch**, welche **Stromstärke bei 5 V** zur Verfügung gestellt werden müsste, um die gleiche Leistung wie das mitgelieferte Netzteil (**24 V / 0,6 A**) zu erreichen. Verwenden Sie die Formel **P = U × I**.",
+      "loesung_text": "Leistung des Netzteils:\nP = U × I = 24 V × 0,6 A = 14,4 W\n\nBenötigte Stromstärke bei 5 V:\nI = P / U = 14,4 W / 5 V = **2,88 A**",
+      "thema_tags": ["Hardware/Komponenten"],
+      "schluesselwoerter": [
+        { "begriff": "14,4", "synonyme": ["14.4", "14,4 W"] },
+        { "begriff": "2,88", "synonyme": ["2.88", "2,88 A"] },
+        { "begriff": "P = U", "synonyme": ["P=U", "Leistung", "I = P"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_3eb": {
+      "frage_text": "Beim Betrieb des Kartenlesegeräts in der Praxis **DentalCare am Park** über den USB-Port treten wiederholt **Störungen** (Aussetzer, Neustarts des Geräts) auf. Begründen Sie einen **möglichen Zusammenhang** zwischen diesen Störungen und der Stromversorgung über den USB-Port.",
+      "loesung_text": "Ein üblicher USB-Port liefert nur begrenzten Strom: bei USB 2.0 in der Regel maximal 0,5 A, bei USB 3.0 etwa 0,9 A. Der errechnete Bedarf von **2,88 A** liegt deutlich über diesem Budget.\n\nZusätzlich teilen sich die weiteren angeschlossenen USB-Geräte (Tastatur, Maus, Scanner) die verfügbare Leistung. Dadurch kommt es zu **Unterversorgung und Spannungseinbrüchen**, was zu Neustarts und Fehlfunktionen des Kartenlesegeräts führt.",
+      "thema_tags": ["Hardware/Komponenten", "Datenschutz/IT-Sicherheit"],
+      "schluesselwoerter": [
+        { "begriff": "0,5", "synonyme": ["0.5", "0,9", "0.9", "500 mA"] },
+        { "begriff": "Unterversorgung", "synonyme": ["Spannungseinbruch", "zu wenig Strom", "Strombedarf"] },
+        { "begriff": "teilen", "synonyme": ["aufteilen", "weitere Geräte", "Budget"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_3f": {
+      "frage_text": "Konfigurieren Sie die Netzwerkschnittstelle des Kartenlesegeräts in der Praxis **DentalCare am Park** so, dass es mit dem PC, dem Konnektor und dem Router kommunizieren kann. Verwenden Sie die **letzte nutzbare IPv4-Adresse** des Netzes.\n\nNetzwerk-Topologie:\n\n- **Router (Internetzugang):** 192.168.20.1/24\n- **Konnektor:** 192.168.20.12/24\n- **PC:** 192.168.20.40/24\n- **Kartenlesegerät:** ? (gesucht)\n\nGeben Sie **IP-Adresse, Subnetzmaske und Standard-Gateway** an.",
+      "loesung_text": "Netz: 192.168.20.0/24 → nutzbare Hostadressen .1 bis .254; .0 ist die Netzadresse, .255 die Broadcast-Adresse.\n\nDie letzte nutzbare Adresse ist **192.168.20.254**.\n\nKonfiguration des Kartenlesegeräts:\n- **IP-Adresse:** 192.168.20.254\n- **Subnetzmaske:** 255.255.255.0 (/24)\n- **Standard-Gateway:** 192.168.20.1 (Router)",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "192.168.20.254", "synonyme": ["letzte Adresse", ".254"] },
+        { "begriff": "255.255.255.0", "synonyme": ["/24", "Subnetzmaske"] },
+        { "begriff": "192.168.20.1", "synonyme": ["Gateway", "Standard-Gateway", "Router"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_3g": {
+      "frage_text": "Sie wollen das Kartenlesegerät in der Praxis **DentalCare am Park** mit einem Patchkabel an die richtige Netzwerkdose anschließen. Im Behandlungsraum befinden sich zwei RJ45-Doppeldosen mit den Bezeichnungen **„Behandlung – 2/3\"** und **„Behandlung – 4/5\"**. Nur die Ports **4/5** sind im Patchschrank tatsächlich auf den Switch aufgelegt. Wählen Sie einen geeigneten Anschluss aus und **begründen Sie Ihre Wahl**.",
+      "loesung_text": "Das Kartenlesegerät muss an die Netzwerkdose **„Behandlung – 4/5\"** angeschlossen werden. Nur die zugehörigen Patchfeld-Ports 4/5 sind mit dem Switch verbunden und damit aktiv.\n\nEin Anschluss an „Behandlung – 2/3\" würde keine Netzwerkverbindung herstellen, da die Ports 2/3 im Patchschrank nicht auf den Switch gepatcht sind.",
+      "thema_tags": ["Netzwerk/IP-Adressierung", "Hardware/Komponenten"],
+      "schluesselwoerter": [
+        { "begriff": "4/5", "synonyme": ["Behandlung 4/5", "Dose 4/5"] },
+        { "begriff": "Switch", "synonyme": ["aufgelegt", "gepatcht", "verbunden", "Patchfeld"] },
+        { "begriff": "keine Verbindung", "synonyme": ["nicht verbunden", "nicht gepatcht", "inaktiv"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_3h": {
+      "frage_text": "Das Kartenlesegerät der Praxis **DentalCare am Park** wird auch zum Erstellen einer **elektronischen Signatur** genutzt. Beschreiben Sie das **prinzipielle Vorgehen bei Erstellung und Überprüfung** einer Signatur zwischen der Praxis und einem Abrechnungs-Rechenzentrum (RZ). Beziehen Sie die vier Schlüssel ein: **privater/öffentlicher Schlüssel der Praxis** sowie **privater/öffentlicher Schlüssel des RZ**.",
+      "loesung_text": "1. Die **Praxis bildet einen Hashwert** über die zu signierenden Daten.\n2. Die Praxis **signiert den Hash mit ihrem privaten Schlüssel** (digitale Signatur).\n3. Die Praxis **verschlüsselt Daten und Signatur mit dem öffentlichen Schlüssel des RZ** und sendet alles an das RZ.\n4. Das **RZ entschlüsselt** die Sendung mit seinem **privaten Schlüssel**.\n5. Das RZ **berechnet selbst den Hash** der empfangenen Daten.\n6. Das RZ **prüft die Signatur mit dem öffentlichen Schlüssel der Praxis** und erhält daraus den ursprünglichen Hash.\n7. **Vergleich der Hashwerte:** Stimmen beide überein, sind die Daten echt (Authentizität) und unverändert (Integrität).",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "schluesselwoerter": [
+        { "begriff": "Hash", "synonyme": ["Hashwert", "Prüfsumme"] },
+        { "begriff": "privat", "synonyme": ["privater Schlüssel", "signiert", "geheim"] },
+        { "begriff": "öffentlich", "synonyme": ["öffentlicher Schlüssel", "public key"] },
+        { "begriff": "Vergleich", "synonyme": ["vergleichen", "übereinstimmen", "Integrität", "unverändert"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2025_Herbst_4a": {
+      "frage_text": "Bevor Sie die Datenbank für die **VeloMeister GmbH** entwerfen, informieren Sie sich in einer englischsprachigen Fachzeitschrift:\n\n> \"In a relational database, data is stored in tables that are connected through keys. Every record in a table is identified by a primary key, which must be unique and therefore prevents duplicate entries. A foreign key stores the value of a primary key from another table and in this way establishes a relationship between the two tables. Thanks to these relationships, information that is stored separately can be combined within a single query. This approach keeps data consistent, avoids storing the same information twice and therefore reduces redundancy.\"\n\nBeantworten Sie die folgenden Fragen mit Bezug auf den Text **auf Deutsch**:",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"]
+    },
+    "2025_Herbst_4aa": {
+      "frage_text": "Erläutern Sie die **Funktion eines Primärschlüssels** (engl. *primary key*).",
+      "loesung_text": "Ein Primärschlüssel ist ein **eindeutiger Identifikator** für jeden Datensatz einer Tabelle. Er stellt sicher, dass jeder Datensatz eindeutig ist, und verhindert so doppelte Einträge.",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"],
+      "schluesselwoerter": [
+        { "begriff": "eindeutig", "synonyme": ["eindeutiger Identifikator", "identifiziert", "unique"] },
+        { "begriff": "Datensatz", "synonyme": ["Record", "Zeile", "Tabelle"] },
+        { "begriff": "doppelt", "synonyme": ["Duplikat", "Eindeutigkeit", "keine Dubletten"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_4ab": {
+      "frage_text": "Erläutern Sie den **Zweck eines Fremdschlüssels** (engl. *foreign key*).",
+      "loesung_text": "Ein Fremdschlüssel **verweist auf den Primärschlüssel einer anderen Tabelle** und stellt darüber eine **Beziehung zwischen zwei Tabellen** her. Dadurch wird die referenzielle Integrität sichergestellt und Daten können tabellenübergreifend verknüpft werden.",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"],
+      "schluesselwoerter": [
+        { "begriff": "verweist", "synonyme": ["verweis", "verknüpft", "Bezug", "referenziert"] },
+        { "begriff": "Primärschlüssel", "synonyme": ["andere Tabelle", "PK"] },
+        { "begriff": "Beziehung", "synonyme": ["Verbindung", "referenzielle Integrität", "Verknüpfung"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_4ac": {
+      "frage_text": "Nennen Sie einen **Vorteil**, der sich aus dem **Verknüpfen von Tabellen** über Schlüssel ergibt.",
+      "loesung_text": "Durch das Verknüpfen von Tabellen wird **Redundanz reduziert** (dieselbe Information muss nicht mehrfach gespeichert werden) und es sind **effiziente Abfragen über mehrere Tabellen** möglich, etwa die gemeinsame Auswertung von Kunden- und Bestelldaten.",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"],
+      "schluesselwoerter": [
+        { "begriff": "Redundanz", "synonyme": ["weniger doppelt", "keine Mehrfachspeicherung", "redundanzarm"] },
+        { "begriff": "Abfrage", "synonyme": ["effizient", "Query", "auswerten", "abfragen"] }
+      ],
+      "mindest_treffer": 1
+    },
+    "2025_Herbst_4b": {
+      "frage_text": "Für interne Zwecke sollen Sie bei der **VeloMeister GmbH** einen Ausschnitt aus dem Datenmodell erstellen, der den Zusammenhang zwischen **Bauteilen, Fahrrädern und Lieferanten** abbildet. Folgendes ist zu berücksichtigen:\n\n- Ein Fahrrad besteht aus mehreren Bauteilen.\n- Ein Bauteil kann in mehreren Fahrrädern verbaut werden.\n- Ein Lieferant kann mehrere Fahrräder liefern.\n- Ein einzelnes Fahrrad wird immer von genau einem Lieferanten geliefert.\n- Die im jeweiligen Fahrrad verbaute **Stückzahl** eines Bauteils soll abgebildet werden.\n\nStellen Sie die Datenstruktur in der **CHEN-Notation** dar. Geben Sie die **Kardinalitäten** zwischen den Entitäten an, ordnen Sie die Mindestattribute den richtigen Tabellen zu und bestimmen Sie alle **Primärschlüssel** (unterstrichen). Fremdschlüssel müssen nicht angegeben werden.\n\nVorgegebene Mindestattribute:\n\n| Attribut | Bedeutung |\n|---|---|\n| FID | FahrradID – eindeutige ID für das Fahrrad |\n| BID | BauteilID – eindeutige ID für das Bauteil |\n| NameF | Modellname des Fahrrads |\n| NameB | Bezeichnung des Bauteils |\n| Lagerbestand | Anzahl Fahrräder im Lager |\n| Preis | Verkaufspreis des Fahrrads |\n| Rahmennummer | eindeutige Seriennummer des Fahrrads |\n| LID | LieferantID – eindeutige ID für den Lieferanten |\n| Stueckzahl | verbaute Stückzahl des Bauteils im Fahrrad |\n| Einbauposition | Einbauort des Bauteils (z. B. vorne, hinten) |\n| NameL | Name des Lieferanten |\n| IBAN | Bankverbindung des Lieferanten |",
+      "loesung_text": "**Entitäten (Primärschlüssel unterstrichen):**\n\n- Fahrrad(**FID**, NameF, Lagerbestand, Preis, Rahmennummer)\n- Bauteil(**BID**, NameB)\n- Lieferant(**LID**, NameL, IBAN)\n\n**Beziehungen und Kardinalitäten:**\n\n- Fahrrad —(1..1)— *wird geliefert von* —(1..*)— Lieferant: Jedes Fahrrad wird von genau einem Lieferanten geliefert, ein Lieferant liefert mehrere Fahrräder (1:n).\n- Fahrrad —(1..*)— *besteht aus* —(1..*)— Bauteil: m:n-Beziehung.\n  → Diese wird über eine **assoziative Entität** aufgelöst: Zusammensetzung(**FID**, **BID**, Stueckzahl, Einbauposition). So lassen sich Stückzahl und Einbauposition eindeutig je Kombination aus Fahrrad und Bauteil speichern.",
+      "thema_tags": ["Datenbank/SQL/ER-Modell", "UML/Diagramme"],
+      "schluesselwoerter": [
+        { "begriff": "Entität", "synonyme": ["Fahrrad", "Bauteil", "Lieferant", "Tabelle"] },
+        { "begriff": "Primärschlüssel", "synonyme": ["PK", "FID", "BID", "LID", "unterstrichen"] },
+        { "begriff": "m:n", "synonyme": ["n:m", "viele zu viele", "assoziativ", "Zwischentabelle", "Zusammensetzung"] },
+        { "begriff": "Kardinalität", "synonyme": ["1:n", "1..*", "1..1", "Beziehung"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2025_Herbst_4c": {
+      "frage_text": "Ein Mitarbeiter der **VeloMeister GmbH** schreibt einen Algorithmus, der den Lagerbestand der Fahrräder in allen Filialen überprüft und alle Artikel meldet, deren Bestand unter einen Grenzwert fällt. Er verwendet folgenden Quellcode:\n\n```\n1  FUNCTION checkStock(data, limit):\n2    FOR each item IN data:\n3      IF item.amount < limit:\n4        PRINT item.name, \" is below the limit.\"\n5  END FUNCTION\n```",
+      "thema_tags": ["Algorithmen/Pseudocode"]
+    },
+    "2025_Herbst_4ca": {
+      "frage_text": "Erläutern Sie die **Zeilen 2, 3 und 4** des oben gezeigten Algorithmus `checkStock`.",
+      "loesung_text": "- **Zeile 2:** Eine Schleife durchläuft (iteriert über) alle Elemente `item` in der Liste `data`.\n- **Zeile 3:** Für jedes Element wird geprüft, ob der Bestand `item.amount` **kleiner als** der Grenzwert `limit` ist.\n- **Zeile 4:** Ist die Bedingung erfüllt, wird der Name des Artikels zusammen mit dem Hinweis „is below the limit.\" **ausgegeben**.",
+      "thema_tags": ["Algorithmen/Pseudocode"],
+      "schluesselwoerter": [
+        { "begriff": "Schleife", "synonyme": ["Iteration", "durchläuft", "iteriert", "FOR"] },
+        { "begriff": "Vergleich", "synonyme": ["prüft", "Bedingung", "kleiner", "IF"] },
+        { "begriff": "Ausgabe", "synonyme": ["ausgeben", "PRINT", "ausgegeben"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2025_Herbst_4cb": {
+      "frage_text": "Führen Sie einen **Schreibtischtest** des Algorithmus `checkStock` durch und geben Sie die **Ausgabe** für folgende Eingabedaten an:\n\n```\nlimit = 30\ndata = [\n  {name: 'City-Bike', amount: 45},\n  {name: 'Trekkingrad', amount: 18},\n  {name: 'E-Bike', amount: 30},\n  {name: 'Mountainbike', amount: 12}\n]\n```",
+      "loesung_text": "Durchlauf der Elemente (Bedingung: amount < 30):\n\n- City-Bike: 45 → nicht < 30 → keine Ausgabe\n- Trekkingrad: 18 → < 30 → Ausgabe „Trekkingrad is below the limit.\"\n- E-Bike: 30 → nicht < 30 (30 ist nicht kleiner als 30) → keine Ausgabe\n- Mountainbike: 12 → < 30 → Ausgabe „Mountainbike is below the limit.\"\n\n**Ausgabe:**\n```\nTrekkingrad is below the limit.\nMountainbike is below the limit.\n```",
+      "thema_tags": ["Algorithmen/Pseudocode"],
+      "schluesselwoerter": [
+        { "begriff": "Trekkingrad", "synonyme": ["Trekkingrad is below"] },
+        { "begriff": "Mountainbike", "synonyme": ["Mountainbike is below"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_4d": {
+      "frage_text": "Eine Bestellung bei der **VeloMeister GmbH** besteht aus mehreren Positionen, wobei für jede Position der Name, der Einzelpreis und die Menge bekannt sind. Der folgende Pseudocode soll den **Gesamtpreis** einer Bestellung berechnen:\n\n```\nFUNKTION berechneGesamtpreis(bestellung):\n  gesamtpreis = 1\n  FÜR jede Position IN bestellung:\n    gesamtpreis = gesamtpreis * (Position.Einzelpreis * Position.Menge)\n  RÜCKGABE gesamtpreis\n```",
+      "thema_tags": ["Algorithmen/Pseudocode"]
+    },
+    "2025_Herbst_4da": {
+      "frage_text": "Begründen Sie, **warum der gezeigte Pseudocode fachlich falsch** ist und nicht den korrekten Gesamtpreis liefert.",
+      "loesung_text": "Der Gesamtpreis einer Bestellung muss durch **Aufsummieren (Addition)** der einzelnen Positionswerte (Einzelpreis × Menge) gebildet werden. Im Pseudocode werden die Positionswerte stattdessen **miteinander multipliziert**, was fachlich falsch ist.\n\nZusätzlich ist die Verknüpfung mit der Multiplikation problematisch: Der Startwert und die fortlaufende Multiplikation liefern nicht die Summe der Positionspreise, sondern ein völlig anderes Produkt der Werte.",
+      "thema_tags": ["Algorithmen/Pseudocode"],
+      "schluesselwoerter": [
+        { "begriff": "addier", "synonyme": ["aufsummieren", "Summe", "Addition", "plus"] },
+        { "begriff": "multipli", "synonyme": ["Multiplikation", "mal", "malnehmen", "Produkt"] },
+        { "begriff": "falsch", "synonyme": ["fehlerhaft", "nicht korrekt", "Fehler"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2025_Herbst_4db": {
+      "frage_text": "Korrigieren Sie die **fehlerhafte Zeile** des Pseudocodes `berechneGesamtpreis`, sodass der Gesamtpreis korrekt berechnet wird.",
+      "loesung_text": "Die fehlerhafte Zeile muss von Multiplikation auf **Addition** geändert werden:\n\n```\ngesamtpreis = gesamtpreis + (Position.Einzelpreis * Position.Menge)\n```\n\nZusätzlich sollte der Startwert `gesamtpreis = 0` (statt 1) gesetzt werden, damit die Summe korrekt beginnt.",
+      "thema_tags": ["Algorithmen/Pseudocode"],
+      "schluesselwoerter": [
+        { "begriff": "gesamtpreis + ", "synonyme": ["gesamtpreis +", "+ (Position", "Addition"] },
+        { "begriff": "0", "synonyme": ["null", "Startwert 0", "= 0"] }
+      ],
+      "mindest_treffer": 1
+    }
+  }
+}

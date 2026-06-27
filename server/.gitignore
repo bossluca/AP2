@@ -1,0 +1,6 @@
+node_modules
+# Lokale Secrets & Daten – niemals committen
+.env
+data/
+*.sqlite
+*.sqlite-*

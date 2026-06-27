@@ -1,0 +1,287 @@
+{
+  "slug": "2022_Herbst",
+  "eintraege": {
+    "2022_Herbst_1a": {
+      "frage_text": "Die **GreenHydro Solutions GmbH** entwickelt Wasserstoff-Brennstoffzellen für Lastkraftwagen. In diesem noch jungen Markt gibt es bislang nur eine Handvoll Hersteller, während die Zahl der interessierten Speditionen und Fuhrparkbetreiber stetig wächst.",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"]
+    },
+    "2022_Herbst_1aa": {
+      "frage_text": "Benennen Sie die Marktform, die die aktuelle Situation der GreenHydro Solutions GmbH zutreffend beschreibt. *(1 Punkt)*",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"]
+    },
+    "2022_Herbst_1ab": {
+      "frage_text": "Inzwischen kündigen mehrere etablierte Industriekonzerne an, ebenfalls in die Produktion von Brennstoffzellen einzusteigen. In wenigen Jahren werden also zahlreiche Hersteller einer großen Zahl von Abnehmern gegenüberstehen.\n\nBenennen Sie die Marktform, auf die sich die GreenHydro Solutions GmbH dann einstellen muss. *(1 Punkt)*",
+      "loesung_text": "**aa)** Aktuell liegt ein **Oligopol** vor (wenige Anbieter stehen vielen Nachfragern gegenüber).\n\n**ab)** Zukünftig ist mit einem **Polypol** zu rechnen (viele Anbieter, viele Nachfrager).",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"],
+      "schluesselwoerter": [
+        { "begriff": "Oligopol", "synonyme": [] },
+        { "begriff": "Polypol", "synonyme": ["Polypole"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_1b": {
+      "frage_text": "Die Einführung einer neuen Fertigungssteuerung ist ein umfangreiches Vorhaben. Damit das Projektteam den Überblick behält, wird das Projekt in mehrere aufeinanderfolgende Phasen gegliedert. Ordnen Sie jeder Phase **einen konkreten inhaltlichen Arbeitsschritt** in nachvollziehbaren Stichworten zu.\n\n| Projektphase | Inhaltlicher Arbeitsschritt |\n|---|---|\n| 1. Projektstart | ? |\n| 2. Ist-Analyse | ? |\n| 3. Soll-Konzept | ? |\n| 4. Planung | ? |\n| 5. Realisierung | ? |\n| 6. Erfolgskontrolle | ? |\n| 7. Ausblick | ? |",
+      "loesung_text": "| Projektphase | Inhaltlicher Arbeitsschritt (Beispiel) |\n|---|---|\n| 1. Projektstart | Auftrag klären und Problemstellung eingrenzen |\n| 2. Ist-Analyse | Schwachstellen der bisherigen Abläufe erfassen |\n| 3. Soll-Konzept | Angestrebten Zielzustand und Anforderungen festlegen |\n| 4. Planung | Arbeitspakete, Termine und Ressourcen festlegen |\n| 5. Realisierung | Umstellung auf die neuen Abläufe durchführen |\n| 6. Erfolgskontrolle | Soll-Ist-Abgleich der erreichten Ziele vornehmen |\n| 7. Ausblick | Weitere Verbesserungspotenziale festhalten |",
+      "thema_tags": ["Projektmanagement"],
+      "schluesselwoerter": [
+        { "begriff": "Problem", "synonyme": ["Auftrag", "Ziel"] },
+        { "begriff": "Schwachstell", "synonyme": ["Ist", "Analyse", "Schwäche"] },
+        { "begriff": "Anforderung", "synonyme": ["Soll", "Zielzustand"] },
+        { "begriff": "Termin", "synonyme": ["Ressource", "Arbeitspaket", "Plan"] },
+        { "begriff": "Kontroll", "synonyme": ["Soll-Ist", "Abgleich", "Überprüf"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2022_Herbst_1c": {
+      "frage_text": "Bei jedem Projekt gibt es **Stakeholder**, die über Erfolg oder Scheitern mitentscheiden. Beschreiben Sie für das Einführungsprojekt **drei verschiedene Stakeholder-Gruppen** und geben Sie jeweils an, wie diese das Projekt beeinflussen können.",
+      "loesung_text": "Beispiele:\n- **Geschäftsführung / Eigentümer:** entscheidet über Budget und Freigabe des Projekts\n- **Beschäftigte:** ihre Akzeptanz und Mitwirkung bestimmen, ob die neuen Abläufe gelebt werden\n- **Kunden:** erwarten gleichbleibende Liefertreue während der Umstellung\n- **Lieferanten / Dienstleister:** müssen technische Schnittstellen bereitstellen\n- **Betriebsrat:** prüft Auswirkungen auf Arbeitsplätze und Mitbestimmung",
+      "thema_tags": ["Projektmanagement"],
+      "schluesselwoerter": [
+        { "begriff": "Geschäftsführ", "synonyme": ["Eigentümer", "Anteilseigner", "Management", "Leitung"] },
+        { "begriff": "Mitarbeiter", "synonyme": ["Beschäftigt", "Personal", "Belegschaft"] },
+        { "begriff": "Kund", "synonyme": ["Abnehmer"] },
+        { "begriff": "Lieferant", "synonyme": ["Dienstleister", "Zulieferer"] },
+        { "begriff": "Betriebsrat", "synonyme": ["Mitbestimmung"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2022_Herbst_1d": {
+      "frage_text": "Das Projektteam überlegt, ob ein **externer IT-Consultant** hinzugezogen werden soll. Nennen Sie **insgesamt fünf** Vorteile und/oder Nachteile, die eine solche Beauftragung mit sich bringt (z. B. zwei Vorteile und drei Nachteile).",
+      "loesung_text": "**Vorteile (Beispiele):**\n- Spezialwissen und Erfahrung aus vergleichbaren Projekten\n- Entlastung der eigenen Mitarbeiter im Tagesgeschäft\n- Höhere Methoden- und Beratungskompetenz\n- Neutraler, unvoreingenommener Blick von außen\n- Bessere Einschätzung von Projektrisiken\n\n**Nachteile (Beispiele):**\n- Zusätzliche Beraterkosten\n- Wissen verbleibt teilweise außerhalb des Unternehmens\n- Abhängigkeit vom externen Dienstleister\n- Fehlende Kenntnis interner Abläufe und Strukturen\n- Höherer Kommunikations- und Abstimmungsaufwand\n- Zusätzlicher Aufwand beim Datenschutz (z. B. Zugriffsrechte, NDA)",
+      "thema_tags": ["Projektmanagement"],
+      "schluesselwoerter": [
+        { "begriff": "Erfahrung", "synonyme": ["Spezialwissen", "Know-how", "Kompetenz", "Expertise"] },
+        { "begriff": "entlast", "synonyme": ["Entlastung", "Kapazität"] },
+        { "begriff": "Kosten", "synonyme": ["teuer", "Honorar"] },
+        { "begriff": "Abhängig", "synonyme": ["Abhängigkeit"] },
+        { "begriff": "intern", "synonyme": ["Strukturen", "Abläufe"] },
+        { "begriff": "Datenschutz", "synonyme": ["Vertraulich", "NDA", "Geheimhaltung"] }
+      ],
+      "mindest_treffer": 5
+    },
+    "2022_Herbst_1e": {
+      "frage_text": "Statt einer internen Fachkraft könnte das Projekt auch durch externes Personal des Consultants zu einem effektiven Stundensatz von **95 EUR** abgewickelt werden. Berechnen Sie den **effektiven Stundensatz einer internen Fachkraft** und entscheiden Sie, welche Variante günstiger ist.\n\nGegeben:\n- 250 Arbeitstage pro Jahr (Soll)\n- 8 Stunden pro Arbeitstag\n- 28 Urlaubstage pro Jahr\n- 6 Krankheitstage pro Jahr\n- 6 Feiertage pro Jahr\n- Jahreskosten der Fachkraft: 145.000 EUR",
+      "loesung_text": "**Rechenweg:**\n\nEffektive Arbeitstage = 250 − 28 − 6 − 6 = **210 Tage**\n\nEffektive Arbeitsstunden pro Jahr = 210 Tage × 8 Std. = **1.680 Std.**\n\nEffektiver Stundensatz = 145.000 EUR ÷ 1.680 Std. ≈ **86,31 EUR/h**\n\n→ Die interne Fachkraft (≈ 86,31 EUR/h) ist **günstiger** als das externe Personal (95 EUR/h).",
+      "thema_tags": ["Kostenrechnung/Wirtschaft", "Projektmanagement"],
+      "schluesselwoerter": [
+        { "begriff": "210", "synonyme": [] },
+        { "begriff": "1680", "synonyme": ["1.680"] },
+        { "begriff": "86,31", "synonyme": ["86,3", "86", "86,31 EUR"] },
+        { "begriff": "günstiger", "synonyme": ["billiger", "intern", "preiswerter"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2022_Herbst_1f": {
+      "frage_text": "Mit dem externen Consultant soll ein Vertrag geschlossen werden. Soll es ein **Dienstvertrag** oder ein **Werkvertrag** sein? Geben Sie eine begründete Empfehlung ab.",
+      "loesung_text": "Empfehlung: **Werkvertrag**.\n\nBeim Werkvertrag wird ein konkreter Erfolg bzw. ein bestimmtes Arbeitsergebnis geschuldet (hier: die fertig eingeführte und funktionierende Lösung). Beim Dienstvertrag wird dagegen nur das Tätigwerden selbst geschuldet, unabhängig vom erzielten Ergebnis. Da das Unternehmen ein konkretes Ergebnis absichern möchte, ist der Werkvertrag vorzuziehen.",
+      "thema_tags": ["Projektmanagement", "Kaufvertragsrecht"],
+      "schluesselwoerter": [
+        { "begriff": "Werkvertrag", "synonyme": ["Werk"] },
+        { "begriff": "Ergebnis", "synonyme": ["Erfolg", "erfolgsabhängig", "ergebnisabhängig"] },
+        { "begriff": "geschuldet", "synonyme": ["schuldet", "Schuld"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_2a": {
+      "frage_text": "Die **TextilScan GmbH** digitalisiert endlos zugeführte Stoffbahnen mit einem Zeilenscanner. Ermitteln Sie zunächst die **Anzahl der Aufnahmen (Scans) pro Tag**. Der Rechenweg ist anzugeben.\n\nGegeben:\n- 1 Scanner deckt die volle Arbeitsbreite ab\n- Vorschub der Stoffbahn: 24 m/min\n- Pro Aufnahme wird eine Bahnlänge von 30 cm erfasst\n- Betriebszeit: 10 Stunden pro Tag",
+      "loesung_text": "**Rechenweg:**\n\n- Vorschub: 24 m/min = 2.400 cm/min\n- Aufnahmen pro Minute = 2.400 cm/min ÷ 30 cm/Aufnahme = **80 Aufnahmen/min**\n- Aufnahmen pro Stunde = 80 × 60 = 4.800 Aufnahmen/Std.\n- Aufnahmen pro Tag = 4.800 × 10 Std. = **48.000 Aufnahmen/Tag**",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "schluesselwoerter": [
+        { "begriff": "80", "synonyme": ["80 Aufnahmen"] },
+        { "begriff": "4800", "synonyme": ["4.800"] },
+        { "begriff": "48000", "synonyme": ["48.000"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_2ba": {
+      "frage_text": "Ermitteln Sie das zu speichernde **Datenvolumen pro Scan in MiB**. Der Rechenweg ist anzugeben. *(4 Punkte)*\n\nGegeben:\n- Erfasste Breite: 30,48 cm\n- Erfasste Länge: 30 cm\n- Auflösung: 300 dpi\n- Farbtiefe: 24 Bit pro Bildpunkt\n- (1 Inch = 2,54 cm)",
+      "thema_tags": ["Hardware/Speicher-Berechnung"]
+    },
+    "2022_Herbst_2bb": {
+      "frage_text": "Ermitteln Sie anschließend das **gesamte zu speichernde Datenvolumen pro Tag in GiB**. Runden Sie das Ergebnis auf volle GiB auf. Der Rechenweg ist anzugeben. *(2 Punkte)*\n\n*(Hinweis: Falls a) oder ba) nicht gelöst wurden, rechnen Sie mit 50.000 Scans/Tag und 25 MiB pro Scan weiter.)*",
+      "loesung_text": "**ba) Datenvolumen pro Scan:**\n\n- Breite: 30,48 cm ÷ 2,54 cm/Inch = 12 Inch → × 300 dpi = 3.600 Bildpunkte\n- Länge: 30 cm ÷ 2,54 cm/Inch ≈ 11,811 Inch → × 300 dpi ≈ 3.543 Bildpunkte\n- Pixel pro Scan ≈ 3.600 × 3.543 = 12.754.800 Pixel\n- × 24 Bit = 306.115.200 Bit ÷ 8 = 38.264.400 Byte\n- ÷ 1.024 = 37.367,58 KiB ÷ 1.024 ≈ **36,49 MiB pro Scan**\n\n*(Zur einfacheren Rechnung kann die Länge ebenfalls auf 12 Inch aufgerundet werden → 3.600 × 3.600 × 24 Bit = 311.040.000 Bit ÷ 8 ÷ 1.024 ÷ 1.024 ≈ 37,08 MiB pro Scan.)*\n\n**bb) Datenvolumen pro Tag:**\n\n- 48.000 Scans/Tag × 36,49 MiB ≈ 1.751.520 MiB\n- ÷ 1.024 ≈ 1.710,47 GiB → aufgerundet **1.711 GiB**\n\n*(Ersatzrechnung mit 50.000 Scans × 25 MiB = 1.250.000 MiB ÷ 1.024 ≈ 1.220,70 GiB → aufgerundet 1.221 GiB.)*",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "schluesselwoerter": [
+        { "begriff": "3600", "synonyme": ["3.600"] },
+        { "begriff": "36", "synonyme": ["36,49", "37"] },
+        { "begriff": "1711", "synonyme": ["1.711", "1710", "1.710"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_2c": {
+      "frage_text": "Für ein ausfallsicheres Speichersystem im Rechenzentrum der TextilScan GmbH stehen folgende Komponenten bereit: **3 Festplatten à 4 TB**, **6 Festplatten à 2 TB** sowie ein **PCIe-RAID-Hostadapter**.",
+      "thema_tags": ["Datensicherung/Storage"]
+    },
+    "2022_Herbst_2ca": {
+      "frage_text": "Aus allen vorhandenen Festplatten soll ein **fehlertolerantes RAID 5** mit **größtmöglicher Nettokapazität** aufgebaut werden. Berechnen Sie die maximale Nettospeicherkapazität in TB. Der Rechenweg ist anzugeben. *(4 Punkte)*",
+      "thema_tags": ["Hardware/Speicher-Berechnung", "Datensicherung/Storage"]
+    },
+    "2022_Herbst_2cb": {
+      "frage_text": "Ermitteln Sie zum Vergleich die erreichbare **Gesamtkapazität in TB**, wenn alle Festplatten als **JBOD** zusammengeschaltet werden. Der Rechenweg ist anzugeben. *(2 Punkte)*",
+      "thema_tags": ["Hardware/Speicher-Berechnung", "Datensicherung/Storage"]
+    },
+    "2022_Herbst_2cc": {
+      "frage_text": "Beschreiben Sie **zwei Vorteile**, die ein Laufwerksverbund als **JBOD** gegenüber einem **RAID 0** bietet. *(4 Punkte)*",
+      "loesung_text": "**ca)** RAID 5 mit allen 9 Festplatten: Bei RAID 5 zählt für jede Platte nur die Kapazität der kleinsten Platte (hier 2 TB), und eine Plattenkapazität geht für die Parität verloren.\n\nRechenweg: (9 − 1) × 2 TB = **16 TB Nettokapazität**\n\n**cb)** JBOD (Summe aller Einzelkapazitäten):\n- 3 × 4 TB = 12 TB\n- 6 × 2 TB = 12 TB\n- 12 TB + 12 TB = **24 TB**\n\n**cc)** Vorteile von JBOD gegenüber RAID 0 (zwei von):\n- Es ist kein RAID-Controller erforderlich\n- Unterschiedlich große Platten werden vollständig genutzt (keine kleinste Platte gibt das Maß vor)\n- Beim Ausfall einer Platte sind nur deren Daten betroffen, nicht der gesamte Verbund\n- Einfache, schrittweise Erweiterung mit beliebigen Platten möglich",
+      "thema_tags": ["Datensicherung/Storage"],
+      "schluesselwoerter": [
+        { "begriff": "Controller", "synonyme": ["RAID-Controller", "Hostadapter"] },
+        { "begriff": "unterschiedlich", "synonyme": ["verschieden", "beliebig", "ungleich"] },
+        { "begriff": "Ausfall", "synonyme": ["Datenverlust", "betroffen"] },
+        { "begriff": "Erweiter", "synonyme": ["erweiterbar", "skalier"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_2d": {
+      "frage_text": "Die bisher in der Zentrale eingesetzten **NAS-Systeme** sollen durch ein **SAN (Storage Area Network)** abgelöst werden. Nennen Sie **drei Vorteile**, die für den Umstieg auf ein SAN sprechen.",
+      "loesung_text": "Beispiele (drei von):\n- Höhere Performance und geringere Latenz beim Speicherzugriff\n- Blockorientierter Zugriff, kompatibel zu nahezu allen Betriebssystemen und Anwendungen\n- Zentrale Verwaltung und sehr gute Auslastung der Speicherressourcen\n- Hohe Skalierbarkeit, oft im laufenden Betrieb erweiterbar\n- Schnelle, zeitnahe Datensicherung (z. B. Snapshots)\n- Mehrere Server können gleichzeitig auf denselben Speicher zugreifen",
+      "thema_tags": ["Datensicherung/Storage"],
+      "schluesselwoerter": [
+        { "begriff": "Performance", "synonyme": ["schnell", "Geschwindigkeit", "Latenz"] },
+        { "begriff": "blockorientiert", "synonyme": ["block"] },
+        { "begriff": "zentral", "synonyme": ["Verwaltung"] },
+        { "begriff": "skalier", "synonyme": ["erweiter", "Skalierbarkeit"] },
+        { "begriff": "Datensicherung", "synonyme": ["Backup", "Snapshot"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2022_Herbst_2e": {
+      "frage_text": "Die fertig produzierten Stoffballen sollen mit einem **maschinenlesbaren Etikett** gekennzeichnet werden. Zur Auswahl stehen **Barcode**, **QR-Code** und **RFID-Chip**. Stellen Sie für **QR-Code** und **RFID-Chip** jeweils **einen Vorteil und einen Nachteil** gegenüber. Die Barcode-Zeile dient als Beispiel.\n\n| Kennzeichnung | Vorteil | Nachteil |\n|---|---|---|\n| Barcode (Beispiel) | günstig und einfach zu erzeugen | nur bei freier Sicht lesbar, geringe Datenmenge |\n| QR-Code | ? | ? |\n| RFID-Chip | ? | ? |",
+      "loesung_text": "| Kennzeichnung | Vorteil | Nachteil |\n|---|---|---|\n| Barcode (Beispiel) | günstig und einfach zu erzeugen | nur bei freier Sicht lesbar, geringe Datenmenge |\n| QR-Code | günstig zu erstellen, deutlich höhere Datenmenge als Barcode | benötigt Sichtkontakt, bei Verschmutzung/Beschädigung nicht lesbar |\n| RFID-Chip | Auslesen ohne Sichtkontakt und mehrerer Tags gleichzeitig, große Datenmenge | teurer in der Herstellung, störanfällig bei Metall/Flüssigkeiten |",
+      "thema_tags": ["QR-Code/Zahlungsverkehr", "Hardware/Komponenten"],
+      "schluesselwoerter": [
+        { "begriff": "Datenmenge", "synonyme": ["Speicher", "Kapazität", "Informationen"] },
+        { "begriff": "Sicht", "synonyme": ["Sichtkontakt", "Sichtlinie", "freie Sicht"] },
+        { "begriff": "Verschmutz", "synonyme": ["Beschädig", "schmutz"] },
+        { "begriff": "ohne Sicht", "synonyme": ["kontaktlos", "ohne Sichtkontakt", "berührungslos"] },
+        { "begriff": "teur", "synonyme": ["Kosten", "kostenintensiv", "aufwendig"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2022_Herbst_3a": {
+      "frage_text": "Für die Vernetzung der Sensoren und Aktoren in der Fertigung der **TextilScan GmbH** soll künftig **IPv6** statt **IPv4** eingesetzt werden. Nennen Sie **zwei technische Vorteile** von IPv6 gegenüber IPv4, die gerade im **IoT-Umfeld** von Bedeutung sind.",
+      "loesung_text": "Beispiele (zwei von):\n- Praktisch unbegrenzter Adressraum (128 Bit) – jedes Gerät erhält eine eigene globale Adresse\n- Weltweite, direkte Erreichbarkeit einzelner Komponenten ohne NAT\n- Zustandslose Autokonfiguration (SLAAC) erleichtert die Inbetriebnahme vieler Geräte\n- Integrierte Sicherheitsmechanismen (IPsec im Standard vorgesehen)\n- Schlankerer, effizienter aufgebauter Protokoll-Header",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "Adressraum", "synonyme": ["Adresszahl", "Adressen", "128 Bit", "unbegrenzt"] },
+        { "begriff": "erreichbar", "synonyme": ["Erreichbarkeit", "ohne NAT", "global"] },
+        { "begriff": "Autokonfig", "synonyme": ["SLAAC", "automatisch"] },
+        { "begriff": "IPsec", "synonyme": ["IPSec", "Sicherheit"] },
+        { "begriff": "Header", "synonyme": ["Protokoll-Header", "schlank"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_3b": {
+      "frage_text": "In einem Testnetz wird eine globale IPv6-Adresse in verkürzter Schreibweise verwendet: `2001:db8:4a1c:7::/64`. Sie setzt sich aus einem **48-Bit-Standortpräfix** und einer **16-Bit-Teilnetz-ID** zusammen. Geben Sie beide Bestandteile in **ungekürzter** hexadezimaler Schreibweise an.",
+      "loesung_text": "- **Ungekürztes Standortpräfix (48 Bit):** `2001:0db8:4a1c`\n- **Ungekürzte Teilnetz-ID (16 Bit):** `0007`",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "2001:0db8:4a1c", "synonyme": ["2001:0db8:4a1c", "0db8"] },
+        { "begriff": "0007", "synonyme": ["0007"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_3c": {
+      "frage_text": "Geben Sie an, **wie viele Teilnetze** sich mit der **16-Bit-Teilnetz-ID** der gegebenen IPv6-Adresse bilden lassen. Begründen Sie kurz.",
+      "loesung_text": "Mit einer 16-Bit-Teilnetz-ID stehen 16 Bit zur Verfügung:\n\n2¹⁶ = **65.536 Teilnetze**.",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "65536", "synonyme": ["65.536"] },
+        { "begriff": "2^16", "synonyme": ["2¹⁶", "2 hoch 16", "16 Bit"] }
+      ],
+      "mindest_treffer": 1
+    },
+    "2022_Herbst_3d": {
+      "frage_text": "Vergeben Sie für die folgende kleine IoT-Testumgebung **nutzbare IPv6-Adressen** auf Basis des Netzes `2001:db8:4a1c:8::/64`. Halten Sie Netzwerkgeräte und Endgeräte in getrennten Adressbereichen. Alle Geräte sollen später aus einem anderen Teilnetz **über den Router** gewartet werden können.\n\nVorgegeben:\n- Router: `2001:db8:4a1c:8::1/64`\n- Industrie-PC: `2001:db8:4a1c:8::30/64`\n\nVergeben Sie zusätzlich passende Adressen (inkl. Gateway) für: **Switch**, **Sensor** und **Steuerung**.",
+      "loesung_text": "Beispielhafte Adressvergabe (weitere Lösungen möglich):\n\n- **Router:** `2001:db8:4a1c:8::1/64`\n- **Switch:** Adresse `2001:db8:4a1c:8::2/64`, Gateway `2001:db8:4a1c:8::1`\n- **Sensor:** Adresse `2001:db8:4a1c:8::10/64`, Gateway `2001:db8:4a1c:8::1`\n- **Steuerung:** Adresse `2001:db8:4a1c:8::11/64`, Gateway `2001:db8:4a1c:8::1`\n- **Industrie-PC:** Adresse `2001:db8:4a1c:8::30/64`, Gateway `2001:db8:4a1c:8::1`\n\n**Prinzip:** Netzwerkgeräte (Router/Switch) erhalten niedrige Adressen (z. B. ::1–::9), Endgeräte einen eigenen Bereich (z. B. ab ::10). Bei allen Geräten zeigt das Standard-Gateway auf den Router (::1), damit die Fernwartung aus anderen Teilnetzen funktioniert.",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "Gateway", "synonyme": ["Standardgateway", "Standard-Gateway"] },
+        { "begriff": "Router", "synonyme": [] },
+        { "begriff": "::1", "synonyme": ["8::1"] },
+        { "begriff": "getrennt", "synonyme": ["Bereich", "Endgeräte", "Netzwerkgeräte"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_3e": {
+      "frage_text": "Auf dem **IoT-Gerät 1** soll über die Kommandozeile geprüft werden, ob das **Loopback-Interface** und das **Standard-Gateway** erreichbar sind. Geben Sie die beiden erforderlichen Befehle an (das Gateway lautet `2001:db8:4a1c:8::1`).",
+      "loesung_text": "- Loopback prüfen: `ping ::1` (bzw. `ping6 ::1`)\n- Standard-Gateway prüfen: `ping 2001:db8:4a1c:8::1`",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "ping", "synonyme": ["ping6"] },
+        { "begriff": "::1", "synonyme": ["loopback", "Loopback"] },
+        { "begriff": "8::1", "synonyme": ["2001:db8:4a1c:8::1", "Gateway"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_3f": {
+      "frage_text": "Nach Eingabe von `ip addr` erscheint an einer Schnittstelle die Adresse `fe80::1a2b:3cff:fe4d:5e6f/64`, obwohl dort keine IPv6-Adresse manuell konfiguriert wurde. Erklären Sie, **warum** dennoch eine Adresse angezeigt wird, und benennen Sie die **Adressart**.",
+      "loesung_text": "Es handelt sich um eine **Link-Local-(Unicast-)Adresse** aus dem Bereich `fe80::/10`. Diese Adresse wird vom Betriebssystem **automatisch** für jede IPv6-fähige Schnittstelle erzeugt (z. B. über EUI-64 aus der MAC-Adresse bzw. SLAAC), und zwar unabhängig von einer manuellen Konfiguration. Sie ist nur innerhalb desselben Netzsegments (Link) gültig und nicht routbar.",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "Link-Local", "synonyme": ["Link Local", "linklocal", "fe80"] },
+        { "begriff": "automatisch", "synonyme": ["selbst generiert", "Autokonfig", "SLAAC", "EUI-64"] },
+        { "begriff": "Unicast", "synonyme": ["Betriebssystem"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_3g": {
+      "frage_text": "Die TextilScan GmbH benötigt **30 robuste mobile Geräte** für ihr Außendienstteam. Es liegen drei Angebote vor.\n\n| | TechMobil GmbH, Köln | Rugged-Direkt.de, Hamburg | ProField KG, Stuttgart |\n|---|---|---|---|\n| Bareinkaufspreis/Stück | 1.200 EUR | 1.250 EUR | 1.400 EUR |\n| Lieferbedingungen | ab Werk: 20 EUR/Stück | frachtfrei: 8 EUR/Stück | frei Haus |\n| Bezugspreis/Stück | ? | ? | ? |\n| Lieferzeit | 4 Wochen | 3 Wochen | 1 Woche |\n| Qualität | gut | durchschnittlich | sehr gut |\n| Erfahrung (Kundenfeedback) | gelegentlich kleine Mängel | bisher beanstandungsfrei | sehr kulant bei Reklamationen |\n\nBerechnen Sie zunächst den **Bezugspreis pro Stück** je Anbieter. Führen Sie anschließend einen **gewichteten Angebotsvergleich** durch. Bewerten Sie jedes Kriterium mit einer Note von 1 (schwach) bis 3 (sehr gut) und gewichten Sie wie folgt: **Bezugspreis 11, Lieferzeit 8, Qualität 9, Erfahrung 5**. Geben Sie eine Empfehlung ab.",
+      "loesung_text": "**Bezugspreise pro Stück:**\n- TechMobil GmbH: 1.200 + 20 = **1.220 EUR**\n- Rugged-Direkt.de: 1.250 + 8 = **1.258 EUR**\n- ProField KG: **1.400 EUR** (frei Haus, keine Zusatzkosten)\n\n**Gewichteter Angebotsvergleich** (Note × Gewichtung):\n\n| Kriterium | Gew. | TechMobil | Rugged-Direkt | ProField |\n|---|---|---|---|---|\n| Bezugspreis | 11 | 3 → 33 | 2 → 22 | 1 → 11 |\n| Lieferzeit | 8 | 1 → 8 | 2 → 16 | 3 → 24 |\n| Qualität | 9 | 2 → 18 | 1 → 9 | 3 → 27 |\n| Erfahrung | 5 | 1 → 5 | 2 → 10 | 3 → 15 |\n| **Summe** | | **64** | **57** | **77** |\n\n→ **Empfehlung: ProField KG** mit der höchsten Gesamtpunktzahl (77). Obwohl ProField den höchsten Preis hat, überzeugt der Anbieter bei Lieferzeit, Qualität und Erfahrung deutlich.",
+      "thema_tags": ["Kostenrechnung/Wirtschaft", "Kaufvertragsrecht"],
+      "schluesselwoerter": [
+        { "begriff": "1220", "synonyme": ["1.220"] },
+        { "begriff": "1258", "synonyme": ["1.258"] },
+        { "begriff": "1400", "synonyme": ["1.400"] },
+        { "begriff": "ProField", "synonyme": ["77", "höchste", "Empfehlung"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2022_Herbst_4aa": {
+      "frage_text": "In der Tabelle `Produktionsdaten` mit den Spalten `AuftragID`, `Breite`, `Laenge`, `Dicke`, `Anzahl` und `Zeitstempel` sollen Daten ausgewertet werden.\n\nFormulieren Sie einen **SQL-Befehl**, der für den Auftrag mit `AuftragID = 854127` die Werte **Breite, Länge, Dicke und Anzahl** ausgibt. Die Spalte `AuftragID` selbst soll **nicht** in der Ergebnismenge erscheinen. *(3 Punkte)*",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"]
+    },
+    "2022_Herbst_4ab": {
+      "frage_text": "Formulieren Sie einen **SQL-Befehl**, der ausgibt, **wie viele Produktionsaufträge** für Stoffbahnen mit einer **Dicke von 3 mm** bisher gespeichert wurden. *(4 Punkte)*",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"]
+    },
+    "2022_Herbst_4ac": {
+      "frage_text": "Formulieren Sie einen **SQL-Befehl**, der die **Gesamtanzahl** aller gefertigten Stoffbahnen mit **Dicke 3 mm, Breite 200 mm und Länge 300 mm** ermittelt. *(4 Punkte)*",
+      "loesung_text": "**aa)**\n```sql\nSELECT Breite, Laenge, Dicke, Anzahl\nFROM Produktionsdaten\nWHERE AuftragID = 854127;\n```\n\n**ab)**\n```sql\nSELECT COUNT(*) AS \"Anzahl Auftraege\"\nFROM Produktionsdaten\nWHERE Dicke = 3;\n```\n\n**ac)**\n```sql\nSELECT SUM(Anzahl) AS \"Gesamtanzahl\"\nFROM Produktionsdaten\nWHERE Dicke = 3 AND Breite = 200 AND Laenge = 300;\n```",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"],
+      "schluesselwoerter": [
+        { "begriff": "SUM", "synonyme": ["summe"] },
+        { "begriff": "WHERE", "synonyme": [] },
+        { "begriff": "Dicke", "synonyme": ["= 3"] },
+        { "begriff": "Breite", "synonyme": ["200"] },
+        { "begriff": "Laenge", "synonyme": ["Länge", "300"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2022_Herbst_4b": {
+      "frage_text": "Eine Walzanlage wird über eine Steuersoftware angesprochen. Gegeben ist ein Array `auftrag[]` (Index 0 = Breite, 1 = Länge, 2 = Dicke, 3 = Stückzahl). Folgende API-Funktionen stehen zur Verfügung:\n- `setzeMasse(int breite, int laenge, int dicke)` – stellt die Walzparameter ein\n- `walzeStart()` – fertigt ein Stück\n- `bool notausAktiv()` – liefert `true`, wenn der Not-Aus ausgelöst wurde\n\nDie Anlage darf **nur laufen, solange der Not-Aus nicht ausgelöst ist**. Ergänzen Sie das Struktogramm bzw. den Pseudocode der Funktion `starteAuftrag(auftrag[])`:\n```\nstarteAuftrag(auftrag[])\nint i = 0\nbool notaus = notausAktiv()\n... (zu ergänzen) ...\n```",
+      "loesung_text": "```\n1  starteAuftrag(auftrag[])\n2  int i = 0\n3  bool notaus = notausAktiv()\n4  setzeMasse(auftrag[0], auftrag[1], auftrag[2])\n5  wiederhole solange i < auftrag[3] und notaus = false\n6      walzeStart()\n7      notaus = notausAktiv()\n8      i = i + 1\n```\n\nIn der Schleife wird vor jedem weiteren Durchlauf erneut geprüft, ob der Not-Aus ausgelöst wurde. Sobald `notaus = true` ist oder die geforderte Stückzahl erreicht wurde, endet die Schleife.\n\n*(Die Anweisungen in den Zeilen 6, 7 und 8 dürfen in ihrer Reihenfolge variieren.)*",
+      "thema_tags": ["Algorithmen/Pseudocode", "UML/Diagramme"],
+      "schluesselwoerter": [
+        { "begriff": "setzeMasse", "synonyme": ["setzeMaße", "auftrag[0]"] },
+        { "begriff": "wiederhole", "synonyme": ["solange", "Schleife", "while"] },
+        { "begriff": "notaus", "synonyme": ["notausAktiv", "Not-Aus", "notaus = false"] },
+        { "begriff": "walzeStart", "synonyme": [] },
+        { "begriff": "auftrag[3]", "synonyme": ["Stückzahl", "i <"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2022_Herbst_4c": {
+      "frage_text": "Im Unternehmen gibt es **mehrere Walzanlagen**, die Stoffbahnen unterschiedlicher Dicke fertigen können. Zu jeder Walzanlage sollen **Baujahr, Bezeichnung und eine eindeutige Maschinennummer** gespeichert werden. Außerdem sollen je Walzanlage die anfallenden **Produktionsdaten** (Breite, Länge, Dicke, Anzahl) mit **Zeitstempel** erfasst werden.\n\nEntwerfen Sie ein **ER-Modell in Chen-Notation** mit den Entitäten `Walzanlage` und `Produktionsdaten`, allen erforderlichen Attributen, den Primärschlüsseln und der korrekten Kardinalität. (Fremdschlüssel müssen nicht eingetragen werden.)",
+      "loesung_text": "**Entität `Walzanlage`:**\n- **Maschinennummer** (Primärschlüssel)\n- Bezeichnung\n- Baujahr\n\n**Entität `Produktionsdaten`:**\n- **DatensatzID** (Primärschlüssel; alternativ zusammengesetzter Schlüssel aus Maschinennummer + Zeitstempel)\n- Breite\n- Länge\n- Dicke\n- Anzahl\n- Zeitstempel\n\n**Beziehung / Kardinalität:** `Walzanlage` 1 — n `Produktionsdaten` (über eine Beziehung „erzeugt\").\n\nEine Walzanlage erzeugt mehrere Produktionsdatensätze; jeder Produktionsdatensatz gehört zu genau einer Walzanlage.\n\n**Bewertung (Anhalt):** Kardinalität 1 Punkt, Kennzeichnung der Primärschlüssel in beiden Entitäten 2 Punkte, vollständige Attribute 3 Punkte.",
+      "thema_tags": ["Datenbank/SQL/ER-Modell", "UML/Diagramme"],
+      "schluesselwoerter": [
+        { "begriff": "Maschinennummer", "synonyme": ["Primärschlüssel", "PK"] },
+        { "begriff": "1:n", "synonyme": ["1 zu n", "1-n", "1 : n", "Kardinalität"] },
+        { "begriff": "Zeitstempel", "synonyme": ["Timestamp"] },
+        { "begriff": "Attribut", "synonyme": ["Bezeichnung", "Baujahr", "Breite"] }
+      ],
+      "mindest_treffer": 2
+    }
+  }
+}

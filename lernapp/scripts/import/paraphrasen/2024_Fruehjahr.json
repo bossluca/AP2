@@ -1,0 +1,392 @@
+{
+  "slug": "2024_Fruehjahr",
+  "eintraege": {
+    "2024_Frühjahr_1a": {
+      "frage_text": "Die **MeshWorks Engineering GmbH** möchte fünf neue Konstruktionsarbeitsplätze beschaffen. Nach Einholung von vier Lieferantenangeboten wurde eine Nutzwertanalyse erstellt. Lieferant C bietet die benötigte Konstruktionssoftware ausschließlich als **Software as a Service (SaaS)** an.\n\nDie Bewertung erfolgt je Kriterium mit 1 bis 5 Punkten; der gewichtete Wert ergibt sich aus *Gewichtung × Punkte*.\n\n| Kriterium | Gewichtung | Lief. A Pkt | Lief. A Gew.×Pkt | Lief. B Pkt | Lief. B Gew.×Pkt | Lief. C Pkt | Lief. C Gew.×Pkt | Lief. D Pkt | Lief. D Gew.×Pkt |\n|---|---|---|---|---|---|---|---|---|---|\n| Grafikleistung | 30 | 3 | 90 | 2 | 60 | 5 | 150 | 4 | 120 |\n| Arbeitsspeicher | 20 | 4 | 80 | 5 | 100 | 4 | 80 | 3 | 60 |\n| Service & Support | 25 | 2 | 50 | 4 | 100 | 5 | 125 | 3 | 75 |\n| Preis | 25 | 5 | 125 | 4 | 100 | 1 | 25 | 4 | 100 |\n| **Summe** | **100** | | **345** | | **360** | | **380** | | **355** |",
+      "ueberschrift": "Nutzwertanalyse: Auswertung von vier Lieferantenangeboten (6 Punkte)",
+      "thema_tags": ["Kostenrechnung/Wirtschaft", "Hardware/Komponenten"]
+    },
+    "2024_Frühjahr_1aa": {
+      "frage_text": "Ermitteln Sie aus der Nutzwertanalyse eine Rangfolge der vier Lieferanten, beginnend mit der höchsten Gesamtpunktzahl. Geben Sie zu jedem Lieferanten die erreichte Summe an. *(4 Punkte)*",
+      "ueberschrift": "Rangfolge der Lieferanten bestimmen",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"],
+      "loesung_text": "Sortiert nach absteigender Gesamtpunktzahl ergibt sich folgende Rangfolge:\n\n| Rang | Lieferant | Gesamtpunktzahl |\n|---|---|---|\n| 1 | Lieferant C | 380 |\n| 2 | Lieferant B | 360 |\n| 3 | Lieferant D | 355 |\n| 4 | Lieferant A | 345 |\n\nLieferant C erzielt mit 380 Punkten das beste Ergebnis, gefolgt von Lieferant B (360), Lieferant D (355) und Lieferant A (345).",
+      "schluesselwoerter": [
+        { "begriff": "Lieferant C", "synonyme": ["Lief. C", "C", "380"] },
+        { "begriff": "Lieferant B", "synonyme": ["Lief. B", "B", "360"] },
+        { "begriff": "Lieferant D", "synonyme": ["Lief. D", "D", "355"] },
+        { "begriff": "Lieferant A", "synonyme": ["Lief. A", "A", "345"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_1ab": {
+      "frage_text": "In einer anschließenden Besprechung wird festgelegt, dass aus Gründen des Datenschutzes **ausschließlich eine On-Premise-Lösung** in Frage kommt. Wählen Sie unter Berücksichtigung dieser Vorgabe den Lieferanten aus, der den Auftrag erhalten sollte, und begründen Sie kurz. *(2 Punkte)*",
+      "ueberschrift": "Lieferantenauswahl unter On-Premise-Vorgabe",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"],
+      "loesung_text": "Lieferant C bietet die Software nur als SaaS-Lösung an und entfällt damit durch die neue On-Premise-Vorgabe – obwohl er in der reinen Nutzwertanalyse mit 380 Punkten vorne lag. Den Zuschlag erhält daher der **On-Premise-Anbieter mit der nächsthöchsten Punktzahl**, das ist **Lieferant B mit 360 Punkten**.",
+      "schluesselwoerter": [
+        { "begriff": "Lieferant B", "synonyme": ["Lief. B", "B"] },
+        { "begriff": "On-Premise", "synonyme": ["on premise", "lokal"] },
+        { "begriff": "SaaS", "synonyme": ["Software as a Service"] },
+        { "begriff": "360", "synonyme": [] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_1b": {
+      "frage_text": "Der ausgewählte Lieferant legt für die **fünf Konstruktionsarbeitsplätze** folgendes Angebot vor:\n\n- Monitor: **480 EUR** pro Stück\n- PC: **840 EUR** pro Stück\n- Softwaremiete: **60 EUR** pro Monat und Arbeitsplatz\n- Wartungspauschale: **1.440 EUR** pro Jahr für alle Geräte zusammen\n- Rabatt: **10 %** auf PC und Monitor\n\nBerechnen Sie die **laufenden Kosten pro Monat** für alle fünf Arbeitsplätze. Setzen Sie eine Nutzungsdauer von **fünf Jahren** für die Monitore und **vier Jahren** für die PCs an. Geben Sie den Rechenweg an. *(7 Punkte)*",
+      "ueberschrift": "Laufende Kosten pro Monat berechnen (7 Punkte)",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"],
+      "loesung_text": "**Monitor (nach 10 % Rabatt):** 480 € × 0,90 = 432,00 €\nMonatliche Abschreibung: 432,00 € ÷ (5 × 12) = 432,00 € ÷ 60 = **7,20 €** pro Monitor\n\n**PC (nach 10 % Rabatt):** 840 € × 0,90 = 756,00 €\nMonatliche Abschreibung: 756,00 € ÷ (4 × 12) = 756,00 € ÷ 48 = **15,75 €** pro PC\n\n**Softwaremiete:** 60,00 € pro Monat und Arbeitsplatz\n\n**Kosten pro Arbeitsplatz/Monat:** 7,20 € + 15,75 € + 60,00 € = **82,95 €**\n\n**Für fünf Arbeitsplätze:** 5 × 82,95 € = 414,75 €\n\n**Wartungspauschale:** 1.440 € ÷ 12 = 120,00 € pro Monat (für alle Geräte)\n\n**Gesamte laufende Kosten pro Monat:** 414,75 € + 120,00 € = **534,75 €**",
+      "schluesselwoerter": [
+        { "begriff": "432", "synonyme": ["432,00"] },
+        { "begriff": "756", "synonyme": ["756,00"] },
+        { "begriff": "82,95", "synonyme": ["82.95"] },
+        { "begriff": "534,75", "synonyme": ["534.75"] },
+        { "begriff": "120", "synonyme": ["120,00"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_1c": {
+      "frage_text": "Die gelieferten Monitore verfügen über verschiedene Videoanschlüsse. Beschreiben Sie für die folgenden vier Anschlussarten jeweils ein eindeutiges äußeres Erkennungsmerkmal, an dem Sie den Stecker bzw. die Buchse identifizieren können:\n\n- **HDMI**\n- **USB-C**\n- **DVI**\n- **DisplayPort (DP)**\n\n*(4 Punkte)*",
+      "ueberschrift": "Videoanschlüsse anhand von Merkmalen identifizieren (4 Punkte)",
+      "thema_tags": ["Hardware/Komponenten"],
+      "loesung_text": "- **HDMI:** flacher, trapezförmiger Stecker mit leicht abgeschrägten Ecken; deutlich breiter als hoch, ohne Schrauben.\n- **USB-C:** kleiner, ovaler und symmetrischer Stecker, der beidseitig (verdrehsicher) eingesteckt werden kann.\n- **DVI:** großer rechteckiger Stecker mit vielen Pins in mehreren Reihen und seitlichen Rändelschrauben zur Befestigung.\n- **DisplayPort (DP):** trapezförmig wie HDMI, jedoch mit nur einer abgeschrägten Ecke (asymmetrisch) und häufig einem Verriegelungshaken (Rastnase).",
+      "schluesselwoerter": [
+        { "begriff": "trapezförmig", "synonyme": ["trapez"] },
+        { "begriff": "symmetrisch", "synonyme": ["verdrehsicher", "beidseitig", "oval"] },
+        { "begriff": "Schraube", "synonyme": ["Rändelschraube", "Pins", "rechteckig"] },
+        { "begriff": "abgeschrägte Ecke", "synonyme": ["Rastnase", "Verriegelung", "asymmetrisch"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_1d": {
+      "frage_text": "Die Monitore wurden am **5. März 2024** bestellt. Eine Auftragsbestätigung wurde vom Lieferanten nicht versandt. Die Ware wurde am **18. März 2024** geliefert, die Rechnung erhielten Sie am **20. März 2024**.\n\nErläutern Sie, **zu welchem Zeitpunkt der Kaufvertrag zustande gekommen ist**, und begründen Sie Ihre Entscheidung. *(2 Punkte)*",
+      "ueberschrift": "Kaufvertrag – Zeitpunkt des Zustandekommens (2 Punkte)",
+      "thema_tags": ["Kaufvertragsrecht"],
+      "loesung_text": "Ein Kaufvertrag kommt durch zwei übereinstimmende Willenserklärungen zustande – **Angebot und Annahme**. Die Bestellung vom 5. März 2024 ist hier das (rechtsverbindliche) Angebot des Käufers. Da der Verkäufer keine ausdrückliche Auftragsbestätigung abgegeben hat, gilt die **Lieferung der Ware am 18. März 2024 als stillschweigende (konkludente) Annahme** des Angebots. Der Kaufvertrag ist somit am **18. März 2024** zustande gekommen.",
+      "schluesselwoerter": [
+        { "begriff": "18. März", "synonyme": ["18.03", "Lieferung"] },
+        { "begriff": "Angebot", "synonyme": ["Bestellung"] },
+        { "begriff": "Annahme", "synonyme": ["konkludent", "stillschweigend"] },
+        { "begriff": "Willenserklärung", "synonyme": ["Willenserklärungen"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_1e": {
+      "frage_text": "Ein Kaufvertrag regelt neben den formalen Bestandteilen (z. B. den beiden Willenserklärungen) auch konkrete inhaltliche Punkte des Geschäfts.\n\nNennen Sie **drei inhaltliche Regelungspunkte**, die typischerweise Bestandteil eines Kaufvertrags sind. *(3 Punkte)*",
+      "ueberschrift": "Inhalte eines Kaufvertrags (3 Punkte)",
+      "thema_tags": ["Kaufvertragsrecht"],
+      "loesung_text": "Mögliche inhaltliche Regelungspunkte eines Kaufvertrags sind z. B.:\n\n- **Kaufgegenstand und Liefermenge** (Art, Beschaffenheit, Stückzahl der Ware)\n- **Preis und Zahlungsbedingungen** (Höhe, Fälligkeit, Zahlungsart)\n- **Liefertermin und Lieferort**\n- **Gewährleistung / Garantie**\n- **Eigentumsvorbehalt**",
+      "schluesselwoerter": [
+        { "begriff": "Kaufgegenstand", "synonyme": ["Ware", "Liefermenge", "Menge"] },
+        { "begriff": "Preis", "synonyme": ["Zahlungsbedingung", "Zahlungsbedingungen"] },
+        { "begriff": "Liefertermin", "synonyme": ["Lieferzeit", "Lieferort", "Lieferung"] },
+        { "begriff": "Gewährleistung", "synonyme": ["Garantie"] },
+        { "begriff": "Eigentumsvorbehalt", "synonyme": [] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_1fa": {
+      "frage_text": "Beim Abwickeln eines Kaufvertrags kann es zu Störungen kommen, wenn eine der Vertragsparteien ihre Pflichten nicht ordnungsgemäß erfüllt.\n\nNennen Sie **zwei Kaufvertragsstörungen**. *(2 Punkte)*",
+      "ueberschrift": "Kaufvertragsstörungen nennen (2 Punkte)",
+      "thema_tags": ["Kaufvertragsrecht"],
+      "loesung_text": "Mögliche Kaufvertragsstörungen sind z. B.:\n\n- **Lieferverzug** (Lieferung erfolgt nicht oder zu spät)\n- **Mangelhafte Lieferung / Sachmangel** (Ware ist fehlerhaft oder weicht ab)\n- **Zahlungsverzug** (Käufer zahlt nicht oder zu spät)\n- **Annahmeverzug** (Käufer nimmt die Ware nicht an)",
+      "schluesselwoerter": [
+        { "begriff": "Lieferverzug", "synonyme": ["Lieferungsverzug", "Lieferzeitüberschreitung"] },
+        { "begriff": "Sachmangel", "synonyme": ["Mangel", "mangelhafte Lieferung", "Schlechtleistung"] },
+        { "begriff": "Zahlungsverzug", "synonyme": ["Zahlungsverzögerung"] },
+        { "begriff": "Annahmeverzug", "synonyme": [] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_1fb": {
+      "frage_text": "Geben Sie zu den von Ihnen genannten Kaufvertragsstörungen jeweils **eine Maßnahme** an, mit der der Käufer dieser Störung **vorbeugen** kann. *(2 Punkte)*",
+      "ueberschrift": "Vorbeugende Maßnahmen gegen Kaufvertragsstörungen (2 Punkte)",
+      "thema_tags": ["Kaufvertragsrecht"],
+      "loesung_text": "Beispiele für vorbeugende Maßnahmen:\n\n- **Gegen Lieferverzug:** verbindliche Liefertermine vertraglich festlegen und eine Vertragsstrafe (Konventionalstrafe) vereinbaren.\n- **Gegen Sachmangel:** eine sorgfältige Wareneingangskontrolle/Qualitätsprüfung vor der Annahme durchführen.\n- **Gegen Zahlungsverzug (als Verkäufer):** Bonitätsprüfung des Kunden oder Vorkasse/Anzahlung vereinbaren.",
+      "schluesselwoerter": [
+        { "begriff": "Liefertermin", "synonyme": ["Lieferfrist", "Vertragsstrafe", "Konventionalstrafe"] },
+        { "begriff": "Wareneingangskontrolle", "synonyme": ["Prüfung", "Qualitätskontrolle", "Eingangsprüfung"] },
+        { "begriff": "vertraglich", "synonyme": ["Vertrag", "festlegen", "vereinbaren"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_2a": {
+      "frage_text": "An der RJ45-Buchse der Netzwerkkarte Ihres Arbeitsplatz-PCs befinden sich zwei kleine Leuchtdioden (LEDs). Sie beobachten das Verhalten der LEDs während des Betriebs.\n\nInterpretieren Sie, welche Information die LED in den folgenden beiden Zuständen über die Netzwerkfunktionalität liefert:\n\n- **Die LED leuchtet dauerhaft (durchgehend):** ?\n- **Die LED blinkt in unregelmäßigen Abständen:** ?\n\n*(4 Punkte)*",
+      "ueberschrift": "Netzwerkkarten-LED interpretieren (4 Punkte)",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "loesung_text": "- **LED leuchtet dauerhaft:** Es besteht eine **physische Verbindung (Link)** zwischen Netzwerkkarte und Switch/Netzwerk. Das Kabel ist korrekt eingesteckt und eine Verbindung wurde ausgehandelt (Link-LED).\n- **LED blinkt unregelmäßig:** Es findet **aktiver Datenverkehr** statt – es werden gerade Datenpakete gesendet bzw. empfangen (Activity-/Traffic-LED). Das unregelmäßige Blinken spiegelt das Datenaufkommen wider.",
+      "schluesselwoerter": [
+        { "begriff": "Verbindung", "synonyme": ["Link", "physische Verbindung", "verbunden"] },
+        { "begriff": "Datenverkehr", "synonyme": ["Datenübertragung", "Aktivität", "Activity", "Traffic"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_2b": {
+      "frage_text": "Nach Eingabe von `ipconfig /all` auf Ihrem Windows-PC werden verschiedene Netzwerkinformationen angezeigt.\n\nBenennen Sie die in der Tabelle fehlenden **OSI-Schichten** und ordnen Sie die folgenden Begriffe der jeweils passenden Schicht zu:\n\n- Physische Adresse (MAC)\n- DHCP\n- Verbindungslokale IPv6-Adresse\n- RJ45-Buchse mit LED\n\n| Nr. | Name der Schicht | Begriff |\n|---|---|---|\n| 7 | ? | ? |\n| 4 | Transport | TCP *(gegeben)* |\n| 3 | ? | ? |\n| 2 | ? | ? |\n| 1 | ? | ? |\n\n*(4 Punkte)*",
+      "ueberschrift": "OSI-Schichten zuordnen (4 Punkte)",
+      "thema_tags": ["OSI-Modell", "Netzwerk/IP-Adressierung"],
+      "loesung_text": "| Nr. | Name der Schicht | Begriff |\n|---|---|---|\n| 7 | Anwendungsschicht (Application) | **DHCP** |\n| 4 | Transportschicht (Transport) | TCP *(gegeben)* |\n| 3 | Vermittlungsschicht (Network) | **Verbindungslokale IPv6-Adresse** |\n| 2 | Sicherungsschicht (Data Link) | **Physische Adresse (MAC)** |\n| 1 | Bitübertragungsschicht (Physical) | **RJ45-Buchse mit LED** |",
+      "schluesselwoerter": [
+        { "begriff": "Anwendungsschicht", "synonyme": ["Application", "Schicht 7"] },
+        { "begriff": "Vermittlungsschicht", "synonyme": ["Network", "Netzwerkschicht", "Schicht 3"] },
+        { "begriff": "Sicherungsschicht", "synonyme": ["Data Link", "Schicht 2"] },
+        { "begriff": "Bitübertragungsschicht", "synonyme": ["Physical", "Schicht 1"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_2c": {
+      "frage_text": "Bei der Analyse Ihrer Netzwerkkonfiguration wird die verbindungslokale IPv6-Adresse `fe80::a2b3:ccff:fed4:7e91` angezeigt.\n\nNennen Sie die folgenden zugehörigen Werte:\n\n- **Gesamtlänge einer IPv6-Adresse in Bit:** ?\n- **Präfixlänge dieser Link-Local-Adresse:** ?\n- **Interface-Identifier (die hinteren 64 Bit):** ?\n\n*(5 Punkte)*",
+      "ueberschrift": "IPv6-Adresse analysieren (5 Punkte)",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "loesung_text": "- **Gesamtlänge:** Eine IPv6-Adresse ist **128 Bit** lang.\n- **Präfixlänge:** Link-Local-Adressen liegen im Bereich `fe80::/64`, die Präfixlänge beträgt somit **64 Bit**.\n- **Interface-Identifier:** Das sind die hinteren 64 Bit der Adresse, hier `a2b3:ccff:fed4:7e91`. Das Muster `ff:fe` in der Mitte deutet darauf hin, dass der Identifier per **EUI-64** aus der 48-Bit-MAC-Adresse abgeleitet wurde.",
+      "schluesselwoerter": [
+        { "begriff": "128", "synonyme": ["128 Bit"] },
+        { "begriff": "64", "synonyme": ["64 Bit"] },
+        { "begriff": "a2b3:ccff:fed4:7e91", "synonyme": ["Interface-Identifier", "EUI-64"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_2d": {
+      "frage_text": "In Ihrem Netzwerk werden die IP-Konfigurationen der Clients automatisch über einen **DHCP-Server** vergeben.\n\nNennen Sie **drei Informationen**, die der DHCP-Server dem Client neben der IP-Adresse typischerweise zur Verfügung stellt. *(2 Punkte)*",
+      "ueberschrift": "DHCP-Informationen vom Server (2 Punkte)",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "loesung_text": "Ein DHCP-Server stellt dem Client neben der IP-Adresse typischerweise folgende Informationen bereit:\n\n- **Subnetzmaske**\n- **Standard-Gateway** (Default-Gateway)\n- **DNS-Server-Adresse(n)**\n- **Lease-Dauer** (Gültigkeitsdauer der Adresszuweisung)",
+      "schluesselwoerter": [
+        { "begriff": "Subnetzmaske", "synonyme": ["Subnetz", "Netzmaske"] },
+        { "begriff": "Gateway", "synonyme": ["Standard-Gateway", "Default-Gateway"] },
+        { "begriff": "DNS", "synonyme": ["DNS-Server", "Namensserver"] },
+        { "begriff": "Lease", "synonyme": ["Lease-Dauer", "Leasedauer", "Gültigkeitsdauer"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_2e": {
+      "frage_text": "Zur weiteren Analyse geben Sie auf der Kommandozeile den Befehl `arp -a` ein und erhalten eine Tabelle mit IP- und MAC-Adressen.\n\nErläutern Sie die **grundlegende Aufgabe des Address Resolution Protocol (ARP)** bei der Kommunikation innerhalb eines lokalen Netzwerks (LAN). *(3 Punkte)*",
+      "ueberschrift": "ARP – Aufgabe erläutern (3 Punkte)",
+      "thema_tags": ["Netzwerk/IP-Adressierung", "OSI-Modell"],
+      "loesung_text": "Das **Address Resolution Protocol (ARP)** ermittelt zu einer bekannten **IP-Adresse (Schicht 3)** die zugehörige **physische MAC-Adresse (Schicht 2)**. Damit zwei Geräte im selben LAN Datenpakete austauschen können, muss der Sender die Hardware-Adresse des Empfängers kennen. ARP sendet dazu eine Broadcast-Anfrage ins lokale Netz (\"Wer hat IP x?\"); das passende Gerät antwortet mit seiner MAC-Adresse. Die ermittelten Zuordnungen werden im **ARP-Cache (ARP-Tabelle)** zwischengespeichert, um wiederholte Anfragen zu vermeiden.",
+      "schluesselwoerter": [
+        { "begriff": "IP-Adresse", "synonyme": ["IP"] },
+        { "begriff": "MAC", "synonyme": ["MAC-Adresse", "physische Adresse", "Hardware-Adresse"] },
+        { "begriff": "auflös", "synonyme": ["zuordn", "ermittel", "Auflösung"] },
+        { "begriff": "Cache", "synonyme": ["ARP-Tabelle", "ARP-Cache", "Tabelle"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_2f": {
+      "frage_text": "Sie möchten von Ihrem PC aus prüfen, ob ein bestimmter Server im Internet (z. B. `1.1.1.1`) grundsätzlich erreichbar ist.\n\nGeben Sie einen geeigneten **Kommandozeilenbefehl** an, mit dem Sie die Erreichbarkeit prüfen können. *(2 Punkte)*",
+      "ueberschrift": "Erreichbarkeit einer Internetadresse prüfen (2 Punkte)",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "loesung_text": "Mit dem **ping**-Befehl lässt sich die Erreichbarkeit prüfen:\n\n```\nping 1.1.1.1\n```\n\nReagiert die Gegenstelle, werden Antwortzeiten ausgegeben; bei Zeitüberschreitung (Request timed out) ist der Host nicht erreichbar.",
+      "schluesselwoerter": [
+        { "begriff": "ping", "synonyme": [] }
+      ],
+      "mindest_treffer": 1
+    },
+    "2024_Frühjahr_2g": {
+      "frage_text": "Aus den Ausgaben von `ipconfig /all` (eigener PC) und `arp -a` (Nachbar-PC) liegen Ihnen die IP- und MAC-Adressen beider Rechner vor. Ordnen Sie in der folgenden Skizze die **IP-Adressen** und die **physischen Adressen (MAC)** dem jeweiligen Rechner korrekt zu:\n\n| | Eigener PC | Nachbar-PC im Netzwerk |\n|---|---|---|\n| IP-Adresse | ? | ? |\n| Physische Adresse (MAC) | ? | ? |\n\n*(4 Punkte)*",
+      "ueberschrift": "IP- und MAC-Adressen den Rechnern zuordnen (4 Punkte)",
+      "thema_tags": ["Netzwerk/IP-Adressierung"]
+    },
+    "2024_Frühjahr_3a": {
+      "frage_text": "Ein Kunde sendet Ihnen eine Datei mit einer Ihnen **unbekannten Dateiendung** zu, die sich mit Ihren vorhandenen Programmen nicht öffnen lässt.\n\nNennen Sie **drei Möglichkeiten**, wie Sie Informationen über dieses unbekannte Dateiformat beschaffen können. *(3 Punkte)*",
+      "ueberschrift": "Informationsquellen für unbekanntes Dateiformat (3 Punkte)",
+      "thema_tags": ["Datenformate"],
+      "loesung_text": "Mögliche Wege, Informationen über das unbekannte Format zu erhalten:\n\n- **Internetrecherche** zur Dateiendung (Herstellerseiten, Wikipedia, Dateiformat-Datenbanken)\n- **Fachforen / Communitys** oder die Dokumentation des erzeugenden Programms\n- **Kollegen / IT-Abteilung** oder den Absender (Kunden) direkt befragen\n- Die Datei mit einem **Hex-/Texteditor** öffnen und den Dateiheader (Magic Number) analysieren",
+      "schluesselwoerter": [
+        { "begriff": "Internet", "synonyme": ["Internetsuche", "Recherche", "Suchmaschine", "Wikipedia"] },
+        { "begriff": "Forum", "synonyme": ["Community", "Dokumentation", "Hersteller"] },
+        { "begriff": "Kollege", "synonyme": ["IT-Abteilung", "Kunde", "Absender", "fragen"] },
+        { "begriff": "Hex-Editor", "synonyme": ["Texteditor", "Header", "Magic Number"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_3b": {
+      "frage_text": "Sie haben herausgefunden, dass die Kundendatei im **glTF-Format** vorliegt, einem Austauschformat für 3D-Modelle. Ihr betriebliches CAD-System kann jedoch nur Dateien im **STEP-** oder **IGES-Format** einlesen.\n\nNennen Sie eine Möglichkeit, wie Sie die 3D-Daten des Kunden dennoch in Ihrem CAD-System verwenden können. *(2 Punkte)*",
+      "ueberschrift": "Format-Konvertierung (2 Punkte)",
+      "thema_tags": ["Datenformate"],
+      "loesung_text": "Die glTF-Datei lässt sich mithilfe einer geeigneten **Konvertierungssoftware** (z. B. einem CAD-/3D-Konverter oder einem Online-Konvertierungsdienst) in das STEP- oder IGES-Format **umwandeln (konvertieren)**. Anschließend kann das umgewandelte Modell im betrieblichen CAD-System geöffnet und weiterverarbeitet werden.",
+      "schluesselwoerter": [
+        { "begriff": "konvertier", "synonyme": ["umwandel", "Konvertierung", "Umwandlung"] },
+        { "begriff": "Software", "synonyme": ["Tool", "Programm", "Konverter", "Konvertierungstool"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_3c": {
+      "frage_text": "Das 3D-Austauschformat kann seine Daten entweder im **ASCII-Format** (Textform) oder als **Binärdatei** speichern.\n\nErläutern Sie den **Unterschied** zwischen einer Datei im ASCII-Format und einer Datei im Binärformat. Gehen Sie dabei auf je einen Vor- und Nachteil ein. *(4 Punkte)*",
+      "ueberschrift": "ASCII- vs. Binärformat (4 Punkte)",
+      "thema_tags": ["Datenformate"],
+      "loesung_text": "**ASCII-Format (Textformat):** Die Daten werden als für Menschen lesbare Textzeichen abgelegt (z. B. Zahlen als Ziffernketten). Vorteil: Die Datei ist mit jedem Texteditor lesbar/bearbeitbar und plattformübergreifend gut austauschbar. Nachteil: Sie benötigt **mehr Speicherplatz** und wird langsamer verarbeitet.\n\n**Binärformat:** Die Daten werden in maschinennaher, kompakter Form direkt als Bytes/Bitmuster gespeichert. Vorteil: **deutlich kleinerer Speicherbedarf** und schnellere Verarbeitung. Nachteil: Die Datei ist **nicht direkt menschenlesbar** und ohne passendes Programm bzw. Formatkenntnis kaum interpretierbar.",
+      "schluesselwoerter": [
+        { "begriff": "lesbar", "synonyme": ["menschenlesbar", "Text", "Textzeichen", "Klartext"] },
+        { "begriff": "Speicherplatz", "synonyme": ["Speicherbedarf", "größer", "kompakt", "platzsparend"] },
+        { "begriff": "binär", "synonyme": ["Bytes", "Bitmuster", "maschinenlesbar", "maschinennah"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_3d": {
+      "frage_text": "In einer 3D-Modelldatei sind **5.120 Punkte** gespeichert. Jeder Punkt ist durch seine x-, y- und z-Koordinate festgelegt. Jede Koordinate wird durch einen **32-Bit-Float-Wert** codiert.",
+      "ueberschrift": "Speicherbedarf-Berechnungen",
+      "thema_tags": ["Hardware/Speicher-Berechnung"]
+    },
+    "2024_Frühjahr_3da": {
+      "frage_text": "Berechnen Sie, **wie viele Kibibyte (KiB)** benötigt werden, um die 5.120 Punkte zu speichern. Der Speicherbedarf des Datei-Headers und eventueller Farbinformationen bleibt dabei unberücksichtigt. Geben Sie den Rechenweg an. *(3 Punkte)*",
+      "ueberschrift": "Speicherbedarf in KiB berechnen",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "loesung_text": "**Pro Punkt:** 3 Koordinaten × 32 Bit = 96 Bit = 96 ÷ 8 = **12 Byte**\n\n**Gesamt:** 5.120 Punkte × 12 Byte = **61.440 Byte**\n\n**Umrechnung in Kibibyte:** 61.440 Byte ÷ 1.024 = **60 KiB**",
+      "schluesselwoerter": [
+        { "begriff": "12 Byte", "synonyme": ["12 byte", "96 Bit"] },
+        { "begriff": "61.440", "synonyme": ["61440"] },
+        { "begriff": "60 KiB", "synonyme": ["60 KiB", "60 Kibibyte"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_3db": {
+      "frage_text": "Jeder Punkt soll zusätzlich eine **Farbe** erhalten, codiert im **RGB-Farbraum mit je 8 Bit pro Farbkanal**.\n\nBerechnen Sie, **wie viele verschiedene Farben** sich damit darstellen lassen. *(2 Punkte)*",
+      "ueberschrift": "Anzahl darstellbarer RGB-Farben berechnen",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "loesung_text": "RGB mit je 8 Bit pro Kanal ergibt insgesamt:\n\n3 Kanäle × 8 Bit = **24 Bit**\n\nAnzahl der darstellbaren Farben: 2²⁴ = **16.777.216 Farben** (≈ 16,7 Millionen, sogenannte \"True Color\").",
+      "schluesselwoerter": [
+        { "begriff": "24 Bit", "synonyme": ["24 bit"] },
+        { "begriff": "16.777.216", "synonyme": ["16777216", "16,7 Millionen", "True Color"] }
+      ],
+      "mindest_treffer": 1
+    },
+    "2024_Frühjahr_3dc": {
+      "frage_text": "Berechnen Sie, um **wie viel Prozent** der Speicherbedarf **pro Punkt zunimmt**, wenn zusätzlich zu den Koordinaten der RGB-Farbwert (24 Bit) gespeichert wird. *(3 Punkte)*",
+      "ueberschrift": "Prozentualer Mehrbedarf durch Farbwerte",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "loesung_text": "**Speicher pro Punkt ohne Farbe:** 96 Bit = **12 Byte**\n\n**Zusätzlicher Speicher für die Farbe:** 24 Bit = **3 Byte**\n\n**Prozentualer Mehrbedarf:** 3 Byte ÷ 12 Byte = 0,25 = **25 %**\n\nDer Speicherbedarf pro Punkt steigt also um **25 %**.",
+      "schluesselwoerter": [
+        { "begriff": "3 Byte", "synonyme": ["24 Bit"] },
+        { "begriff": "12 Byte", "synonyme": ["96 Bit"] },
+        { "begriff": "25", "synonyme": ["25 %", "25%"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_3e": {
+      "frage_text": "Sie sollen das **Netzteil** für einen neuen CAD-Rechner auswählen. Verfügbar sind Netzteile von 400 W bis 1200 W in **50-W-Schritten**. Zur ermittelten Leistungsaufnahme der Komponenten ist ein **Sicherheitspuffer von 15 %** hinzuzurechnen.\n\nFolgende Komponenten sind verbaut:\n\n| Komponente | Max. Leistungsaufnahme je Stück (W) | Anzahl |\n|---|---|---|\n| Mainboard | 25 | 1 |\n| Prozessor (CPU) | 165 | 1 |\n| CPU-Lüfter | 10 | 1 |\n| Arbeitsspeicher | 6 | 4 |\n| Grafikkarte | 285 | 1 |\n| M.2-SSD | 6 | 2 |\n| Gehäuselüfter | 7 | 3 |\n\nBerechnen Sie die Leistungsaufnahme **inklusive Puffer** und benennen Sie das **auszuwählende Netzteil**. Geben Sie den Rechenweg an. *(4 Punkte)*",
+      "ueberschrift": "Netzteil-Auswahl (4 Punkte)",
+      "thema_tags": ["Hardware/Komponenten"],
+      "loesung_text": "**Leistungsaufnahme der Komponenten:**\n- Mainboard: 25 × 1 = 25 W\n- CPU: 165 × 1 = 165 W\n- CPU-Lüfter: 10 × 1 = 10 W\n- Arbeitsspeicher: 6 × 4 = 24 W\n- Grafikkarte: 285 × 1 = 285 W\n- M.2-SSD: 6 × 2 = 12 W\n- Gehäuselüfter: 7 × 3 = 21 W\n\n**Summe:** 25 + 165 + 10 + 24 + 285 + 12 + 21 = **542 W**\n\n**Mit 15 % Puffer:** 542 W × 1,15 = **623,3 W**\n\nDas nächstgrößere verfügbare Netzteil in 50-W-Schritten ist **650 W**.",
+      "schluesselwoerter": [
+        { "begriff": "542", "synonyme": ["542 W"] },
+        { "begriff": "623", "synonyme": ["623,3", "623,3 W"] },
+        { "begriff": "650", "synonyme": ["650 W"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_3f": {
+      "frage_text": "Der CAD-Rechner läuft an **220 Arbeitstagen** je **8 Stunden**. Das ausgewählte Netzteil hat einen **Wirkungsgrad von 90 %** und ist im Durchschnitt zu **50 %** ausgelastet.\n\nBerechnen Sie die **jährlichen Stromkosten** bei einem Strompreis von **0,35 EUR pro kWh**. Geben Sie den Rechenweg an.\n\n> Hinweis: Falls Sie in Aufgabe e) kein Netzteil ermitteln konnten, rechnen Sie mit **700 W** weiter.\n\n*(3 Punkte)*",
+      "ueberschrift": "Stromkosten-Berechnung (3 Punkte)",
+      "thema_tags": ["Kostenrechnung/Wirtschaft", "Hardware/Komponenten"],
+      "loesung_text": "**Rechnung mit 650 W (aus Aufgabe e):**\n\n- Leistung bei 50 % Auslastung: 650 W × 0,5 = 325 W\n- Eingangsleistung unter Berücksichtigung des Wirkungsgrads (90 %): 325 W ÷ 0,9 ≈ **361,11 W**\n- Betriebsstunden pro Jahr: 220 Tage × 8 Std. = **1.760 Stunden**\n- Energieverbrauch: 361,11 W × 1.760 Std. ≈ 635.556 Wh ≈ **635,56 kWh**\n- Stromkosten: 635,56 kWh × 0,35 €/kWh ≈ **222,44 EUR pro Jahr**\n\n*(Alternativrechnung mit dem Hinweiswert 700 W: 700 × 0,5 ÷ 0,9 ≈ 388,89 W × 1.760 h ≈ 684,44 kWh × 0,35 € ≈ 239,56 EUR/Jahr.)*",
+      "schluesselwoerter": [
+        { "begriff": "325", "synonyme": ["325 W"] },
+        { "begriff": "1.760", "synonyme": ["1760", "1.760 Stunden"] },
+        { "begriff": "Wirkungsgrad", "synonyme": ["0,9", "90 %"] },
+        { "begriff": "222", "synonyme": ["222,44", "222 EUR"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_4a": {
+      "frage_text": "Frau **Schneider** arbeitet im Außendienst der **NordTech Solutions GmbH** und möchte Reisezeiten in Bahn und Bus sowie Aufenthalte in Cafés und Wartebereichen für betriebliche Aufgaben am Laptop nutzen. Dabei sind zur **Wahrung der Vertraulichkeit** besondere Vorsichtsmaßnahmen nötig.\n\nNennen Sie Frau Schneider **drei geeignete Maßnahmen oder Verhaltensweisen** zur Wahrung der Vertraulichkeit und geben Sie jeweils **eine mögliche Folge der Nichtbeachtung** an. Ergänzen Sie die Tabelle:\n\n| Maßnahme / Verhaltensweise | Folge der Nichtbeachtung |\n|---|---|\n| *Beispiel:* Blickschutzfolie am Display verwenden | Unbefugte können den Bildschirminhalt mitlesen |\n| ? | ? |\n| ? | ? |\n| ? | ? |\n\n*(6 Punkte)*",
+      "ueberschrift": "Vertraulichkeit bei mobiler Arbeit (6 Punkte)",
+      "thema_tags": ["Datenschutz/IT-Sicherheit", "Mobiles Arbeiten/Homeoffice"],
+      "loesung_text": "Mögliche Maßnahmen und Folgen der Nichtbeachtung:\n\n| Maßnahme / Verhaltensweise | Folge der Nichtbeachtung |\n|---|---|\n| Bildschirm beim Verlassen des Platzes sperren (Sperrtaste) | Unbefugte erhalten Zugriff auf Daten und System |\n| Keine vertraulichen Telefonate/Gespräche in der Öffentlichkeit führen | Dritte können Geschäfts- bzw. Kundengeheimnisse mithören |\n| In öffentlichen WLANs ein VPN nutzen | Unverschlüsselte Daten können abgefangen werden (Man-in-the-Middle) |\n| Laptop niemals unbeaufsichtigt lassen | Gerät und Daten können gestohlen werden |\n\nDrei dieser Zeilen genügen.",
+      "schluesselwoerter": [
+        { "begriff": "sperr", "synonyme": ["Bildschirmsperre", "Sperrbildschirm", "abmelden"] },
+        { "begriff": "Gespräch", "synonyme": ["Telefonat", "Telefonieren", "mithören", "laut"] },
+        { "begriff": "VPN", "synonyme": ["WLAN", "verschlüssel"] },
+        { "begriff": "unbeaufsichtigt", "synonyme": ["Diebstahl", "wegschließen", "Aufsicht"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_4b": {
+      "frage_text": "Frau Schneider sichert ihre Daten möglichst auf dem Server der NordTech Solutions GmbH und verbindet sich dazu über ein **VPN**.\n\nErklären Sie die **Funktionsweise eines VPN**. *(2 Punkte)*",
+      "ueberschrift": "VPN – Funktionsweise (2 Punkte)",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "loesung_text": "Ein **VPN (Virtual Private Network)** baut über ein öffentliches Netz (z. B. das Internet) eine **verschlüsselte Verbindung – einen \"Tunnel\"** – zu einem privaten Netzwerk auf. Der gesamte Datenverkehr läuft geschützt durch diesen Tunnel, sodass er von Dritten nicht mitgelesen oder manipuliert werden kann. Das entfernte Gerät wird dabei logisch so eingebunden, **als befände es sich direkt im internen Firmennetz**.",
+      "schluesselwoerter": [
+        { "begriff": "verschlüssel", "synonyme": ["Verschlüsselung", "geschützt"] },
+        { "begriff": "Tunnel", "synonyme": ["Tunnelverbindung"] },
+        { "begriff": "öffentlich", "synonyme": ["Internet", "unsicheres Netz"] },
+        { "begriff": "Firmennetz", "synonyme": ["internes Netz", "privates Netzwerk", "Unternehmensnetz"] }
+      ],
+      "mindest_treffer": 2
+    },
+    "2024_Frühjahr_4c": {
+      "frage_text": "Frau Schneider weist darauf hin, dass im Außendienst nicht immer eine stabile Internetverbindung besteht. Laut Sicherheitsrichtlinie der NordTech Solutions GmbH sind lokal gespeicherte Daten daher durch **tägliche Vollsicherungen auf mehrere nummerierte externe Festplatten** zu sichern.\n\nNennen Sie Frau Schneider **drei Punkte**, die zu beachten sind, damit die Sicherung der lokalen Daten auf externen Festplatten **möglichst zuverlässig und datensicher** erfolgt. *(3 Punkte)*",
+      "ueberschrift": "Datensicherung auf externen Festplatten (3 Punkte)",
+      "thema_tags": ["Datensicherung/Storage", "Datenschutz/IT-Sicherheit"],
+      "loesung_text": "Zu beachtende Punkte:\n\n- **Räumlich getrennte Aufbewahrung:** Die Sicherungsfestplatten getrennt vom Laptop lagern, damit bei Diebstahl oder Verlust nicht Original und Backup gleichzeitig verloren gehen.\n- **Rotation mehrerer Datenträger:** Die nummerierten Festplatten regelmäßig wechseln, sodass mehrere Sicherungsgenerationen (Großvater-Vater-Sohn-Prinzip) zur Verfügung stehen.\n- **Verschlüsselung der externen Festplatten:** Bei Verlust oder Diebstahl bleiben die Daten so für Unbefugte unlesbar.\n- **Regelmäßige Prüfung der Sicherung (Rücksicherungstest):** sicherstellen, dass die Daten tatsächlich wiederherstellbar sind.",
+      "schluesselwoerter": [
+        { "begriff": "getrennt", "synonyme": ["räumlich getrennt", "anderer Ort", "auslagern", "Aufbewahrung"] },
+        { "begriff": "Rotation", "synonyme": ["wechsel", "Generation", "Großvater", "mehrere"] },
+        { "begriff": "verschlüssel", "synonyme": ["Verschlüsselung"] },
+        { "begriff": "prüf", "synonyme": ["Rücksicherung", "Test", "Wiederherstellung", "kontrollier"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_4d": {
+      "frage_text": "Sie klären Frau Schneider über den Begriff **\"Malware\"** als Oberbegriff für jegliche Art von Schadsoftware auf.",
+      "ueberschrift": "Malware (6 Punkte)",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"]
+    },
+    "2024_Frühjahr_4da": {
+      "frage_text": "Nennen Sie **drei Arten von Malware** (Schadsoftware). *(3 Punkte)*",
+      "ueberschrift": "Arten von Malware nennen",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "loesung_text": "Mögliche Arten von Malware sind z. B.:\n\n- **Virus**\n- **Wurm**\n- **Trojaner** (Trojanisches Pferd)\n- **Ransomware** (Erpressungstrojaner)\n- **Spyware**\n- **Adware**",
+      "schluesselwoerter": [
+        { "begriff": "Virus", "synonyme": ["Viren"] },
+        { "begriff": "Wurm", "synonyme": ["Würmer"] },
+        { "begriff": "Trojaner", "synonyme": ["Trojanisches Pferd"] },
+        { "begriff": "Ransomware", "synonyme": ["Erpressungstrojaner", "Verschlüsselungstrojaner"] },
+        { "begriff": "Spyware", "synonyme": ["Spionagesoftware"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_4db": {
+      "frage_text": "Weisen Sie den von Ihnen in Aufgabe da) genannten Malware-Arten jeweils **ein typisches Merkmal bzw. eine charakteristische Wirkungsweise** zu. *(3 Punkte)*",
+      "ueberschrift": "Merkmale der Malware-Arten zuordnen",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "loesung_text": "- **Virus:** benötigt ein Wirtsprogramm bzw. eine Wirtsdatei und verbreitet sich, wenn diese ausgeführt wird.\n- **Wurm:** verbreitet sich **selbstständig über Netzwerke**, ohne eine Wirtsdatei zu benötigen.\n- **Trojaner:** tarnt sich als **nützliches/legitimes Programm**, führt im Hintergrund aber schädliche Funktionen aus.\n- **Ransomware:** **verschlüsselt Daten** des Opfers und fordert ein Lösegeld für die Freigabe.\n- **Spyware:** **spioniert** Nutzerdaten und -verhalten heimlich aus und leitet sie weiter.",
+      "schluesselwoerter": [
+        { "begriff": "Wirt", "synonyme": ["Wirtsprogramm", "Wirtsdatei"] },
+        { "begriff": "selbstständig", "synonyme": ["Netzwerk", "selbständig", "verbreitet sich selbst"] },
+        { "begriff": "tarn", "synonyme": ["getarnt", "nützliches Programm", "legitim"] },
+        { "begriff": "verschlüssel", "synonyme": ["Lösegeld", "Erpressung"] },
+        { "begriff": "spionier", "synonyme": ["ausspähen", "ausspionieren", "Daten sammeln"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_4e": {
+      "frage_text": "Auf dem Laptop ist bereits eine **Antivirensoftware** installiert.\n\nErläutern Sie Frau Schneider **drei weitere** organisatorische oder technische Maßnahmen, mit denen man sich zusätzlich vor Malware schützen kann. *(3 Punkte)*",
+      "ueberschrift": "Weitere Schutzmaßnahmen vor Malware (3 Punkte)",
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "loesung_text": "Weitere Schutzmaßnahmen sind z. B.:\n\n- **Regelmäßige Updates** von Betriebssystem und Anwendungen einspielen (Sicherheitslücken schließen).\n- **Firewall aktivieren**, um unerwünschten Netzwerkverkehr zu blockieren.\n- **Keine E-Mail-Anhänge oder Links aus unbekannten/unsicheren Quellen öffnen** (Phishing-Bewusstsein).\n- **Regelmäßige Datensicherungen** anlegen, um nach einem Befall (z. B. Ransomware) wiederherstellen zu können.\n- **Benutzerrechte einschränken** – nicht dauerhaft mit Administratorrechten arbeiten.",
+      "schluesselwoerter": [
+        { "begriff": "Update", "synonyme": ["Aktualisierung", "Patch", "aktuell halten"] },
+        { "begriff": "Firewall", "synonyme": [] },
+        { "begriff": "Anhang", "synonyme": ["E-Mail", "Link", "unbekannte Quelle", "Phishing"] },
+        { "begriff": "Datensicherung", "synonyme": ["Backup", "Sicherung"] },
+        { "begriff": "Benutzerrechte", "synonyme": ["Rechte einschränken", "Administrator", "Berechtigung"] }
+      ],
+      "mindest_treffer": 3
+    },
+    "2024_Frühjahr_4f": {
+      "frage_text": "Frau Schneider möchte eine Datei mit einem Umfang von **2 GiB** auf den Firmenserver hochladen. Ein vorheriger Speedtest lieferte folgendes Ergebnis:\n\n| | Download | Upload |\n|---|---|---|\n| Geschwindigkeit | 92,16 Mbit/s | 40,96 Mbit/s |\n\nBerechnen Sie die **Übertragungsdauer** für das Hochladen der Datei. Geben Sie den Rechenweg an, **runden Sie auf volle Sekunden auf** und stellen Sie das Ergebnis in **Minuten und Sekunden** dar. *(6 Punkte)*",
+      "ueberschrift": "Übertragungsdauer berechnen (6 Punkte)",
+      "thema_tags": ["Übertragung/Datenraten", "Hardware/Speicher-Berechnung"],
+      "loesung_text": "Beim **Hochladen** ist die **Upload-Geschwindigkeit** maßgeblich.\n\n**Datenmenge umrechnen:**\n- 2 GiB = 2 × 1.024 × 1.024 × 1.024 Byte = 2.147.483.648 Byte\n- in Bit: × 8 = 17.179.869.184 Bit\n\n**Upload-Geschwindigkeit:**\n- 40,96 Mbit/s = 40,96 × 1.000.000 Bit/s = 40.960.000 Bit/s\n\n**Übertragungsdauer:**\n- 17.179.869.184 Bit ÷ 40.960.000 Bit/s ≈ **419,43 Sekunden**\n- aufgerundet: **420 Sekunden**\n\n**Darstellung in Minuten und Sekunden:**\n- 420 Sekunden ÷ 60 = 7 Minuten, Rest 0 Sekunden → **7 Minuten 0 Sekunden**",
+      "schluesselwoerter": [
+        { "begriff": "Upload", "synonyme": ["Hochladen", "40,96"] },
+        { "begriff": "17.179.869.184", "synonyme": ["17179869184", "2 GiB", "Bit"] },
+        { "begriff": "420", "synonyme": ["420 Sekunden"] },
+        { "begriff": "7 Minuten", "synonyme": ["7 min", "7:00"] }
+      ],
+      "mindest_treffer": 3
+    }
+  }
+}

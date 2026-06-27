@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+/*
+ * Manueller Dark-Mode: `dark:`-Utilities reagieren auf die Klasse `.dark`
+ * am <html>-Element (gesetzt vom ThemeProvider), nicht mehr nur auf die
+ * System-Einstellung. So funktioniert der Umschalter in der Navbar.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Markierte Textauswahl in der Akzentfarbe (kleiner „Spaß"-Touch). */
+::selection {
+  background: rgba(99, 102, 241, 0.25); /* indigo-500 */
+}
+
+#root {
+  min-height: 100vh;
+}
+
+details > summary {
+  cursor: pointer;
+}
+
+/* --- Design-System: wiederverwendbare Utility-Klassen (Tailwind 4) -------- */
+/* Karten/Flächen */
+@utility card {
+  @apply rounded-2xl border border-gray-200/70 bg-white shadow-sm dark:border-gray-800/80 dark:bg-gray-900;
+}
+@utility card-interactive {
+  @apply card transition duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/10 hover:border-indigo-300 dark:hover:border-indigo-700;
+}
+
+/* Text mit Akzent-Farbverlauf (für Überschriften/Highlights). */
+@utility text-gradient {
+  @apply bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 bg-clip-text text-transparent;
+}
+
+/* Buttons */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 disabled:opacity-60 disabled:pointer-events-none;
+}
+@utility btn-primary {
+  @apply btn text-white shadow-sm bg-gradient-to-br from-indigo-500 to-fuchsia-500 hover:from-indigo-600 hover:to-fuchsia-600;
+}
+@utility btn-ghost {
+  @apply btn border border-gray-300 text-gray-700 hover:border-indigo-400 hover:text-indigo-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-indigo-500 dark:hover:text-indigo-300;
+}
+@utility btn-soft-green {
+  @apply btn bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900/40 dark:text-green-300 dark:hover:bg-green-900/60;
+}
+@utility btn-soft-amber {
+  @apply btn bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:hover:bg-amber-900/60;
+}
+@utility btn-soft-red {
+  @apply btn bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/40 dark:text-red-300 dark:hover:bg-red-900/60;
+}
+
+/* Tag-/Status-Chips */
+@utility chip {
+  @apply inline-flex items-center rounded-md bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400;
+}
+
+/* Formularelemente */
+@utility input {
+  @apply rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 dark:border-gray-600 dark:bg-gray-900;
+}
+
+/* --- Dekorativer „Aurora"-Hintergrund (weiche Farbverläufe) ------------- */
+/* Liegt fix hinter dem Inhalt, reagiert nicht auf Klicks und gibt der App
+   dezent Tiefe/Stimmung – heller im Light-, ruhiger im Dark-Mode. */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora::before,
+.aurora::after {
+  content: '';
+  position: absolute;
+  width: 42rem;
+  height: 42rem;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.4;
+  background: radial-gradient(circle at center, #818cf8, transparent 70%);
+  animation: aurora-float 20s ease-in-out infinite alternate;
+}
+.aurora::before {
+  top: -14rem;
+  left: -10rem;
+}
+.aurora::after {
+  bottom: -16rem;
+  right: -10rem;
+  background: radial-gradient(circle at center, #e879f9, transparent 70%);
+  animation-delay: -10s;
+}
+.dark .aurora::before,
+.dark .aurora::after {
+  opacity: 0.18;
+}
+@keyframes aurora-float {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(36px, 28px) scale(1.12);
+  }
+}
+
+/* --- 3D-Karten-Flip (Karteikarten) -------------------------------------- */
+/* Beide Seiten liegen via Grid übereinander (Höhe = höhere Seite, kein
+   Layout-Sprung). `backface-visibility` blendet die abgewandte Seite aus. */
+.flip {
+  perspective: 1200px;
+}
+.flip-inner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.flip-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* --- Bewegung (dezent, respektiert reduced-motion) ---------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-in {
+  animation: fadeInUp 0.35s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* --- Markdown-Rendering für Frage-/Lösungstext ------------------------- */
+.md-content p {
+  margin: 0.5em 0;
+  overflow-wrap: anywhere; /* lange URLs/Tokens brechen auf Mobil um */
+}
+.md-content ul,
+.md-content ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+.md-content li {
+  margin: 0.2em 0;
+}
+
+/* Tabellen: auf schmalen Screens horizontal scrollbar statt zu überlaufen */
+.md-content {
+  overflow-x: auto;
+}
+.md-content table {
+  border-collapse: collapse;
+  margin: 0.5em 0;
+  width: max-content;
+  max-width: 100%;
+  font-size: 0.9em;
+}
+.md-content th,
+.md-content td {
+  border: 1px solid rgba(127, 127, 127, 0.5);
+  padding: 4px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.md-content th {
+  background: rgba(127, 127, 127, 0.12);
+  font-weight: 600;
+}
+
+/* Code: Inline und Block, mit horizontalem Scroll für lange Zeilen */
+.md-content code {
+  background: rgba(127, 127, 127, 0.15);
+  border-radius: 4px;
+  padding: 1px 4px;
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+.md-content pre {
+  background: rgba(127, 127, 127, 0.12);
+  padding: 8px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.md-content pre code {
+  background: none;
+  padding: 0;
+  white-space: pre;
+  overflow-wrap: normal;
+}
+.md-content blockquote {
+  border-left: 3px solid rgba(127, 127, 127, 0.4);
+  margin: 0.5em 0;
+  padding-left: 0.75em;
+  color: inherit;
+  opacity: 0.85;
+}

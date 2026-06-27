@@ -1,0 +1,28 @@
+# Caddy als einziger Entry-Point:
+#  - bedient die statische Lernapp aus /srv
+#  - leitet /api/* an das Backend weiter
+#  - automatisches HTTPS, sobald SITE_ADDRESS eine echte Domain ist
+#
+# SITE_ADDRESS:
+#  - lokal/Test:  ":80"               (HTTP, kein Zertifikat)
+#  - Produktion:  "lernapp.example.de" (Caddy holt automatisch ein Let's-Encrypt-Zertifikat)
+
+{$SITE_ADDRESS::80} {
+	encode gzip
+
+	# API ans Backend (Service-Name aus docker-compose).
+	handle /api/* {
+		reverse_proxy {$BACKEND_UPSTREAM:backend:3001}
+	}
+
+	# Statische SPA; HashRouter braucht nur index.html als Fallback.
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+
+		# Gehashte Assets aggressiv cachen.
+		@assets path /assets/*
+		header @assets Cache-Control "public, max-age=31536000, immutable"
+	}
+}
