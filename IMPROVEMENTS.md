@@ -59,8 +59,10 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Desktop-Linkleiste ab `lg`. Ersetzt das Hamburger-Menü. ✅ 2026-06-21
 - [ ] **P3 · S** **Accent-Theme-Picker:** Nutzer wählt Akzentfarbe – CSS-Variablen statt
       fixer Tailwind-Farben, in `localStorage` gemerkt (baut auf dem Farb-Refresh auf).
-- [ ] **P3 · S** **Animierte Zahlen (Count-up)** für Statistik-/Dashboard-Kennzahlen
-      und kleine Übergangs-Animationen für Listen (gestaffeltes Einblenden).
+- [~] **P3 · S** **Animierte Zahlen (Count-up)** – **Klausur-Auswertung erledigt:**
+      reduced-motion-bewusster Hook `hooks/useCountUp.js` (getestet) zählt Prozent +
+      Punkte hoch; erkannte Schlagwörter „poppen" (`treffer-pop`). **Offen:** Count-up
+      auch auf Home-/Statistik-Kennzahlen ausweiten, gestaffeltes Listen-Einblenden.
 - [ ] **P2 · S** **Lade-/Leerzustände:** Skeletons bzw. ein dezenter Lade-Indikator,
       solange `AuthContext.ready` lädt; freundliche Empty-States mit CTA.
 - [ ] **P2 · S** **Toaster/Snackbar** statt nur Inline-Meldungen (gespeichert,
@@ -82,6 +84,11 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       tolerant ggü. Formulierung/Umlauten/Synonymen), optionaler Timer, Auswertung
       (% + Themen-Schwächen), Übernahme in den Fortschritt. Engine + Seite getestet.
       Schema-Doku: `lernapp/docs/FRAGEN_SCHEMA.md`. ✅ 2026-06-21
+- [x] **P2 · M** ~~**Adaptives Schwächen-Training:**~~ neuer Lern-Modus, der gezielt an
+      den schwachen Themen arbeitet – `lib/lernsession.js#baueSchwaechenSession` (rein,
+      getestet) priorisiert Objekte aus den schwachen Tags (`berechneStatistik`) und füllt
+      bei Bedarf mit normaler Session auf. Einstieg über `Lernen?modus=schwaechen`, Karte
+      auf Home + „Gezielt üben" in der Statistik. ✅ 2026-06-27
 - [x] **P1 · M** ~~**Bundle-Größe / Code-Splitting:**~~ Routen lazy-geladen (React.lazy +
       Suspense) und `vite manualChunks` (vendor + examdata getrennt). **Start-Code-Chunk
       953 KB → ~32 KB** (gzip ~11 KB); Seiten als 2–11 KB-Chunks; Daten/Libs getrennt
@@ -132,12 +139,13 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
 - [ ] **P1 · M** **Restliche AP1-Lernzettel** (nativer Text, schnell): Prüfungskatalog
       FISI (als **Kategorie-/Tag-Gerüst** für alle Inhalte nutzbar!), Kurzform,
       ap1-lernguide, `AP1_Lerninhalte_Systemintegration.html`. Pattern wie AP1-Import.
-- [~] **P1 · L** **AP2-Prüfungsfragen** – **gestartet:** erste **KI-generierte
-      AP2-Übungsklausur** (7 Aufgaben, 13 Fragen, je mit `schluesselwoerter`) via
-      `scripts/import/import-ap2-pruefungsfragen.mjs`; erscheint im Klausur-Modus.
-      Rechtlich sauber (eigene, an Themen angelehnte Aufgaben – keine 1:1-IHK-Inhalte).
-      **Rest:** mehr Aufgaben/Themen ergänzen (Monitoring, WLAN/VPN, Pseudocode,
-      Projektmanagement-Rechnungen …) für eine vollständige Klausurbreite.
+- [x] **P1 · L** ~~**AP2-Prüfungsfragen (KI-generiert)**~~ – **KI-generierte
+      AP2-Übungsklausur** ausgebaut auf **11 Aufgaben / 21 Fragen / 92 Punkte**, je mit
+      `schluesselwoerter` (+ `mindest_treffer`), via `import-ap2-pruefungsfragen.mjs`.
+      Themen u. a. Subnetting, Virtualisierung, IT-Sicherheit, RAID/Backup, SQL, TCO,
+      Datenschutz, **WLAN/VPN, Monitoring, Pseudocode, Netzplan**. Rechtlich sauber
+      (eigene Aufgaben, keine 1:1-IHK-Inhalte). Keyword-Selbsttest 21/21.
+      **Optional:** weitere Übungsklausuren / mehr Aufgaben pro Thema.
 - [x] **P1 · L** ~~**Lernzettel-Qualität (AP1) deutlich verbessert**~~ – AP1-Import auf
       `pdftotext -layout` umgestellt und Markdown rekonstruiert: zuvor zu Fließtext
       kollabierte **Aufzählungen** sind jetzt echte `- `-Listen, **über die Spaltenbreite
