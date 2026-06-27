@@ -255,6 +255,153 @@ const AUFGABEN = [
       },
     ],
   },
+  {
+    nr: 8,
+    titel: 'WLAN & VPN',
+    tag: 'Netzwerk/IP-Adressierung',
+    fragen: [
+      {
+        teil: 'a',
+        frage_text:
+          'Erläutern Sie **zwei Vorteile**, die **WPA3** gegenüber **WPA2** bei der WLAN-Absicherung bietet.',
+        loesung_text:
+          'Z. B.: **SAE** (Simultaneous Authentication of Equals) statt einfachem PSK-Handshake → **Schutz vor Offline-Wörterbuchangriffen**; **Forward Secrecy** (mitgeschnittener Verkehr bleibt auch bei späterer Schlüssel-Kompromittierung geschützt); **individuelle Verschlüsselung** auch in offenen Netzen (OWE); stärkere Verschlüsselung (192 Bit im Enterprise-Modus).',
+        punkte: 4,
+        mindest_treffer: 2,
+        schluesselwoerter: [
+          { begriff: 'SAE', synonyme: ['Simultaneous Authentication', 'Dragonfly'] },
+          { begriff: 'Wörterbuch', synonyme: ['Woerterbuch', 'Brute-Force', 'Offline-Angriff', 'Dictionary'] },
+          { begriff: 'Forward Secrecy', synonyme: ['Perfect Forward Secrecy', 'PFS'] },
+          { begriff: 'Verschlüsselung', synonyme: ['Verschluesselung', '192 Bit', 'stärker', 'staerker', 'individuell', 'OWE'] },
+        ],
+      },
+      {
+        teil: 'b',
+        frage_text:
+          'Worin unterscheidet sich ein **Site-to-Site-VPN** von einem **Client-to-Site-(Remote-Access-)VPN**?',
+        loesung_text:
+          'Ein **Site-to-Site-VPN** koppelt dauerhaft **zwei ganze Netze/Standorte** über ihre **Gateways/Router** (die Endgeräte merken nichts davon). Ein **Client-to-Site-VPN** verbindet einen **einzelnen Client** (z. B. das Notebook eines Mitarbeiters im Homeoffice) per VPN-Software mit dem **Firmennetz** – typisch fürs **mobile Arbeiten**.',
+        punkte: 4,
+        mindest_treffer: 3,
+        schluesselwoerter: [
+          { begriff: 'Standort', synonyme: ['Netze koppeln', 'zwei Netze', 'Niederlassung'] },
+          { begriff: 'Gateway', synonyme: ['Router', 'Firewall'] },
+          { begriff: 'einzeln', synonyme: ['einzelner Client', 'ein Client', 'einzelnes Gerät', 'einzelnes Geraet'] },
+          { begriff: 'Homeoffice', synonyme: ['mobiles Arbeiten', 'Mitarbeiter', 'Remote'] },
+        ],
+      },
+    ],
+  },
+  {
+    nr: 9,
+    titel: 'Monitoring & IT-Betrieb',
+    tag: 'Monitoring/IT-Betrieb',
+    fragen: [
+      {
+        teil: 'a',
+        frage_text:
+          'Wofür wird das Protokoll **SNMP** im Netzwerk-/Server-Monitoring eingesetzt? Geben Sie auch an, wie ein überwachtes Gerät bei einem Ereignis **von sich aus** die Zentrale informieren kann.',
+        loesung_text:
+          '**SNMP** (Simple Network Management Protocol) dient der **Überwachung und Verwaltung** von Netzwerkgeräten (Switches, Router, Server). Ein Management-System **fragt** Statuswerte regelmäßig **ab (Polling)**; umgekehrt kann ein Gerät bei einem Ereignis selbst eine **Trap** (unaufgeforderte Meldung) an die Zentrale senden.',
+        punkte: 4,
+        mindest_treffer: 3,
+        schluesselwoerter: [
+          { begriff: 'Überwach', synonyme: ['Ueberwach', 'Monitoring', 'Verwaltung', 'Management'] },
+          { begriff: 'Netzwerkgerät', synonyme: ['Netzwerkgeraet', 'Switch', 'Router', 'Server'] },
+          { begriff: 'Polling', synonyme: ['Abfrage', 'abfragen', 'Pull', 'pollt'] },
+          { begriff: 'Trap', synonyme: ['unaufgefordert', 'Benachrichtigung', 'Meldung'] },
+        ],
+      },
+      {
+        teil: 'b',
+        frage_text:
+          'Nennen Sie **zwei Kennzahlen (Metriken)**, die ein Monitoring-System bei einem Server sinnvoll überwacht.',
+        loesung_text:
+          'Z. B.: **CPU-Auslastung**, **Arbeitsspeicher-(RAM-)Auslastung**, freier **Festplattenspeicher**, **Netzwerkauslastung**, **Temperatur**, **Erreichbarkeit/Verfügbarkeit** wichtiger Dienste, **Antwortzeit**.',
+        punkte: 4,
+        mindest_treffer: 2,
+        schluesselwoerter: [
+          { begriff: 'CPU', synonyme: ['Prozessor', 'CPU-Auslastung'] },
+          { begriff: 'RAM', synonyme: ['Arbeitsspeicher', 'Speicherauslastung'] },
+          { begriff: 'Festplatte', synonyme: ['Speicherplatz', 'Plattenplatz', 'Disk', 'freier Speicher'] },
+          { begriff: 'Netzwerk', synonyme: ['Netzwerklast', 'Bandbreite', 'Netzauslastung'] },
+          { begriff: 'Verfügbar', synonyme: ['Verfuegbar', 'Erreichbarkeit', 'Dienst', 'Antwortzeit', 'Temperatur'] },
+        ],
+      },
+    ],
+  },
+  {
+    nr: 10,
+    titel: 'Algorithmen & Pseudocode',
+    tag: 'Algorithmen/Pseudocode',
+    fragen: [
+      {
+        teil: 'a',
+        frage_text:
+          'Schreiben Sie in **Pseudocode** einen Algorithmus, der die **Summe der Zahlen von 1 bis n** berechnet und anschließend ausgibt (n ist gegeben).',
+        loesung_text:
+          '```text\nsumme = 0\nFÜR i = 1 BIS n\n    summe = summe + i\nENDE FÜR\nAUSGABE summe\n```\nAlternativ über die Gauß-Formel: summe = n × (n + 1) / 2.',
+        punkte: 6,
+        mindest_treffer: 3,
+        schluesselwoerter: [
+          { begriff: 'summe', synonyme: ['sum', 'gesamtsumme'] },
+          { begriff: 'schleife', synonyme: ['FOR', 'FÜR', 'FUER', 'WHILE', 'solange', 'wiederhol'] },
+          { begriff: 'summe + i', synonyme: ['summe = summe', 'aufaddier', 'addier', 'gauß', 'gauss'] },
+          { begriff: 'ausgabe', synonyme: ['ausgeben', 'AUSGEBEN', 'PRINT', 'gib aus'] },
+        ],
+      },
+      {
+        teil: 'b',
+        frage_text:
+          'Erklären Sie den Unterschied zwischen einer **kopfgesteuerten** (WHILE) und einer **fußgesteuerten** (REPEAT-UNTIL / do-while) Schleife.',
+        loesung_text:
+          'Bei der **kopfgesteuerten** Schleife (WHILE) wird die **Bedingung vor** jedem Durchlauf geprüft – der Schleifenkörper wird **ggf. gar nicht** ausgeführt. Bei der **fußgesteuerten** Schleife (REPEAT-UNTIL) wird die Bedingung **am Ende** geprüft – der Körper läuft **mindestens einmal**.',
+        punkte: 4,
+        mindest_treffer: 3,
+        schluesselwoerter: [
+          { begriff: 'vor', synonyme: ['am Anfang', 'vorher', 'kopfgesteuert', 'zu Beginn'] },
+          { begriff: 'ende', synonyme: ['am Ende', 'danach', 'fußgesteuert', 'fussgesteuert', 'nach dem Durchlauf'] },
+          { begriff: 'mindestens einmal', synonyme: ['mindestens 1', 'immer einmal', 'einmal ausgeführt', 'einmal ausgefuehrt'] },
+          { begriff: 'Bedingung', synonyme: ['Abbruchbedingung', 'Prüfung', 'Pruefung'] },
+        ],
+      },
+    ],
+  },
+  {
+    nr: 11,
+    titel: 'Projektplanung (Netzplan)',
+    tag: 'Projektmanagement',
+    fragen: [
+      {
+        teil: 'a',
+        frage_text: 'Was versteht man im Netzplan eines Projekts unter dem **kritischen Pfad**?',
+        loesung_text:
+          'Der **kritische Pfad** ist die **längste** Kette von Vorgängen durch den Netzplan. Seine Vorgänge haben **keine Pufferzeit** (Puffer = 0); er bestimmt die **gesamte Projektdauer**. Eine **Verzögerung** auf dem kritischen Pfad verzögert das **gesamte Projekt**.',
+        punkte: 4,
+        mindest_treffer: 3,
+        schluesselwoerter: [
+          { begriff: 'längste', synonyme: ['laengste', 'längster Pfad', 'laengster Weg'] },
+          { begriff: 'Puffer', synonyme: ['keine Pufferzeit', 'Puffer 0', 'puffer null'] },
+          { begriff: 'Projektdauer', synonyme: ['Gesamtdauer', 'bestimmt die Dauer', 'Projektlaufzeit'] },
+          { begriff: 'Verzöger', synonyme: ['Verzoeger', 'verspätet', 'verzögert das Projekt'] },
+        ],
+      },
+      {
+        teil: 'b',
+        frage_text:
+          'Ein Vorgang hat den **frühesten Anfangszeitpunkt (FAZ) = Tag 5** und den **spätesten Anfangszeitpunkt (SAZ) = Tag 8**. Berechnen Sie die **Gesamtpufferzeit (GP)** dieses Vorgangs.',
+        loesung_text:
+          'Die Gesamtpufferzeit ist **GP = SAZ − FAZ = 8 − 5 = 3 Tage**. Der Vorgang darf sich also um bis zu **3 Tage** verschieben, ohne das Projektende zu gefährden.',
+        punkte: 3,
+        mindest_treffer: 2,
+        schluesselwoerter: [
+          { begriff: '3', synonyme: ['3 Tage', 'drei Tage', 'drei'] },
+          { begriff: 'SAZ', synonyme: ['SAZ - FAZ', 'spätester minus frühester', '8 - 5'] },
+          { begriff: 'Puffer', synonyme: ['Gesamtpuffer', 'GP'] },
+        ],
+      },
+    ],
+  },
 ];
 
 function baueFragen() {
