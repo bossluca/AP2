@@ -6,6 +6,7 @@ import { useProgress } from '../context/ProgressContext';
 import { berechneStatistik } from '../lib/statistik';
 import { berechneReife } from '../lib/reife';
 import { ladePruefungstermin, setzePruefungstermin, tageBisTermin } from '../lib/pruefungstermin';
+import { baueTagesquests, questFortschritt } from '../lib/quests';
 import ProgressRing from '../components/ProgressRing';
 
 const KACHELN = [
@@ -34,6 +35,10 @@ export default function Home() {
     setzePruefungstermin(v);
     setTermin(v || null);
   };
+  const quests = useMemo(
+    () => baueTagesquests({ heute: gami.heuteAktivitaet, tagesziel: gami.tagesziel, faellig: s.faellig }),
+    [gami.heuteAktivitaet, gami.tagesziel, s.faellig]
+  );
 
   const handleReset = () => {
     if (confirmReset) {
@@ -82,6 +87,15 @@ export default function Home() {
             <div className="text-[11px] font-medium text-indigo-600 mt-0.5">
               ⭐ Level {gami.level.level}
             </div>
+            {gami.freezesVerfuegbar > 0 && (
+              <div
+                className="text-[11px] text-sky-600 mt-0.5"
+                title="Schützt deinen Streak bei einem verpassten Tag"
+              >
+                ❄️ {gami.freezesVerfuegbar} Freeze{gami.freezesVerfuegbar > 1 ? 's' : ''}
+                {gami.freezesGenutzt > 0 && ` · ${gami.freezesGenutzt} aktiv`}
+              </div>
+            )}
           </div>
         </div>
         <div className="flex-1 min-w-[12rem]">
@@ -107,6 +121,34 @@ export default function Home() {
             </p>
           )}
         </div>
+      </section>
+
+      {/* Tages-Quests */}
+      <section className="card p-4 space-y-2">
+        <div className="flex items-center justify-between">
+          <h2 className="font-semibold text-sm">🗒️ Tages-Quests</h2>
+          <span className="text-xs text-gray-500">
+            {questFortschritt(quests).erfuellt}/{quests.length}
+            {questFortschritt(quests).alleErfuellt && ' 🎉'}
+          </span>
+        </div>
+        <ul className="space-y-1.5">
+          {quests.map((q) => (
+            <li key={q.id} className="flex items-center gap-2 text-sm">
+              <span aria-hidden="true" className={q.erfuellt ? 'text-green-600' : 'text-gray-400'}>
+                {q.erfuellt ? '✓' : '○'}
+              </span>
+              <span className={`flex-1 min-w-0 ${q.erfuellt ? 'text-gray-400 line-through' : ''}`}>
+                {q.label}
+              </span>
+              {q.ziel > 1 && (
+                <span className="text-xs text-gray-400 tabular-nums">
+                  {q.wert}/{q.ziel}
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Prüfungstermin-Countdown + Reife */}

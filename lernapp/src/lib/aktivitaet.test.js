@@ -4,6 +4,8 @@ import {
   addAktivitaet,
   heuteAnzahl,
   berechneStreak,
+  streakDetail,
+  verfuegbareFreezes,
   aktiveTage,
   baueHeatmap,
 } from './aktivitaet';
@@ -68,6 +70,46 @@ describe('berechneStreak', () => {
   it('ist 0, wenn weder heute noch gestern aktiv', () => {
     const log = { [tagesKey(vorTagen(HEUTE, 2))]: 1 };
     expect(berechneStreak(log, HEUTE)).toBe(0);
+  });
+});
+
+describe('Streak-Freeze', () => {
+  it('verfuegbareFreezes: einer je 7 aktive Tage, gedeckelt bei 2', () => {
+    expect(verfuegbareFreezes(0)).toBe(0);
+    expect(verfuegbareFreezes(6)).toBe(0);
+    expect(verfuegbareFreezes(7)).toBe(1);
+    expect(verfuegbareFreezes(14)).toBe(2);
+    expect(verfuegbareFreezes(100)).toBe(2);
+  });
+
+  it('überbrückt eine verpasste gestrige Lücke mit einem Freeze', () => {
+    const log = {
+      [tagesKey(HEUTE)]: 1,
+      // gestern fehlt
+      [tagesKey(vorTagen(HEUTE, 2))]: 1,
+      [tagesKey(vorTagen(HEUTE, 3))]: 1,
+    };
+    expect(berechneStreak(log, HEUTE, 0)).toBe(1); // ohne Freeze gebrochen
+    const det = streakDetail(log, HEUTE, 1);
+    expect(det.streak).toBe(3); // 3 aktive Tage erhalten
+    expect(det.genutzt).toBe(1);
+  });
+
+  it('bricht trotzdem, wenn mehr Lücken als Freezes vorliegen', () => {
+    const log = {
+      [tagesKey(HEUTE)]: 1,
+      // -1 fehlt, -2 fehlt
+      [tagesKey(vorTagen(HEUTE, 3))]: 1,
+    };
+    expect(berechneStreak(log, HEUTE, 1)).toBe(1); // 1 Freeze deckt 2 Lücken nicht
+    expect(berechneStreak(log, HEUTE, 2).valueOf()).toBe(2); // 2 Freezes überbrücken beide
+  });
+
+  it('verbraucht keinen Freeze für nachlaufende Leer-Tage', () => {
+    const log = { [tagesKey(HEUTE)]: 1 };
+    const det = streakDetail(log, HEUTE, 2);
+    expect(det.streak).toBe(1);
+    expect(det.genutzt).toBe(0);
   });
 });
 

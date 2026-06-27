@@ -231,6 +231,11 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       erkennt neu freigeschaltete Erfolge (Diff gegen zuletzt Gesehenes, kein Feuern
       beim Laden) und feiert mit Konfetti + Toast. Deckt auch Streak-Meilensteine ab
       (sind Badges). ✅ 2026-06-21
+- [x] **P2 · S** ~~**Streak-Freeze + Tages-Quests:**~~ verpasste Tage überbrücken (gesund,
+      ohne Verlust-Angst) – `aktivitaet.js#streakDetail`/`verfuegbareFreezes` (1 Freeze je
+      7 aktive Tage, max 2), Freeze-Anzeige am Streak. Plus 3 abgeleitete **Tages-Quests**
+      (`lib/quests.js`, rein/getestet) als Motivations-Checkliste auf Home. 10 neue Tests.
+      ✅ 2026-06-27 (Sprint 4, s. PRODUKT_STRATEGIE.md)
 - [ ] **P3 · S** **Streak/Aktivität ins Backend syncen** (aktuell rein lokal in
       `ap2_lernapp_gamification_v1`), damit Streak geräteübergreifend zählt.
 - [x] **P2 · M** ~~**XP & Level:**~~ jede Bewertung gibt XP (richtig 10 / teilweise 5 /

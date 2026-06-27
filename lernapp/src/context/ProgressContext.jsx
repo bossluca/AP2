@@ -12,7 +12,8 @@ import { getLearnableQuestions } from '../data/useExamData';
 import { bewerten, istFaellig } from '../lib/fsrs';
 import {
   addAktivitaet,
-  berechneStreak,
+  streakDetail,
+  verfuegbareFreezes,
   heuteAnzahl,
   aktiveTage as zaehleAktiveTage,
   STANDARD_TAGESZIEL,
@@ -329,19 +330,23 @@ export function ProgressProvider({ children }) {
   }, [progress]);
 
   // Abgeleitete Gamification-Kennzahlen (Streak, heutige Aktivität, aktive Tage).
-  const gami = useMemo(
-    () => ({
+  const gami = useMemo(() => {
+    const at = zaehleAktiveTage(gamification.activity);
+    const freezes = verfuegbareFreezes(at);
+    const det = streakDetail(gamification.activity, new Date(), freezes);
+    return {
       activity: gamification.activity,
-      streak: berechneStreak(gamification.activity),
+      streak: det.streak,
+      freezesGenutzt: det.genutzt,
+      freezesVerfuegbar: freezes,
       heuteAktivitaet: heuteAnzahl(gamification.activity),
-      aktiveTage: zaehleAktiveTage(gamification.activity),
+      aktiveTage: at,
       klausurBest: gamification.klausurBest || 0,
       xp: gamification.xp || 0,
       level: berechneLevel(gamification.xp || 0),
       tagesziel: STANDARD_TAGESZIEL,
-    }),
-    [gamification]
-  );
+    };
+  }, [gamification]);
 
   const value = useMemo(
     () => ({

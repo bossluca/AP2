@@ -47,31 +47,65 @@ export function heuteAnzahl(log, date = new Date()) {
   return (log && log[tagesKey(date)]) || 0;
 }
 
+/** Maximale gleichzeitig wirksame Streak-Freezes. */
+export const MAX_FREEZES = 2;
+
 /**
- * Aktuelle Streak: aufeinanderfolgende Tage mit ≥ 1 Aktivität, endend heute.
- * „Lebendig" auch, wenn heute noch nichts getan wurde, aber gestern – dann zählt
- * ab gestern (der Streak bricht erst, wenn ein ganzer Tag ohne Aktivität vergeht).
- * @param {Object<string, number>} log
- * @param {Date} [today]
+ * Verfügbare Streak-Freezes aus der Gesamt-Aktivität: einer je voller Lern-Woche
+ * (7 aktive Tage), gedeckelt. „Gesund" gedacht – schützt den Streak, statt mit
+ * Verlust-Angst zu spielen.
+ * @param {number} aktiveTage
  * @returns {number}
  */
-export function berechneStreak(log, today = new Date()) {
-  if (!log) return 0;
-  const aktiv = (d) => ((log[tagesKey(d)] || 0) > 0);
+export function verfuegbareFreezes(aktiveTage) {
+  return Math.min(MAX_FREEZES, Math.floor((aktiveTage || 0) / 7));
+}
 
-  let start = 0; // 0 = ab heute zählen
-  if (!aktiv(today)) {
-    if (aktiv(plusTage(today, -1))) start = 1; // heute offen, aber gestern aktiv
-    else return 0;
-  }
+/**
+ * Streak inkl. **Streak-Freeze**: bis zu `freezes` verpasste Tage werden über-
+ * brückt (ein Freeze je Lücke), ohne den Streak zu brechen. Überbrückte Tage
+ * zählen nicht zur Länge, halten den Streak aber am Leben. Liefert Länge **und**
+ * verbrauchte Freezes (für die Anzeige). Mit `freezes = 0` exakt das alte Verhalten.
+ * @param {Object<string, number>} log
+ * @param {Date} [today]
+ * @param {number} [freezes]
+ * @returns {{streak:number, genutzt:number}}
+ */
+export function streakDetail(log, today = new Date(), freezes = 0) {
+  if (!log) return { streak: 0, genutzt: 0 };
+  const aktiv = (d) => (log[tagesKey(d)] || 0) > 0;
+
+  // Anker: heute (wenn aktiv) – sonst ab gestern (heute hat noch Zeit, „lebendig").
+  const start = aktiv(today) ? 0 : 1;
 
   let streak = 0;
-  let i = start;
-  while (aktiv(plusTage(today, -i))) {
-    streak += 1;
-    i += 1;
+  let genutzt = 0; // bestätigte (von einem weiteren aktiven Tag gedeckte) Freezes
+  let pending = 0; // noch nicht bestätigte Lücken
+  for (let i = start; i < 1000; i++) {
+    if (aktiv(plusTage(today, -i))) {
+      streak += 1;
+      genutzt += pending; // Lücken davor sind jetzt bestätigt überbrückt
+      pending = 0;
+    } else if (genutzt + pending + 1 <= freezes) {
+      pending += 1; // Lücke vorerst mit einem Freeze überbrücken
+    } else {
+      break; // kein Budget mehr → Streak endet
+    }
   }
-  return streak;
+  return { streak, genutzt };
+}
+
+/**
+ * Aktuelle Streak: aufeinanderfolgende Tage mit ≥ 1 Aktivität, endend heute
+ * (oder gestern, solange heute noch Zeit ist). Mit `freezes > 0` überstehen
+ * einzelne verpasste Tage den Streak (siehe {@link streakDetail}).
+ * @param {Object<string, number>} log
+ * @param {Date} [today]
+ * @param {number} [freezes]
+ * @returns {number}
+ */
+export function berechneStreak(log, today = new Date(), freezes = 0) {
+  return streakDetail(log, today, freezes).streak;
 }
 
 /** Gesamtzahl aktiver Tage (für Statistik/Badges). */
