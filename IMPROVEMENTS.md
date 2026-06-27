@@ -104,6 +104,12 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       (Skeleton). Größerer Eingriff (Async-Selektoren/Tests); erst falls nötig.
 - [ ] **P2 · M** **Quiz/Karteikarten auf `lernobjekte` vereinheitlichen:** dann auch dort
       Filter nach Prüfungsteil/Kategorie und optional Lernzettel als Karten.
+- [x] **P1 · M** ~~**Lückentext / Cloze (aktives Abrufen):**~~ neues Format + Modus `/luecken`.
+      Reine Engine `lib/cloze.js` (Parse + tolerante Prüfung, deutsche Normalisierung) und
+      Generator `lib/glossar.js`, der Cloze-Items **automatisch aus den Lernzetteln** erzeugt
+      (Muster „Begriff: Erklärung" + `**fett**`; 487 Items aus 278 Einheiten). Renderer
+      `components/ClozeFrage.jsx`. Alles getestet (21 neue Tests). ✅ 2026-06-27 (Sprint 2)
+      **Offen (Sprint 2-Rest):** MC/Matching/Reihenfolge, Confidence-based Answering.
 - [x] **P2 · M** ~~**PWA/Offline:**~~ installierbar (Manifest + maskierbares Icon) und
       **offline** nutzbar (Service Worker via `vite-plugin-pwa`/Workbox, Auto-Update,
       26 Assets precached). Plus Mobile-Meta (lang=de, theme-color, Safe-Area). ✅ 2026-06-21

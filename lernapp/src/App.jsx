@@ -16,12 +16,14 @@ import {
   Flame,
   Menu,
   X,
+  PencilLine,
 } from 'lucide-react';
 import Home from './pages/Home';
 // Übrige Seiten lazy laden – schlankerer Start-Chunk, Seite kommt bei Bedarf.
 const Lernen = lazy(() => import('./pages/Lernen'));
 const Flashcards = lazy(() => import('./pages/Flashcards'));
 const Quiz = lazy(() => import('./pages/Quiz'));
+const Luecken = lazy(() => import('./pages/Luecken'));
 const Klausur = lazy(() => import('./pages/Klausur'));
 const Lernzettel = lazy(() => import('./pages/Lernzettel'));
 const Wiederholen = lazy(() => import('./pages/Wiederholen'));
@@ -40,6 +42,7 @@ const NAV = [
   { to: '/lernzettel', label: 'Lernzettel', icon: FileText },
   { to: '/wiederholen', label: 'Wiederholen', icon: RotateCcw },
   { to: '/quiz', label: 'Quiz', icon: HelpCircle },
+  { to: '/luecken', label: 'Lückentext', icon: PencilLine },
   { to: '/klausur', label: 'Klausur', icon: GraduationCap },
   { to: '/statistik', label: 'Statistik', icon: BarChart3 },
 ];
@@ -213,6 +216,7 @@ function AnimatedMain() {
           <Route path="/lernzettel" element={<Lernzettel />} />
           <Route path="/wiederholen" element={<Wiederholen />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/luecken" element={<Luecken />} />
           <Route path="/klausur" element={<Klausur />} />
           <Route path="/statistik" element={<Statistik />} />
           <Route path="/suche" element={<Suche />} />
