@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { baueLernsession, STANDARD_UMFANG } from './lernsession';
+import { baueLernsession, baueSchwaechenSession, STANDARD_UMFANG } from './lernsession';
 
 /** Baut Helfer aus einfachen Maps. */
 function helfer({ status = {}, due = {}, box = {} } = {}) {
@@ -46,5 +46,63 @@ describe('baueLernsession', () => {
     const objekte = Array.from({ length: 25 }, (_, i) => obj(`n${i}`));
     expect(baueLernsession(objekte, helfer())).toHaveLength(STANDARD_UMFANG);
     expect(baueLernsession(objekte, helfer(), { umfang: 5 })).toHaveLength(5);
+  });
+});
+
+const tagObj = (id, tags) => ({ id, tags });
+
+describe('baueSchwaechenSession', () => {
+  it('priorisiert Objekte aus schwachen Themen', () => {
+    const objekte = [
+      tagObj('netz1', ['Netzwerk/IP-Adressierung']),
+      tagObj('sql1', ['Datenbank/SQL/ER-Modell']),
+      tagObj('netz2', ['Netzwerk/IP-Adressierung']),
+    ];
+    const session = baueSchwaechenSession(objekte, helfer(), {
+      schwachTags: ['Netzwerk/IP-Adressierung'],
+      umfang: 2,
+      rng: () => 0,
+    });
+    expect(session.map((o) => o.id).sort()).toEqual(['netz1', 'netz2']);
+  });
+
+  it('hält innerhalb der schwachen Themen die Reihenfolge üben > fällig > neu', () => {
+    const objekte = [
+      tagObj('neu', ['T']),
+      tagObj('faellig', ['T']),
+      tagObj('ueben', ['T']),
+    ];
+    const h = helfer({ status: { ueben: 'ueben' }, due: { faellig: true }, box: { faellig: 2 } });
+    const session = baueSchwaechenSession(objekte, h, { schwachTags: ['T'], rng: () => 0 });
+    expect(session.map((o) => o.id)).toEqual(['ueben', 'faellig', 'neu']);
+  });
+
+  it('füllt mit normaler Session auf, wenn der Schwächen-Pool zu klein ist', () => {
+    const objekte = [
+      tagObj('schwach', ['T']),
+      tagObj('rest1', ['X']),
+      tagObj('rest2', ['Y']),
+    ];
+    const session = baueSchwaechenSession(objekte, helfer(), {
+      schwachTags: ['T'],
+      umfang: 3,
+      rng: () => 0,
+    });
+    expect(session).toHaveLength(3);
+    expect(session[0].id).toBe('schwach'); // Schwäche zuerst
+    expect(session.map((o) => o.id).sort()).toEqual(['rest1', 'rest2', 'schwach']);
+  });
+
+  it('ohne schwache Tags = reine Auffüll-Session (wie normal)', () => {
+    const objekte = [tagObj('a', ['T']), tagObj('b', ['X'])];
+    const session = baueSchwaechenSession(objekte, helfer(), { schwachTags: [] });
+    expect(session.map((o) => o.id).sort()).toEqual(['a', 'b']);
+  });
+
+  it('deckelt auf den Umfang', () => {
+    const objekte = Array.from({ length: 25 }, (_, i) => tagObj(`n${i}`, ['T']));
+    expect(
+      baueSchwaechenSession(objekte, helfer(), { schwachTags: ['T'], umfang: 6 })
+    ).toHaveLength(6);
   });
 });

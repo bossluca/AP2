@@ -113,6 +113,26 @@ export default function Home() {
         </Link>
       )}
 
+      {/* Schwächen-Training: gezielt an den schwachen Themen arbeiten */}
+      {s.schwachstellen.length > 0 && (
+        <Link
+          to="/lernen?modus=schwaechen"
+          className="card-interactive flex items-center justify-between gap-3 p-4"
+        >
+          <div className="min-w-0">
+            <div className="text-lg font-semibold">🎯 Schwächen-Training</div>
+            <div className="text-sm text-gray-500 truncate">
+              Gezielt üben:{' '}
+              {s.schwachstellen
+                .slice(0, 3)
+                .map((x) => x.tag)
+                .join(' · ')}
+            </div>
+          </div>
+          <span className="text-amber-600 font-medium text-sm whitespace-nowrap">Üben →</span>
+        </Link>
+      )}
+
       {/* Statusüberblick */}
       <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
         <div className="card p-3 relative overflow-hidden">

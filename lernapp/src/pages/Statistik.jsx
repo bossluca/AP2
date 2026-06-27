@@ -206,7 +206,14 @@ export default function Statistik() {
 
       {/* Schwachstellen */}
       <section className="space-y-2">
-        <h2 className="font-semibold text-sm">Schwachstellen nach Thema</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-semibold text-sm">Schwachstellen nach Thema</h2>
+          {s.schwachstellen.length > 0 && (
+            <Link to="/lernen?modus=schwaechen" className="btn-soft-amber px-3 py-1.5 text-xs">
+              🎯 Gezielt üben
+            </Link>
+          )}
+        </div>
         {s.schwachstellen.length === 0 ? (
           <p className="text-xs text-gray-500">
             Noch keine Schwachstellen erkannt – markiere Objekte als „üben" oder bewerte sie im

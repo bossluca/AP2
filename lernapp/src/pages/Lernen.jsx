@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
-import { baueLernsession, STANDARD_UMFANG } from '../lib/lernsession';
+import { baueLernsession, baueSchwaechenSession, STANDARD_UMFANG } from '../lib/lernsession';
+import { berechneStatistik } from '../lib/statistik';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import { useTastenkuerzel } from '../hooks/useTastenkuerzel';
@@ -16,35 +17,51 @@ import MarkdownContent from '../components/MarkdownContent';
  */
 export default function Lernen() {
   const objekte = useMemo(() => getLernobjekte(), []);
-  const { getStatus, isDue, getEntry, recordReview, recordActivity, recordXp, gami } = useProgress();
+  const { getStatus, isDue, getEntry, progress, recordReview, recordActivity, recordXp, gami } =
+    useProgress();
+  const [searchParams] = useSearchParams();
 
   const [sessionKey, setSessionKey] = useState(0);
-  const [frei, setFrei] = useState(false);
+  // Modus: 'heute' (Smart-Session) | 'schwaechen' (gezielt) | 'frei' (lockere Runde).
+  const [modus, setModus] = useState(() =>
+    searchParams.get('modus') === 'schwaechen' ? 'schwaechen' : 'heute'
+  );
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [verlauf, setVerlauf] = useState([]); // bool[] – gewusst je Karte
   const [xpGesammelt, setXpGesammelt] = useState(0);
 
+  // Schwache Themen-Tags aus der Statistik (für den Schwächen-Modus).
+  const schwachTags = useMemo(
+    () => berechneStatistik(objekte, progress).schwachstellen.map((x) => x.tag),
+    [objekte, progress]
+  );
+
   // Session-Snapshot: hängt bewusst nicht am Fortschritt (Helfer sind refstabil),
   // damit die Reihe während des Lernens stabil bleibt. Neu nur bei „Neu starten".
   const session = useMemo(() => {
-    if (frei) return shuffle(objekte).slice(0, STANDARD_UMFANG);
-    return baueLernsession(objekte, { getStatus, isDue, getEntry });
+    const helfer = { getStatus, isDue, getEntry };
+    if (modus === 'frei') return shuffle(objekte).slice(0, STANDARD_UMFANG);
+    if (modus === 'schwaechen') return baueSchwaechenSession(objekte, helfer, { schwachTags });
+    return baueLernsession(objekte, helfer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [objekte, sessionKey, frei]);
+  }, [objekte, sessionKey, modus]);
 
   const current = index < session.length ? session[index] : null;
   const fertig = session.length > 0 && index >= session.length;
   const gewusstAnzahl = verlauf.filter(Boolean).length;
 
-  const neustart = (alsFrei = frei) => {
-    setFrei(alsFrei);
+  const neustart = (neuModus = modus) => {
+    setModus(neuModus);
     setSessionKey((k) => k + 1);
     setIndex(0);
     setRevealed(false);
     setVerlauf([]);
     setXpGesammelt(0);
   };
+
+  const titel =
+    modus === 'schwaechen' ? '🎯 Schwächen-Training' : modus === 'frei' ? '🎲 Lockere Runde' : '📚 Heute lernen';
 
   const bewerten = (gewusst) => {
     if (!current) return;
@@ -73,9 +90,16 @@ export default function Lernen() {
         <p className="text-sm text-gray-500">
           Nichts Fälliges offen – stark. Wenn du magst, leg eine lockere Übungsrunde ein.
         </p>
-        <button onClick={() => neustart(true)} className="btn-primary px-5 py-2.5">
-          Locker 10 üben
-        </button>
+        <div className="flex gap-2 justify-center flex-wrap">
+          <button onClick={() => neustart('frei')} className="btn-primary px-5 py-2.5">
+            🎲 Locker 10 üben
+          </button>
+          {schwachTags.length > 0 && (
+            <button onClick={() => neustart('schwaechen')} className="btn-soft-amber px-5 py-2.5">
+              🎯 Schwächen üben
+            </button>
+          )}
+        </div>
         <div>
           <Link to="/" className="text-sm text-indigo-600 hover:underline">
             Zur Startseite
@@ -111,7 +135,7 @@ export default function Lernen() {
           <Link to="/" className="btn-ghost px-4 py-2.5">
             Startseite
           </Link>
-          <button onClick={() => neustart(false)} className="btn-primary px-4 py-2.5">
+          <button onClick={() => neustart()} className="btn-primary px-4 py-2.5">
             Noch eine Runde
           </button>
         </div>
@@ -123,7 +147,7 @@ export default function Lernen() {
   return (
     <div className="max-w-xl mx-auto space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-bold">📚 Heute lernen</h1>
+        <h1 className="text-lg font-bold">{titel}</h1>
         <span className="text-sm text-gray-500">
           {index + 1} / {session.length}
         </span>
