@@ -3,6 +3,7 @@ import { getKlausuren } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
 import { pruefeAntwort } from '../lib/antwortpruefung';
 import { feiern } from '../lib/konfetti';
+import { useCountUp } from '../hooks/useCountUp';
 import { BEWERTUNGEN, ANTEIL } from '../lib/bewertung';
 import { xpFuerErgebnis } from '../lib/level';
 import MarkdownContent from '../components/MarkdownContent';
@@ -159,6 +160,10 @@ export default function Klausur() {
       .sort((a, b) => a.percent - b.percent);
   }, [ergebnisse]);
 
+  // Zahlen erst beim Betreten der Auswertung hochzählen (lebendiges Ergebnis).
+  const animProzent = useCountUp(phase === 'result' ? prozent : 0);
+  const animPunkte = useCountUp(phase === 'result' ? punkteErreicht : 0);
+
   // ---------------------------------------------------------------- Setup ---
   if (phase === 'setup') {
     const hatAP2 = klausuren.some((k) => k.pruefungsteil === 'AP2');
@@ -229,10 +234,10 @@ export default function Klausur() {
     return (
       <div className="space-y-4">
         <h1 className="text-xl font-bold">Auswertung</h1>
-        <div className="card p-4 text-center space-y-1">
-          <div className="text-3xl font-bold text-indigo-600">{prozent}%</div>
+        <div className="card p-4 text-center space-y-1 animate-in">
+          <div className="text-3xl font-bold text-indigo-600 tabular-nums">{animProzent}%</div>
           <div className="text-sm text-gray-500">
-            {punkteErreicht.toLocaleString('de')} von {punkteMax} Punkten · Tendenz Note {note}
+            {animPunkte.toLocaleString('de')} von {punkteMax} Punkten · Tendenz Note {note}
           </div>
           <div className="text-xs text-gray-400">
             (richtig = voll, teilweise = halb, falsch/nicht eingeschätzt = 0)
@@ -396,7 +401,7 @@ export default function Klausur() {
                         key={i}
                         className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs ${
                           t.getroffen
-                            ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300'
+                            ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 treffer-pop'
                             : 'bg-gray-100 dark:bg-gray-800 text-gray-500'
                         }`}
                         title={t.pflicht ? 'Pflicht-Schlagwort' : undefined}

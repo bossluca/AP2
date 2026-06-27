@@ -157,6 +157,22 @@ details > summary {
   animation: fadeInUp 0.35s ease both;
 }
 
+/* Kleiner „Treffer"-Puls für erkannte Schlagwörter (Klausur). */
+@keyframes treffer-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  60% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.treffer-pop {
+  animation: treffer-pop 0.28s ease both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-in {
     animation: none;
