@@ -20,7 +20,8 @@ import {
 } from '../lib/aktivitaet';
 import { berechneLevel } from '../lib/level';
 import { useAuth } from './AuthContext';
-import { progressApi } from '../lib/api';
+import { progressApi, gamificationApi } from '../lib/api';
+import { mergeGamification } from '../lib/gamiMerge';
 
 /**
  * Versionierter localStorage-Schlüssel. Bei inkompatiblen Schema-Änderungen
@@ -160,6 +161,15 @@ export function ProgressProvider({ children }) {
     progressRef.current = progress;
   }, [progress]);
 
+  // Ref auf den Gamification-Stand (für den Login-Merge) + Flag, ab wann der
+  // Server-Sync „scharf" ist (erst nach dem Login-Merge, sonst würde der lokale
+  // Stand den evtl. höheren Kontostand überschreiben).
+  const gamificationRef = useRef(gamification);
+  useEffect(() => {
+    gamificationRef.current = gamification;
+  }, [gamification]);
+  const gamiSyncBereit = useRef(false);
+
   // Ref auf den angemeldeten Nutzer, damit die Mutatoren refstabil bleiben und
   // trotzdem wissen, ob serverseitig synchronisiert werden soll.
   const userRef = useRef(user);
@@ -172,9 +182,13 @@ export function ProgressProvider({ children }) {
     saveProgress(progress);
   }, [progress]);
 
-  // Gamification-Stand lokal persistieren.
+  // Gamification-Stand lokal persistieren – und, wenn angemeldet und der
+  // Login-Merge durch ist, best-effort ins Konto durchschreiben (Overwrite).
   useEffect(() => {
     saveGamification(gamification);
+    if (userRef.current && gamiSyncBereit.current) {
+      gamificationApi.put(gamification).catch(() => {});
+    }
   }, [gamification]);
 
   // Multi-Tab-Sync: Änderungen in einem anderen Tab übernehmen.
@@ -191,6 +205,7 @@ export function ProgressProvider({ children }) {
   // (Migration) und anschließend den Kontostand als maßgeblich laden. Offline /
   // ohne Backend schlägt das fehl und der lokale Stand bleibt erhalten.
   useEffect(() => {
+    gamiSyncBereit.current = false; // bei Nutzerwechsel/Logout Sync pausieren
     if (!user) return;
     let aktiv = true;
     (async () => {
@@ -201,6 +216,16 @@ export function ProgressProvider({ children }) {
       } catch {
         /* offline: lokalen Stand behalten */
       }
+      // Gamification: Server-Stand laden, mit lokalem mischen (max-basiert) und
+      // übernehmen. Das anschließende setGamification schreibt via Save-Effekt
+      // den gemergten Stand ins Konto zurück.
+      try {
+        const { gamification: serverGami } = await gamificationApi.get();
+        if (aktiv) setGamification((lokal) => mergeGamification(lokal, serverGami));
+      } catch {
+        /* offline: lokalen Stand behalten */
+      }
+      if (aktiv) gamiSyncBereit.current = true;
     })();
     return () => {
       aktiv = false;

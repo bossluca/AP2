@@ -40,3 +40,8 @@ export const progressApi = {
   merge: (progress) => request('/progress/merge', { method: 'POST', body: { progress } }),
   reset: () => request('/progress', { method: 'DELETE' }),
 };
+
+export const gamificationApi = {
+  get: () => request('/gamification'),
+  put: (gamification) => request('/gamification', { method: 'PUT', body: gamification }),
+};

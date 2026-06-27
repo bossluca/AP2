@@ -236,8 +236,11 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       7 aktive Tage, max 2), Freeze-Anzeige am Streak. Plus 3 abgeleitete **Tages-Quests**
       (`lib/quests.js`, rein/getestet) als Motivations-Checkliste auf Home. 10 neue Tests.
       ✅ 2026-06-27 (Sprint 4, s. PRODUKT_STRATEGIE.md)
-- [ ] **P3 · S** **Streak/Aktivität ins Backend syncen** (aktuell rein lokal in
-      `ap2_lernapp_gamification_v1`), damit Streak geräteübergreifend zählt.
+- [x] **P2 · S** ~~**Gamification pro Konto syncen**~~ – Streak/XP/Quests kontogebunden &
+      geräteübergreifend: Tabelle `gamification` + `/api/gamification` (GET/PUT), Login-Merge
+      max-basiert (`lib/gamiMerge.js`, rein/getestet), Write-Through, Reset serverseitig.
+      Damit hat **jedes Konto seinen vollständigen Fortschritt** (Lernstand war schon pro Konto).
+      ✅ 2026-06-27
 - [x] **P2 · M** ~~**XP & Level:**~~ jede Bewertung gibt XP (richtig 10 / teilweise 5 /
       falsch 2), Level mit wachsender Kurve + Fortschrittsbalken (Statistik) und Level-
       Chip auf der Startseite. Tiefes Modul `lib/level.js` (7 Tests), XP im

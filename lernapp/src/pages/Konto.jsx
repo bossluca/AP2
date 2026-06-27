@@ -40,8 +40,8 @@ export default function Konto() {
           Angemeldet als <span className="font-medium">{user.email}</span>.
         </p>
         <p className="text-sm text-gray-500">
-          Dein Lernfortschritt wird mit diesem Konto synchronisiert und ist auf anderen Geräten
-          verfügbar.
+          Dein Fortschritt – Lernstand, XP/Level und Streak – wird mit diesem Konto synchronisiert
+          und ist auf anderen Geräten verfügbar. Jedes Konto hat seinen eigenen Fortschritt.
         </p>
         <button
           onClick={() => logout()}

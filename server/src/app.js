@@ -5,6 +5,7 @@ import { openDb } from './db.js';
 import { userFromToken } from './session.js';
 import { authRoutes } from './auth.js';
 import { progressRoutes } from './progress.js';
+import { gamificationRoutes } from './gamification.js';
 
 /**
  * Baut die Fastify-App (ohne sie zu starten) – so kann sie in Tests via
@@ -47,6 +48,7 @@ export async function buildApp(opts = {}) {
 
   await app.register(authRoutes);
   await app.register(progressRoutes);
+  await app.register(gamificationRoutes);
 
   return app;
 }

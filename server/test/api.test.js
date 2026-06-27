@@ -157,6 +157,36 @@ test('Merge übernimmt nur fehlende Einträge (nicht-destruktiv)', async () => {
   assert.equal(get.json().progress.b.status, 'ueben');
 });
 
+test('Gamification: pro Nutzer speichern, laden und isolieren', async () => {
+  const a = await registriere('gami-a@example.de');
+  const ha = { cookie: a.cookieHeader };
+
+  // Anfangs nichts gespeichert.
+  assert.equal((await app.inject({ url: '/api/gamification', headers: ha })).json().gamification, null);
+
+  await app.inject({
+    method: 'PUT',
+    url: '/api/gamification',
+    headers: ha,
+    payload: { activity: { '2026-06-27': 5 }, xp: 120, klausurBest: 80 },
+  });
+
+  const g = (await app.inject({ url: '/api/gamification', headers: ha })).json().gamification;
+  assert.equal(g.xp, 120);
+  assert.equal(g.klausurBest, 80);
+  assert.equal(g.activity['2026-06-27'], 5);
+
+  // Anderer Nutzer sieht davon nichts.
+  const b = await registriere('gami-b@example.de');
+  const gb = (await app.inject({ url: '/api/gamification', headers: { cookie: b.cookieHeader } })).json();
+  assert.equal(gb.gamification, null);
+});
+
+test('Gamification ohne Login ist 401', async () => {
+  const res = await app.inject({ url: '/api/gamification' });
+  assert.equal(res.statusCode, 401);
+});
+
 test('Nutzer sehen den Fortschritt anderer nicht', async () => {
   const a = await registriere('a@example.de');
   await app.inject({

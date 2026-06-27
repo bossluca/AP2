@@ -56,6 +56,18 @@ export function openDb(path) {
     );
   `);
 
+  // Gamification pro Nutzer (Aktivitäts-Log, XP, bestes Klausur-Ergebnis) –
+  // damit auch Streak/XP/Quests kontogebunden sind, nicht nur lokal pro Browser.
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS gamification (
+      user_id      INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+      activity     TEXT,
+      xp           INTEGER,
+      klausur_best INTEGER,
+      updated_at   TEXT NOT NULL
+    );
+  `);
+
   // Idempotente Migration: FSRS-Spalten in bestehende DBs additiv ergänzen
   // (CREATE TABLE oben deckt nur frische DBs ab). `ALTER TABLE … ADD COLUMN`
   // ist additiv und verlustfrei.
