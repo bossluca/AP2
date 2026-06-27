@@ -229,7 +229,7 @@ export default function Quiz() {
                     onClick={() => handleAnswer(opt)}
                     className={`py-2.5 rounded-md text-sm font-medium transition-colors ${opt.classes}`}
                   >
-                    {opt.label}
+                    <span aria-hidden="true">{opt.symbol}</span> {opt.label}
                   </button>
                 ))}
               </div>

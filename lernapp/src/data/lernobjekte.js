@@ -16,6 +16,8 @@ import { getLearnableQuestions, getLerneinheiten } from './useExamData';
  * @property {string|null} back      Markdown-Rückseite (Lösung bzw. Inhalt) oder null.
  * @property {boolean} hatLoesung    Ob eine Rückseite/Lösung vorhanden ist.
  * @property {boolean} [unverifiziert] Nur Fragen: Lösung unverifiziert.
+ * @property {number|null} schwierigkeit  Optional 1 (leicht) … 3 (schwer); steuert
+ *           u. a. die FSRS-Initialschwierigkeit. `null` = unbekannt.
  */
 
 /** @type {Lernobjekt[]|null} */
@@ -35,6 +37,7 @@ function fromFrage(q) {
     back: q.hat_antwort ? q.loesung_text : null,
     hatLoesung: !!q.hat_antwort,
     unverifiziert: !!q.unverifiziert_markiert,
+    schwierigkeit: Number.isFinite(q.schwierigkeit) ? q.schwierigkeit : null,
   };
 }
 
@@ -50,6 +53,7 @@ function fromLerneinheit(l) {
     front: `**${l.titel}**`,
     back: l.inhalt_text,
     hatLoesung: true,
+    schwierigkeit: Number.isFinite(l.schwierigkeit) ? l.schwierigkeit : null,
   };
 }
 

@@ -8,6 +8,7 @@
  * @typedef {Object} Bewertungsstufe
  * @property {'richtig'|'teilweise'|'falsch'} key
  * @property {string}  label
+ * @property {string}  symbol   Farb-unabhängiges Zeichen (A11y: nicht nur rot/grün).
  * @property {number}  anteil   Punktanteil (richtig = 1, teilweise = 0,5, falsch = 0).
  * @property {string}  classes  Tailwind-Klassen für den Button (Hintergrund/Text/Hover).
  * @property {string}  ring     Tailwind-Ring-Klasse für den aktiven Zustand.
@@ -18,6 +19,7 @@ export const BEWERTUNGEN = [
   {
     key: 'richtig',
     label: 'Richtig',
+    symbol: '✓',
     anteil: 1,
     classes:
       'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/60',
@@ -26,6 +28,7 @@ export const BEWERTUNGEN = [
   {
     key: 'teilweise',
     label: 'Teilweise',
+    symbol: '≈',
     anteil: 0.5,
     classes:
       'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60',
@@ -34,6 +37,7 @@ export const BEWERTUNGEN = [
   {
     key: 'falsch',
     label: 'Falsch',
+    symbol: '✗',
     anteil: 0,
     classes:
       'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/60',

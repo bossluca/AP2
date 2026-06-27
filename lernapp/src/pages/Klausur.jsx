@@ -443,7 +443,7 @@ export default function Klausur() {
                           aktiv ? `ring-2 ${opt.ring}` : ''
                         }`}
                       >
-                        {opt.label}
+                        <span aria-hidden="true">{opt.symbol}</span> {opt.label}
                       </button>
                     );
                   })}

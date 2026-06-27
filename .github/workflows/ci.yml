@@ -1,0 +1,50 @@
+name: CI
+
+# Hält die Suite grün: Frontend (Vitest + Lint + Build + Datencheck) und
+# Backend (node:test) bei jedem Push/PR. node_modules ist gitignored → npm ci
+# installiert reproduzierbar aus den committeten package-lock.json.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Frontend (lernapp)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lernapp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: lernapp/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npm run validate-data
+
+  backend:
+    name: Backend (server)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+      - run: npm test
