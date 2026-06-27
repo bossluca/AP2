@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { getLearnableQuestions } from '../data/useExamData';
-import { bewerten, istFaellig } from '../lib/srs';
+import { bewerten, istFaellig } from '../lib/fsrs';
 import {
   addAktivitaet,
   berechneStreak,
@@ -66,9 +66,26 @@ function saveGamification(g) {
  * @property {string}            [lastSeen] ISO-Zeitstempel des letzten Kontakts.
  * @property {'richtig'|'teilweise'|'falsch'} [lastResult] Letztes Quiz-Ergebnis.
  * @property {{ts:string, result:string}[]} [history] Letzte (max. 20) Ergebnisse.
- * @property {number}            [box]      Leitner-Box (1–5) für Spaced Repetition.
+ * @property {number}            [box]      Abgeleitete Stärke-Stufe (1–5) für Anzeige/Statistik.
+ * @property {number}            [stability]   FSRS-Stabilität (Tage bis Ziel-Retention).
+ * @property {number}            [difficulty]  FSRS-Schwierigkeit (1–10).
+ * @property {number}            [reps]        Anzahl Wiederholungen.
+ * @property {number}            [lapses]      Anzahl Vergessens-Ereignisse.
+ * @property {string}            [last_review] ISO-Zeitstempel der letzten Bewertung.
  * @property {string}            [due]      ISO-Zeitstempel der nächsten Fälligkeit.
  */
+
+/**
+ * Ergebnis-Label einer SRS-Bewertung für die Historie (steuert u. a. die
+ * Schwachstellen-Erkennung in `statistik.js`). Akzeptiert boolean oder FSRS-Note.
+ * @param {boolean|number} note
+ */
+function reviewLabel(note) {
+  if (typeof note === 'boolean') return note ? 'gewusst' : 'nicht';
+  if (note <= 1) return 'nicht';
+  if (note === 2) return 'schwer';
+  return 'gewusst';
+}
 
 /**
  * @typedef {Object.<string, QuestionProgress>} ProgressMap
@@ -109,7 +126,7 @@ function saveProgress(progress) {
  * @property {ProgressMap} progress
  * @property {(id:string, status:'gelernt'|'ueben') => void} setStatus
  * @property {(id:string, result:'richtig'|'teilweise'|'falsch') => void} recordQuizResult
- * @property {(id:string, gewusst:boolean) => void} recordReview  Leitner-Bewertung.
+ * @property {(id:string, note:boolean|number) => void} recordReview  FSRS-Bewertung (boolean oder Note 1–4).
  * @property {() => void} resetProgress
  * @property {(id:string) => (string|null)} getStatus  Refstabil.
  * @property {(id:string) => (QuestionProgress|null)} getEntry   Refstabil.
@@ -227,19 +244,21 @@ export function ProgressProvider({ children }) {
   );
 
   /**
-   * Bewertet ein Lernobjekt im Spaced-Repetition-Sinn (Leitner). Aktualisiert
-   * Box + Fälligkeit und protokolliert das Ergebnis in der Historie. Unabhängig
-   * vom manuellen `status` (gelernt/üben).
+   * Bewertet ein Lernobjekt im Spaced-Repetition-Sinn (FSRS). Aktualisiert den
+   * FSRS-Zustand (Stabilität/Schwierigkeit/Fälligkeit, abgeleitete Box) und
+   * protokolliert das Ergebnis in der Historie. Unabhängig vom manuellen
+   * `status` (gelernt/üben). Alt-Daten (Leitner-`box`) werden transparent migriert.
    * @param {string} questionId
-   * @param {boolean} gewusst
+   * @param {boolean|1|2|3|4} note  boolean (gewusst?) oder FSRS-Note
+   *        (1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht).
    */
   const recordReview = useCallback(
-    (questionId, gewusst) => {
+    (questionId, note) => {
       const existing = progressRef.current[questionId] || {};
-      const srs = bewerten(existing, gewusst);
+      const srs = bewerten(existing, note);
       const history = [
         ...(existing.history || []),
-        { ts: new Date().toISOString(), result: gewusst ? 'gewusst' : 'nicht' },
+        { ts: new Date().toISOString(), result: reviewLabel(note) },
       ].slice(-20);
       persist(questionId, {
         ...existing,
@@ -289,7 +308,7 @@ export function ProgressProvider({ children }) {
   /** Refstabiler Lookup des kompletten Fortschritts-Eintrags (oder null). */
   const getEntry = useCallback((questionId) => progressRef.current[questionId] || null, []);
 
-  /** Refstabil: ist das Lernobjekt aktuell fällig (Leitner)? Neu = fällig. */
+  /** Refstabil: ist das Lernobjekt aktuell fällig (FSRS)? Neu = fällig. */
   const isDue = useCallback(
     (questionId) => istFaellig(progressRef.current[questionId]),
     []

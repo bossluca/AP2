@@ -1,16 +1,37 @@
 import { useMemo, useState } from 'react';
 import { getLernobjekte, filterLernobjekte, defaultLernfilter } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
-import { MAX_BOX } from '../lib/srs';
+import { MAX_BOX, bewerten as fsrsBewerten } from '../lib/fsrs';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import { useTastenkuerzel } from '../hooks/useTastenkuerzel';
 import MarkdownContent from '../components/MarkdownContent';
 
+const TAG_MS = 86400000;
+
+/** XP-Ergebnis je FSRS-Note (Übung zählt – auch „Nochmal" gibt etwas). */
+const NOTE_XP = { 1: 'nicht', 2: 'teilweise', 3: 'gewusst', 4: 'gewusst' };
+
+/** Die vier Bewertungs-Knöpfe (FSRS-Noten Nochmal/Schwer/Gut/Leicht). */
+const NOTE_BUTTONS = [
+  { note: 1, label: 'Nochmal', taste: '1', classes: 'btn-soft-red' },
+  { note: 2, label: 'Schwer', taste: '2', classes: 'btn-soft-amber' },
+  { note: 3, label: 'Gut', taste: '3', classes: 'btn-soft-green' },
+  { note: 4, label: 'Leicht', taste: '4', classes: 'btn-soft-green' },
+];
+
+/** Ganze Tage von heute (Tagesbeginn) bis zur Fälligkeit – für die Intervall-Vorschau. */
+function tageBis(dueIso) {
+  const heute0 = new Date();
+  heute0.setHours(0, 0, 0, 0);
+  return Math.max(1, Math.round((new Date(dueIso).getTime() - heute0.getTime()) / TAG_MS));
+}
+
 /**
- * Wiederholen-Modus: Spaced-Repetition-Sitzung (Leitner) über Lernobjekte
+ * Wiederholen-Modus: Spaced-Repetition-Sitzung (FSRS) über Lernobjekte
  * (Prüfungsfragen + Lernzettel), gefiltert nach Art/Teil/Kategorie/Tag und
- * optional nur fällige. Bewertung „Gewusst/Nicht" steuert die Leitner-Box.
+ * optional nur fällige. 4-stufige Bewertung (Nochmal/Schwer/Gut/Leicht) steuert
+ * Stabilität & nächste Fälligkeit; je Knopf wird das nächste Intervall vorab gezeigt.
  */
 export default function Wiederholen() {
   const objekte = useMemo(() => getLernobjekte(), []);
@@ -72,27 +93,29 @@ export default function Wiederholen() {
     setDone(0);
   };
 
-  const handleReview = (gewusst) => {
+  const handleReview = (note) => {
     if (!current) return;
-    recordReview(current.id, gewusst);
+    recordReview(current.id, note);
     recordActivity(1);
-    recordXp(xpFuerErgebnis(gewusst ? 'gewusst' : 'nicht'));
+    recordXp(xpFuerErgebnis(NOTE_XP[note] || 'nicht'));
     setDone((d) => d + 1);
     setRevealed(false);
     setIndex((i) => i + 1);
   };
 
-  // Tastatur: Leertaste deckt auf, danach 1 = nicht gewusst, 2 = gewusst.
+  // Tastatur: Leertaste deckt auf, danach 1–4 = Bewertung (Nochmal…Leicht).
   useTastenkuerzel({
     ' ': () => current && !revealed && setRevealed(true),
-    1: () => current && revealed && handleReview(false),
-    2: () => current && revealed && handleReview(true),
+    1: () => current && revealed && handleReview(1),
+    2: () => current && revealed && handleReview(2),
+    3: () => current && revealed && handleReview(3),
+    4: () => current && revealed && handleReview(4),
   });
 
-  const selectClass =
-    'input';
+  const selectClass = 'input';
 
-  const box = current ? getEntry(current.id)?.box : null;
+  const entry = current ? getEntry(current.id) : null;
+  const box = entry?.box ?? null;
 
   return (
     <div className="space-y-4">
@@ -191,7 +214,7 @@ export default function Wiederholen() {
                 <span className="chip text-xs">
                   {current.art === 'frage' ? '📄 Frage' : '📝 Lernzettel'}
                 </span>
-                <span className="text-xs">{box ? `Box ${box}/${MAX_BOX}` : 'neu'}</span>
+                <span className="text-xs">{box ? `Stärke ${box}/${MAX_BOX}` : 'neu'}</span>
               </span>
             </div>
 
@@ -237,24 +260,25 @@ export default function Wiederholen() {
                       </p>
                     )}
                   </div>
-                  <div className="flex gap-2 pt-2">
-                    <button
-                      onClick={() => handleReview(false)}
-                      className="btn-soft-red flex-1 py-2.5"
-                    >
-                      Nicht gewusst <span className="opacity-60" aria-hidden="true">(1)</span>
-                    </button>
-                    <button
-                      onClick={() => handleReview(true)}
-                      className="btn-soft-green flex-1 py-2.5"
-                    >
-                      Gewusst <span className="opacity-60" aria-hidden="true">(2)</span>
-                    </button>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+                    {NOTE_BUTTONS.map((b) => (
+                      <button
+                        key={b.note}
+                        onClick={() => handleReview(b.note)}
+                        className={`${b.classes} flex-col py-2 leading-tight`}
+                      >
+                        <span className="font-medium">{b.label}</span>
+                        <span className="text-[11px] opacity-70">
+                          {tageBis(fsrsBewerten(entry, b.note).due)} T
+                          <span aria-hidden="true"> · {b.taste}</span>
+                        </span>
+                      </button>
+                    ))}
                   </div>
                 </>
               )}
               <p className="text-[11px] text-gray-400 text-center pt-1">
-                Tipp: Leertaste zum Aufdecken · 1 = nicht gewusst · 2 = gewusst
+                Leertaste deckt auf · 1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht · „T" = nächstes Intervall
               </p>
             </div>
           </div>

@@ -89,6 +89,12 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       getestet) priorisiert Objekte aus den schwachen Tags (`berechneStatistik`) und füllt
       bei Bedarf mit normaler Session auf. Einstieg über `Lernen?modus=schwaechen`, Karte
       auf Home + „Gezielt üben" in der Statistik. ✅ 2026-06-27
+- [x] **P1 · L** ~~**FSRS statt Leitner (Gedächtnismodell):**~~ reines, getestetes Modul
+      `lib/fsrs.js` (Stabilität/Schwierigkeit/Abrufwahrscheinlichkeit, Ziel-Retention 90 %,
+      4-stufige Bewertung Nochmal/Schwer/Gut/Leicht) an derselben Naht wie der Leitner-Adapter
+      (`lib/srs.js` bleibt als Zweit-Adapter; `box`-Altdaten werden beim 1. Review transparent
+      migriert). `ProgressContext.recordReview(id, note)` nutzt FSRS; Wiederholen zeigt je Note
+      die **Intervall-Vorschau** (Anki-Stil). 16 neue Tests. ✅ 2026-06-27 (Sprint 1, s. PRODUKT_STRATEGIE.md)
 - [x] **P1 · M** ~~**Bundle-Größe / Code-Splitting:**~~ Routen lazy-geladen (React.lazy +
       Suspense) und `vite manualChunks` (vendor + examdata getrennt). **Start-Code-Chunk
       953 KB → ~32 KB** (gzip ~11 KB); Seiten als 2–11 KB-Chunks; Daten/Libs getrennt

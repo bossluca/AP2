@@ -27,8 +27,8 @@ describe('Wiederholen-Modus', () => {
     renderPage();
     // Vorderseite aufdecken (Frage- oder Lernzettel-Karte).
     await user.click(screen.getByRole('button', { name: /anzeigen/i }));
-    // Bewerten.
-    await user.click(screen.getByRole('button', { name: 'Gewusst' }));
+    // Bewerten mit FSRS-Note „Gut" (Name enthält die Intervall-Vorschau).
+    await user.click(screen.getByRole('button', { name: /^Gut/ }));
     expect(screen.getByText(/^2 von \d+$/)).toBeInTheDocument();
   });
 
