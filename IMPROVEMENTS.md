@@ -123,10 +123,12 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       bei kurzen, nicht schützbaren Funktions-/Faktenfragen). Beim Paraphrasieren zugleich
       **`schluesselwoerter` + `thema_tags` ergänzt** → AP1 jetzt mit Auto-Auswertung im
       Klausur-Modus (132 Musterlösungen treffen ihre eigenen Schlagwörter).
-      **Rest-/Folgepunkte:** (a) Roh-PDFs (`Pruefungen_Rohdaten/`, `Pruefungen_Aufbereitet/`)
-      weiterhin **nicht öffentlich** ausliefern; (b) **Git-Historie** enthält noch die
-      verbatim Originale → vor echtem Public-Hosting ggf. bereinigen; (c) inhaltlicher
-      Feinschliff der neu formulierten Lösungen (stichprobenartig). Siehe ADR-007.
+      **Git-Historie bereinigt (2026-06-27):** Historie in einen wurzellosen Commit
+      gesquasht (force-push) **und** Roh-/Aufbereitet-Ordner aus dem Tracking genommen +
+      gitignored → kein urheberrechtlich geschütztes Original mehr im Repo (117 statt 302
+      Dateien). **Rest:** (a) Repo privat halten (GitHub kann unerreichbare Commits intern
+      kurz vorhalten); (b) inhaltlicher Feinschliff der Lösungen (stichprobenartig). Siehe
+      ADR-007.
 - [ ] **P1 · M** **Restliche AP1-Lernzettel** (nativer Text, schnell): Prüfungskatalog
       FISI (als **Kategorie-/Tag-Gerüst** für alle Inhalte nutzbar!), Kurzform,
       ap1-lernguide, `AP1_Lerninhalte_Systemintegration.html`. Pattern wie AP1-Import.

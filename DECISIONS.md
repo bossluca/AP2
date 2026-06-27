@@ -114,12 +114,19 @@ AP2-Übungsklausur war von Anfang an KI-generiert. Originalität automatisiert g
 (4-Gramm-Jaccard Median ~0,08; hohe Ähnlichkeit nur bei kurzen, nicht schützbaren
 Funktions-/Faktenfragen wie „Nennen Sie zwei gesetzliche Grundlagen").
 
+**Git-Historie bereinigt (2026-06-27):** Historie in **einen wurzellosen Commit**
+zusammengefasst (squash + force-push) → die verbatim Originaltexte aus früheren Commits
+sind aus der erreichbaren Historie entfernt. Zusätzlich **Roh-/Aufbereitet-Ordner aus
+dem Tracking genommen** (`git rm --cached`) und **gitignored**: `Pruefungen_Rohdaten/` +
+`Pruefungen_Aufbereitet/` sind nur noch **lokale Arbeitsgrundlage** (Import-Skripte lesen
+sie weiter). Repo enthält damit kein urheberrechtlich geschütztes Original mehr (117 statt
+302 getrackte Dateien; größte Datei 712 KB, Large-File-Warnung weg).
+
 **Konsequenzen / Rest-To-do:**
 - Der eigentliche Schutz ist die **echte Neuformulierung** – erfüllt; das Label allein
   ersetzt sie nicht. Stichproben-Feinschliff der Lösungen bleibt sinnvoll.
-- **Git-Historie** enthält noch die verbatim Originale (Commits vor der Paraphrasierung)
-  → vor echtem Public-Hosting ggf. History bereinigen (z. B. squash/filter).
-- Roh-/Aufbereitet-Material (`Pruefungen_Rohdaten/`, `Pruefungen_Aufbereitet/`) **nicht
-  öffentlich ausliefern** – nur lokale Arbeitsgrundlage; `_quelle/` ist gitignored.
-- **Repo privat halten**, bis die History-Frage geklärt ist (Bezug zu `DEPLOYMENT.md`).
+- **GitHub** kann unerreichbare alte Commits intern noch eine Weile vorhalten (privates
+  Repo → gering). Lokaler Sicherungs-Tag `pre-squash-backup-20260627` (nicht gepusht).
+- **Repo vorerst privat halten**; Roh-/Aufbereitet-Material **nicht** zurück ins Repo
+  holen / nicht öffentlich ausliefern (Bezug zu `DEPLOYMENT.md`).
 - **Keine Rechtsberatung** – im Zweifel rechtlich prüfen lassen.
