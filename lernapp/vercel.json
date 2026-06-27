@@ -3,12 +3,6 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://DEIN-BACKEND-HOST.example.com/api/:path*"
-    }
-  ],
   "headers": [
     {
       "source": "/sw.js",

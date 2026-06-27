@@ -143,8 +143,8 @@ PORT=3001                      # Railway/Render setzen PORT selbst – dann nich
 # CORS_ORIGIN bewusst NICHT setzen – über den Vercel-Rewrite ist alles same-origin.
 ```
 
-**3. Vercel-Rewrite eintragen:** In [`lernapp/vercel.json`](lernapp/vercel.json) ist der
-Rewrite bereits angelegt – nur den Platzhalter durch deine Backend-URL ersetzen:
+**3. Vercel-Rewrite eintragen:** in [`lernapp/vercel.json`](lernapp/vercel.json) ergänzen
+(Backend-URL einsetzen):
 ```jsonc
 "rewrites": [
   { "source": "/api/:path*", "destination": "https://DEIN-BACKEND-HOST.example.com/api/:path*" }
@@ -199,11 +199,12 @@ Ideal für einen schnellen Test-Link (rein statisch, ohne Backend → lokaler Fo
 3. Für reines Seiten-Routing ist kein Rewrite nötig (die App nutzt **HashRouter**, `#/…`).
 4. PWA (installierbar/offline) funktioniert über HTTPS automatisch.
 
-> **Mit Login & Sync auf Vercel?** Geht – aber das SQLite-Backend kann **nicht** auf
-> Vercel selbst laufen. Frontend auf Vercel lassen und `/api/*` per Rewrite an ein
-> separat gehostetes Backend proxien → **siehe [Variante C](#variante-c--frontend-auf-vercel--backend-separat-loginsync)**.
-> Der Rewrite ist in `lernapp/vercel.json` schon angelegt (nur Backend-URL eintragen);
-> ohne gesetztes Backend bleibt der `/api`-Aufruf wirkungslos und die App läuft rein lokal.
+> **Mit Login & Sync?** Das SQLite-Backend kann **nicht** auf Vercel selbst laufen
+> (serverless, kein persistentes Dateisystem). Zwei Wege: **(empfohlen)** die ganze App
+> auf den eigenen Host (Proxmox/VPS, [Variante A](#variante-a--proxmox-lxc)) – dann
+> brauchst du Vercel gar nicht; **oder** Frontend auf Vercel lassen und `/api/*` per
+> Rewrite an ein separat gehostetes Backend proxien → **siehe
+> [Variante C](#variante-c--frontend-auf-vercel--backend-separat-loginsync)**.
 
 Danach derselbe `dist/`-Build später auf dem **Proxmox-Server** (mit Backend via
 Docker/Caddy) – siehe oben.
