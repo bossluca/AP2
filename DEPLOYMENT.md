@@ -115,6 +115,53 @@ markiert; der Rest ist als **selbst zu prüfen** gekennzeichnet (statt zu raten)
 > RAM-Größe, IPv4-Inklusiv, KVM) kann ich nicht garantieren – das bitte am
 > Bestellformular gegenchecken. Das Compose-Setup selbst ist anbieterneutral.
 
+## Variante C — Frontend auf Vercel + Backend separat (Login/Sync)
+
+Für Login & geräteübergreifenden Fortschritt **bei gleichzeitigem Vercel-Hosting** des
+Frontends. **Wichtig:** Vercel ist serverless – das Backend mit lokaler **SQLite-Datei**
+kann dort **nicht** laufen (kein persistentes Dateisystem). Das Backend läuft daher auf
+einem **dauerhaften Host**; Vercel liefert nur das statische Frontend und **proxyt
+`/api/*`** dorthin (same-origin → Cookies bleiben `SameSite=Lax`, kein CORS nötig).
+
+```
+Browser ── HTTPS ──▶ app.vercel.app ──(Rewrite /api/*)──▶ https://backend-host/api/*
+            (Frontend, statisch)                          (Fastify + SQLite, persistent)
+```
+
+**1. Backend auf einem persistenten Host deployen** – zwei gängige Wege:
+- **Managed (am einfachsten):** Railway / Render / Fly.io – `server/` als Node-Service
+  deployen, **persistentes Volume** auf den DB-Pfad mounten, HTTPS gibt's automatisch.
+- **Self-host:** den vorhandenen Stack auf Proxmox/VPS (Variante A/B); für Variante C
+  genügt, dass das **Backend** unter einer eigenen HTTPS-(Sub-)Domain erreichbar ist
+  (z. B. `api.deine-domain.de` via Caddy-Reverse-Proxy auf den Backend-Container).
+
+**2. Backend-Env (Produktion):**
+```bash
+NODE_ENV=production            # → Cookie wird mit Secure gesetzt (Pflicht über HTTPS)
+DB_PATH=/data/lernapp.sqlite   # auf ein PERSISTENTES Volume legen (sonst Datenverlust!)
+PORT=3001                      # Railway/Render setzen PORT selbst – dann nicht überschreiben
+# CORS_ORIGIN bewusst NICHT setzen – über den Vercel-Rewrite ist alles same-origin.
+```
+
+**3. Vercel-Rewrite eintragen:** In [`lernapp/vercel.json`](lernapp/vercel.json) ist der
+Rewrite bereits angelegt – nur den Platzhalter durch deine Backend-URL ersetzen:
+```jsonc
+"rewrites": [
+  { "source": "/api/:path*", "destination": "https://DEIN-BACKEND-HOST.example.com/api/:path*" }
+]
+```
+Danach in Vercel neu deployen. (Kein `VITE_API_URL` nötig – der Default `/api` greift dank
+Rewrite.)
+
+**4. Prüfen:** `https://app.vercel.app/api/health` muss `{"status":"ok"}` liefern; dann
+in der App **Konto → Registrieren/Login**. Beim ersten Login wird der lokale Stand
+nicht-destruktiv übernommen.
+
+> **Alternative ohne Rewrite (Cross-Origin):** Statt des Rewrites `VITE_API_URL=https://backend-host/api`
+> als Vercel-Env setzen. Dann braucht das Backend `CORS_ORIGIN=https://app.vercel.app`
+> **und** der Cookie muss `SameSite=None; Secure` sein – fragiler (Third-Party-Cookie-Blocker).
+> Der Rewrite-Weg oben ist robuster und empfohlen.
+
 ---
 
 ## Empfehlung (Entscheidung liegt bei dir)
@@ -149,8 +196,14 @@ Ideal für einen schnellen Test-Link (rein statisch, ohne Backend → lokaler Fo
 2. Framework wird als **Vite** erkannt (Build `npm run build`, Output `dist`) – ist
    zusätzlich in [`lernapp/vercel.json`](lernapp/vercel.json) hinterlegt (inkl.
    `Cache-Control: no-cache` für `sw.js`/`manifest`, damit PWA-Updates sofort greifen).
-3. Kein Rewrite nötig (die App nutzt **HashRouter**, Routing läuft über `#/…`).
+3. Für reines Seiten-Routing ist kein Rewrite nötig (die App nutzt **HashRouter**, `#/…`).
 4. PWA (installierbar/offline) funktioniert über HTTPS automatisch.
+
+> **Mit Login & Sync auf Vercel?** Geht – aber das SQLite-Backend kann **nicht** auf
+> Vercel selbst laufen. Frontend auf Vercel lassen und `/api/*` per Rewrite an ein
+> separat gehostetes Backend proxien → **siehe [Variante C](#variante-c--frontend-auf-vercel--backend-separat-loginsync)**.
+> Der Rewrite ist in `lernapp/vercel.json` schon angelegt (nur Backend-URL eintragen);
+> ohne gesetztes Backend bleibt der `/api`-Aufruf wirkungslos und die App läuft rein lokal.
 
 Danach derselbe `dist/`-Build später auf dem **Proxmox-Server** (mit Backend via
 Docker/Caddy) – siehe oben.
