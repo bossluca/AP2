@@ -99,6 +99,33 @@ test('Fortschritt: setzen, laden, zurücksetzen', async () => {
   assert.deepEqual(leer.json().progress, {});
 });
 
+test('Fortschritt: FSRS-Felder (stability/difficulty/reps/lapses/last_review) bleiben erhalten', async () => {
+  const { cookieHeader } = await registriere();
+  const headers = { cookie: cookieHeader };
+
+  await app.inject({
+    method: 'PUT',
+    url: '/api/progress/lz_ap2_fsrs_1',
+    headers,
+    payload: {
+      box: 3,
+      due: '2026-07-01T00:00:00.000Z',
+      stability: 12.34,
+      difficulty: 5.67,
+      reps: 4,
+      lapses: 1,
+      last_review: '2026-06-01T00:00:00.000Z',
+    },
+  });
+
+  const e = (await app.inject({ url: '/api/progress', headers })).json().progress.lz_ap2_fsrs_1;
+  assert.equal(e.stability, 12.34);
+  assert.equal(e.difficulty, 5.67);
+  assert.equal(e.reps, 4);
+  assert.equal(e.lapses, 1);
+  assert.equal(e.last_review, '2026-06-01T00:00:00.000Z');
+});
+
 test('Fortschritt ohne Login ist 401', async () => {
   const res = await app.inject({ url: '/api/progress' });
   assert.equal(res.statusCode, 401);

@@ -46,9 +46,31 @@ export function openDb(path) {
       last_seen   TEXT,
       last_result TEXT,
       history     TEXT,
+      stability   REAL,
+      difficulty  REAL,
+      reps        INTEGER,
+      lapses      INTEGER,
+      last_review TEXT,
       updated_at  TEXT NOT NULL,
       PRIMARY KEY (user_id, item_id)
     );
   `);
+
+  // Idempotente Migration: FSRS-Spalten in bestehende DBs additiv ergänzen
+  // (CREATE TABLE oben deckt nur frische DBs ab). `ALTER TABLE … ADD COLUMN`
+  // ist additiv und verlustfrei.
+  const vorhanden = new Set(
+    db.prepare('PRAGMA table_info(progress)').all().map((c) => c.name)
+  );
+  const fsrsSpalten = [
+    ['stability', 'REAL'],
+    ['difficulty', 'REAL'],
+    ['reps', 'INTEGER'],
+    ['lapses', 'INTEGER'],
+    ['last_review', 'TEXT'],
+  ];
+  for (const [name, typ] of fsrsSpalten) {
+    if (!vorhanden.has(name)) db.exec(`ALTER TABLE progress ADD COLUMN ${name} ${typ};`);
+  }
   return db;
 }

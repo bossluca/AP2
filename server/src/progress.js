@@ -1,6 +1,9 @@
 /**
  * Fortschritts-API unter /api/progress. Spiegelt die Client-Struktur:
- * Map von item_id → { status, box, due, lastSeen, lastResult, history }.
+ * Map von item_id → { status, box, due, lastSeen, lastResult, history,
+ * stability, difficulty, reps, lapses, last_review }. Die FSRS-Felder
+ * (stability/difficulty/reps/lapses/last_review) werden mitpersistiert, damit
+ * der Spaced-Repetition-Zustand auch geräteübergreifend (Login) erhalten bleibt.
  * Alle Routen erfordern eine gültige Sitzung (preHandler `requireAuth`).
  */
 
@@ -12,6 +15,11 @@ function rowToEntry(row) {
   if (row.due != null) e.due = row.due;
   if (row.last_seen != null) e.lastSeen = row.last_seen;
   if (row.last_result != null) e.lastResult = row.last_result;
+  if (row.stability != null) e.stability = row.stability;
+  if (row.difficulty != null) e.difficulty = row.difficulty;
+  if (row.reps != null) e.reps = row.reps;
+  if (row.lapses != null) e.lapses = row.lapses;
+  if (row.last_review != null) e.last_review = row.last_review;
   if (row.history != null) {
     try {
       e.history = JSON.parse(row.history);
@@ -26,12 +34,16 @@ function rowToEntry(row) {
 function upsert(db, userId, itemId, entry) {
   const history = Array.isArray(entry.history) ? JSON.stringify(entry.history.slice(-20)) : null;
   db.prepare(
-    `INSERT INTO progress (user_id, item_id, status, box, due, last_seen, last_result, history, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `INSERT INTO progress
+       (user_id, item_id, status, box, due, last_seen, last_result, history,
+        stability, difficulty, reps, lapses, last_review, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(user_id, item_id) DO UPDATE SET
        status=excluded.status, box=excluded.box, due=excluded.due,
        last_seen=excluded.last_seen, last_result=excluded.last_result,
-       history=excluded.history, updated_at=excluded.updated_at`
+       history=excluded.history, stability=excluded.stability,
+       difficulty=excluded.difficulty, reps=excluded.reps, lapses=excluded.lapses,
+       last_review=excluded.last_review, updated_at=excluded.updated_at`
   ).run(
     userId,
     itemId,
@@ -41,6 +53,11 @@ function upsert(db, userId, itemId, entry) {
     entry.lastSeen ?? null,
     entry.lastResult ?? null,
     history,
+    entry.stability ?? null,
+    entry.difficulty ?? null,
+    entry.reps ?? null,
+    entry.lapses ?? null,
+    entry.last_review ?? null,
     new Date().toISOString()
   );
 }
