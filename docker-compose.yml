@@ -1,11 +1,12 @@
-# Gesamtstack der AP-Lernapp: Backend (Fastify + SQLite) + Caddy (Frontend
-# statisch + Reverse-Proxy auf /api + automatisches HTTPS).
+# Gesamtstack der AP-Lernapp: Backend (Fastify + SQLite) + Nginx (Frontend
+# statisch + Reverse-Proxy auf /api).
+# SSL/HTTPS übernimmt der vorgelagerte Nginx Proxy Manager.
 #
-# Lokal testen:   SITE_ADDRESS=":80" docker compose up --build   -> http://localhost
-# Produktion:     .env mit DOMAIN/SITE_ADDRESS füllen, dann docker compose up -d --build
+# Lokal testen:   docker compose up --build   -> http://localhost:8080
+# Produktion:     docker compose up -d --build
+#                 NPM zeigt auf http://<LXC-IP>:8080
 #
-# Funktioniert unverändert auf Proxmox-LXC (mit Docker) und auf einem VPS
-# (z. B. Hostinger). Siehe DEPLOYMENT.md.
+# Funktioniert auf Proxmox-LXC (mit Docker). Siehe PROXMOX_SETUP.md.
 
 services:
   backend:
@@ -18,6 +19,7 @@ services:
       SESSION_COOKIE_NAME: ${SESSION_COOKIE_NAME:-ap_session}
     volumes:
       - db_data:/app/data
+    # Kein direkter Port nach außen – nur intern für den web-Container
     expose:
       - "3001"
 
@@ -27,20 +29,11 @@ services:
       args:
         VITE_BASE: /
     restart: unless-stopped
-    environment:
-      # ":80" = nur HTTP (lokal). Echte Domain = automatisches HTTPS via Caddy.
-      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
-      BACKEND_UPSTREAM: backend:3001
     depends_on:
       - backend
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
+      # NPM zeigt auf diesen Port. Auf dem Host eine freie Portnummer wählen.
+      - "${WEB_PORT:-8080}:8080"
 
 volumes:
   db_data:
-  caddy_data:
-  caddy_config:

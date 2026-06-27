@@ -1,8 +1,9 @@
 # Proxmox-LXC: Schritt-für-Schritt (AP-Lernapp mit Docker)
 
-Konkrete Anleitung, um den Docker-Stack (`docker-compose.yml`: Backend + Caddy)
-in einem unprivilegierten Debian/Ubuntu-LXC auf Proxmox zu betreiben. Allgemeiner
-Überblick & VPS-Variante: siehe [`DEPLOYMENT.md`](DEPLOYMENT.md).
+Konkrete Anleitung, um den Docker-Stack (`docker-compose.yml`: Backend + Nginx)
+in einem unprivilegierten Debian/Ubuntu-LXC auf Proxmox zu betreiben.
+SSL/HTTPS übernimmt der vorgelagerte **Nginx Proxy Manager (NPM)**.
+Allgemeiner Überblick: siehe [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
 > **Status Container-Build:** Die Images wurden bisher **nicht** mit Docker gebaut
 > (in der Entwicklungsumgebung war kein Docker verfügbar). Verifiziert sind:
@@ -18,8 +19,8 @@ Die App ist sehr klein (gemessen):
 |---|---|
 | Frontend-Build `dist/` | **~0,9 MB** (JS gzip ~264 kB) |
 | SQLite-DB | **~4 KB** leer, wächst nur ~einige KB pro Nutzer |
-| Laufzeit-RAM (Backend-Node + Caddy) | grob ~150–300 MB |
-| Docker-Images (node:24-alpine + caddy:2-alpine + Layer) | ~1–1,5 GB Disk |
+| Laufzeit-RAM (Backend-Node + Nginx) | grob ~100–200 MB |
+| Docker-Images (node:24-alpine + nginx:alpine + Layer) | ~700 MB Disk |
 
 **Empfohlener LXC:**
 
@@ -69,18 +70,13 @@ docker --version && docker compose version
 git clone https://github.com/bossluca/AP2.git
 cd AP2
 
-# .env anlegen
+# .env anlegen (Standard-Port 8080 reicht)
 cp .env.example .env
-# Für lokalen Test im LAN reicht der Default (SITE_ADDRESS=:80).
-# Für HTTPS mit eigener Domain in .env setzen:
-#   SITE_ADDRESS=lernapp.deinedomain.de
 
 docker compose up -d --build
 ```
 
-Erreichbar: `http://<LXC-IP>` (bzw. `https://lernapp.deinedomain.de`, sobald die
-Domain zeigt und Port 80/443 erreichbar sind – Caddy holt das Zertifikat dann
-automatisch).
+Erreichbar intern: `http://<LXC-IP>:8080`
 
 **Worauf beim ersten Build achten:**
 - Genug RAM/Swap (s. o.), sonst kann `npm ci`/Vite mit OOM abbrechen.
@@ -88,23 +84,57 @@ automatisch).
   daher keine `build-essential`/`python3`-Pakete nötig.
 - Erststart dauert ein paar Minuten (Image-Pull + Frontend-Build).
 
-## 5. Von außen erreichbar machen (ohne feste öffentliche IP)
+## 5. Nginx Proxy Manager einrichten
 
-Typische Heimanschlüsse haben eine wechselnde IP und liegen evtl. hinter
-CGNAT. Allgemeines Vorgehen (Router-unabhängig):
+Der Stack läuft auf Port `8080` des LXC-Containers. NPM übernimmt SSL und
+leitet den Traffic weiter. **Wichtig:** NPM muss die LXC-IP erreichen können
+(gleicher Proxmox-Host oder Netzwerk-Erreichbarkeit).
 
-1. **DynDNS einrichten:** Dienst wählen (z. B. DuckDNS, deSEC, No-IP oder der in
-   vielen Routern – Fritz!Box etc. – integrierte DynDNS-Client). Er hält einen
-   Hostnamen (`deinname.duckdns.org`) auf deine wechselnde IP aktuell.
-2. **Port-Forwarding** im Router: TCP **80** und **443** auf die LXC-IP weiterleiten.
-   (Port 80 wird für die Let's-Encrypt-HTTP-Challenge gebraucht.)
-3. In `.env` `SITE_ADDRESS=deinname.duckdns.org` setzen, Stack neu starten:
-   `docker compose up -d`.
-4. **CGNAT-Fallstrick:** Hat dein Anschluss keine echte öffentliche IPv4 (häufig bei
-   Kabel/Glasfaser-Tarifen ohne feste IP), funktioniert Port-Forwarding nicht. Dann:
-   echte IPv4 beim Provider anfragen **oder** einen Tunnel nutzen (z. B. Cloudflare
-   Tunnel / Tailscale Funnel) – das umgeht Port-Forwarding ganz. Das ist dann ein
-   eigener kleiner Zusatzschritt; sag Bescheid, wenn du diesen Weg gehen willst.
+### Proxy Host anlegen
+
+Im NPM-Webinterface unter *Proxy Hosts → Add Proxy Host*:
+
+| Feld | Wert |
+|---|---|
+| Domain Names | `lernapp.deinedomain.de` |
+| Scheme | `http` |
+| Forward Hostname / IP | `<LXC-IP>` (z. B. `192.168.1.120`) |
+| Forward Port | `8080` |
+| Cache Assets | ✓ (optional, empfohlen) |
+| Block Common Exploits | ✓ |
+
+Unter *SSL*-Tab:
+- SSL Certificate: *Request a new SSL Certificate*
+- Force SSL: ✓
+- HTTP/2 Support: ✓
+- Email für Let's Encrypt eintragen → *Save*
+
+NPM holt das Zertifikat automatisch und erneuert es selbstständig.
+
+### Voraussetzungen für Let's Encrypt
+
+- Port **80** und **443** deines Routers müssen auf den NPM-Host weitergeleitet sein.
+- Die Domain muss per DNS auf deine öffentliche IP zeigen.
+- Bei wechselnder IP: DynDNS einrichten (z. B. DuckDNS, deSEC, Fritz!Box-eigener
+  DynDNS-Client).
+
+### CGNAT-Fallstrick
+
+Hat dein Anschluss keine echte öffentliche IPv4 (häufig bei Kabel/Glasfaser-
+Tarifen), funktioniert Port-Forwarding nicht. Optionen:
+- Echte IPv4 beim Provider anfragen
+- **Cloudflare Tunnel** nutzen – kein Port-Forwarding nötig, funktioniert auch
+  hinter CGNAT. Sag Bescheid, wenn du diesen Weg gehen willst.
+
+### Custom Nginx-Konfiguration in NPM (optional)
+
+Für besseres Session-Handling im Backend unter *Advanced*:
+
+```nginx
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header Host $host;
+```
 
 ## 6. Backup der SQLite-Datenbank
 
@@ -119,7 +149,7 @@ cat > /root/ap-backup.sh <<'EOF'
 #!/bin/bash
 cd /root/AP2
 TS=$(date +%Y%m%d-%H%M%S)
-# .backup nutzt SQLite-konsistentes Online-Backup (kein Kopieren bei offener DB)
+# VACUUM INTO = SQLite-konsistentes Online-Backup (kein Kopieren bei offener DB)
 docker compose exec -T backend node -e "const {DatabaseSync}=require('node:sqlite'); new DatabaseSync('/app/data/lernapp.sqlite').exec(\"VACUUM INTO '/app/data/backup-$TS.sqlite'\")"
 docker compose cp backend:/app/data/backup-$TS.sqlite /root/ap-backups/lernapp-$TS.sqlite
 docker compose exec -T backend rm -f /app/data/backup-$TS.sqlite
@@ -132,7 +162,7 @@ chmod +x /root/ap-backup.sh
 ( crontab -l 2>/dev/null; echo "0 3 * * * /root/ap-backup.sh" ) | crontab -
 ```
 
-Alternativ ganz simpel (ohne konsistenten Snapshot, reicht bei geringer Last):
+Alternativ simpel (ohne konsistenten Snapshot, reicht bei geringer Last):
 
 ```bash
 docker compose cp backend:/app/data/lernapp.sqlite /root/ap-backups/lernapp-$(date +%F).sqlite
