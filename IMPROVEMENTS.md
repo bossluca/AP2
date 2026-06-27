@@ -237,6 +237,12 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       falsch 2), Level mit wachsender Kurve + Fortschrittsbalken (Statistik) und Level-
       Chip auf der Startseite. Tiefes Modul `lib/level.js` (7 Tests), XP im
       `ProgressContext` (`recordXp`). ✅ 2026-06-21
+- [x] **P1 · M** ~~**Prüfungsreife / Mastery + Prognose:**~~ neues reines Modul `lib/reife.js`
+      (getestet): Mastery je Thema aus der FSRS-Abrufwahrscheinlichkeit + **punktgewichtete
+      Prognose** („geschätzte Prüfungsreife %"), Themen „bereit" ab ≥ 80 % & genug geübt.
+      Reife-Gauge + Themen-Mastery (schwach zuerst) auf der Statistik-Seite. Plus
+      **Prüfungstermin-Countdown + Tagesziel** auf Home (`lib/pruefungstermin.js`).
+      ✅ 2026-06-27 (Sprint 3, s. PRODUKT_STRATEGIE.md)
 - [ ] **P2 · M** **Lernpfad / Fortschritts-Map:** visuelle Themen-Reise (Knoten je
       Kategorie, freischaltbar), statt reiner Listen – greift Schwächen aus der Statistik auf.
 - [ ] **P2 · S** **Command-Palette (Cmd/Ctrl-K):** Schnell-Navigation + Sofort-Suche –

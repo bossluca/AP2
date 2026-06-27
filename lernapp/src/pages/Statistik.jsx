@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
 import { berechneStatistik } from '../lib/statistik';
-import { MAX_BOX } from '../lib/srs';
+import { berechneReife } from '../lib/reife';
+import { MAX_BOX } from '../lib/fsrs';
 import { baueHeatmap } from '../lib/aktivitaet';
 import { bewerteErfolge } from '../lib/erfolge';
 import Heatmap from '../components/Heatmap';
+import ProgressRing from '../components/ProgressRing';
 
 /** Horizontaler Anteils-Balken. */
 function Bar({ value, total, className }) {
@@ -19,14 +21,16 @@ function Bar({ value, total, className }) {
 }
 
 /**
- * Statistik-/Fortschrittsseite: Lernstand (gelernt/üben/offen), Leitner-Box-
- * Verteilung, Fälligkeit, Aufschlüsselung nach Prüfungsteil, Schwachstellen
- * nach Thema und Lernverlauf über die letzten Tage.
+ * Statistik-/Fortschrittsseite: Lernstand (gelernt/üben/offen), **Prüfungsreife**
+ * (Mastery je Thema + punktgewichtete Prognose, `lib/reife`), Karten-Stärke
+ * (FSRS), Fälligkeit, Aufschlüsselung nach Prüfungsteil, Schwachstellen nach
+ * Thema und Lernverlauf über die letzten Tage.
  */
 export default function Statistik() {
   const objekte = useMemo(() => getLernobjekte(), []);
   const { progress, gami } = useProgress();
   const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
+  const reife = useMemo(() => berechneReife(objekte, progress), [objekte, progress]);
 
   const pct = (n) => (s.total > 0 ? Math.round((n / s.total) * 100) : 0);
   const maxVerlauf = Math.max(1, ...s.verlauf.map((v) => v.count));
@@ -71,6 +75,55 @@ export default function Statistik() {
         <Bar value={s.status.gelernt} total={s.total} className="bg-green-500" />
         <p className="text-xs text-gray-500">
           {s.total} Lernobjekte gesamt ({s.art.frage} Fragen + {s.art.lernzettel} Lernzettel).
+        </p>
+      </section>
+
+      {/* Prüfungsreife */}
+      <section className="space-y-3">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-semibold text-sm">🎓 Prüfungsreife</h2>
+          {reife.proThema.some((t) => !t.bereit) && (
+            <Link to="/lernen?modus=schwaechen" className="btn-soft-amber px-3 py-1.5 text-xs">
+              🎯 Schwächen üben
+            </Link>
+          )}
+        </div>
+        <div className="card p-4 flex items-center gap-4">
+          <ProgressRing value={reife.prognoseProzent} size={96}>
+            <div className="text-xl font-bold">{reife.prognoseProzent}%</div>
+            <div className="text-[10px] uppercase tracking-wide text-gray-500">Reife</div>
+          </ProgressRing>
+          <div className="flex-1 min-w-0 space-y-1">
+            <p className="text-sm">Geschätzte Prüfungsreife – punktgewichtet über die Fragen.</p>
+            <p className="text-xs text-gray-500">
+              {reife.bereitThemen} von {reife.themenGesamt} Themen bereit (≥ 80 % gefestigt).
+            </p>
+          </div>
+        </div>
+        {reife.proThema.length > 0 && (
+          <ul className="space-y-1.5">
+            {reife.proThema.slice(0, 8).map((t) => {
+              const tpct = Math.round(t.mastery * 100);
+              const farbe = tpct < 50 ? 'bg-red-500' : tpct < 80 ? 'bg-amber-500' : 'bg-green-500';
+              return (
+                <li key={t.tag} className="flex items-center gap-2 text-xs">
+                  <span className="w-40 sm:w-52 truncate text-gray-600 dark:text-gray-400">
+                    {t.tag}
+                  </span>
+                  <div className="flex-1 h-2 rounded bg-gray-200 dark:bg-gray-800 overflow-hidden">
+                    <div className={`h-full ${farbe}`} style={{ width: `${tpct}%` }} />
+                  </div>
+                  <span className="w-12 text-right tabular-nums">
+                    {t.bereit && <span aria-hidden="true">✓ </span>}
+                    {tpct}%
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        <p className="text-xs text-gray-500">
+          Reife sinkt mit der Zeit (Vergessenskurve) – Wiederholen hält sie hoch. Schwächste Themen zuerst.
         </p>
       </section>
 
@@ -152,14 +205,14 @@ export default function Statistik() {
         </div>
       </section>
 
-      {/* Leitner-Boxen */}
+      {/* Karten-Stärke (FSRS) */}
       <section className="space-y-2">
-        <h2 className="font-semibold text-sm">Leitner-Boxen</h2>
+        <h2 className="font-semibold text-sm">Karten-Stärke</h2>
         <div className="space-y-1.5">
           {[
             ['neu', s.boxen.neu, 'bg-gray-400'],
             ...Array.from({ length: MAX_BOX }, (_, i) => [
-              `Box ${i + 1}`,
+              `Stufe ${i + 1}`,
               s.boxen[i + 1],
               'bg-indigo-500',
             ]),
@@ -177,7 +230,7 @@ export default function Statistik() {
           ))}
         </div>
         <p className="text-xs text-gray-500">
-          Höhere Box = längeres Wiederholungsintervall. „Neu" wurde noch nie bewertet.
+          Höhere Stufe = stabiler im Gedächtnis (längeres Intervall). „Neu" wurde noch nie bewertet.
         </p>
       </section>
 

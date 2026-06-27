@@ -16,7 +16,8 @@ describe('Statistik-Seite', () => {
       </MemoryRouter>
     );
     expect(screen.getByRole('heading', { name: /Statistik/i })).toBeInTheDocument();
-    expect(screen.getByText(/Leitner-Boxen/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Prüfungsreife/i })).toBeInTheDocument();
+    expect(screen.getByText(/Karten-Stärke/i)).toBeInTheDocument();
     expect(screen.getByText(/Schwachstellen nach Thema/i)).toBeInTheDocument();
     expect(screen.getByText(/Aktivität/i)).toBeInTheDocument();
     expect(screen.getByText(/^Erfolge/i)).toBeInTheDocument();

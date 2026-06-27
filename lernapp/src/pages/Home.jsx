@@ -4,6 +4,8 @@ import { getAllExams } from '../data/useExamData';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
 import { berechneStatistik } from '../lib/statistik';
+import { berechneReife } from '../lib/reife';
+import { ladePruefungstermin, setzePruefungstermin, tageBisTermin } from '../lib/pruefungstermin';
 import ProgressRing from '../components/ProgressRing';
 
 const KACHELN = [
@@ -24,7 +26,14 @@ export default function Home() {
   const objekte = useMemo(() => getLernobjekte(), []);
   const { progress, resetProgress, gami } = useProgress();
   const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
+  const reife = useMemo(() => berechneReife(objekte, progress), [objekte, progress]);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [termin, setTermin] = useState(() => ladePruefungstermin());
+  const tage = useMemo(() => tageBisTermin(termin), [termin]);
+  const updateTermin = (v) => {
+    setzePruefungstermin(v);
+    setTermin(v || null);
+  };
 
   const handleReset = () => {
     if (confirmReset) {
@@ -98,6 +107,60 @@ export default function Home() {
             </p>
           )}
         </div>
+      </section>
+
+      {/* Prüfungstermin-Countdown + Reife */}
+      <section className="card p-4">
+        {termin && tage != null ? (
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div className="min-w-0">
+              <div className="text-lg font-semibold">
+                {tage > 0
+                  ? `🎯 Noch ${tage} ${tage === 1 ? 'Tag' : 'Tage'} bis zur Prüfung`
+                  : tage === 0
+                    ? '🎯 Heute ist Prüfungstag – viel Erfolg!'
+                    : '🎯 Prüfung vorbei'}
+              </div>
+              <div className="text-sm text-gray-500">
+                Prüfungsreife {reife.prognoseProzent}% · {s.faellig} heute fällig
+                {tage > 0 &&
+                  s.faellig > 0 &&
+                  ` · ~${Math.ceil(s.faellig / tage)} Karten/Tag bis dahin`}
+              </div>
+            </div>
+            <div className="flex items-center gap-1">
+              <input
+                type="date"
+                value={termin}
+                onChange={(e) => updateTermin(e.target.value)}
+                className="input"
+                aria-label="Prüfungstermin"
+              />
+              <button
+                onClick={() => updateTermin('')}
+                className="btn-ghost px-2 py-1 text-xs"
+                aria-label="Prüfungstermin entfernen"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div>
+              <div className="text-sm font-medium">🎯 Prüfungstermin setzen</div>
+              <div className="text-xs text-gray-500">
+                Countdown + Tagesziel bis zur AP2 (Reife aktuell {reife.prognoseProzent}%).
+              </div>
+            </div>
+            <input
+              type="date"
+              onChange={(e) => updateTermin(e.target.value)}
+              className="input"
+              aria-label="Prüfungstermin setzen"
+            />
+          </div>
+        )}
       </section>
 
       {/* Fällig-Hinweis */}

@@ -18,6 +18,8 @@ import { getLearnableQuestions, getLerneinheiten } from './useExamData';
  * @property {boolean} [unverifiziert] Nur Fragen: Lösung unverifiziert.
  * @property {number|null} schwierigkeit  Optional 1 (leicht) … 3 (schwer); steuert
  *           u. a. die FSRS-Initialschwierigkeit. `null` = unbekannt.
+ * @property {number} punkte    Prüfungspunkte (Fragen: aus den Daten, Default 1;
+ *           Lernzettel: 0) – gewichtet die Prüfungsreife-Prognose.
  */
 
 /** @type {Lernobjekt[]|null} */
@@ -38,6 +40,7 @@ function fromFrage(q) {
     hatLoesung: !!q.hat_antwort,
     unverifiziert: !!q.unverifiziert_markiert,
     schwierigkeit: Number.isFinite(q.schwierigkeit) ? q.schwierigkeit : null,
+    punkte: Number.isFinite(q.punkte) ? q.punkte : 1,
   };
 }
 
@@ -54,6 +57,7 @@ function fromLerneinheit(l) {
     back: l.inhalt_text,
     hatLoesung: true,
     schwierigkeit: Number.isFinite(l.schwierigkeit) ? l.schwierigkeit : null,
+    punkte: 0,
   };
 }
 
