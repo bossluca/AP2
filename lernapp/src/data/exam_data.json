@@ -2783,7 +2783,7 @@
             "Mobiles Arbeiten/Homeoffice"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": true
+          "hat_antwort": false
         },
         {
           "id": "2023_Frühjahr_2ab",
@@ -3188,7 +3188,7 @@
             "UML/Diagramme"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": true
+          "hat_antwort": false
         },
         {
           "id": "2023_Frühjahr_4d",
@@ -3287,7 +3287,7 @@
             "UML/Diagramme"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": true
+          "hat_antwort": false
         },
         {
           "id": "2023_Herbst_1b",
@@ -5827,7 +5827,7 @@
             "Netzwerk/IP-Adressierung"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": true
+          "hat_antwort": false
         },
         {
           "id": "2024_Frühjahr_3a",
