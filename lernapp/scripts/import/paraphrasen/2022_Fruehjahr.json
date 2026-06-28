@@ -79,7 +79,14 @@
     },
     "2022_Frühjahr_2aa": {
       "frage_text": "Nennen Sie die **drei Arbeitsschritte** für den Einbau der CPU in der richtigen Reihenfolge. *(3 Punkte)*",
-      "thema_tags": ["Hardware/Komponenten"]
+      "loesung_text": "Die drei Arbeitsschritte in der richtigen Reihenfolge (je 1 Punkt):\n\n1. **Verriegelungshebel am Sockel anheben** (Sockel entriegeln/öffnen).\n2. **CPU in der korrekten Orientierung in den Sockel einlegen** (Markierungen von CPU und Sockel zueinander ausrichten, ohne Kraft).\n3. **Hebel wieder herunterklappen**, um die CPU zu fixieren/verriegeln.",
+      "thema_tags": ["Hardware/Komponenten"],
+      "schluesselwoerter": [
+        { "begriff": "Hebel anheben", "synonyme": ["entriegeln", "Hebel öffnen", "Sockel öffnen", "hochklappen"] },
+        { "begriff": "CPU einlegen", "synonyme": ["einsetzen", "einlegen", "Prozessor einlegen", "in den Sockel"] },
+        { "begriff": "Hebel herunterklappen", "synonyme": ["verriegeln", "fixieren", "Hebel schließen", "arretieren"] }
+      ],
+      "mindest_treffer": 3
     },
     "2022_Frühjahr_2ab": {
       "frage_text": "Beschreiben Sie, welche **zwei Punkte** beim Schritt \"CPU einlegen\" besonders zu beachten sind. *(2 Punkte)*",
@@ -141,7 +148,14 @@
     },
     "2022_Frühjahr_2fa": {
       "frage_text": "An der Anschlussleiste des Mainboards ist einer der USB-Ports farblich umrandet. Beschreiben Sie, welche **Besonderheit** ein solcher speziell gekennzeichneter USB-Anschluss üblicherweise hat. *(2 Punkte)*",
-      "thema_tags": ["Hardware/Komponenten"]
+      "loesung_text": "Ein farblich umrandeter USB-Port ist in der Regel ein **„Always-On\"-/Ladeanschluss** mit erhöhter Stromabgabe: Er liefert auch im Standby oder bei ausgeschaltetem PC noch Strom, sodass angeschlossene Geräte (z. B. ein Smartphone) darüber geladen werden können. Häufig handelt es sich zugleich um einen besonders schnellen Anschluss (z. B. USB 3.x / SuperSpeed), der durch die Farbe (oft Rot oder Gelb) hervorgehoben wird.",
+      "thema_tags": ["Hardware/Komponenten"],
+      "schluesselwoerter": [
+        { "begriff": "Ladeanschluss", "synonyme": ["Always-On", "Always On", "laden", "Aufladen", "Ladefunktion"] },
+        { "begriff": "Standby", "synonyme": ["ausgeschaltet", "Strom auch ohne PC", "erhöhte Stromabgabe", "mehr Strom"] },
+        { "begriff": "schneller Anschluss", "synonyme": ["USB 3", "SuperSpeed", "höhere Datenrate"] }
+      ],
+      "mindest_treffer": 1
     },
     "2022_Frühjahr_2fb": {
       "frage_text": "Nennen Sie **zwei Vorteile** eines USB-C-Anschlusses gegenüber einem herkömmlichen USB-3.0-Anschluss (Typ A). *(2 Punkte)*",
@@ -161,11 +175,27 @@
     },
     "2022_Frühjahr_2ga": {
       "frage_text": "Erläutern Sie den Begriff **\"Logische Prozessoren\"**. *(2 Punkte)*",
-      "thema_tags": ["Hardware/Komponenten"]
+      "loesung_text": "Logische Prozessoren geben an, wie viele **Threads** eine CPU **gleichzeitig** bearbeiten kann. Ihre Anzahl ergibt sich aus den physischen Kernen multipliziert mit den Threads pro Kern: Durch Techniken wie **Hyper-Threading (SMT)** kann ein physischer Kern mehrere logische Prozessoren bereitstellen (z. B. 4 physische Kerne × 2 = 8 logische Prozessoren). Für das Betriebssystem erscheint dadurch jeder logische Prozessor wie ein eigener Rechenkern.",
+      "thema_tags": ["Hardware/Komponenten"],
+      "schluesselwoerter": [
+        { "begriff": "Thread", "synonyme": ["Threads", "Aufgaben gleichzeitig", "parallel"] },
+        { "begriff": "Hyper-Threading", "synonyme": ["Hyperthreading", "SMT", "Simultaneous Multithreading"] },
+        { "begriff": "Kern", "synonyme": ["physischer Kern", "Core", "Rechenkern"] },
+        { "begriff": "gleichzeitig", "synonyme": ["parallel", "nebenläufig"] }
+      ],
+      "mindest_treffer": 2
     },
     "2022_Frühjahr_2gb": {
       "frage_text": "Beschreiben Sie allgemein die **Aufgabe eines Cache-Speichers** in einer CPU. *(2 Punkte)*",
-      "thema_tags": ["Hardware/Komponenten"]
+      "loesung_text": "Der Cache ist ein sehr schneller, kleiner **Zwischenspeicher** direkt in bzw. nahe der CPU. Er hält **häufig benötigte Daten und Befehle** vor, sodass die CPU nicht jedes Mal auf den deutlich langsameren Arbeitsspeicher (RAM) zugreifen muss. Dadurch verkürzen sich die **Zugriffszeiten** und die Gesamtverarbeitung wird beschleunigt (L1 ist am schnellsten/kleinsten, L3 am größten/langsamsten).",
+      "thema_tags": ["Hardware/Komponenten"],
+      "schluesselwoerter": [
+        { "begriff": "Zwischenspeicher", "synonyme": ["Pufferspeicher", "schneller Speicher", "Zwischenspeicherung"] },
+        { "begriff": "häufig benötigte Daten", "synonyme": ["oft genutzte Daten", "Daten und Befehle", "wiederkehrende Daten"] },
+        { "begriff": "schneller als RAM", "synonyme": ["langsamer RAM", "Arbeitsspeicher umgehen", "weniger RAM-Zugriffe"] },
+        { "begriff": "Zugriffszeit", "synonyme": ["beschleunigt", "schnellerer Zugriff", "Verarbeitung beschleunigen", "geringere Latenz"] }
+      ],
+      "mindest_treffer": 2
     },
     "2022_Frühjahr_2gc": {
       "frage_text": "Geben Sie die Basistaktfrequenz von **3,6 GHz in Hertz** an. *(1 Punkt)*",
@@ -251,11 +281,23 @@
     },
     "2022_Frühjahr_3fa": {
       "frage_text": "Nennen Sie die **Bezeichnung des Servers**, der beim Befehl zur Erneuerung der IP-Adresse kontaktiert wird und der dem Notebook die Konfiguration zuweist. *(1 Punkt)*",
-      "thema_tags": ["Netzwerk/IP-Adressierung"]
+      "loesung_text": "Es handelt sich um den **DHCP-Server** (Dynamic Host Configuration Protocol). Er weist dem Notebook automatisch die IP-Adresse, die Subnetzmaske, das Standardgateway und in der Regel auch den DNS-Server zu.",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "DHCP", "synonyme": ["DHCP-Server", "Dynamic Host Configuration Protocol"], "pflicht": true }
+      ],
+      "mindest_treffer": 1
     },
     "2022_Frühjahr_3fb": {
       "frage_text": "Das Notebook hat die IPv4-Adresse **192.168.20.37** mit der Subnetzmaske **255.255.255.224** (/27) erhalten. Geben Sie für diesen Host die folgenden Adressen an: **Netzadresse**, **erste nutzbare Hostadresse** und **Broadcastadresse**. *(3 Punkte)*",
-      "thema_tags": ["Netzwerk/IP-Adressierung"]
+      "loesung_text": "**Rechenweg:** Bei /27 sind im letzten Oktett 3 Bits für Subnetze reserviert (224 = 11100000). Die **Blockgröße** im vierten Oktett beträgt 256 − 224 = **32**. Die Subnetz-Grenzen liegen also bei .0, .32, .64 … Der Host .37 fällt in den Block **.32–.63**.\n\n- **Netzadresse:** 192.168.20.32 *(je 1 Punkt)*\n- **Erste nutzbare Hostadresse:** 192.168.20.33\n- **Broadcastadresse:** 192.168.20.63\n\n*(Nutzbarer Hostbereich: .33 bis .62, also 30 Hosts; .63 ist Broadcast.)*",
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "schluesselwoerter": [
+        { "begriff": "192.168.20.32", "synonyme": [".32", "Netzadresse 32"] },
+        { "begriff": "192.168.20.33", "synonyme": [".33", "erste Hostadresse 33"] },
+        { "begriff": "192.168.20.63", "synonyme": [".63", "Broadcast 63"] }
+      ],
+      "mindest_treffer": 3
     },
     "2022_Frühjahr_3fc": {
       "frage_text": "Ein anschließender `ping 192.168.20.1` (Standardgateway) liefert 4 von 4 Antworten (0 % Paketverlust), der Aufruf einer Webseite scheitert jedoch weiterhin. Benennen und begründen Sie den **wahrscheinlichen Fehler**. *(2 Punkte)*",

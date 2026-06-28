@@ -399,14 +399,44 @@
           "ueberschrift": "Nennen Sie die drei Schritte für den Einbau der CPU. *(3 Punkte)*",
           "frage_text": "Nennen Sie die **drei Arbeitsschritte** für den Einbau der CPU in der richtigen Reihenfolge. *(3 Punkte)*",
           "punkte": 3,
-          "loesung_text": null,
+          "loesung_text": "Die drei Arbeitsschritte in der richtigen Reihenfolge (je 1 Punkt):\n\n1. **Verriegelungshebel am Sockel anheben** (Sockel entriegeln/öffnen).\n2. **CPU in der korrekten Orientierung in den Sockel einlegen** (Markierungen von CPU und Sockel zueinander ausrichten, ohne Kraft).\n3. **Hebel wieder herunterklappen**, um die CPU zu fixieren/verriegeln.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Hardware/Komponenten"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Hebel anheben",
+              "synonyme": [
+                "entriegeln",
+                "Hebel öffnen",
+                "Sockel öffnen",
+                "hochklappen"
+              ]
+            },
+            {
+              "begriff": "CPU einlegen",
+              "synonyme": [
+                "einsetzen",
+                "einlegen",
+                "Prozessor einlegen",
+                "in den Sockel"
+              ]
+            },
+            {
+              "begriff": "Hebel herunterklappen",
+              "synonyme": [
+                "verriegeln",
+                "fixieren",
+                "Hebel schließen",
+                "arretieren"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2022_Frühjahr_2ab",
@@ -663,14 +693,44 @@
           "ueberschrift": "Beschreiben Sie, welche Besonderheit der umrahmte USB-Anschluss hat. *(2 Punkte)*",
           "frage_text": "An der Anschlussleiste des Mainboards ist einer der USB-Ports farblich umrandet. Beschreiben Sie, welche **Besonderheit** ein solcher speziell gekennzeichneter USB-Anschluss üblicherweise hat. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Ein farblich umrandeter USB-Port ist in der Regel ein **„Always-On\"-/Ladeanschluss** mit erhöhter Stromabgabe: Er liefert auch im Standby oder bei ausgeschaltetem PC noch Strom, sodass angeschlossene Geräte (z. B. ein Smartphone) darüber geladen werden können. Häufig handelt es sich zugleich um einen besonders schnellen Anschluss (z. B. USB 3.x / SuperSpeed), der durch die Farbe (oft Rot oder Gelb) hervorgehoben wird.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Hardware/Komponenten"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Ladeanschluss",
+              "synonyme": [
+                "Always-On",
+                "Always On",
+                "laden",
+                "Aufladen",
+                "Ladefunktion"
+              ]
+            },
+            {
+              "begriff": "Standby",
+              "synonyme": [
+                "ausgeschaltet",
+                "Strom auch ohne PC",
+                "erhöhte Stromabgabe",
+                "mehr Strom"
+              ]
+            },
+            {
+              "begriff": "schneller Anschluss",
+              "synonyme": [
+                "USB 3",
+                "SuperSpeed",
+                "höhere Datenrate"
+              ]
+            }
+          ],
+          "mindest_treffer": 1
         },
         {
           "id": "2022_Frühjahr_2fb",
@@ -758,14 +818,48 @@
           "ueberschrift": "Erläutern Sie den Begriff \"Logische Prozessoren\". *(2 Punkte)*",
           "frage_text": "Erläutern Sie den Begriff **\"Logische Prozessoren\"**. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Logische Prozessoren geben an, wie viele **Threads** eine CPU **gleichzeitig** bearbeiten kann. Ihre Anzahl ergibt sich aus den physischen Kernen multipliziert mit den Threads pro Kern: Durch Techniken wie **Hyper-Threading (SMT)** kann ein physischer Kern mehrere logische Prozessoren bereitstellen (z. B. 4 physische Kerne × 2 = 8 logische Prozessoren). Für das Betriebssystem erscheint dadurch jeder logische Prozessor wie ein eigener Rechenkern.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Hardware/Komponenten"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Thread",
+              "synonyme": [
+                "Threads",
+                "Aufgaben gleichzeitig",
+                "parallel"
+              ]
+            },
+            {
+              "begriff": "Hyper-Threading",
+              "synonyme": [
+                "Hyperthreading",
+                "SMT",
+                "Simultaneous Multithreading"
+              ]
+            },
+            {
+              "begriff": "Kern",
+              "synonyme": [
+                "physischer Kern",
+                "Core",
+                "Rechenkern"
+              ]
+            },
+            {
+              "begriff": "gleichzeitig",
+              "synonyme": [
+                "parallel",
+                "nebenläufig"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2022_Frühjahr_2gb",
@@ -778,14 +872,50 @@
           "ueberschrift": "Beschreiben Sie allgemein die Aufgabe eines \"Cache\"-Speichers. *(2 Punkte)*",
           "frage_text": "Beschreiben Sie allgemein die **Aufgabe eines Cache-Speichers** in einer CPU. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Der Cache ist ein sehr schneller, kleiner **Zwischenspeicher** direkt in bzw. nahe der CPU. Er hält **häufig benötigte Daten und Befehle** vor, sodass die CPU nicht jedes Mal auf den deutlich langsameren Arbeitsspeicher (RAM) zugreifen muss. Dadurch verkürzen sich die **Zugriffszeiten** und die Gesamtverarbeitung wird beschleunigt (L1 ist am schnellsten/kleinsten, L3 am größten/langsamsten).",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Hardware/Komponenten"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Zwischenspeicher",
+              "synonyme": [
+                "Pufferspeicher",
+                "schneller Speicher",
+                "Zwischenspeicherung"
+              ]
+            },
+            {
+              "begriff": "häufig benötigte Daten",
+              "synonyme": [
+                "oft genutzte Daten",
+                "Daten und Befehle",
+                "wiederkehrende Daten"
+              ]
+            },
+            {
+              "begriff": "schneller als RAM",
+              "synonyme": [
+                "langsamer RAM",
+                "Arbeitsspeicher umgehen",
+                "weniger RAM-Zugriffe"
+              ]
+            },
+            {
+              "begriff": "Zugriffszeit",
+              "synonyme": [
+                "beschleunigt",
+                "schnellerer Zugriff",
+                "Verarbeitung beschleunigen",
+                "geringere Latenz"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2022_Frühjahr_2gc",
@@ -1169,14 +1299,25 @@
           "ueberschrift": "Nennen Sie die Bezeichnung des Servers, der durch den Befehl zur Erneuerung der",
           "frage_text": "Nennen Sie die **Bezeichnung des Servers**, der beim Befehl zur Erneuerung der IP-Adresse kontaktiert wird und der dem Notebook die Konfiguration zuweist. *(1 Punkt)*",
           "punkte": 1,
-          "loesung_text": null,
+          "loesung_text": "Es handelt sich um den **DHCP-Server** (Dynamic Host Configuration Protocol). Er weist dem Notebook automatisch die IP-Adresse, die Subnetzmaske, das Standardgateway und in der Regel auch den DNS-Server zu.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Netzwerk/IP-Adressierung"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "DHCP",
+              "synonyme": [
+                "DHCP-Server",
+                "Dynamic Host Configuration Protocol"
+              ],
+              "pflicht": true
+            }
+          ],
+          "mindest_treffer": 1
         },
         {
           "id": "2022_Frühjahr_3fb",
@@ -1189,14 +1330,38 @@
           "ueberschrift": "Geben Sie die nachfolgenden Adressen des angegebenen Hosts an: Netzadresse,",
           "frage_text": "Das Notebook hat die IPv4-Adresse **192.168.20.37** mit der Subnetzmaske **255.255.255.224** (/27) erhalten. Geben Sie für diesen Host die folgenden Adressen an: **Netzadresse**, **erste nutzbare Hostadresse** und **Broadcastadresse**. *(3 Punkte)*",
           "punkte": 3,
-          "loesung_text": null,
+          "loesung_text": "**Rechenweg:** Bei /27 sind im letzten Oktett 3 Bits für Subnetze reserviert (224 = 11100000). Die **Blockgröße** im vierten Oktett beträgt 256 − 224 = **32**. Die Subnetz-Grenzen liegen also bei .0, .32, .64 … Der Host .37 fällt in den Block **.32–.63**.\n\n- **Netzadresse:** 192.168.20.32 *(je 1 Punkt)*\n- **Erste nutzbare Hostadresse:** 192.168.20.33\n- **Broadcastadresse:** 192.168.20.63\n\n*(Nutzbarer Hostbereich: .33 bis .62, also 30 Hosts; .63 ist Broadcast.)*",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Netzwerk/IP-Adressierung"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "192.168.20.32",
+              "synonyme": [
+                ".32",
+                "Netzadresse 32"
+              ]
+            },
+            {
+              "begriff": "192.168.20.33",
+              "synonyme": [
+                ".33",
+                "erste Hostadresse 33"
+              ]
+            },
+            {
+              "begriff": "192.168.20.63",
+              "synonyme": [
+                ".63",
+                "Broadcast 63"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2022_Frühjahr_3fc",
@@ -2090,7 +2255,7 @@
           "ueberschrift": "Mit allen vorhandenen Festplatten soll eine fehlertolerante RAID-5-Konfiguration",
           "frage_text": "Aus allen vorhandenen Festplatten soll ein **fehlertolerantes RAID 5** mit **größtmöglicher Nettokapazität** aufgebaut werden. Berechnen Sie die maximale Nettospeicherkapazität in TB. Der Rechenweg ist anzugeben. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "**Rechenweg:**\n\nVerfügbar sind insgesamt **9 Festplatten** (3 × 4 TB + 6 × 2 TB). Für die größtmögliche Nettokapazität werden **alle 9 Platten** in einem RAID 5 zusammengefasst.\n\nBei RAID 5 wird je Platte nur die Kapazität der **kleinsten** beteiligten Platte genutzt (hier 2 TB); die 4-TB-Platten können also nur mit 2 TB einfließen. Eine Plattenkapazität geht für die Parität verloren.\n\n- Pro Platte nutzbar: 2 TB\n- Brutto: 9 × 2 TB = 18 TB\n- Netto: (9 − 1) × 2 TB = **16 TB**\n\n→ Maximale Nettokapazität = **16 TB**.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -2098,7 +2263,34 @@
             "Datensicherung/Storage"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "16",
+              "synonyme": [
+                "16 TB"
+              ],
+              "pflicht": true
+            },
+            {
+              "begriff": "kleinste",
+              "synonyme": [
+                "2 TB",
+                "kleinsten",
+                "kleinste Platte"
+              ]
+            },
+            {
+              "begriff": "Parität",
+              "synonyme": [
+                "n-1",
+                "n - 1",
+                "(9-1)",
+                "eine Platte"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2022_Herbst_2cb",
@@ -2111,7 +2303,7 @@
           "ueberschrift": "Ermitteln Sie zum Vergleich die erreichbare Speicherkapazität in TB, wenn man",
           "frage_text": "Ermitteln Sie zum Vergleich die erreichbare **Gesamtkapazität in TB**, wenn alle Festplatten als **JBOD** zusammengeschaltet werden. Der Rechenweg ist anzugeben. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "**Rechenweg:**\n\nBei JBOD werden alle Einzelkapazitäten ohne Verlust einfach addiert (keine Parität, keine Spiegelung):\n\n- 3 × 4 TB = 12 TB\n- 6 × 2 TB = 12 TB\n- Gesamt: 12 TB + 12 TB = **24 TB**\n\n→ Gesamtkapazität als JBOD = **24 TB** (8 TB mehr als beim RAID 5, jedoch ohne Ausfallsicherheit).",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -2119,7 +2311,31 @@
             "Datensicherung/Storage"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "24",
+              "synonyme": [
+                "24 TB"
+              ],
+              "pflicht": true
+            },
+            {
+              "begriff": "12",
+              "synonyme": [
+                "12 TB"
+              ]
+            },
+            {
+              "begriff": "addier",
+              "synonyme": [
+                "Summe",
+                "summier",
+                "zusammengezählt"
+              ]
+            }
+          ],
+          "mindest_treffer": 1
         },
         {
           "id": "2022_Herbst_2cc",
@@ -2625,14 +2841,46 @@
           "ueberschrift": "SQL-Befehl, der Breite, Länge, Dicke und Anzahl der OrderID 736298 ausgibt",
           "frage_text": "In der Tabelle `Produktionsdaten` mit den Spalten `AuftragID`, `Breite`, `Laenge`, `Dicke`, `Anzahl` und `Zeitstempel` sollen Daten ausgewertet werden.\n\nFormulieren Sie einen **SQL-Befehl**, der für den Auftrag mit `AuftragID = 854127` die Werte **Breite, Länge, Dicke und Anzahl** ausgibt. Die Spalte `AuftragID` selbst soll **nicht** in der Ergebnismenge erscheinen. *(3 Punkte)*",
           "punkte": 3,
-          "loesung_text": null,
+          "loesung_text": "```sql\nSELECT Breite, Laenge, Dicke, Anzahl\nFROM Produktionsdaten\nWHERE AuftragID = 854127;\n```\n\nEs werden nur die vier gewünschten Spalten in die `SELECT`-Liste aufgenommen, `AuftragID` bleibt bewusst weg. Die `WHERE`-Bedingung schränkt auf den gesuchten Auftrag ein.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenbank/SQL/ER-Modell"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "SELECT",
+              "synonyme": [
+                "select"
+              ],
+              "pflicht": true
+            },
+            {
+              "begriff": "Breite",
+              "synonyme": [
+                "Laenge",
+                "Länge",
+                "Dicke",
+                "Anzahl"
+              ]
+            },
+            {
+              "begriff": "WHERE",
+              "synonyme": [
+                "where"
+              ]
+            },
+            {
+              "begriff": "854127",
+              "synonyme": [
+                "AuftragID = 854127",
+                "AuftragID=854127"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2022_Herbst_4ab",
@@ -2645,14 +2893,38 @@
           "ueberschrift": "SQL-Befehl: Wie viele Produktionsaufträge für Wellpappen mit Dicke 2 mm wurden",
           "frage_text": "Formulieren Sie einen **SQL-Befehl**, der ausgibt, **wie viele Produktionsaufträge** für Stoffbahnen mit einer **Dicke von 3 mm** bisher gespeichert wurden. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "```sql\nSELECT COUNT(*) AS \"Anzahl Auftraege\"\nFROM Produktionsdaten\nWHERE Dicke = 3;\n```\n\n`COUNT(*)` zählt die Datensätze (= Produktionsaufträge), die die Bedingung erfüllen. Die `WHERE`-Klausel filtert auf alle Zeilen mit `Dicke = 3` (mm).",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenbank/SQL/ER-Modell"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "COUNT",
+              "synonyme": [
+                "count(*)",
+                "Anzahl"
+              ],
+              "pflicht": true
+            },
+            {
+              "begriff": "WHERE",
+              "synonyme": [
+                "where"
+              ]
+            },
+            {
+              "begriff": "Dicke",
+              "synonyme": [
+                "Dicke = 3",
+                "= 3"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2022_Herbst_4ac",
@@ -4474,14 +4746,73 @@
           "ueberschrift": "Aktueller Ablauf (Kritik) (4 Punkte)",
           "frage_text": "Bisher läuft die Auftragsannahme bei GrünTech so ab: Kundinnen und Kunden müssen ihre Reparaturanfrage per E-Mail einreichen. Eingehende Anfragen werden manuell in eine Tabellenkalkulation übertragen. Die Einsatzplanung für das Werkstatt-Team findet nur einmal wöchentlich, jeweils am Montagvormittag, statt. Das Werkstatt-Team arbeitet montags bis freitags von 7:30 bis 16:30 Uhr.",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "Der geschilderte Ablauf hat mehrere Schwachstellen, denen sich passende Verbesserungsmaßnahmen gegenüberstellen lassen:\n\n**Kritikpunkte:**\n1. **Lange Reaktionszeiten:** Da die Einsatzplanung nur einmal wöchentlich (montags) erfolgt, kann eine z. B. dienstags eingegangene Anfrage erst rund eine Woche später eingeplant werden – dringende Reparaturen bleiben unnötig lange liegen.\n2. **Fehleranfällige, manuelle Erfassung:** Das Abtippen der E-Mails in die Tabellenkalkulation ist zeitaufwendig und kann zu Übertragungsfehlern, Doppelerfassungen oder verlorenen Anfragen führen; eine durchgängige, automatisierte Datenhaltung fehlt.\n\n**Verbesserungsmaßnahmen:**\n1. **Ticketsystem mit Web-Formular**, das Anfragen automatisch erfasst, kategorisiert und eine Eingangsbestätigung versendet.\n2. **Häufigere bzw. kontinuierliche Einsatzplanung** (z. B. täglich), damit dringende Aufträge schneller eingeplant und nach Dringlichkeit priorisiert werden.\n\n(Weitere gültige Aspekte: keine Priorisierung, keine automatische Eingangsbestätigung, kein zentraler Überblick über offene Vorgänge, Self-Service-Portal mit Statusbenachrichtigung.)",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
-            "Kommunikation/Soft Skills"
+            "Kommunikation/Soft Skills",
+            "Projektmanagement"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "einmal",
+              "synonyme": [
+                "wöchentlich",
+                "Reaktionszeit",
+                "lange",
+                "Wartezeit",
+                "Verzögerung"
+              ]
+            },
+            {
+              "begriff": "manuell",
+              "synonyme": [
+                "abtippen",
+                "übertragen",
+                "fehleranfällig",
+                "Übertragungsfehler"
+              ]
+            },
+            {
+              "begriff": "Ticketsystem",
+              "synonyme": [
+                "Ticket",
+                "Web-Formular",
+                "Webformular",
+                "Portal",
+                "Software"
+              ]
+            },
+            {
+              "begriff": "Einsatzplanung",
+              "synonyme": [
+                "täglich",
+                "häufiger",
+                "kontinuierlich",
+                "Planung"
+              ]
+            },
+            {
+              "begriff": "Priorisier",
+              "synonyme": [
+                "dringend",
+                "Dringlichkeit",
+                "keine Priorisierung"
+              ]
+            },
+            {
+              "begriff": "Eingangsbestätigung",
+              "synonyme": [
+                "Benachrichtigung",
+                "Statusmeldung",
+                "Rückmeldung",
+                "Überblick"
+              ]
+            }
+          ],
+          "mindest_treffer": 4
         },
         {
           "id": "2023_Herbst_1ba",
@@ -4671,14 +5002,67 @@
           "ueberschrift": "Service-Pricing (Text auf Englisch) (6 Punkte)",
           "frage_text": "Ein besserer Service lässt sich nicht ohne zusätzliche Kosten umsetzen. Lesen Sie den folgenden englischsprachigen Text und beantworten Sie die anschließenden Fragen jeweils **auf Deutsch**:\n\n> \"Setting the right price for a service is a crucial business decision. A price that is too high may scare off potential customers, so that even an excellent service finds no buyers. A price that is too low, however, may not cover the actual expenses and can lead to losses. There is no single recipe for pricing a service. The following four steps can help you find a suitable price:\n> — Determine all your costs.\n> — Understand your target customers.\n> — Observe what competitors charge.\n> — Decide on a pricing strategy.\"",
           "punkte": 6,
-          "loesung_text": null,
+          "loesung_text": "Zusammenfassung der im Text genannten Aussagen (auf Deutsch):\n\n**Gefahr bei zu hohem Preis:** Potenzielle Kundinnen und Kunden werden abgeschreckt; selbst ein ausgezeichneter Service findet dann keine Abnehmer (Umsatzausfall, Kundenverlust).\n\n**Gefahr bei zu niedrigem Preis:** Die tatsächlichen Kosten werden nicht gedeckt, es entstehen Verluste.\n\n**Die vier Schritte zur Preisbestimmung:**\n1. **Alle Kosten ermitteln** (Determine all your costs)\n2. **Die Zielkunden verstehen** (Understand your target customers)\n3. **Die Preise der Wettbewerber beobachten** (Observe what competitors charge)\n4. **Eine Preisstrategie festlegen** (Decide on a pricing strategy)",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kostenrechnung/Wirtschaft"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "abschreck",
+              "synonyme": [
+                "Kundenverlust",
+                "keine Abnehmer",
+                "keine Käufer",
+                "Umsatzausfall"
+              ]
+            },
+            {
+              "begriff": "Verlust",
+              "synonyme": [
+                "Kosten nicht gedeckt",
+                "Defizit",
+                "kein Gewinn"
+              ]
+            },
+            {
+              "begriff": "Kosten",
+              "synonyme": [
+                "Kosten ermitteln",
+                "Kosten kalkulieren",
+                "costs"
+              ]
+            },
+            {
+              "begriff": "Zielkunde",
+              "synonyme": [
+                "Kunden verstehen",
+                "Kundschaft",
+                "customers"
+              ]
+            },
+            {
+              "begriff": "Wettbewerb",
+              "synonyme": [
+                "Konkurrenz",
+                "Mitbewerber",
+                "Markt",
+                "competitors"
+              ]
+            },
+            {
+              "begriff": "Preisstrategie",
+              "synonyme": [
+                "Preismodell",
+                "pricing",
+                "Preisstrategie festlegen"
+              ]
+            }
+          ],
+          "mindest_treffer": 4
         },
         {
           "id": "2023_Herbst_1da",
@@ -5619,7 +6003,7 @@
           "ueberschrift": "VPN und digitales Zertifikat (5 Punkte)",
           "frage_text": "Für eine **sichere Verbindung** von Ihrem Telearbeitsplatz zu einem Server im Firmennetz sollen Sie ein **VPN** nutzen. Zusätzlich erhalten Sie von Ihrem Arbeitgeber ein **persönlich auf Sie ausgestelltes digitales Zertifikat**.",
           "punkte": 5,
-          "loesung_text": null,
+          "loesung_text": "**Sicherheitstechnischer Vorteil des VPN:** Ein VPN baut über das unsichere öffentliche Internet einen **verschlüsselten Tunnel** zwischen Telearbeitsplatz und Firmennetz auf. Dadurch sind die übertragenen Daten vor Mitlesen und Manipulation durch Dritte geschützt (Vertraulichkeit und Integrität); der Telearbeitsplatz wird behandelt, als befände er sich direkt im internen Netz.\n\n**Identifizierung über das persönliche Zertifikat:** Das Zertifikat ist eindeutig auf Sie als Person ausgestellt und enthält Ihren **öffentlichen Schlüssel** sowie Ihre Identitätsangaben, bestätigt durch eine vertrauenswürdige Zertifizierungsstelle (CA). Beim Verbindungsaufbau weisen Sie sich aus, indem Sie mit Ihrem zugehörigen **privaten Schlüssel** eine Signatur erzeugen; der Server prüft sie mit dem öffentlichen Schlüssel aus dem Zertifikat und kontrolliert dessen Gültigkeit. So ist sichergestellt, dass tatsächlich die berechtigte Person zugreift (**Authentifizierung** auf Basis asymmetrischer Verschlüsselung).",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -5627,7 +6011,59 @@
             "Mobiles Arbeiten/Homeoffice"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "verschlüssel",
+              "synonyme": [
+                "Verschlüsselung",
+                "verschlüsselter Tunnel"
+              ]
+            },
+            {
+              "begriff": "Tunnel",
+              "synonyme": [
+                "Tunnelverbindung",
+                "gesicherte Verbindung"
+              ]
+            },
+            {
+              "begriff": "Mitlesen",
+              "synonyme": [
+                "abhören",
+                "abgehört",
+                "Dritte",
+                "Schutz vor Mitlesen"
+              ]
+            },
+            {
+              "begriff": "Authentifizier",
+              "synonyme": [
+                "Authentisierung",
+                "Identitätsnachweis",
+                "ausweisen",
+                "Identifizierung"
+              ]
+            },
+            {
+              "begriff": "privater Schlüssel",
+              "synonyme": [
+                "private key",
+                "geheimer Schlüssel",
+                "Signatur"
+              ]
+            },
+            {
+              "begriff": "Zertifizierungsstelle",
+              "synonyme": [
+                "CA",
+                "vertrauenswürdige Stelle",
+                "öffentlicher Schlüssel",
+                "asymmetrisch"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2023_Herbst_3da",
@@ -5750,14 +6186,68 @@
           "ueberschrift": "Projektplanung: Gantt vs. Netzplan (7 Punkte)",
           "frage_text": "Sie arbeiten in der Planungsabteilung der **Aurora Datentechnik GmbH** und sind dafür zuständig, den Ablauf eines Projekts zu überwachen und zu steuern.",
           "punkte": 7,
-          "loesung_text": null,
+          "loesung_text": "Zur Überwachung und Steuerung des Projektablaufs sind zwei Darstellungsformen sowie die Phasen des Datenbank-Lebenszyklus relevant:\n\n**Merkmale eines Gantt-Diagramms:**\n1. Stellt Vorgänge als waagerechte Balken auf einer Zeitachse dar – Start, Dauer und Ende sind direkt ablesbar.\n2. Macht zeitliche Überschneidungen/Parallelitäten und den Projektfortschritt anschaulich.\n\n**Merkmale eines Netzplans:**\n1. Stellt die logischen Abhängigkeiten (Reihenfolge) zwischen den Vorgängen dar.\n2. Erlaubt die Berechnung früher/später Zeitpunkte, der Pufferzeiten und des kritischen Pfades.\n\n**Datenbank-Lebenszyklus in richtiger Reihenfolge:**\n1. Anforderungsanalyse → 2. Konzeptioneller Entwurf → 3. Logischer Entwurf → 4. Entwurf der Verteilung im Netz → 5. Physischer Entwurf / Implementierung → 6. Test und Validierung → 7. Betrieb und Wartung.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
-            "Projektmanagement"
+            "Projektmanagement",
+            "UML/Diagramme",
+            "Datenbank/SQL/ER-Modell"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Balken",
+              "synonyme": [
+                "Zeitachse",
+                "Zeitstrahl",
+                "Balkendiagramm"
+              ]
+            },
+            {
+              "begriff": "Abhängigkeit",
+              "synonyme": [
+                "Reihenfolge",
+                "Vorgänger",
+                "Nachfolger",
+                "logische Verknüpfung"
+              ]
+            },
+            {
+              "begriff": "kritischer Pfad",
+              "synonyme": [
+                "Pufferzeit",
+                "Puffer",
+                "früheste",
+                "späteste"
+              ]
+            },
+            {
+              "begriff": "Anforderungsanalyse",
+              "synonyme": [
+                "Anforderung",
+                "zuerst"
+              ]
+            },
+            {
+              "begriff": "konzeptionell",
+              "synonyme": [
+                "konzeptioneller Entwurf",
+                "logischer Entwurf",
+                "physischer Entwurf"
+              ]
+            },
+            {
+              "begriff": "Wartung",
+              "synonyme": [
+                "Betrieb",
+                "zuletzt",
+                "Implementierung"
+              ]
+            }
+          ],
+          "mindest_treffer": 4
         },
         {
           "id": "2023_Herbst_4aa",
@@ -5893,7 +6383,7 @@
           "ueberschrift": "Gantt-Diagramm erstellen und auswerten (11 Punkte)",
           "frage_text": "Für die Planung eines Projekts liegen Ihnen folgende Informationen vor:\n\nDas Projekt beginnt mit Vorgang **A** (Dauer 2 Tage). Nach Abschluss von A starten drei parallele Vorgänge: **B** (4 Tage), **C** (7 Tage) und **D** (3 Tage). Auf B folgt der Vorgang **E** (5 Tage). Die Vorgänge **E**, **C** und **D** haben den gemeinsamen Nachfolger **F** (2 Tage). Nach F folgt abschließend der Vorgang **G** (3 Tage). Danach ist das Projekt beendet.",
           "punkte": 11,
-          "loesung_text": null,
+          "loesung_text": "**Zeitliche Einplanung (frühester Start):**\n\n```\nA: Tag  1– 2  (2 Tage, Start)\nB: Tag  3– 6  (4 Tage, nach A)\nC: Tag  3– 9  (7 Tage, nach A)\nD: Tag  3– 5  (3 Tage, nach A)\nE: Tag  7–11  (5 Tage, nach B)\nF: Tag 12–13  (2 Tage, nach E, C und D → Start frühestens Tag 12, da E erst Tag 11 endet)\nG: Tag 14–16  (3 Tage, nach F)\n```\n\nAbhängigkeiten (Pfeile): A → B, A → C, A → D; B → E; E → F, C → F, D → F; F → G.\n\n**Früheste Gesamtdauer (kritischer Pfad):** Der längste Weg bestimmt die kürzeste Projektdauer.\n- A → B → E → F → G = 2 + 4 + 5 + 2 + 3 = **16 Tage**\n- A → C → F → G = 2 + 7 + 2 + 3 = 14 Tage\n- A → D → F → G = 2 + 3 + 2 + 3 = 10 Tage\n\nDas Projekt kann also frühestens nach **16 Tagen** beendet sein.\n\n**Größter Puffer:** Vorgang **D** hat mit **6 Tagen** den größten Puffer. D endet bereits an Tag 5, F startet aber erst an Tag 12; D dürfte bis Tag 11 verzögern (Puffer = 11 − 5 = 6). C hat 2 Tage Puffer, die Vorgänge des kritischen Pfades (A, B, E, F, G) haben Puffer 0.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -5901,7 +6391,57 @@
             "UML/Diagramme"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "kritischer Pfad",
+              "synonyme": [
+                "A B E F G",
+                "längster Weg",
+                "kritischer Weg"
+              ]
+            },
+            {
+              "begriff": "16",
+              "synonyme": [
+                "16 Tage",
+                "Gesamtdauer",
+                "sechzehn"
+              ]
+            },
+            {
+              "begriff": "parallel",
+              "synonyme": [
+                "gleichzeitig",
+                "B C D",
+                "Parallelität"
+              ]
+            },
+            {
+              "begriff": "Abhängigkeit",
+              "synonyme": [
+                "Pfeil",
+                "Nachfolger",
+                "Reihenfolge"
+              ]
+            },
+            {
+              "begriff": "Puffer",
+              "synonyme": [
+                "Pufferzeit",
+                "Reserve",
+                "Spielraum"
+              ]
+            },
+            {
+              "begriff": "D",
+              "synonyme": [
+                "Vorgang D",
+                "6 Tage Puffer"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2023_Herbst_4ba",
@@ -6297,7 +6837,7 @@
           "ueberschrift": "Nutzwertanalyse: Auswertung von vier Lieferantenangeboten (6 Punkte)",
           "frage_text": "Die **MeshWorks Engineering GmbH** möchte fünf neue Konstruktionsarbeitsplätze beschaffen. Nach Einholung von vier Lieferantenangeboten wurde eine Nutzwertanalyse erstellt. Lieferant C bietet die benötigte Konstruktionssoftware ausschließlich als **Software as a Service (SaaS)** an.\n\nDie Bewertung erfolgt je Kriterium mit 1 bis 5 Punkten; der gewichtete Wert ergibt sich aus *Gewichtung × Punkte*.\n\n| Kriterium | Gewichtung | Lief. A Pkt | Lief. A Gew.×Pkt | Lief. B Pkt | Lief. B Gew.×Pkt | Lief. C Pkt | Lief. C Gew.×Pkt | Lief. D Pkt | Lief. D Gew.×Pkt |\n|---|---|---|---|---|---|---|---|---|---|\n| Grafikleistung | 30 | 3 | 90 | 2 | 60 | 5 | 150 | 4 | 120 |\n| Arbeitsspeicher | 20 | 4 | 80 | 5 | 100 | 4 | 80 | 3 | 60 |\n| Service & Support | 25 | 2 | 50 | 4 | 100 | 5 | 125 | 3 | 75 |\n| Preis | 25 | 5 | 125 | 4 | 100 | 1 | 25 | 4 | 100 |\n| **Summe** | **100** | | **345** | | **360** | | **380** | | **355** |",
           "punkte": 6,
-          "loesung_text": null,
+          "loesung_text": "Der gewichtete Wert je Kriterium ergibt sich aus *Gewichtung × Punkte*; die Gesamtpunktzahl ist die Summe der gewichteten Werte je Lieferant.\n\n**Lieferant A:** 30×3 + 20×4 + 25×2 + 25×5 = 90 + 80 + 50 + 125 = **345**\n**Lieferant B:** 30×2 + 20×5 + 25×4 + 25×4 = 60 + 100 + 100 + 100 = **360**\n**Lieferant C:** 30×5 + 20×4 + 25×5 + 25×1 = 150 + 80 + 125 + 25 = **380**\n**Lieferant D:** 30×4 + 20×3 + 25×3 + 25×4 = 120 + 60 + 75 + 100 = **355**\n\n| Lieferant | A | B | C | D |\n|---|---|---|---|---|\n| Gesamtpunktzahl | 345 | 360 | **380** | 355 |\n\nDie Gewichtungen summieren sich zu 30 + 20 + 25 + 25 = 100. Lieferant **C** erreicht mit **380 Punkten** den höchsten Nutzwert.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -6305,7 +6845,42 @@
             "Hardware/Komponenten"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Gewichtung",
+              "synonyme": [
+                "Gewicht mal Punkte",
+                "gewichtet",
+                "Gewichtung × Punkte"
+              ]
+            },
+            {
+              "begriff": "345",
+              "synonyme": [
+                "Lieferant A"
+              ]
+            },
+            {
+              "begriff": "360",
+              "synonyme": [
+                "Lieferant B"
+              ]
+            },
+            {
+              "begriff": "380",
+              "synonyme": [
+                "Lieferant C"
+              ]
+            },
+            {
+              "begriff": "355",
+              "synonyme": [
+                "Lieferant D"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2024_Frühjahr_1aa",
@@ -6994,14 +7569,57 @@
           "ueberschrift": "IP- und MAC-Adressen den Rechnern zuordnen (4 Punkte)",
           "frage_text": "Aus den Ausgaben von `ipconfig /all` (eigener PC) und `arp -a` (Nachbar-PC) liegen Ihnen die IP- und MAC-Adressen beider Rechner vor. Ordnen Sie in der folgenden Skizze die **IP-Adressen** und die **physischen Adressen (MAC)** dem jeweiligen Rechner korrekt zu:\n\n| | Eigener PC | Nachbar-PC im Netzwerk |\n|---|---|---|\n| IP-Adresse | ? | ? |\n| Physische Adresse (MAC) | ? | ? |\n\n*(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "Zur Veranschaulichung dient folgender beispielhafter Auszug (die konkreten Werte stehen in den Ausgaben von `ipconfig /all` und `arp -a`):\n\n- `ipconfig /all` (**eigener PC**): IPv4 **192.168.10.24**, Subnetzmaske **255.255.255.0** (/24), Standardgateway 192.168.10.1, physische Adresse **A0-B3-CC-D4-7E-91**.\n- `arp -a` (**Nachbar-PC**): IPv4 **192.168.10.57** → physische Adresse **1C-6F-65-2B-9A-D0**.\n\n**Zuordnung:**\n\n| | Eigener PC | Nachbar-PC im Netzwerk |\n|---|---|---|\n| IP-Adresse | 192.168.10.24 | 192.168.10.57 |\n| Physische Adresse (MAC) | A0-B3-CC-D4-7E-91 | 1C-6F-65-2B-9A-D0 |\n\n**Merkmal:** Die eigene Konfiguration liefert `ipconfig /all` (eigene IP **und** eigene MAC). In der `arp -a`-Tabelle steht dagegen die Zuordnung **fremder** IP zu **fremder** MAC – also die des Nachbar-PCs.\n\n**Liegt der Nachbar im selben Subnetz?** Netz-ID = IP UND Subnetzmaske:\n- Eigener PC: 192.168.10.24 AND 255.255.255.0 = **192.168.10.0**\n- Nachbar-PC: 192.168.10.57 AND 255.255.255.0 = **192.168.10.0**\n\nBeide Netz-IDs sind gleich → der Nachbar liegt im **gleichen Subnetz**. Der eigene PC erreicht ihn deshalb **direkt** im LAN: Er ermittelt per ARP die MAC des Nachbarn (steht hier bereits im ARP-Cache) und sendet die Frames unmittelbar an dessen MAC-Adresse. Das Standardgateway wird dafür **nicht** benötigt – über den Router (Default-Gateway) liefe die Kommunikation nur, wenn die Netz-IDs verschieden wären (anderes Subnetz).",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Netzwerk/IP-Adressierung"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "ipconfig",
+              "synonyme": [
+                "eigene MAC",
+                "eigene IP"
+              ]
+            },
+            {
+              "begriff": "arp",
+              "synonyme": [
+                "ARP-Tabelle",
+                "Nachbar",
+                "fremde MAC"
+              ]
+            },
+            {
+              "begriff": "Netz-ID",
+              "synonyme": [
+                "Netzwerk-ID",
+                "gleiches Subnetz",
+                "Subnetzmaske",
+                "UND-Verknüpfung"
+              ]
+            },
+            {
+              "begriff": "direkt",
+              "synonyme": [
+                "unmittelbar",
+                "ohne Gateway",
+                "im LAN"
+              ]
+            },
+            {
+              "begriff": "Gateway",
+              "synonyme": [
+                "Standardgateway",
+                "Router",
+                "anderes Subnetz"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2024_Frühjahr_3a",
@@ -7560,14 +8178,49 @@
           "ueberschrift": "Malware (6 Punkte)",
           "frage_text": "Sie klären Frau Schneider über den Begriff **\"Malware\"** als Oberbegriff für jegliche Art von Schadsoftware auf.",
           "punkte": 6,
-          "loesung_text": null,
+          "loesung_text": "**Malware** (von engl. *malicious software* = „bösartige Software“) ist der **Oberbegriff für jede Art von Schadsoftware** – also für Programme, die mit der Absicht entwickelt wurden, einem Computersystem, dessen Daten oder dem Nutzer zu schaden bzw. unerwünschte oder unbefugte Funktionen auszuführen.\n\nTypische Schadwirkungen sind z. B. das **Ausspähen oder Stehlen von Daten**, das **Verschlüsseln oder Löschen von Dateien**, das **Beeinträchtigen oder Lahmlegen des Systems** sowie das **unbemerkte Fernsteuern** des Rechners. Malware gelangt häufig über E-Mail-Anhänge, manipulierte Webseiten/Downloads oder infizierte Wechseldatenträger auf das Gerät.\n\nMalware ist ein **Sammelbegriff**: Konkrete Ausprägungen (z. B. Viren, Würmer, Trojaner, Ransomware, Spyware) unterscheiden sich in ihrer Verbreitungs- und Wirkungsweise – diese werden in den folgenden Teilaufgaben betrachtet.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Schadsoftware",
+              "synonyme": [
+                "bösartige Software",
+                "malicious software",
+                "Schadprogramm"
+              ]
+            },
+            {
+              "begriff": "Oberbegriff",
+              "synonyme": [
+                "Sammelbegriff",
+                "Überbegriff"
+              ]
+            },
+            {
+              "begriff": "schaden",
+              "synonyme": [
+                "Schaden",
+                "schädlich",
+                "Schadwirkung",
+                "beeinträchtig"
+              ]
+            },
+            {
+              "begriff": "unerwünscht",
+              "synonyme": [
+                "unbefugt",
+                "unbemerkt",
+                "ohne Zustimmung"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2024_Frühjahr_4da",

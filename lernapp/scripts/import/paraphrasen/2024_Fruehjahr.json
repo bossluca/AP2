@@ -4,7 +4,16 @@
     "2024_Frühjahr_1a": {
       "frage_text": "Die **MeshWorks Engineering GmbH** möchte fünf neue Konstruktionsarbeitsplätze beschaffen. Nach Einholung von vier Lieferantenangeboten wurde eine Nutzwertanalyse erstellt. Lieferant C bietet die benötigte Konstruktionssoftware ausschließlich als **Software as a Service (SaaS)** an.\n\nDie Bewertung erfolgt je Kriterium mit 1 bis 5 Punkten; der gewichtete Wert ergibt sich aus *Gewichtung × Punkte*.\n\n| Kriterium | Gewichtung | Lief. A Pkt | Lief. A Gew.×Pkt | Lief. B Pkt | Lief. B Gew.×Pkt | Lief. C Pkt | Lief. C Gew.×Pkt | Lief. D Pkt | Lief. D Gew.×Pkt |\n|---|---|---|---|---|---|---|---|---|---|\n| Grafikleistung | 30 | 3 | 90 | 2 | 60 | 5 | 150 | 4 | 120 |\n| Arbeitsspeicher | 20 | 4 | 80 | 5 | 100 | 4 | 80 | 3 | 60 |\n| Service & Support | 25 | 2 | 50 | 4 | 100 | 5 | 125 | 3 | 75 |\n| Preis | 25 | 5 | 125 | 4 | 100 | 1 | 25 | 4 | 100 |\n| **Summe** | **100** | | **345** | | **360** | | **380** | | **355** |",
       "ueberschrift": "Nutzwertanalyse: Auswertung von vier Lieferantenangeboten (6 Punkte)",
-      "thema_tags": ["Kostenrechnung/Wirtschaft", "Hardware/Komponenten"]
+      "thema_tags": ["Kostenrechnung/Wirtschaft", "Hardware/Komponenten"],
+      "loesung_text": "Der gewichtete Wert je Kriterium ergibt sich aus *Gewichtung × Punkte*; die Gesamtpunktzahl ist die Summe der gewichteten Werte je Lieferant.\n\n**Lieferant A:** 30×3 + 20×4 + 25×2 + 25×5 = 90 + 80 + 50 + 125 = **345**\n**Lieferant B:** 30×2 + 20×5 + 25×4 + 25×4 = 60 + 100 + 100 + 100 = **360**\n**Lieferant C:** 30×5 + 20×4 + 25×5 + 25×1 = 150 + 80 + 125 + 25 = **380**\n**Lieferant D:** 30×4 + 20×3 + 25×3 + 25×4 = 120 + 60 + 75 + 100 = **355**\n\n| Lieferant | A | B | C | D |\n|---|---|---|---|---|\n| Gesamtpunktzahl | 345 | 360 | **380** | 355 |\n\nDie Gewichtungen summieren sich zu 30 + 20 + 25 + 25 = 100. Lieferant **C** erreicht mit **380 Punkten** den höchsten Nutzwert.",
+      "schluesselwoerter": [
+        { "begriff": "Gewichtung", "synonyme": ["Gewicht mal Punkte", "gewichtet", "Gewichtung × Punkte"] },
+        { "begriff": "345", "synonyme": ["Lieferant A"] },
+        { "begriff": "360", "synonyme": ["Lieferant B"] },
+        { "begriff": "380", "synonyme": ["Lieferant C"] },
+        { "begriff": "355", "synonyme": ["Lieferant D"] }
+      ],
+      "mindest_treffer": 3
     },
     "2024_Frühjahr_1aa": {
       "frage_text": "Ermitteln Sie aus der Nutzwertanalyse eine Rangfolge der vier Lieferanten, beginnend mit der höchsten Gesamtpunktzahl. Geben Sie zu jedem Lieferanten die erreichte Summe an. *(4 Punkte)*",
@@ -186,7 +195,16 @@
     "2024_Frühjahr_2g": {
       "frage_text": "Aus den Ausgaben von `ipconfig /all` (eigener PC) und `arp -a` (Nachbar-PC) liegen Ihnen die IP- und MAC-Adressen beider Rechner vor. Ordnen Sie in der folgenden Skizze die **IP-Adressen** und die **physischen Adressen (MAC)** dem jeweiligen Rechner korrekt zu:\n\n| | Eigener PC | Nachbar-PC im Netzwerk |\n|---|---|---|\n| IP-Adresse | ? | ? |\n| Physische Adresse (MAC) | ? | ? |\n\n*(4 Punkte)*",
       "ueberschrift": "IP- und MAC-Adressen den Rechnern zuordnen (4 Punkte)",
-      "thema_tags": ["Netzwerk/IP-Adressierung"]
+      "thema_tags": ["Netzwerk/IP-Adressierung"],
+      "loesung_text": "Zur Veranschaulichung dient folgender beispielhafter Auszug (die konkreten Werte stehen in den Ausgaben von `ipconfig /all` und `arp -a`):\n\n- `ipconfig /all` (**eigener PC**): IPv4 **192.168.10.24**, Subnetzmaske **255.255.255.0** (/24), Standardgateway 192.168.10.1, physische Adresse **A0-B3-CC-D4-7E-91**.\n- `arp -a` (**Nachbar-PC**): IPv4 **192.168.10.57** → physische Adresse **1C-6F-65-2B-9A-D0**.\n\n**Zuordnung:**\n\n| | Eigener PC | Nachbar-PC im Netzwerk |\n|---|---|---|\n| IP-Adresse | 192.168.10.24 | 192.168.10.57 |\n| Physische Adresse (MAC) | A0-B3-CC-D4-7E-91 | 1C-6F-65-2B-9A-D0 |\n\n**Merkmal:** Die eigene Konfiguration liefert `ipconfig /all` (eigene IP **und** eigene MAC). In der `arp -a`-Tabelle steht dagegen die Zuordnung **fremder** IP zu **fremder** MAC – also die des Nachbar-PCs.\n\n**Liegt der Nachbar im selben Subnetz?** Netz-ID = IP UND Subnetzmaske:\n- Eigener PC: 192.168.10.24 AND 255.255.255.0 = **192.168.10.0**\n- Nachbar-PC: 192.168.10.57 AND 255.255.255.0 = **192.168.10.0**\n\nBeide Netz-IDs sind gleich → der Nachbar liegt im **gleichen Subnetz**. Der eigene PC erreicht ihn deshalb **direkt** im LAN: Er ermittelt per ARP die MAC des Nachbarn (steht hier bereits im ARP-Cache) und sendet die Frames unmittelbar an dessen MAC-Adresse. Das Standardgateway wird dafür **nicht** benötigt – über den Router (Default-Gateway) liefe die Kommunikation nur, wenn die Netz-IDs verschieden wären (anderes Subnetz).",
+      "schluesselwoerter": [
+        { "begriff": "ipconfig", "synonyme": ["eigene MAC", "eigene IP"] },
+        { "begriff": "arp", "synonyme": ["ARP-Tabelle", "Nachbar", "fremde MAC"] },
+        { "begriff": "Netz-ID", "synonyme": ["Netzwerk-ID", "gleiches Subnetz", "Subnetzmaske", "UND-Verknüpfung"] },
+        { "begriff": "direkt", "synonyme": ["unmittelbar", "ohne Gateway", "im LAN"] },
+        { "begriff": "Gateway", "synonyme": ["Standardgateway", "Router", "anderes Subnetz"] }
+      ],
+      "mindest_treffer": 3
     },
     "2024_Frühjahr_3a": {
       "frage_text": "Ein Kunde sendet Ihnen eine Datei mit einer Ihnen **unbekannten Dateiendung** zu, die sich mit Ihren vorhandenen Programmen nicht öffnen lässt.\n\nNennen Sie **drei Möglichkeiten**, wie Sie Informationen über dieses unbekannte Dateiformat beschaffen können. *(3 Punkte)*",
@@ -331,7 +349,15 @@
     "2024_Frühjahr_4d": {
       "frage_text": "Sie klären Frau Schneider über den Begriff **\"Malware\"** als Oberbegriff für jegliche Art von Schadsoftware auf.",
       "ueberschrift": "Malware (6 Punkte)",
-      "thema_tags": ["Datenschutz/IT-Sicherheit"]
+      "thema_tags": ["Datenschutz/IT-Sicherheit"],
+      "loesung_text": "**Malware** (von engl. *malicious software* = „bösartige Software“) ist der **Oberbegriff für jede Art von Schadsoftware** – also für Programme, die mit der Absicht entwickelt wurden, einem Computersystem, dessen Daten oder dem Nutzer zu schaden bzw. unerwünschte oder unbefugte Funktionen auszuführen.\n\nTypische Schadwirkungen sind z. B. das **Ausspähen oder Stehlen von Daten**, das **Verschlüsseln oder Löschen von Dateien**, das **Beeinträchtigen oder Lahmlegen des Systems** sowie das **unbemerkte Fernsteuern** des Rechners. Malware gelangt häufig über E-Mail-Anhänge, manipulierte Webseiten/Downloads oder infizierte Wechseldatenträger auf das Gerät.\n\nMalware ist ein **Sammelbegriff**: Konkrete Ausprägungen (z. B. Viren, Würmer, Trojaner, Ransomware, Spyware) unterscheiden sich in ihrer Verbreitungs- und Wirkungsweise – diese werden in den folgenden Teilaufgaben betrachtet.",
+      "schluesselwoerter": [
+        { "begriff": "Schadsoftware", "synonyme": ["bösartige Software", "malicious software", "Schadprogramm"] },
+        { "begriff": "Oberbegriff", "synonyme": ["Sammelbegriff", "Überbegriff"] },
+        { "begriff": "schaden", "synonyme": ["Schaden", "schädlich", "Schadwirkung", "beeinträchtig"] },
+        { "begriff": "unerwünscht", "synonyme": ["unbefugt", "unbemerkt", "ohne Zustimmung"] }
+      ],
+      "mindest_treffer": 2
     },
     "2024_Frühjahr_4da": {
       "frage_text": "Nennen Sie **drei Arten von Malware** (Schadsoftware). *(3 Punkte)*",

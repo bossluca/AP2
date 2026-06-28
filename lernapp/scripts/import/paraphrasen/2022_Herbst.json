@@ -126,11 +126,25 @@
     },
     "2022_Herbst_2ca": {
       "frage_text": "Aus allen vorhandenen Festplatten soll ein **fehlertolerantes RAID 5** mit **größtmöglicher Nettokapazität** aufgebaut werden. Berechnen Sie die maximale Nettospeicherkapazität in TB. Der Rechenweg ist anzugeben. *(4 Punkte)*",
-      "thema_tags": ["Hardware/Speicher-Berechnung", "Datensicherung/Storage"]
+      "loesung_text": "**Rechenweg:**\n\nVerfügbar sind insgesamt **9 Festplatten** (3 × 4 TB + 6 × 2 TB). Für die größtmögliche Nettokapazität werden **alle 9 Platten** in einem RAID 5 zusammengefasst.\n\nBei RAID 5 wird je Platte nur die Kapazität der **kleinsten** beteiligten Platte genutzt (hier 2 TB); die 4-TB-Platten können also nur mit 2 TB einfließen. Eine Plattenkapazität geht für die Parität verloren.\n\n- Pro Platte nutzbar: 2 TB\n- Brutto: 9 × 2 TB = 18 TB\n- Netto: (9 − 1) × 2 TB = **16 TB**\n\n→ Maximale Nettokapazität = **16 TB**.",
+      "thema_tags": ["Hardware/Speicher-Berechnung", "Datensicherung/Storage"],
+      "schluesselwoerter": [
+        { "begriff": "16", "synonyme": ["16 TB"], "pflicht": true },
+        { "begriff": "kleinste", "synonyme": ["2 TB", "kleinsten", "kleinste Platte"] },
+        { "begriff": "Parität", "synonyme": ["n-1", "n - 1", "(9-1)", "eine Platte"] }
+      ],
+      "mindest_treffer": 2
     },
     "2022_Herbst_2cb": {
       "frage_text": "Ermitteln Sie zum Vergleich die erreichbare **Gesamtkapazität in TB**, wenn alle Festplatten als **JBOD** zusammengeschaltet werden. Der Rechenweg ist anzugeben. *(2 Punkte)*",
-      "thema_tags": ["Hardware/Speicher-Berechnung", "Datensicherung/Storage"]
+      "loesung_text": "**Rechenweg:**\n\nBei JBOD werden alle Einzelkapazitäten ohne Verlust einfach addiert (keine Parität, keine Spiegelung):\n\n- 3 × 4 TB = 12 TB\n- 6 × 2 TB = 12 TB\n- Gesamt: 12 TB + 12 TB = **24 TB**\n\n→ Gesamtkapazität als JBOD = **24 TB** (8 TB mehr als beim RAID 5, jedoch ohne Ausfallsicherheit).",
+      "thema_tags": ["Hardware/Speicher-Berechnung", "Datensicherung/Storage"],
+      "schluesselwoerter": [
+        { "begriff": "24", "synonyme": ["24 TB"], "pflicht": true },
+        { "begriff": "12", "synonyme": ["12 TB"] },
+        { "begriff": "addier", "synonyme": ["Summe", "summier", "zusammengezählt"] }
+      ],
+      "mindest_treffer": 1
     },
     "2022_Herbst_2cc": {
       "frage_text": "Beschreiben Sie **zwei Vorteile**, die ein Laufwerksverbund als **JBOD** gegenüber einem **RAID 0** bietet. *(4 Punkte)*",
@@ -251,11 +265,26 @@
     },
     "2022_Herbst_4aa": {
       "frage_text": "In der Tabelle `Produktionsdaten` mit den Spalten `AuftragID`, `Breite`, `Laenge`, `Dicke`, `Anzahl` und `Zeitstempel` sollen Daten ausgewertet werden.\n\nFormulieren Sie einen **SQL-Befehl**, der für den Auftrag mit `AuftragID = 854127` die Werte **Breite, Länge, Dicke und Anzahl** ausgibt. Die Spalte `AuftragID` selbst soll **nicht** in der Ergebnismenge erscheinen. *(3 Punkte)*",
-      "thema_tags": ["Datenbank/SQL/ER-Modell"]
+      "loesung_text": "```sql\nSELECT Breite, Laenge, Dicke, Anzahl\nFROM Produktionsdaten\nWHERE AuftragID = 854127;\n```\n\nEs werden nur die vier gewünschten Spalten in die `SELECT`-Liste aufgenommen, `AuftragID` bleibt bewusst weg. Die `WHERE`-Bedingung schränkt auf den gesuchten Auftrag ein.",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"],
+      "schluesselwoerter": [
+        { "begriff": "SELECT", "synonyme": ["select"], "pflicht": true },
+        { "begriff": "Breite", "synonyme": ["Laenge", "Länge", "Dicke", "Anzahl"] },
+        { "begriff": "WHERE", "synonyme": ["where"] },
+        { "begriff": "854127", "synonyme": ["AuftragID = 854127", "AuftragID=854127"] }
+      ],
+      "mindest_treffer": 3
     },
     "2022_Herbst_4ab": {
       "frage_text": "Formulieren Sie einen **SQL-Befehl**, der ausgibt, **wie viele Produktionsaufträge** für Stoffbahnen mit einer **Dicke von 3 mm** bisher gespeichert wurden. *(4 Punkte)*",
-      "thema_tags": ["Datenbank/SQL/ER-Modell"]
+      "loesung_text": "```sql\nSELECT COUNT(*) AS \"Anzahl Auftraege\"\nFROM Produktionsdaten\nWHERE Dicke = 3;\n```\n\n`COUNT(*)` zählt die Datensätze (= Produktionsaufträge), die die Bedingung erfüllen. Die `WHERE`-Klausel filtert auf alle Zeilen mit `Dicke = 3` (mm).",
+      "thema_tags": ["Datenbank/SQL/ER-Modell"],
+      "schluesselwoerter": [
+        { "begriff": "COUNT", "synonyme": ["count(*)", "Anzahl"], "pflicht": true },
+        { "begriff": "WHERE", "synonyme": ["where"] },
+        { "begriff": "Dicke", "synonyme": ["Dicke = 3", "= 3"] }
+      ],
+      "mindest_treffer": 2
     },
     "2022_Herbst_4ac": {
       "frage_text": "Formulieren Sie einen **SQL-Befehl**, der die **Gesamtanzahl** aller gefertigten Stoffbahnen mit **Dicke 3 mm, Breite 200 mm und Länge 300 mm** ermittelt. *(4 Punkte)*",

@@ -17,7 +17,17 @@
     },
     "2023_Herbst_1b": {
       "frage_text": "Bisher läuft die Auftragsannahme bei GrünTech so ab: Kundinnen und Kunden müssen ihre Reparaturanfrage per E-Mail einreichen. Eingehende Anfragen werden manuell in eine Tabellenkalkulation übertragen. Die Einsatzplanung für das Werkstatt-Team findet nur einmal wöchentlich, jeweils am Montagvormittag, statt. Das Werkstatt-Team arbeitet montags bis freitags von 7:30 bis 16:30 Uhr.",
-      "thema_tags": ["Kommunikation/Soft Skills"]
+      "loesung_text": "Der geschilderte Ablauf hat mehrere Schwachstellen, denen sich passende Verbesserungsmaßnahmen gegenüberstellen lassen:\n\n**Kritikpunkte:**\n1. **Lange Reaktionszeiten:** Da die Einsatzplanung nur einmal wöchentlich (montags) erfolgt, kann eine z. B. dienstags eingegangene Anfrage erst rund eine Woche später eingeplant werden – dringende Reparaturen bleiben unnötig lange liegen.\n2. **Fehleranfällige, manuelle Erfassung:** Das Abtippen der E-Mails in die Tabellenkalkulation ist zeitaufwendig und kann zu Übertragungsfehlern, Doppelerfassungen oder verlorenen Anfragen führen; eine durchgängige, automatisierte Datenhaltung fehlt.\n\n**Verbesserungsmaßnahmen:**\n1. **Ticketsystem mit Web-Formular**, das Anfragen automatisch erfasst, kategorisiert und eine Eingangsbestätigung versendet.\n2. **Häufigere bzw. kontinuierliche Einsatzplanung** (z. B. täglich), damit dringende Aufträge schneller eingeplant und nach Dringlichkeit priorisiert werden.\n\n(Weitere gültige Aspekte: keine Priorisierung, keine automatische Eingangsbestätigung, kein zentraler Überblick über offene Vorgänge, Self-Service-Portal mit Statusbenachrichtigung.)",
+      "thema_tags": ["Kommunikation/Soft Skills", "Projektmanagement"],
+      "schluesselwoerter": [
+        { "begriff": "einmal", "synonyme": ["wöchentlich", "Reaktionszeit", "lange", "Wartezeit", "Verzögerung"] },
+        { "begriff": "manuell", "synonyme": ["abtippen", "übertragen", "fehleranfällig", "Übertragungsfehler"] },
+        { "begriff": "Ticketsystem", "synonyme": ["Ticket", "Web-Formular", "Webformular", "Portal", "Software"] },
+        { "begriff": "Einsatzplanung", "synonyme": ["täglich", "häufiger", "kontinuierlich", "Planung"] },
+        { "begriff": "Priorisier", "synonyme": ["dringend", "Dringlichkeit", "keine Priorisierung"] },
+        { "begriff": "Eingangsbestätigung", "synonyme": ["Benachrichtigung", "Statusmeldung", "Rückmeldung", "Überblick"] }
+      ],
+      "mindest_treffer": 4
     },
     "2023_Herbst_1ba": {
       "frage_text": "Beschreiben Sie **zwei Kritikpunkte** an dem beschriebenen Ablauf der Auftragsannahme und -planung. *(4 Punkte)*",
@@ -58,7 +68,17 @@
     },
     "2023_Herbst_1d": {
       "frage_text": "Ein besserer Service lässt sich nicht ohne zusätzliche Kosten umsetzen. Lesen Sie den folgenden englischsprachigen Text und beantworten Sie die anschließenden Fragen jeweils **auf Deutsch**:\n\n> \"Setting the right price for a service is a crucial business decision. A price that is too high may scare off potential customers, so that even an excellent service finds no buyers. A price that is too low, however, may not cover the actual expenses and can lead to losses. There is no single recipe for pricing a service. The following four steps can help you find a suitable price:\n> — Determine all your costs.\n> — Understand your target customers.\n> — Observe what competitors charge.\n> — Decide on a pricing strategy.\"",
-      "thema_tags": ["Kostenrechnung/Wirtschaft"]
+      "loesung_text": "Zusammenfassung der im Text genannten Aussagen (auf Deutsch):\n\n**Gefahr bei zu hohem Preis:** Potenzielle Kundinnen und Kunden werden abgeschreckt; selbst ein ausgezeichneter Service findet dann keine Abnehmer (Umsatzausfall, Kundenverlust).\n\n**Gefahr bei zu niedrigem Preis:** Die tatsächlichen Kosten werden nicht gedeckt, es entstehen Verluste.\n\n**Die vier Schritte zur Preisbestimmung:**\n1. **Alle Kosten ermitteln** (Determine all your costs)\n2. **Die Zielkunden verstehen** (Understand your target customers)\n3. **Die Preise der Wettbewerber beobachten** (Observe what competitors charge)\n4. **Eine Preisstrategie festlegen** (Decide on a pricing strategy)",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"],
+      "schluesselwoerter": [
+        { "begriff": "abschreck", "synonyme": ["Kundenverlust", "keine Abnehmer", "keine Käufer", "Umsatzausfall"] },
+        { "begriff": "Verlust", "synonyme": ["Kosten nicht gedeckt", "Defizit", "kein Gewinn"] },
+        { "begriff": "Kosten", "synonyme": ["Kosten ermitteln", "Kosten kalkulieren", "costs"] },
+        { "begriff": "Zielkunde", "synonyme": ["Kunden verstehen", "Kundschaft", "customers"] },
+        { "begriff": "Wettbewerb", "synonyme": ["Konkurrenz", "Mitbewerber", "Markt", "competitors"] },
+        { "begriff": "Preisstrategie", "synonyme": ["Preismodell", "pricing", "Preisstrategie festlegen"] }
+      ],
+      "mindest_treffer": 4
     },
     "2023_Herbst_1da": {
       "frage_text": "Benennen Sie eine **Gefahr**, die laut Text bei einem **zu hoch** angesetzten Service-Preis besteht. *(1 Punkt)*",
@@ -255,7 +275,17 @@
     },
     "2023_Herbst_3d": {
       "frage_text": "Für eine **sichere Verbindung** von Ihrem Telearbeitsplatz zu einem Server im Firmennetz sollen Sie ein **VPN** nutzen. Zusätzlich erhalten Sie von Ihrem Arbeitgeber ein **persönlich auf Sie ausgestelltes digitales Zertifikat**.",
-      "thema_tags": ["Datenschutz/IT-Sicherheit", "Mobiles Arbeiten/Homeoffice"]
+      "loesung_text": "**Sicherheitstechnischer Vorteil des VPN:** Ein VPN baut über das unsichere öffentliche Internet einen **verschlüsselten Tunnel** zwischen Telearbeitsplatz und Firmennetz auf. Dadurch sind die übertragenen Daten vor Mitlesen und Manipulation durch Dritte geschützt (Vertraulichkeit und Integrität); der Telearbeitsplatz wird behandelt, als befände er sich direkt im internen Netz.\n\n**Identifizierung über das persönliche Zertifikat:** Das Zertifikat ist eindeutig auf Sie als Person ausgestellt und enthält Ihren **öffentlichen Schlüssel** sowie Ihre Identitätsangaben, bestätigt durch eine vertrauenswürdige Zertifizierungsstelle (CA). Beim Verbindungsaufbau weisen Sie sich aus, indem Sie mit Ihrem zugehörigen **privaten Schlüssel** eine Signatur erzeugen; der Server prüft sie mit dem öffentlichen Schlüssel aus dem Zertifikat und kontrolliert dessen Gültigkeit. So ist sichergestellt, dass tatsächlich die berechtigte Person zugreift (**Authentifizierung** auf Basis asymmetrischer Verschlüsselung).",
+      "thema_tags": ["Datenschutz/IT-Sicherheit", "Mobiles Arbeiten/Homeoffice"],
+      "schluesselwoerter": [
+        { "begriff": "verschlüssel", "synonyme": ["Verschlüsselung", "verschlüsselter Tunnel"] },
+        { "begriff": "Tunnel", "synonyme": ["Tunnelverbindung", "gesicherte Verbindung"] },
+        { "begriff": "Mitlesen", "synonyme": ["abhören", "abgehört", "Dritte", "Schutz vor Mitlesen"] },
+        { "begriff": "Authentifizier", "synonyme": ["Authentisierung", "Identitätsnachweis", "ausweisen", "Identifizierung"] },
+        { "begriff": "privater Schlüssel", "synonyme": ["private key", "geheimer Schlüssel", "Signatur"] },
+        { "begriff": "Zertifizierungsstelle", "synonyme": ["CA", "vertrauenswürdige Stelle", "öffentlicher Schlüssel", "asymmetrisch"] }
+      ],
+      "mindest_treffer": 3
     },
     "2023_Herbst_3da": {
       "frage_text": "Beschreiben Sie den **sicherheitstechnischen Vorteil** eines **Virtual Private Network (VPN)**. *(2 Punkte)*",
@@ -283,7 +313,17 @@
     },
     "2023_Herbst_4a": {
       "frage_text": "Sie arbeiten in der Planungsabteilung der **Aurora Datentechnik GmbH** und sind dafür zuständig, den Ablauf eines Projekts zu überwachen und zu steuern.",
-      "thema_tags": ["Projektmanagement"]
+      "loesung_text": "Zur Überwachung und Steuerung des Projektablaufs sind zwei Darstellungsformen sowie die Phasen des Datenbank-Lebenszyklus relevant:\n\n**Merkmale eines Gantt-Diagramms:**\n1. Stellt Vorgänge als waagerechte Balken auf einer Zeitachse dar – Start, Dauer und Ende sind direkt ablesbar.\n2. Macht zeitliche Überschneidungen/Parallelitäten und den Projektfortschritt anschaulich.\n\n**Merkmale eines Netzplans:**\n1. Stellt die logischen Abhängigkeiten (Reihenfolge) zwischen den Vorgängen dar.\n2. Erlaubt die Berechnung früher/später Zeitpunkte, der Pufferzeiten und des kritischen Pfades.\n\n**Datenbank-Lebenszyklus in richtiger Reihenfolge:**\n1. Anforderungsanalyse → 2. Konzeptioneller Entwurf → 3. Logischer Entwurf → 4. Entwurf der Verteilung im Netz → 5. Physischer Entwurf / Implementierung → 6. Test und Validierung → 7. Betrieb und Wartung.",
+      "thema_tags": ["Projektmanagement", "UML/Diagramme", "Datenbank/SQL/ER-Modell"],
+      "schluesselwoerter": [
+        { "begriff": "Balken", "synonyme": ["Zeitachse", "Zeitstrahl", "Balkendiagramm"] },
+        { "begriff": "Abhängigkeit", "synonyme": ["Reihenfolge", "Vorgänger", "Nachfolger", "logische Verknüpfung"] },
+        { "begriff": "kritischer Pfad", "synonyme": ["Pufferzeit", "Puffer", "früheste", "späteste"] },
+        { "begriff": "Anforderungsanalyse", "synonyme": ["Anforderung", "zuerst"] },
+        { "begriff": "konzeptionell", "synonyme": ["konzeptioneller Entwurf", "logischer Entwurf", "physischer Entwurf"] },
+        { "begriff": "Wartung", "synonyme": ["Betrieb", "zuletzt", "Implementierung"] }
+      ],
+      "mindest_treffer": 4
     },
     "2023_Herbst_4aa": {
       "frage_text": "Nennen Sie **jeweils zwei wesentliche Merkmale** eines **Gantt-Diagramms** und eines **Netzplans**. *(4 Punkte)*",
@@ -312,7 +352,17 @@
     },
     "2023_Herbst_4b": {
       "frage_text": "Für die Planung eines Projekts liegen Ihnen folgende Informationen vor:\n\nDas Projekt beginnt mit Vorgang **A** (Dauer 2 Tage). Nach Abschluss von A starten drei parallele Vorgänge: **B** (4 Tage), **C** (7 Tage) und **D** (3 Tage). Auf B folgt der Vorgang **E** (5 Tage). Die Vorgänge **E**, **C** und **D** haben den gemeinsamen Nachfolger **F** (2 Tage). Nach F folgt abschließend der Vorgang **G** (3 Tage). Danach ist das Projekt beendet.",
-      "thema_tags": ["Projektmanagement", "UML/Diagramme"]
+      "loesung_text": "**Zeitliche Einplanung (frühester Start):**\n\n```\nA: Tag  1– 2  (2 Tage, Start)\nB: Tag  3– 6  (4 Tage, nach A)\nC: Tag  3– 9  (7 Tage, nach A)\nD: Tag  3– 5  (3 Tage, nach A)\nE: Tag  7–11  (5 Tage, nach B)\nF: Tag 12–13  (2 Tage, nach E, C und D → Start frühestens Tag 12, da E erst Tag 11 endet)\nG: Tag 14–16  (3 Tage, nach F)\n```\n\nAbhängigkeiten (Pfeile): A → B, A → C, A → D; B → E; E → F, C → F, D → F; F → G.\n\n**Früheste Gesamtdauer (kritischer Pfad):** Der längste Weg bestimmt die kürzeste Projektdauer.\n- A → B → E → F → G = 2 + 4 + 5 + 2 + 3 = **16 Tage**\n- A → C → F → G = 2 + 7 + 2 + 3 = 14 Tage\n- A → D → F → G = 2 + 3 + 2 + 3 = 10 Tage\n\nDas Projekt kann also frühestens nach **16 Tagen** beendet sein.\n\n**Größter Puffer:** Vorgang **D** hat mit **6 Tagen** den größten Puffer. D endet bereits an Tag 5, F startet aber erst an Tag 12; D dürfte bis Tag 11 verzögern (Puffer = 11 − 5 = 6). C hat 2 Tage Puffer, die Vorgänge des kritischen Pfades (A, B, E, F, G) haben Puffer 0.",
+      "thema_tags": ["Projektmanagement", "UML/Diagramme"],
+      "schluesselwoerter": [
+        { "begriff": "kritischer Pfad", "synonyme": ["A B E F G", "längster Weg", "kritischer Weg"] },
+        { "begriff": "16", "synonyme": ["16 Tage", "Gesamtdauer", "sechzehn"] },
+        { "begriff": "parallel", "synonyme": ["gleichzeitig", "B C D", "Parallelität"] },
+        { "begriff": "Abhängigkeit", "synonyme": ["Pfeil", "Nachfolger", "Reihenfolge"] },
+        { "begriff": "Puffer", "synonyme": ["Pufferzeit", "Reserve", "Spielraum"] },
+        { "begriff": "D", "synonyme": ["Vorgang D", "6 Tage Puffer"] }
+      ],
+      "mindest_treffer": 3
     },
     "2023_Herbst_4ba": {
       "frage_text": "Erstellen Sie aus den genannten Vorgängen ein **Gantt-Diagramm** und zeichnen Sie die **Abhängigkeiten** ein. *(6 Punkte)*\n\nVorgänge: A, B, C, D, E, F, G",
