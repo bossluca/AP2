@@ -3,13 +3,13 @@
  * Chart-Bibliothek. Erwartet die Wochen-Spalten aus `baueHeatmap()`.
  */
 
-/** Farbstufen 0–4 (Akzentfarbe Indigo), light + dark. */
+/** Farbstufen 0–4 (Akzentfarbe Grün/Terminal), light + dark. */
 const LEVELS = [
-  'bg-gray-100 dark:bg-gray-800',
-  'bg-indigo-200 dark:bg-indigo-900',
-  'bg-indigo-300 dark:bg-indigo-700',
-  'bg-indigo-400 dark:bg-indigo-600',
-  'bg-indigo-500 dark:bg-indigo-400',
+  'bg-gray-100 dark:bg-[#1d271a]',
+  'bg-green-200 dark:bg-green-900',
+  'bg-green-300 dark:bg-green-700',
+  'bg-green-400 dark:bg-green-500',
+  'bg-green-500 dark:bg-[#5be38a]',
 ];
 
 /**

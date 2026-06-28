@@ -182,7 +182,7 @@ export default function Lernzettel() {
                     <button
                       onClick={() => toggle(e.id)}
                       aria-expanded={isOpen}
-                      className="w-full text-left px-4 py-3 flex items-center gap-2 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
+                      className="w-full text-left px-4 py-3 flex items-center gap-2 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors"
                     >
                       <span className="text-gray-400 text-xs w-3">{isOpen ? '▾' : '▸'}</span>
                       <span className="font-medium flex-1">{e.titel}</span>

@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <div className="space-y-6">
       <section className="card relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-400/10 via-indigo-500/10 to-fuchsia-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 via-green-500/10 to-teal-400/10" />
         <div className="relative p-5 sm:p-6 flex items-center justify-between gap-5 flex-wrap">
           <div className="space-y-2 flex-1 min-w-[13rem]">
             <h1 className="text-2xl sm:text-3xl font-bold">
@@ -84,7 +84,7 @@ export default function Home() {
           <div className="leading-tight">
             <div className="text-xl font-bold">{gami.streak}</div>
             <div className="text-xs text-gray-500">Tage&nbsp;Streak</div>
-            <div className="text-[11px] font-medium text-indigo-600 mt-0.5">
+            <div className="text-[11px] font-medium text-accent mt-0.5">
               ⭐ Level {gami.level.level}
             </div>
             {gami.freezesVerfuegbar > 0 && (
@@ -105,9 +105,9 @@ export default function Home() {
               {Math.min(gami.heuteAktivitaet, gami.tagesziel)} / {gami.tagesziel}
             </span>
           </div>
-          <div className="h-2.5 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
+          <div className="h-2.5 rounded-full bg-gray-200 dark:bg-[#1d271a] overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 transition-all duration-500"
+              className="h-full rounded-full bg-accent transition-all duration-500"
               style={{
                 width: `${Math.min(100, (gami.heuteAktivitaet / gami.tagesziel) * 100)}%`,
               }}
@@ -215,7 +215,7 @@ export default function Home() {
             <div className="text-lg font-semibold">🔁 {s.faellig} Objekte fällig</div>
             <div className="text-sm text-gray-500">Jetzt wiederholen, um sie zu festigen.</div>
           </div>
-          <span className="text-indigo-600 font-medium text-sm">Los →</span>
+          <span className="text-accent font-medium text-sm">Los →</span>
         </Link>
       )}
 
@@ -257,7 +257,7 @@ export default function Home() {
           <div className="text-xs text-gray-500">Noch offen</div>
         </div>
       </div>
-      <Link to="/statistik" className="text-sm text-indigo-600 hover:underline">
+      <Link to="/statistik" className="text-sm text-accent hover:underline">
         Detaillierte Statistik ansehen →
       </Link>
 
@@ -267,7 +267,7 @@ export default function Home() {
           <Link key={k.to} to={k.to} className="card-interactive group block p-4">
             <div className="flex items-start justify-between gap-2">
               <h2 className="text-lg font-semibold mb-1">{k.titel}</h2>
-              <span className="text-indigo-400 transition-transform duration-200 group-hover:translate-x-1">
+              <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">
                 →
               </span>
             </div>

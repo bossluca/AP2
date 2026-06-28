@@ -101,7 +101,7 @@ export default function Lernen() {
           )}
         </div>
         <div>
-          <Link to="/" className="text-sm text-indigo-600 hover:underline">
+          <Link to="/" className="text-sm text-accent hover:underline">
             Zur Startseite
           </Link>
         </div>
@@ -117,11 +117,11 @@ export default function Lernen() {
         <div className="text-5xl">{quote >= 80 ? '🌟' : quote >= 50 ? '💪' : '🌱'}</div>
         <h1 className="text-xl font-bold">Geschafft!</h1>
         <div className="card p-5 space-y-1">
-          <div className="text-3xl font-bold text-indigo-600">
+          <div className="text-3xl font-bold text-accent">
             {gewusstAnzahl} / {verlauf.length}
           </div>
           <div className="text-sm text-gray-500">gewusst ({quote}%)</div>
-          <div className="text-sm font-medium text-fuchsia-600 pt-1">+{xpGesammelt} XP</div>
+          <div className="text-sm font-medium text-accent pt-1">+{xpGesammelt} XP</div>
           <div className="text-xs text-gray-400">
             🔥 {gami.streak} Tage Streak · Level {gami.level.level}
           </div>
@@ -162,8 +162,8 @@ export default function Lernen() {
                 ? 'bg-green-500'
                 : 'bg-amber-500'
               : i === index
-                ? 'bg-indigo-500'
-                : 'bg-gray-200 dark:bg-gray-700';
+                ? 'bg-accent'
+                : 'bg-gray-200 dark:bg-[#2a3326]';
           return <div key={i} className={`h-1.5 flex-1 rounded-full ${cls}`} />;
         })}
       </div>

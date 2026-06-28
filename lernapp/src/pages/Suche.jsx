@@ -99,7 +99,7 @@ export default function Suche() {
             >
               <button
                 onClick={() => setOpenId(isOpen ? null : o.id)}
-                className="w-full text-left px-4 py-3 space-y-1 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
+                className="w-full text-left px-4 py-3 space-y-1 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors"
               >
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs chip">

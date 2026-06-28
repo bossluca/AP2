@@ -46,8 +46,8 @@ export default function FilterBar({ filters, onChange }) {
   const chipClass = (active) =>
     `px-2.5 py-1.5 rounded-full border text-xs transition-colors ${
       active
-        ? 'bg-indigo-500 text-white border-indigo-500'
-        : 'border-gray-300 dark:border-gray-600 hover:border-indigo-400'
+        ? 'bg-accent text-[var(--accent-contrast)] border-accent'
+        : 'border-gray-300 dark:border-[#2a3326] hover:border-accent'
     }`;
 
   return (
@@ -108,7 +108,7 @@ export default function FilterBar({ filters, onChange }) {
       {hasActiveFilters(filters) && (
         <button
           onClick={clearAll}
-          className="text-xs underline text-gray-500 hover:text-indigo-600"
+          className="text-xs underline text-gray-500 hover:text-accent"
         >
           Filter zurücksetzen
         </button>

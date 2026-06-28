@@ -235,7 +235,7 @@ export default function Klausur() {
       <div className="space-y-4">
         <h1 className="text-xl font-bold">Auswertung</h1>
         <div className="card p-4 text-center space-y-1 animate-in">
-          <div className="text-3xl font-bold text-indigo-600 tabular-nums">{animProzent}%</div>
+          <div className="text-3xl font-bold text-accent tabular-nums">{animProzent}%</div>
           <div className="text-sm text-gray-500">
             {animPunkte.toLocaleString('de')} von {punkteMax} Punkten · Tendenz Note {note}
           </div>
@@ -323,9 +323,9 @@ export default function Klausur() {
       </div>
 
       {/* Fortschrittsbalken */}
-      <div className="h-1.5 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden">
+      <div className="h-1.5 bg-gray-200 dark:bg-[#1d271a] rounded overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 transition-all"
+          className="h-full bg-accent transition-all"
           style={{ width: `${(beantwortet / fragen.length) * 100}%` }}
         />
       </div>

@@ -128,9 +128,9 @@ export default function Statistik() {
       </section>
 
       {/* Fällig */}
-      <section className="rounded-lg border border-indigo-300 dark:border-indigo-700 p-4 flex items-center justify-between gap-3">
+      <section className="rounded-lg border border-accent p-4 flex items-center justify-between gap-3">
         <div>
-          <div className="text-2xl font-bold text-indigo-600">{s.faellig}</div>
+          <div className="text-2xl font-bold text-accent">{s.faellig}</div>
           <div className="text-xs text-gray-500">jetzt fällig zum Wiederholen</div>
         </div>
         <Link
@@ -143,7 +143,7 @@ export default function Statistik() {
 
       {/* Level & XP */}
       <section className="card p-4 flex items-center gap-4">
-        <div className="grid place-items-center w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-white font-bold text-lg shrink-0 shadow-sm shadow-fuchsia-500/30">
+        <div className="grid place-items-center w-14 h-14 rounded-full bg-accent text-[var(--accent-contrast)] font-bold text-lg shrink-0 shadow-sm">
           {gami.level.level}
         </div>
         <div className="flex-1 min-w-0">
@@ -153,9 +153,9 @@ export default function Statistik() {
               {gami.level.xpImLevel} / {gami.level.xpFuerLevel} XP
             </span>
           </div>
-          <div className="h-2.5 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
+          <div className="h-2.5 rounded-full bg-gray-200 dark:bg-[#1d271a] overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 transition-all duration-500"
+              className="h-full rounded-full bg-accent transition-all duration-500"
               style={{ width: `${Math.round(gami.level.fortschritt * 100)}%` }}
             />
           </div>
@@ -214,7 +214,7 @@ export default function Statistik() {
             ...Array.from({ length: MAX_BOX }, (_, i) => [
               `Stufe ${i + 1}`,
               s.boxen[i + 1],
-              'bg-indigo-500',
+              'bg-accent',
             ]),
           ].map(([label, val, color]) => (
             <div key={label} className="flex items-center gap-2 text-xs">
@@ -304,7 +304,7 @@ export default function Statistik() {
             {letzteTage.map((v) => (
               <div key={v.date} className="flex-1 flex flex-col items-center gap-1" title={`${v.date}: ${v.count}`}>
                 <div
-                  className="w-full bg-indigo-500 rounded-t"
+                  className="w-full bg-accent rounded-t"
                   style={{ height: `${Math.max(4, Math.round((v.count / maxVerlauf) * 80))}px` }}
                 />
                 <span className="text-[10px] text-gray-400">{v.date.slice(5)}</span>

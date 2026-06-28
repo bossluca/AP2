@@ -67,13 +67,13 @@ export default function ErfolgWatcher() {
   return (
     <div
       role="status"
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 animate-in flex items-center gap-3 rounded-xl border border-indigo-200 dark:border-indigo-800 bg-white dark:bg-gray-900 shadow-lg shadow-indigo-500/20 px-4 py-3"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 animate-in flex items-center gap-3 rounded-xl border border-green-200 dark:border-green-800 bg-white dark:bg-[#11160F] shadow-lg shadow-green-500/20 px-4 py-3"
     >
       <span className="text-3xl" aria-hidden="true">
         {toast.icon}
       </span>
       <div className="leading-tight">
-        <div className="text-[11px] uppercase tracking-wide text-indigo-600 dark:text-indigo-400 font-semibold">
+        <div className="text-[11px] uppercase tracking-wide text-accent font-semibold">
           Erfolg freigeschaltet!
         </div>
         <div className="font-semibold text-sm">{toast.titel}</div>

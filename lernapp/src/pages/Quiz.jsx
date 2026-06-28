@@ -128,7 +128,7 @@ export default function Quiz() {
         <h1 className="text-xl font-bold">Auswertung</h1>
 
         <div className="card p-4 text-center">
-          <div className="text-3xl font-bold text-indigo-600">{percent}%</div>
+          <div className="text-3xl font-bold text-accent">{percent}%</div>
           <div className="text-sm text-gray-500">
             {totalScore} von {maxScore} Punkten (richtig = 1, teilweise = 0,5, falsch = 0)
           </div>

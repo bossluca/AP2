@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route, NavLink, useLocation } from 'react-router-do
 import {
   Home as HomeIcon,
   Play,
+  Route as RouteIcon,
   Layers,
   FileText,
   RotateCcw,
@@ -21,6 +22,7 @@ import {
 import Home from './pages/Home';
 // Übrige Seiten lazy laden – schlankerer Start-Chunk, Seite kommt bei Bedarf.
 const Lernen = lazy(() => import('./pages/Lernen'));
+const Lernpfade = lazy(() => import('./pages/Lernpfade'));
 const Flashcards = lazy(() => import('./pages/Flashcards'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const Luecken = lazy(() => import('./pages/Luecken'));
@@ -38,6 +40,7 @@ import ErfolgWatcher from './components/ErfolgWatcher';
 const NAV = [
   { to: '/', label: 'Start', end: true, icon: HomeIcon },
   { to: '/lernen', label: 'Lernen', icon: Play },
+  { to: '/lernpfade', label: 'Lernpfade', icon: RouteIcon },
   { to: '/karteikarten', label: 'Karten', icon: Layers },
   { to: '/lernzettel', label: 'Lernzettel', icon: FileText },
   { to: '/wiederholen', label: 'Wiederholen', icon: RotateCcw },
@@ -53,15 +56,15 @@ const BOTTOM_ROUTES = ['/', '/lernen', '/wiederholen', '/statistik'];
 const linkClass = ({ isActive }) =>
   `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
     isActive
-      ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-sm shadow-fuchsia-500/30'
-      : 'text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/40'
+      ? 'bg-accent text-[var(--accent-contrast)] shadow-sm'
+      : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30'
   }`;
 
 const iconClass = ({ isActive }) =>
   `grid place-items-center w-9 h-9 rounded-lg transition-colors ${
     isActive
-      ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-sm shadow-fuchsia-500/30'
-      : 'text-gray-600 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/40'
+      ? 'bg-accent text-[var(--accent-contrast)] shadow-sm'
+      : 'text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30'
   }`;
 
 /** Hell-/Dunkel-Umschalter (zeigt das Symbol des anwählbaren Modus). */
@@ -73,7 +76,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={dark ? 'Hellmodus aktivieren' : 'Dunkelmodus aktivieren'}
       title={dark ? 'Hellmodus' : 'Dunkelmodus'}
-      className="grid place-items-center w-9 h-9 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors"
+      className="grid place-items-center w-9 h-9 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors"
     >
       {dark ? <Sun size={18} /> : <Moon size={18} />}
     </button>
@@ -98,12 +101,17 @@ function StreakBadge() {
 /** Obere Leiste: Marke, Desktop-Linkleiste (ab lg), rechte Icon-Gruppe. */
 function TopBar() {
   return (
-    <nav className="border-b border-gray-200/70 dark:border-gray-800 sticky top-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur z-20">
+    <nav className="border-b border-gray-200/70 dark:border-[#1d271a] sticky top-0 bg-white/80 dark:bg-[#0B0F0C]/80 backdrop-blur z-20">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex items-center gap-1 sm:gap-2">
-        <NavLink to="/" end className="font-bold text-base sm:text-lg mr-1 sm:mr-3 shrink-0">
-          <span className="bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 bg-clip-text text-transparent">
-            AP&nbsp;Lernapp
+        <NavLink
+          to="/"
+          end
+          className="font-bold text-base sm:text-lg mr-1 sm:mr-3 shrink-0 flex items-center gap-1.5"
+        >
+          <span className="font-mono text-accent" aria-hidden="true">
+            &gt;_
           </span>
+          <span className="text-gradient">AP&nbsp;Lernapp</span>
         </NavLink>
 
         {/* Desktop (ab lg): volle Linkleiste */}
@@ -133,14 +141,14 @@ function TopBar() {
 
 const bottomItemClass = ({ isActive }) =>
   `flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium transition-colors ${
-    isActive ? 'text-fuchsia-600 dark:text-fuchsia-400' : 'text-gray-500 dark:text-gray-400'
+    isActive ? 'text-accent' : 'text-gray-500 dark:text-gray-400'
   }`;
 
 /** Mobile/Tablet (bis lg): fixe Tab-Leiste unten + „Mehr"-Button. */
 function BottomNav({ onMehr }) {
   const items = BOTTOM_ROUTES.map((to) => NAV.find((n) => n.to === to));
   return (
-    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 border-t border-gray-200/70 dark:border-gray-800 bg-white/90 dark:bg-gray-950/90 backdrop-blur pb-[env(safe-area-inset-bottom)]">
+    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 border-t border-gray-200/70 dark:border-[#1d271a] bg-white/90 dark:bg-[#0A0E0A]/90 backdrop-blur pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-4xl mx-auto grid grid-cols-5">
         {items.map((it) => (
           <NavLink key={it.to} to={it.to} end={it.end} className={bottomItemClass}>
@@ -162,7 +170,7 @@ function MehrSheet({ onClose }) {
   return (
     <div className="lg:hidden fixed inset-0 z-30" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
-      <div className="absolute bottom-0 inset-x-0 bg-white dark:bg-gray-950 rounded-t-2xl p-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl animate-in">
+      <div className="absolute bottom-0 inset-x-0 bg-white dark:bg-[#0A0E0A] rounded-t-2xl p-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl animate-in">
         <div className="flex items-center justify-between mb-3">
           <span className="font-semibold">Alle Bereiche</span>
           <button onClick={onClose} aria-label="Schließen" className="grid place-items-center w-8 h-8 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -179,8 +187,8 @@ function MehrSheet({ onClose }) {
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3 text-xs font-medium transition-colors ${
                   isActive
-                    ? 'border-fuchsia-300 dark:border-fuchsia-700 text-fuchsia-600 dark:text-fuchsia-400 bg-fuchsia-50 dark:bg-fuchsia-900/20'
-                    : 'border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-indigo-300'
+                    ? 'border-accent text-accent bg-green-50 dark:bg-green-900/20'
+                    : 'border-gray-200 dark:border-[#1d271a] text-gray-700 dark:text-gray-300 hover:border-accent'
                 }`
               }
             >
@@ -198,7 +206,7 @@ function MehrSheet({ onClose }) {
 function SeiteLaedt() {
   return (
     <div className="grid place-items-center py-24" role="status" aria-label="Lädt …">
-      <div className="w-8 h-8 rounded-full border-2 border-indigo-500/30 border-t-indigo-500 animate-spin" />
+      <div className="w-8 h-8 rounded-full border-2 border-[var(--accent)]/30 border-t-[var(--accent)] animate-spin" />
     </div>
   );
 }
@@ -212,6 +220,8 @@ function AnimatedMain() {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/lernen" element={<Lernen />} />
+          <Route path="/lernpfade" element={<Lernpfade />} />
+          <Route path="/lernpfade/:id" element={<Lernpfade />} />
           <Route path="/karteikarten" element={<Flashcards />} />
           <Route path="/lernzettel" element={<Lernzettel />} />
           <Route path="/wiederholen" element={<Wiederholen />} />
@@ -235,7 +245,7 @@ export default function App() {
   const [mehrOffen, setMehrOffen] = useState(false);
   return (
     <HashRouter>
-      <div className="relative isolate min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+      <div className="relative isolate min-h-screen bg-gray-50 text-gray-900 dark:bg-[#0B0F0C] dark:text-[#D8E6D4]">
         <div className="aurora" aria-hidden="true" />
         <div className="relative z-10">
           <TopBar />

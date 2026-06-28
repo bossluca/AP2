@@ -7,19 +7,46 @@
  */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * „Terminal"-Design-System (Variante A): grüner Akzent, monospace-naher Look.
+ * Der Akzent liegt zentral auf CSS-Variablen, damit ein späterer Farbwechsel
+ * an EINER Stelle passiert. Fonts: Space Grotesk (Headings/Marke), JetBrains
+ * Mono (UI/Mono-Akzente), System-Sans als Fließtext-Fallback.
+ */
 :root {
   color-scheme: light dark;
+  --accent: #16a34a; /* green-600 – trägt im Light-Mode genug Kontrast */
+  --accent-strong: #15803d; /* green-700 */
+  --accent-contrast: #ffffff; /* Text auf Akzentflächen */
+  --selection: rgba(34, 197, 94, 0.22);
+  --line-rest: #e5e7eb; /* gray-200 – ungelaufener Teil der Pfad-Linie */
+}
+.dark {
+  /* Im Dunkeln das namensgebende leuchtende Terminal-Grün. */
+  --accent: #5be38a;
+  --accent-strong: #7cffa0;
+  --accent-contrast: #06120a;
+  --selection: rgba(91, 227, 138, 0.26);
+  --line-rest: #1d271a;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Space Grotesk', system-ui, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Monospace-Akzent für „CLI"-Elemente (Marke, Kennzahlen, Code-nahe Labels). */
+.font-mono,
+code,
+kbd,
+pre {
+  font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 }
 
 /* Markierte Textauswahl in der Akzentfarbe (kleiner „Spaß"-Touch). */
 ::selection {
-  background: rgba(99, 102, 241, 0.25); /* indigo-500 */
+  background: var(--selection);
 }
 
 #root {
@@ -31,28 +58,58 @@ details > summary {
 }
 
 /* --- Design-System: wiederverwendbare Utility-Klassen (Tailwind 4) -------- */
-/* Karten/Flächen */
+/* Akzent-Helfer (greifen die zentralen CSS-Variablen ab). */
+@utility text-accent {
+  color: var(--accent);
+}
+@utility bg-accent {
+  background-color: var(--accent);
+}
+@utility border-accent {
+  border-color: var(--accent);
+}
+
+/* Karten/Flächen – im Dark-Mode grün-getöntes „Terminal"-Schwarz. */
 @utility card {
-  @apply rounded-2xl border border-gray-200/70 bg-white shadow-sm dark:border-gray-800/80 dark:bg-gray-900;
+  @apply rounded-2xl border border-gray-200/70 bg-white shadow-sm dark:border-[#1d271a] dark:bg-[#11160F];
 }
 @utility card-interactive {
-  @apply card transition duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/10 hover:border-indigo-300 dark:hover:border-indigo-700;
+  @apply card transition duration-200 hover:-translate-y-0.5 hover:shadow-lg;
+  &:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
 }
 
 /* Text mit Akzent-Farbverlauf (für Überschriften/Highlights). */
 @utility text-gradient {
-  @apply bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 bg-clip-text text-transparent;
+  background-image: linear-gradient(
+    90deg,
+    var(--accent-strong),
+    var(--accent)
+  );
+  @apply bg-clip-text text-transparent;
 }
 
 /* Buttons */
 @utility btn {
-  @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 disabled:opacity-60 disabled:pointer-events-none;
+  @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 disabled:opacity-60 disabled:pointer-events-none;
+  --tw-ring-color: color-mix(in srgb, var(--accent) 55%, transparent);
 }
 @utility btn-primary {
-  @apply btn text-white shadow-sm bg-gradient-to-br from-indigo-500 to-fuchsia-500 hover:from-indigo-600 hover:to-fuchsia-600;
+  @apply btn shadow-sm;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+  &:hover {
+    background-color: var(--accent-strong);
+  }
 }
 @utility btn-ghost {
-  @apply btn border border-gray-300 text-gray-700 hover:border-indigo-400 hover:text-indigo-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-indigo-500 dark:hover:text-indigo-300;
+  @apply btn border border-gray-300 text-gray-700 dark:border-[#2a3326] dark:text-gray-300;
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 }
 @utility btn-soft-green {
   @apply btn bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900/40 dark:text-green-300 dark:hover:bg-green-900/60;
@@ -64,14 +121,16 @@ details > summary {
   @apply btn bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/40 dark:text-red-300 dark:hover:bg-red-900/60;
 }
 
-/* Tag-/Status-Chips */
+/* Tag-/Status-Chips (monospace, „CLI"-Anmutung). */
 @utility chip {
-  @apply inline-flex items-center rounded-md bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400;
+  @apply inline-flex items-center rounded-md bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-[#1d271a] dark:text-[#9aa894];
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* Formularelemente */
 @utility input {
-  @apply rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 dark:border-gray-600 dark:bg-gray-900;
+  @apply rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 dark:border-[#2a3326] dark:bg-[#0d120b];
+  --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 /* --- Dekorativer „Aurora"-Hintergrund (weiche Farbverläufe) ------------- */
@@ -92,8 +151,8 @@ details > summary {
   height: 42rem;
   border-radius: 9999px;
   filter: blur(100px);
-  opacity: 0.4;
-  background: radial-gradient(circle at center, #818cf8, transparent 70%);
+  opacity: 0.32;
+  background: radial-gradient(circle at center, #34d399, transparent 70%);
   animation: aurora-float 20s ease-in-out infinite alternate;
 }
 .aurora::before {
@@ -103,12 +162,12 @@ details > summary {
 .aurora::after {
   bottom: -16rem;
   right: -10rem;
-  background: radial-gradient(circle at center, #e879f9, transparent 70%);
+  background: radial-gradient(circle at center, #5be38a, transparent 70%);
   animation-delay: -10s;
 }
 .dark .aurora::before,
 .dark .aurora::after {
-  opacity: 0.18;
+  opacity: 0.14;
 }
 @keyframes aurora-float {
   from {
@@ -155,6 +214,20 @@ details > summary {
 }
 .animate-in {
   animation: fadeInUp 0.35s ease both;
+}
+
+/* Pulsierender Ring um das aktive Lernpfad-Modul (sanfter „du bist hier"-Hinweis). */
+@keyframes node-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+.node-pulse {
+  animation: node-pulse 2s ease-in-out infinite;
 }
 
 /* Kleiner „Treffer"-Puls für erkannte Schlagwörter (Klausur). */

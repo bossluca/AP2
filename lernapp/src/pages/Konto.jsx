@@ -72,7 +72,7 @@ export default function Konto() {
           }}
           className={`px-3 py-1.5 rounded-md border ${
             modus === 'login'
-              ? 'bg-indigo-500 text-white border-indigo-500'
+              ? 'bg-accent text-[var(--accent-contrast)] border-accent'
               : 'border-gray-300 dark:border-gray-600'
           }`}
         >
@@ -85,7 +85,7 @@ export default function Konto() {
           }}
           className={`px-3 py-1.5 rounded-md border ${
             modus === 'register'
-              ? 'bg-indigo-500 text-white border-indigo-500'
+              ? 'bg-accent text-[var(--accent-contrast)] border-accent'
               : 'border-gray-300 dark:border-gray-600'
           }`}
         >
