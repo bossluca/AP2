@@ -10,6 +10,7 @@ import { baueTagesquests, questFortschritt } from '../lib/quests';
 import ProgressRing from '../components/ProgressRing';
 
 const KACHELN = [
+  { to: '/lernpfade', titel: '🧭 Lernpfade', text: 'Geführter Lernweg je Thema – Modul-Training mit Karten, Lücken & Fragen.' },
   { to: '/karteikarten', titel: '📇 Karteikarten', text: 'Durch Prüfungsfragen blättern, Lösung aufdecken, markieren.' },
   { to: '/lernzettel', titel: '📝 Lernzettel', text: 'Themen-Spickzettel (AP1 + AP2) lesen, suchen, filtern.' },
   { to: '/wiederholen', titel: '🔁 Wiederholen', text: 'Spaced-Repetition-Sitzung über fällige Fragen & Lernzettel.' },
@@ -57,12 +58,14 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 via-green-500/10 to-teal-400/10" />
         <div className="relative p-5 sm:p-6 flex items-center justify-between gap-5 flex-wrap">
           <div className="space-y-2 flex-1 min-w-[13rem]">
-            <h1 className="text-2xl sm:text-3xl font-bold">
-              <span className="text-gradient">AP-Lernapp</span>
+            <div className="font-mono text-xs text-accent">// Fachinformatiker Systemintegration</div>
+            <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-2">
+              <span className="font-mono text-accent" aria-hidden="true">&gt;_</span>
+              <span className="text-gradient">FiSi.dev</span>
             </h1>
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              {s.art.frage} Prüfungsfragen aus {exams.length} Terminen + {s.art.lernzettel}{' '}
-              Lernzettel (AP1 + AP2).
+              Deine AP2-Vorbereitung – {s.art.frage} Prüfungsfragen aus {exams.length} Terminen +{' '}
+              {s.art.lernzettel} Lernzettel.
             </p>
             <Link to="/lernen" className="btn-primary px-5 py-2.5 mt-1 text-base">
               ▶ Heute lernen

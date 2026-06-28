@@ -23,6 +23,7 @@ import Home from './pages/Home';
 // Übrige Seiten lazy laden – schlankerer Start-Chunk, Seite kommt bei Bedarf.
 const Lernen = lazy(() => import('./pages/Lernen'));
 const Lernpfade = lazy(() => import('./pages/Lernpfade'));
+const ModulTraining = lazy(() => import('./pages/ModulTraining'));
 const Flashcards = lazy(() => import('./pages/Flashcards'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const Luecken = lazy(() => import('./pages/Luecken'));
@@ -111,7 +112,7 @@ function TopBar() {
           <span className="font-mono text-accent" aria-hidden="true">
             &gt;_
           </span>
-          <span className="text-gradient">AP&nbsp;Lernapp</span>
+          <span className="text-gradient">FiSi.dev</span>
         </NavLink>
 
         {/* Desktop (ab lg): volle Linkleiste */}
@@ -222,6 +223,7 @@ function AnimatedMain() {
           <Route path="/lernen" element={<Lernen />} />
           <Route path="/lernpfade" element={<Lernpfade />} />
           <Route path="/lernpfade/:id" element={<Lernpfade />} />
+          <Route path="/lernpfade/:pfadId/:modulId" element={<ModulTraining />} />
           <Route path="/karteikarten" element={<Flashcards />} />
           <Route path="/lernzettel" element={<Lernzettel />} />
           <Route path="/wiederholen" element={<Wiederholen />} />

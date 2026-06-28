@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import * as Icons from 'lucide-react';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Play } from 'lucide-react';
 import { getLerneinheiten } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
 import { baueLernpfade, findePfad } from '../lib/lernpfade';
@@ -37,7 +37,8 @@ function Uebersicht({ pfade }) {
         <div className="font-mono text-xs text-gray-500 dark:text-[#6B7A66]">// lernpfade</div>
         <h1 className="text-xl font-bold">Lernpfade</h1>
         <p className="text-sm text-gray-500">
-          Geführter Weg durch die AP1-Themen – ein Pfad je Kapitel, Schritt für Schritt.
+          Geführter Weg durch die Themen – je Modul ein kurzes Training aus Karten, Lücken &
+          Prüfungsfragen.
           {erledigt > 0 && (
             <>
               {' '}
@@ -147,21 +148,35 @@ function Detail({ pfad, einheitenById, getStatus, setStatus }) {
                 <LernpfadNode modul={m} offen={offen} onToggle={() => onToggle(m.id)} />
                 {offen && einheit && (
                   <div className="ml-[52px] mb-2 rounded-xl border border-gray-200 dark:border-[#1d271a] bg-white dark:bg-[#0d120b] p-3.5 space-y-3 animate-in">
-                    <MarkdownContent>{einheit.inhalt_text}</MarkdownContent>
-                    <div className="flex gap-2 justify-end">
-                      <button
-                        onClick={() => setStatus(m.einheitId, 'ueben')}
-                        className="btn-soft-amber px-3 py-1.5"
-                      >
-                        Muss ich üben
-                      </button>
-                      <button
-                        onClick={() => setStatus(m.einheitId, 'gelernt')}
-                        className="btn-soft-green px-3 py-1.5"
-                      >
-                        Verstanden
-                      </button>
-                    </div>
+                    <Link
+                      to={`/lernpfade/${pfad.id}/${m.id}`}
+                      className="btn-primary w-full py-2.5 inline-flex items-center justify-center gap-2"
+                    >
+                      <Play size={16} aria-hidden="true" />
+                      Training starten
+                    </Link>
+                    <details className="group">
+                      <summary className="cursor-pointer text-sm text-gray-500 hover:text-accent select-none">
+                        Lernzettel nachlesen
+                      </summary>
+                      <div className="pt-3">
+                        <MarkdownContent>{einheit.inhalt_text}</MarkdownContent>
+                        <div className="flex gap-2 justify-end pt-2">
+                          <button
+                            onClick={() => setStatus(m.einheitId, 'ueben')}
+                            className="btn-soft-amber px-3 py-1.5"
+                          >
+                            Muss ich üben
+                          </button>
+                          <button
+                            onClick={() => setStatus(m.einheitId, 'gelernt')}
+                            className="btn-soft-green px-3 py-1.5"
+                          >
+                            Verstanden
+                          </button>
+                        </div>
+                      </div>
+                    </details>
                     {getStatus(m.einheitId) && (
                       <div className="text-[11px] text-gray-400 text-right">
                         Status: {getStatus(m.einheitId)}

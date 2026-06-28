@@ -25,13 +25,13 @@ export default defineConfig({
       injectRegister: 'auto',
       includeAssets: ['favicon.svg', 'pwa-icon.svg'],
       manifest: {
-        name: 'AP-Lernapp – Abschlussprüfung üben',
-        short_name: 'AP-Lernapp',
+        name: 'FiSi.dev – AP2-Vorbereitung Systemintegration',
+        short_name: 'FiSi.dev',
         description:
-          'Abschlussprüfung Fachinformatiker Systemintegration üben: Karteikarten, Klausursimulation, Spaced Repetition.',
+          'Deine AP2-Vorbereitung für Fachinformatiker Systemintegration: Lernpfade, Klausursimulation, Spaced Repetition und Karteikarten.',
         lang: 'de',
-        theme_color: '#6366f1',
-        background_color: '#ffffff',
+        theme_color: '#5BE38A',
+        background_color: '#0B0F0C',
         display: 'standalone',
         start_url: '.',
         scope: '.',
