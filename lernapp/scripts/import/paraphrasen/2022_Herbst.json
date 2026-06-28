@@ -7,7 +7,12 @@
     },
     "2022_Herbst_1aa": {
       "frage_text": "Benennen Sie die Marktform, die die aktuelle Situation der GreenHydro Solutions GmbH zutreffend beschreibt. *(1 Punkt)*",
-      "thema_tags": ["Kostenrechnung/Wirtschaft"]
+      "loesung_text": "**Oligopol** (genauer: Angebotsoligopol).\n\nWenige Anbieter (eine Handvoll Hersteller) stehen einer großen Zahl von Nachfragern (Speditionen, Fuhrparkbetreiber) gegenüber.",
+      "thema_tags": ["Kostenrechnung/Wirtschaft"],
+      "schluesselwoerter": [
+        { "begriff": "Oligopol", "synonyme": ["Angebotsoligopol"], "pflicht": true }
+      ],
+      "mindest_treffer": 1
     },
     "2022_Herbst_1ab": {
       "frage_text": "Inzwischen kündigen mehrere etablierte Industriekonzerne an, ebenfalls in die Produktion von Brennstoffzellen einzusteigen. In wenigen Jahren werden also zahlreiche Hersteller einer großen Zahl von Abnehmern gegenüberstehen.\n\nBenennen Sie die Marktform, auf die sich die GreenHydro Solutions GmbH dann einstellen muss. *(1 Punkt)*",
@@ -95,7 +100,14 @@
     },
     "2022_Herbst_2ba": {
       "frage_text": "Ermitteln Sie das zu speichernde **Datenvolumen pro Scan in MiB**. Der Rechenweg ist anzugeben. *(4 Punkte)*\n\nGegeben:\n- Erfasste Breite: 30,48 cm\n- Erfasste Länge: 30 cm\n- Auflösung: 300 dpi\n- Farbtiefe: 24 Bit pro Bildpunkt\n- (1 Inch = 2,54 cm)",
-      "thema_tags": ["Hardware/Speicher-Berechnung"]
+      "loesung_text": "**Rechenweg:**\n\n- Breite: 30,48 cm ÷ 2,54 cm/Inch = 12 Inch → × 300 dpi = **3.600 Bildpunkte**\n- Länge: 30 cm ÷ 2,54 cm/Inch ≈ 11,811 Inch → × 300 dpi ≈ **3.543 Bildpunkte**\n- Pixel pro Scan ≈ 3.600 × 3.543 = 12.754.800 Pixel\n- × 24 Bit = 306.115.200 Bit ÷ 8 = 38.264.400 Byte\n- ÷ 1.024 ÷ 1.024 ≈ **36,49 MiB pro Scan**\n\n*(Wird die Länge ebenfalls auf 12 Inch aufgerundet: 3.600 × 3.600 × 24 Bit ÷ 8 ÷ 1.024 ÷ 1.024 ≈ 37,08 MiB.)*",
+      "thema_tags": ["Hardware/Speicher-Berechnung"],
+      "schluesselwoerter": [
+        { "begriff": "3600", "synonyme": ["3.600"] },
+        { "begriff": "3543", "synonyme": ["3.543"] },
+        { "begriff": "36", "synonyme": ["36,49", "37", "37,08"] }
+      ],
+      "mindest_treffer": 2
     },
     "2022_Herbst_2bb": {
       "frage_text": "Ermitteln Sie anschließend das **gesamte zu speichernde Datenvolumen pro Tag in GiB**. Runden Sie das Ergebnis auf volle GiB auf. Der Rechenweg ist anzugeben. *(2 Punkte)*\n\n*(Hinweis: Falls a) oder ba) nicht gelöst wurden, rechnen Sie mit 50.000 Scans/Tag und 25 MiB pro Scan weiter.)*",

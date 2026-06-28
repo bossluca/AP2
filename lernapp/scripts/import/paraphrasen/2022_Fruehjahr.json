@@ -7,7 +7,16 @@
     },
     "2022_Frühjahr_1aa": {
       "frage_text": "Halten Sie im Notizbereich Ihrer Präsentation **drei inhaltliche Kernbotschaften** fest, die Sie aus der obigen Situationsbeschreibung mit Ihrer Folie beim Kunden vermitteln möchten. *(6 Punkte)*",
-      "thema_tags": ["Kommunikation/Soft Skills"]
+      "loesung_text": "Drei mögliche Kernbotschaften, abgeleitet aus den betrieblichen Informationen (je 2 Punkte):\n\n- **Langjährige Erfahrung:** Seit der Gründung 1998 sind wir über 25 Jahre am Markt – das steht für Beständigkeit, Verlässlichkeit und eine langfristige Partnerschaft.\n- **Internationale Aufstellung:** Mit rund 540 Mitarbeitenden an Standorten in Deutschland, Polen und Spanien sind wir international leistungsfähig und können auch größere Projekte stemmen.\n- **Anpassungs- und Zukunftsfähigkeit:** Nach der erfolgreichen Neuausrichtung durch den neuen Vorstand 2015 sind wir stabil aufgestellt und beweisen, dass wir auf Veränderungen flexibel reagieren.\n\n*(Bewertung sinngemäß: je 2 Punkte für eine schlüssige, aus der Situation abgeleitete Botschaft.)*",
+      "thema_tags": ["Kommunikation/Soft Skills"],
+      "schluesselwoerter": [
+        { "begriff": "Erfahrung", "synonyme": ["1998", "langjährig", "25 Jahre", "Beständigkeit"] },
+        { "begriff": "international", "synonyme": ["Standorte", "Deutschland", "Polen", "Spanien", "540"] },
+        { "begriff": "Mitarbeit", "synonyme": ["Mitarbeitende", "Personal", "Team", "Größe"] },
+        { "begriff": "Neuausrichtung", "synonyme": ["Vorstand", "2015", "umstrukturier", "anpassungsfähig"] },
+        { "begriff": "Verlässlich", "synonyme": ["Partnerschaft", "stabil", "Vertrauen", "langfristig"] }
+      ],
+      "mindest_treffer": 3
     },
     "2022_Frühjahr_1ab": {
       "frage_text": "Ergänzen Sie den Folienbereich um die **drei zu Ihren Botschaften passenden Stichpunkte** (Aufzählungspunkte für die Folie). *(3 Punkte)*",
@@ -41,7 +50,17 @@
     },
     "2022_Frühjahr_1ca": {
       "frage_text": "Erläutern Sie analog zum vorgegebenen Beispiel, **warum** die folgenden Informationen für die Erstellung des Angebots benötigt werden. *(6 Punkte)*\n\n| Information | Erläuterung |\n|---|---|\n| *Beispiel:* Räumliche Gegebenheiten | Ermöglichen die Einschätzung von Entfernungen und damit des logistischen Aufwands |\n| Lastenheft | ? |\n| Geplanter Fertigstellungstermin | ? |\n| Ergebnisse der Ist-Analyse | ? |",
-      "thema_tags": ["Projektmanagement"]
+      "loesung_text": "Begründung des Informationsbedarfs (je 2 Punkte):\n\n| Information | Erläuterung |\n|---|---|\n| **Lastenheft** | Beschreibt die vom Kunden geforderten Leistungen und Anforderungen und bildet die fachliche Grundlage für Leistungsbeschreibung und Kalkulation des Angebots. |\n| **Geplanter Fertigstellungstermin** | Wird benötigt, um zu prüfen, ob die nötigen Ressourcen (Personal, Material) im geforderten Zeitraum verfügbar sind und der Termin realistisch eingehalten werden kann. |\n| **Ergebnisse der Ist-Analyse** | Zeigen den aktuellen Zustand der vorhandenen Systeme und sind die Basis, um den tatsächlichen Umsetzungs- und Migrationsaufwand realistisch abzuschätzen. |",
+      "thema_tags": ["Projektmanagement"],
+      "schluesselwoerter": [
+        { "begriff": "Anforderung", "synonyme": ["Lastenheft", "Leistungsbeschreibung", "Kundenwunsch"] },
+        { "begriff": "Kalkulation", "synonyme": ["Grundlage", "Angebotsbasis", "Preis"] },
+        { "begriff": "Termin", "synonyme": ["Zeitraum", "Frist", "Fertigstellung"] },
+        { "begriff": "Ressourc", "synonyme": ["Personal", "Kapazität", "Verfügbarkeit", "Material"] },
+        { "begriff": "Ist-Analyse", "synonyme": ["aktueller Zustand", "Bestand", "Ausgangslage"] },
+        { "begriff": "Aufwand", "synonyme": ["Umsetzungsaufwand", "Abschätzung", "einschätzen"] }
+      ],
+      "mindest_treffer": 3
     },
     "2022_Frühjahr_1cb": {
       "frage_text": "Für ein Angebot werden neben fachlichen auch **formale Angaben** zum Kunden benötigt, beispielsweise dessen Anschrift. Nennen Sie eine **weitere formale Information**, die darüber hinaus erforderlich sein kann. *(1 Punkt)*",

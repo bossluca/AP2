@@ -3,7 +3,17 @@
   "eintraege": {
     "2023_Herbst_1a": {
       "frage_text": "Die **GrünTech Gartengeräte GmbH** betreibt einen technischen Reparaturservice. Ein begonnenes UML-Anwendungsfalldiagramm (Use-Case-Diagramm) bildet bisher nur die Anwendungsfälle *\"Reparaturanfrage aufnehmen\"* und *\"Reparaturauftrag durchführen\"* (mit «include»-Beziehung) sowie den Akteur *\"Werkstatt-Team\"* ab.\n\nErgänzen Sie das Diagramm um die fehlenden Akteure und Anwendungsfälle. Berücksichtigen Sie dabei mindestens folgende Beteiligte und Abläufe:\n\n- die **Kundin / den Kunden**, die bzw. der eine Reparaturanfrage stellt und eine Rückmeldung über den Bearbeitungsstand erhält,\n- die **Disposition**, die eingehende Anfragen einplant und priorisiert.\n\nZeichnen Sie die passenden Akteure, Anwendungsfälle und Beziehungen ein.",
-      "thema_tags": ["UML/Diagramme"]
+      "loesung_text": "Zu ergänzen sind die Akteure **Kunde/Kundin** und **Disposition** sowie die fehlenden Anwendungsfälle und ihre Beziehungen.\n\n**Akteure (3 insgesamt):**\n- Kunde/Kundin\n- Disposition\n- Werkstatt-Team *(bereits vorhanden)*\n\n**Anwendungsfälle und Zuordnung:**\n\n| Akteur | Anwendungsfall (Verbindung) |\n|---|---|\n| Kunde/Kundin | *Reparaturanfrage stellen* — und — *Rückmeldung über Bearbeitungsstand erhalten* |\n| Disposition | *Reparaturanfrage aufnehmen* sowie *Anfrage einplanen und priorisieren* |\n| Werkstatt-Team | *Reparaturauftrag durchführen* *(bereits vorhanden)* |\n\n**Beziehungen:**\n- Der Kunde löst den Anwendungsfall *\"Reparaturanfrage aufnehmen\"* aus (bzw. ist über *\"Reparaturanfrage stellen\"* damit verbunden).\n- *\"Reparaturanfrage aufnehmen\"* «include» *\"Reparaturauftrag durchführen\"* *(bereits vorgegeben)*.\n- *\"Anfrage einplanen und priorisieren\"* wird von der Disposition durchgeführt und steht zwischen Aufnahme und Durchführung; sinnvoll als «include» bzw. eigener, mit \"Reparaturauftrag durchführen\" verknüpfter Anwendungsfall.\n- *\"Rückmeldung über Bearbeitungsstand erhalten\"* verbindet das System mit dem Akteur Kunde (Information über den Status).\n\nAlle Anwendungsfälle liegen innerhalb der Systemgrenze (Rechteck \"Reparaturservice\"), die Akteure als Strichmännchen außerhalb; assoziative Verbindungen als einfache Linien, «include» als gestrichelter Pfeil.",
+      "thema_tags": ["UML/Diagramme"],
+      "schluesselwoerter": [
+        { "begriff": "Kunde", "synonyme": ["Kundin", "Kunde/Kundin", "Auftraggeber"] },
+        { "begriff": "Disposition", "synonyme": ["Disponent", "Einplanung", "Planung"] },
+        { "begriff": "einplan", "synonyme": ["priorisier", "Anfrage einplanen", "priorisieren"] },
+        { "begriff": "Rückmeldung", "synonyme": ["Bearbeitungsstand", "Status", "Statusmeldung", "Benachrichtigung"] },
+        { "begriff": "Anwendungsfall", "synonyme": ["Use-Case", "Use Case", "Reparaturanfrage stellen"] },
+        { "begriff": "include", "synonyme": ["«include»", "Beziehung", "Assoziation"] }
+      ],
+      "mindest_treffer": 4
     },
     "2023_Herbst_1b": {
       "frage_text": "Bisher läuft die Auftragsannahme bei GrünTech so ab: Kundinnen und Kunden müssen ihre Reparaturanfrage per E-Mail einreichen. Eingehende Anfragen werden manuell in eine Tabellenkalkulation übertragen. Die Einsatzplanung für das Werkstatt-Team findet nur einmal wöchentlich, jeweils am Montagvormittag, statt. Das Werkstatt-Team arbeitet montags bis freitags von 7:30 bis 16:30 Uhr.",

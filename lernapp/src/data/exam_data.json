@@ -48,14 +48,63 @@
           "ueberschrift": "Vermerken Sie im Notizbereich drei inhaltliche Botschaften, welche Sie aus der",
           "frage_text": "Halten Sie im Notizbereich Ihrer Präsentation **drei inhaltliche Kernbotschaften** fest, die Sie aus der obigen Situationsbeschreibung mit Ihrer Folie beim Kunden vermitteln möchten. *(6 Punkte)*",
           "punkte": 6,
-          "loesung_text": null,
+          "loesung_text": "Drei mögliche Kernbotschaften, abgeleitet aus den betrieblichen Informationen (je 2 Punkte):\n\n- **Langjährige Erfahrung:** Seit der Gründung 1998 sind wir über 25 Jahre am Markt – das steht für Beständigkeit, Verlässlichkeit und eine langfristige Partnerschaft.\n- **Internationale Aufstellung:** Mit rund 540 Mitarbeitenden an Standorten in Deutschland, Polen und Spanien sind wir international leistungsfähig und können auch größere Projekte stemmen.\n- **Anpassungs- und Zukunftsfähigkeit:** Nach der erfolgreichen Neuausrichtung durch den neuen Vorstand 2015 sind wir stabil aufgestellt und beweisen, dass wir auf Veränderungen flexibel reagieren.\n\n*(Bewertung sinngemäß: je 2 Punkte für eine schlüssige, aus der Situation abgeleitete Botschaft.)*",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kommunikation/Soft Skills"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Erfahrung",
+              "synonyme": [
+                "1998",
+                "langjährig",
+                "25 Jahre",
+                "Beständigkeit"
+              ]
+            },
+            {
+              "begriff": "international",
+              "synonyme": [
+                "Standorte",
+                "Deutschland",
+                "Polen",
+                "Spanien",
+                "540"
+              ]
+            },
+            {
+              "begriff": "Mitarbeit",
+              "synonyme": [
+                "Mitarbeitende",
+                "Personal",
+                "Team",
+                "Größe"
+              ]
+            },
+            {
+              "begriff": "Neuausrichtung",
+              "synonyme": [
+                "Vorstand",
+                "2015",
+                "umstrukturier",
+                "anpassungsfähig"
+              ]
+            },
+            {
+              "begriff": "Verlässlich",
+              "synonyme": [
+                "Partnerschaft",
+                "stabil",
+                "Vertrauen",
+                "langfristig"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2022_Frühjahr_1ab",
@@ -213,14 +262,66 @@
           "ueberschrift": "Schildern Sie analog des Beispiels, warum folgende Informationen für die",
           "frage_text": "Erläutern Sie analog zum vorgegebenen Beispiel, **warum** die folgenden Informationen für die Erstellung des Angebots benötigt werden. *(6 Punkte)*\n\n| Information | Erläuterung |\n|---|---|\n| *Beispiel:* Räumliche Gegebenheiten | Ermöglichen die Einschätzung von Entfernungen und damit des logistischen Aufwands |\n| Lastenheft | ? |\n| Geplanter Fertigstellungstermin | ? |\n| Ergebnisse der Ist-Analyse | ? |",
           "punkte": 6,
-          "loesung_text": null,
+          "loesung_text": "Begründung des Informationsbedarfs (je 2 Punkte):\n\n| Information | Erläuterung |\n|---|---|\n| **Lastenheft** | Beschreibt die vom Kunden geforderten Leistungen und Anforderungen und bildet die fachliche Grundlage für Leistungsbeschreibung und Kalkulation des Angebots. |\n| **Geplanter Fertigstellungstermin** | Wird benötigt, um zu prüfen, ob die nötigen Ressourcen (Personal, Material) im geforderten Zeitraum verfügbar sind und der Termin realistisch eingehalten werden kann. |\n| **Ergebnisse der Ist-Analyse** | Zeigen den aktuellen Zustand der vorhandenen Systeme und sind die Basis, um den tatsächlichen Umsetzungs- und Migrationsaufwand realistisch abzuschätzen. |",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Projektmanagement"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Anforderung",
+              "synonyme": [
+                "Lastenheft",
+                "Leistungsbeschreibung",
+                "Kundenwunsch"
+              ]
+            },
+            {
+              "begriff": "Kalkulation",
+              "synonyme": [
+                "Grundlage",
+                "Angebotsbasis",
+                "Preis"
+              ]
+            },
+            {
+              "begriff": "Termin",
+              "synonyme": [
+                "Zeitraum",
+                "Frist",
+                "Fertigstellung"
+              ]
+            },
+            {
+              "begriff": "Ressourc",
+              "synonyme": [
+                "Personal",
+                "Kapazität",
+                "Verfügbarkeit",
+                "Material"
+              ]
+            },
+            {
+              "begriff": "Ist-Analyse",
+              "synonyme": [
+                "aktueller Zustand",
+                "Bestand",
+                "Ausgangslage"
+              ]
+            },
+            {
+              "begriff": "Aufwand",
+              "synonyme": [
+                "Umsetzungsaufwand",
+                "Abschätzung",
+                "einschätzen"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2022_Frühjahr_1cb",
@@ -1496,14 +1597,24 @@
           "ueberschrift": "Nennen Sie die aktuell vorliegende Marktform. *(1 Punkt)*",
           "frage_text": "Benennen Sie die Marktform, die die aktuelle Situation der GreenHydro Solutions GmbH zutreffend beschreibt. *(1 Punkt)*",
           "punkte": 1,
-          "loesung_text": null,
+          "loesung_text": "**Oligopol** (genauer: Angebotsoligopol).\n\nWenige Anbieter (eine Handvoll Hersteller) stehen einer großen Zahl von Nachfragern (Speditionen, Fuhrparkbetreiber) gegenüber.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kostenrechnung/Wirtschaft"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Oligopol",
+              "synonyme": [
+                "Angebotsoligopol"
+              ],
+              "pflicht": true
+            }
+          ],
+          "mindest_treffer": 1
         },
         {
           "id": "2022_Herbst_1ab",
@@ -1872,14 +1983,37 @@
           "ueberschrift": "Ermitteln Sie das zu speichernde Datenvolumen in MiB pro Scan. Der Rechenweg",
           "frage_text": "Ermitteln Sie das zu speichernde **Datenvolumen pro Scan in MiB**. Der Rechenweg ist anzugeben. *(4 Punkte)*\n\nGegeben:\n- Erfasste Breite: 30,48 cm\n- Erfasste Länge: 30 cm\n- Auflösung: 300 dpi\n- Farbtiefe: 24 Bit pro Bildpunkt\n- (1 Inch = 2,54 cm)",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "**Rechenweg:**\n\n- Breite: 30,48 cm ÷ 2,54 cm/Inch = 12 Inch → × 300 dpi = **3.600 Bildpunkte**\n- Länge: 30 cm ÷ 2,54 cm/Inch ≈ 11,811 Inch → × 300 dpi ≈ **3.543 Bildpunkte**\n- Pixel pro Scan ≈ 3.600 × 3.543 = 12.754.800 Pixel\n- × 24 Bit = 306.115.200 Bit ÷ 8 = 38.264.400 Byte\n- ÷ 1.024 ÷ 1.024 ≈ **36,49 MiB pro Scan**\n\n*(Wird die Länge ebenfalls auf 12 Inch aufgerundet: 3.600 × 3.600 × 24 Bit ÷ 8 ÷ 1.024 ÷ 1.024 ≈ 37,08 MiB.)*",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Hardware/Speicher-Berechnung"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "3600",
+              "synonyme": [
+                "3.600"
+              ]
+            },
+            {
+              "begriff": "3543",
+              "synonyme": [
+                "3.543"
+              ]
+            },
+            {
+              "begriff": "36",
+              "synonyme": [
+                "36,49",
+                "37",
+                "37,08"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2022_Herbst_2bb",
@@ -2714,7 +2848,7 @@
           "ueberschrift": "Vor- und Nachteile pro Gerätemodell (4 Punkte)",
           "frage_text": "Die **GartenGlück eG**, eine Genossenschaft von Bio-Gärtnereien, will ihre Filialleitungen neu mit Endgeräten ausstatten und prüft vier Gerätemodelle. Nennen Sie pro Modell je einen Vorteil und einen Nachteil:\n\n| Modell | Vorteil | Nachteil |\n|---|---|---|\n| Notebook | ? | ? |\n| All-in-One-PC | ? | ? |\n| Thin-Client | ? | ? |\n| Desktop-Rechner | ? | ? |",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "| Modell | Vorteil | Nachteil |\n|---|---|---|\n| **Notebook** | mobil/ortsunabhängig nutzbar, integrierter Akku | teurer bei gleicher Leistung, schlechter aufrüst-/reparierbar |\n| **All-in-One-PC** | platzsparend (alles in einem Gehäuse), wenig Verkabelung | schwer aufrüstbar/reparierbar, Defekt am Display = ganzes Gerät betroffen |\n| **Thin-Client** | günstig, wartungsarm, zentrale Administration, energiesparend | ohne Netzwerk/Server-Verbindung kaum nutzbar, abhängig von Serverleistung |\n| **Desktop-Rechner** | gut aufrüst- und reparierbar, gutes Preis-Leistungs-Verhältnis | nicht mobil, größerer Platzbedarf, mehr Verkabelung |\n\nJe Modell genügt **ein** plausibler Vorteil und Nachteil.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -2722,7 +2856,45 @@
             "Hardware/Komponenten"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "mobil",
+              "synonyme": [
+                "ortsunabhängig",
+                "tragbar",
+                "Akku"
+              ],
+              "label": "Notebook: mobil"
+            },
+            {
+              "begriff": "platzsparend",
+              "synonyme": [
+                "platzsparend",
+                "kompakt",
+                "alles in einem"
+              ],
+              "label": "All-in-One: platzsparend"
+            },
+            {
+              "begriff": "wartungsarm",
+              "synonyme": [
+                "zentrale Administration",
+                "günstig",
+                "energiesparend"
+              ],
+              "label": "Thin-Client: wartungsarm/günstig"
+            },
+            {
+              "begriff": "aufrüst",
+              "synonyme": [
+                "erweiterbar",
+                "reparierbar",
+                "Preis-Leistung"
+              ],
+              "label": "Desktop: aufrüstbar"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_1b",
@@ -2735,14 +2907,52 @@
           "ueberschrift": "Nutzwertanalyse ergänzen",
           "frage_text": "Um eine fundierte Kaufentscheidung zu treffen, soll für die vier Gerätemodelle der GartenGlück eG eine **Nutzwertanalyse** durchgeführt werden. Die Modelle werden anhand mehrerer gewichteter Kriterien (z. B. Mobilität, Anschaffungskosten, Energieverbrauch, Wartungsaufwand) bewertet.\n\nErgänzen Sie in der Nutzwertanalyse die fehlenden Bewertungspunkte in den weißen Feldern. Pro Kriterium darf jeder Punktwert nur **einmal** vergeben werden (1–4 Punkte, dabei ist 1 = am schlechtesten, 4 = am besten).",
           "punkte": null,
-          "loesung_text": null,
+          "loesung_text": "*Hinweis: Die konkrete Bewertungstabelle mit den vorgegebenen Gewichten und bereits ausgefüllten Feldern liegt hier nicht als Datensatz vor – daher wird das Vorgehen mit einer plausiblen Beispielbewertung gezeigt.*\n\n**Vorgehen Nutzwertanalyse:**\n1. Je Kriterium die vier Modelle in eine **Rangfolge** bringen und die Punkte 1 (schlechtestes) bis 4 (bestes) **genau einmal** vergeben.\n2. Punktwert × Kriteriengewicht = **Teilnutzwert**.\n3. Teilnutzwerte je Modell aufsummieren → **Gesamtnutzwert**; das Modell mit dem höchsten Gesamtnutzwert gewinnt.\n\nBeispielhafte Punktvergabe (1–4, je Zeile einmal):\n\n| Kriterium | Notebook | All-in-One | Thin-Client | Desktop |\n|---|---|---|---|---|\n| Mobilität | **4** | 2 | 1 | 3 (bzw. 1) |\n| Anschaffungskosten (niedrig=gut) | 1 | 2 | **4** | 3 |\n| Energieverbrauch (niedrig=gut) | 3 | 2 | **4** | 1 |\n| Wartungsaufwand (niedrig=gut) | 2 | 1 | **4** | 3 |\n\nDie tatsächlichen Werte hängen von den im Original vorgegebenen Feldern ab; entscheidend ist, dass **pro Kriterium jeder Punktwert (1–4) nur einmal** vergeben wird.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kostenrechnung/Wirtschaft"
           ],
           "ist_kontext_block": true,
-          "hat_antwort": true
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Rangfolge",
+              "synonyme": [
+                "Rangreihe",
+                "Reihenfolge"
+              ]
+            },
+            {
+              "begriff": "Gewicht",
+              "synonyme": [
+                "Gewichtung",
+                "gewichtet"
+              ]
+            },
+            {
+              "begriff": "Teilnutzwert",
+              "synonyme": [
+                "Punktwert mal Gewicht",
+                "Produkt"
+              ]
+            },
+            {
+              "begriff": "Gesamtnutzwert",
+              "synonyme": [
+                "Summe",
+                "höchste Punktzahl"
+              ],
+              "pflicht": true
+            },
+            {
+              "begriff": "einmal",
+              "synonyme": [
+                "nur einmal vergeben",
+                "keine Doppelvergabe"
+              ]
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_1d",
@@ -2755,14 +2965,39 @@
           "ueberschrift": "Weiteres Kriterium für die Nutzwertanalyse (2 Punkte)",
           "frage_text": "Geben Sie ein **weiteres sinnvolles Kriterium** an, das die GartenGlück eG zusätzlich in die Nutzwertanalyse ihrer Endgeräte aufnehmen könnte. **Begründen Sie** Ihren Vorschlag.",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "**Beispiel-Kriterium: Erweiterbarkeit/Aufrüstbarkeit.**\n\n*Begründung:* Lassen sich die Geräte später um RAM, Speicher oder Schnittstellen erweitern, verlängert das die Nutzungsdauer und senkt die langfristigen Kosten – die Filialen müssen nicht komplett neu beschafft werden.\n\nWeitere mögliche Kriterien (je mit Begründung):\n- **Ergonomie** (Bildschirmgröße, Tastatur) → Gesundheit/Produktivität der Filialleitungen\n- **Sicherheit** (z. B. TPM, Diebstahlschutz) → Schutz sensibler Kundendaten\n- **Garantie/Support** → planbare Ausfallzeiten und Wartungskosten\n- **Lautstärke / Geräuschentwicklung** → Arbeitsplatzkomfort\n- **Umweltbilanz / Nachhaltigkeit** → passt zur ökologischen Ausrichtung der Bio-Genossenschaft\n\nEin **plausibel begründetes** Kriterium genügt.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kostenrechnung/Wirtschaft"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Erweiterbarkeit",
+              "synonyme": [
+                "Aufrüstbarkeit",
+                "Garantie",
+                "Support",
+                "Sicherheit",
+                "Ergonomie",
+                "Nachhaltigkeit",
+                "Lautstärke"
+              ],
+              "label": "sinnvolles Kriterium"
+            },
+            {
+              "begriff": "Begründung",
+              "synonyme": [
+                "begründet",
+                "weil",
+                "dadurch",
+                "Nutzungsdauer"
+              ],
+              "pflicht": true
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_2aa",
@@ -2775,7 +3010,7 @@
           "ueberschrift": "Bezugspreis ermitteln (10 Punkte)",
           "frage_text": "Die GartenGlück eG holt für die benötigten Notebooks Angebote von drei Lieferanten ein. **Ermitteln Sie den Bezugspreis pro Notebook** für jeden Anbieter, indem Sie die leeren Felder ergänzen:\n\n| | Laptop-Welt24 | OfficeTech GmbH | NordCom |\n|---|---|---|---|\n| Listen-EK-Preis/Stk. brutto | 742,00 EUR | 758,00 EUR | 950,00 EUR |\n| − Lieferantenrabatt | 0,00 EUR | 0,00 EUR | ? |\n| = Zieleinkaufspreis | 742,00 EUR | 758,00 EUR | ? |\n| − Lieferantenskonto | 0,00 EUR | 0,00 EUR | ? |\n| = Bareinkaufspreis | 742,00 EUR | 758,00 EUR | ? |\n| + Bezugskosten | ? | ? | ? |\n| = Bezugspreis | ? | ? | ? |\n\n**Gegeben für NordCom:** 15 % Lieferantenrabatt, 3 % Skonto. Die Bezugskosten richten sich nach der vereinbarten Lieferklausel. Die anfallenden Posten betragen jeweils (bezogen auf 100 Stück): Rollgeld 40,00 EUR, Fracht 90,00 EUR, Rollgeld ab Entladestation 50,00 EUR.\n\n- **Laptop-Welt24** liefert *\"frachtfrei\"* (Verkäufer trägt Rollgeld + Fracht, Käufer trägt das Rollgeld ab Entladestation).\n- **OfficeTech GmbH** liefert *\"frei Haus\"* (alle Bezugskosten trägt der Verkäufer).\n- **NordCom** liefert *\"ab Werk\"* (der Käufer trägt sämtliche Bezugskosten).",
           "punkte": 10,
-          "loesung_text": null,
+          "loesung_text": "**Bezugskosten pro Stück** (Posten / 100 Stück): Rollgeld 40 € → **0,40 €**, Fracht 90 € → **0,90 €**, Rollgeld ab Entladestation 50 € → **0,50 €**.\n\nWer welche Bezugskosten trägt, hängt von der Lieferklausel ab:\n\n| | Laptop-Welt24 | OfficeTech GmbH | NordCom |\n|---|---|---|---|\n| Listen-EK brutto | 742,00 | 758,00 | 950,00 |\n| − Lieferantenrabatt | 0,00 | 0,00 | **142,50** (15 %) |\n| = Zieleinkaufspreis | 742,00 | 758,00 | **807,50** |\n| − Skonto | 0,00 | 0,00 | **24,23** (3 %) |\n| = Bareinkaufspreis | 742,00 | 758,00 | **783,27** |\n| + Bezugskosten | **0,50** | **0,00** | **1,80** |\n| = **Bezugspreis** | **742,50** | **758,00** | **785,07** |\n\n**Erläuterung der Bezugskosten (Lieferklausel):**\n- *Laptop-Welt24 „frachtfrei\"*: Verkäufer zahlt Rollgeld + Fracht, der **Käufer** nur das Rollgeld ab Entladestation → **0,50 €**.\n- *OfficeTech „frei Haus\"*: der **Verkäufer** trägt alle Kosten → Käufer **0,00 €**.\n- *NordCom „ab Werk\"*: der **Käufer** trägt **alle** Kosten → 0,40 + 0,90 + 0,50 = **1,80 €**.\n\n**Günstigster Bezugspreis: Laptop-Welt24 mit 742,50 €.**",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -2783,7 +3018,57 @@
             "Mobiles Arbeiten/Homeoffice"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "742,50",
+              "synonyme": [
+                "742,5",
+                "742.50"
+              ],
+              "label": "Bezugspreis Laptop-Welt24",
+              "pflicht": true
+            },
+            {
+              "begriff": "758,00",
+              "synonyme": [
+                "758",
+                "758.00"
+              ],
+              "label": "Bezugspreis OfficeTech"
+            },
+            {
+              "begriff": "785,07",
+              "synonyme": [
+                "785,08",
+                "785",
+                "785.07"
+              ],
+              "label": "Bezugspreis NordCom"
+            },
+            {
+              "begriff": "142,50",
+              "synonyme": [
+                "142,5"
+              ],
+              "label": "Rabatt NordCom"
+            },
+            {
+              "begriff": "807,50",
+              "synonyme": [
+                "807,5"
+              ],
+              "label": "Zieleinkaufspreis NordCom"
+            },
+            {
+              "begriff": "783,27",
+              "synonyme": [
+                "783,28",
+                "783"
+              ],
+              "label": "Bareinkaufspreis NordCom"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_2ab",
@@ -2796,7 +3081,7 @@
           "ueberschrift": "Gründe für höheren Bezugspreis (3 Punkte)",
           "frage_text": "Die GartenGlück eG entscheidet sich am Ende **nicht** für den Anbieter mit dem niedrigsten Bezugspreis, sondern für einen Lieferanten mit einem höheren Bezugspreis. **Nennen Sie drei mögliche Gründe** für diese Entscheidung.",
           "punkte": 3,
-          "loesung_text": null,
+          "loesung_text": "Mögliche Gründe (drei genügen):\n\n- **Kürzere/zuverlässigere Lieferzeit** und bessere Verfügbarkeit\n- **Höhere Produkt-/Verarbeitungsqualität** der Geräte\n- **Bessere Garantie- und Servicebedingungen** (z. B. Vor-Ort-Service, längere Gewährleistung)\n- **Längere Zahlungsziele** / bessere Zahlungskonditionen\n- **Gute Erfahrungen / zuverlässige Geschäftsbeziehung** mit dem Lieferanten\n- **Regionalität / Nachhaltigkeit** (passt zur Bio-Genossenschaft)\n- Umfangreicheres **Zubehör/Bundle** oder Mengenrabatte bei künftigen Bestellungen",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -2804,7 +3089,56 @@
             "Kaufvertragsrecht"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Lieferzeit",
+              "synonyme": [
+                "Liefertermin",
+                "Verfügbarkeit",
+                "schnellere Lieferung"
+              ]
+            },
+            {
+              "begriff": "Qualität",
+              "synonyme": [
+                "Verarbeitung",
+                "hochwertig"
+              ]
+            },
+            {
+              "begriff": "Service",
+              "synonyme": [
+                "Garantie",
+                "Gewährleistung",
+                "Support",
+                "Vor-Ort"
+              ]
+            },
+            {
+              "begriff": "Zahlungsziel",
+              "synonyme": [
+                "Zahlungskonditionen",
+                "Zahlungsbedingungen"
+              ]
+            },
+            {
+              "begriff": "Zuverlässigkeit",
+              "synonyme": [
+                "Erfahrung",
+                "Geschäftsbeziehung",
+                "Ruf"
+              ]
+            },
+            {
+              "begriff": "Nachhaltigkeit",
+              "synonyme": [
+                "Regionalität",
+                "regional"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2023_Frühjahr_2b",
@@ -2839,14 +3173,49 @@
           "ueberschrift": "Grundprinzip und Eigentumsverhältnisse beim Leasing (4 Punkte)",
           "frage_text": "**Beschreiben Sie das Grundprinzip des Leasings** am Beispiel des Angebots der MobiLease Solutions GmbH. Erklären Sie dabei insbesondere die **Eigentums- und Besitzverhältnisse** während der Vertragslaufzeit. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "**Grundprinzip:** Leasing ist eine Form der **Nutzungsüberlassung gegen Entgelt**. Die GartenGlück eG (Leasingnehmer) nutzt die 2.800 Notebooks über die vereinbarte Laufzeit (vier Jahre) und zahlt dafür monatliche Leasingraten (5.500 €). Es ist also **kein Kauf**, sondern eine entgeltliche Gebrauchsüberlassung – wirtschaftlich vergleichbar mit einer langfristigen Miete.\n\n**Eigentums- und Besitzverhältnisse während der Laufzeit:**\n- Die **MobiLease Solutions GmbH (Leasinggeber) bleibt rechtlicher Eigentümer** der Notebooks.\n- Die **GartenGlück eG ist nur Besitzerin** – sie darf die Geräte nutzen, hat aber kein Eigentum daran.\n- Die Geräte erscheinen daher in der Regel **nicht in der Bilanz** des Leasingnehmers (bilanzneutral).\n\nDank der **Kaufoption** kann die Genossenschaft die Notebooks am Ende der Laufzeit zum Restwert erwerben und damit doch noch Eigentum erlangen.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kostenrechnung/Wirtschaft"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Nutzung",
+              "synonyme": [
+                "Nutzungsüberlassung",
+                "Gebrauchsüberlassung",
+                "Miete"
+              ],
+              "label": "Nutzung gegen Entgelt"
+            },
+            {
+              "begriff": "Leasingrate",
+              "synonyme": [
+                "monatliche Rate",
+                "Entgelt"
+              ]
+            },
+            {
+              "begriff": "Eigentümer",
+              "synonyme": [
+                "Eigentum bleibt",
+                "Leasinggeber Eigentümer"
+              ],
+              "label": "Leasinggeber bleibt Eigentümer",
+              "pflicht": true
+            },
+            {
+              "begriff": "Besitz",
+              "synonyme": [
+                "Besitzer",
+                "Besitzerin"
+              ],
+              "label": "Leasingnehmer ist Besitzer"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_2bb",
@@ -2859,14 +3228,50 @@
           "ueberschrift": "Kosten von Kauf und Leasing vergleichen (3 Punkte)",
           "frage_text": "**Vergleichen Sie** den Kaufpreis (240.000,00 EUR) mit den Gesamtkosten des Leasingangebots der MobiLease Solutions GmbH (vier Jahre, monatlich 5.500,00 EUR). **Ermitteln Sie den Differenzbetrag** und geben Sie an, welche Variante günstiger ist. *(3 Punkte)*",
           "punkte": 3,
-          "loesung_text": null,
+          "loesung_text": "**Leasing-Gesamtkosten:**\n\n```\n4 Jahre × 12 Monate          = 48 Monate\n48 Monate × 5.500,00 EUR     = 264.000,00 EUR\n```\n\n**Vergleich:**\n\n| Variante | Kosten |\n|---|---|\n| Kauf | 240.000,00 EUR |\n| Leasing (48 × 5.500 €) | 264.000,00 EUR |\n| **Differenz** | **24.000,00 EUR** |\n\n**Ergebnis:** Der **Kauf ist um 24.000,00 EUR günstiger** als das Leasing (rein auf die Zahlungssumme bezogen, ohne Berücksichtigung von Zins-/Liquiditätseffekten oder dem Restwert bei Kaufoption).",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kostenrechnung/Wirtschaft"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "264.000",
+              "synonyme": [
+                "264000",
+                "264.000,00"
+              ],
+              "label": "Leasing-Gesamtkosten",
+              "pflicht": true
+            },
+            {
+              "begriff": "24.000",
+              "synonyme": [
+                "24000",
+                "24.000,00"
+              ],
+              "label": "Differenzbetrag",
+              "pflicht": true
+            },
+            {
+              "begriff": "Kauf",
+              "synonyme": [
+                "Kauf günstiger",
+                "Kaufpreis"
+              ],
+              "label": "Kauf günstiger"
+            },
+            {
+              "begriff": "48",
+              "synonyme": [
+                "48 Monate",
+                "48 Raten"
+              ],
+              "label": "48 Monate"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_2bc",
@@ -2879,14 +3284,63 @@
           "ueberschrift": "Vorteile eines Leasingvertrags (3 Punkte)",
           "frage_text": "**Nennen Sie drei Vorteile**, die aus Sicht der GartenGlück eG für den Abschluss eines Leasingvertrags sprechen. *(3 Punkte)*",
           "punkte": 3,
-          "loesung_text": null,
+          "loesung_text": "Vorteile aus Sicht der GartenGlück eG (drei genügen):\n\n- **Schonung der Liquidität:** keine hohe Einmalauszahlung, planbare monatliche Raten\n- **Planungssicherheit:** feste, kalkulierbare Kosten über die Laufzeit\n- **Bilanzneutralität:** Geräte stehen beim Leasinggeber → keine Kapitalbindung, bessere Bilanzkennzahlen\n- **Steuerliche Absetzbarkeit:** Leasingraten sind als Betriebsausgaben abzugsfähig\n- **Aktuelle Technik:** regelmäßiger Austausch gegen neue Geräte möglich → kein Veralten\n- **Kein Verwertungsrisiko:** Restwert-/Wiederverkaufsrisiko liegt beim Leasinggeber\n- Häufig **Service/Wartung** im Vertrag enthalten",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Kostenrechnung/Wirtschaft"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Liquidität",
+              "synonyme": [
+                "liquide",
+                "keine hohe Einmalzahlung",
+                "Kapitalbindung"
+              ]
+            },
+            {
+              "begriff": "planbar",
+              "synonyme": [
+                "Planungssicherheit",
+                "kalkulierbar",
+                "feste Raten"
+              ]
+            },
+            {
+              "begriff": "bilanzneutral",
+              "synonyme": [
+                "Bilanz",
+                "keine Aktivierung"
+              ]
+            },
+            {
+              "begriff": "steuer",
+              "synonyme": [
+                "Betriebsausgabe",
+                "absetzbar",
+                "abzugsfähig"
+              ]
+            },
+            {
+              "begriff": "aktuelle Technik",
+              "synonyme": [
+                "neueste Technik",
+                "kein Veralten",
+                "regelmäßiger Austausch"
+              ]
+            },
+            {
+              "begriff": "Wartung",
+              "synonyme": [
+                "Service",
+                "Verwertungsrisiko"
+              ]
+            }
+          ],
+          "mindest_treffer": 3
         },
         {
           "id": "2023_Frühjahr_2bd",
@@ -2899,7 +3353,7 @@
           "ueberschrift": "Begriff Kaufoption erläutern (2 Punkte)",
           "frage_text": "Das Leasingangebot der MobiLease Solutions GmbH enthält eine **Kaufoption**. **Erläutern Sie**, was unter diesem Begriff zu verstehen ist. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Eine **Kaufoption** gibt dem Leasingnehmer (GartenGlück eG) das **Recht – aber nicht die Pflicht –, die geleasten Notebooks am Ende der Vertragslaufzeit zu kaufen**, in der Regel zu einem vorab festgelegten **Restwert**.\n\nNutzt die Genossenschaft die Option, geht das **Eigentum** an den Geräten auf sie über. Verzichtet sie darauf, werden die Notebooks an den Leasinggeber zurückgegeben. Die Kaufoption macht aus reinem Leasing also wahlweise einen späteren Erwerb.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -2907,7 +3361,49 @@
             "Kaufvertragsrecht"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Recht",
+              "synonyme": [
+                "Wahlrecht",
+                "Option",
+                "Möglichkeit"
+              ],
+              "label": "Recht zum Kauf",
+              "pflicht": true
+            },
+            {
+              "begriff": "keine Pflicht",
+              "synonyme": [
+                "nicht verpflichtet",
+                "freiwillig",
+                "muss nicht"
+              ]
+            },
+            {
+              "begriff": "Ende der Laufzeit",
+              "synonyme": [
+                "Vertragsende",
+                "nach Ablauf"
+              ]
+            },
+            {
+              "begriff": "Restwert",
+              "synonyme": [
+                "festgelegter Preis",
+                "Kaufpreis"
+              ]
+            },
+            {
+              "begriff": "Eigentum",
+              "synonyme": [
+                "erwerben",
+                "kaufen",
+                "Eigentumsübergang"
+              ]
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_3a",
@@ -2920,14 +3416,56 @@
           "ueberschrift": "Schichtenmodell des Betriebssystems (4 Punkte)",
           "frage_text": "Sie prüfen, wie sich die Sicherheit der Arbeitsplatzrechner auf Ebene der Betriebssysteme verbessern lässt. Zur Einordnung der Funktionsebenen eines PCs wird häufig ein **Schichten- bzw. Schalenmodell** verwendet, in dessen Mitte das Betriebssystem steht.\n\nBenennen Sie je **eine Schicht oberhalb und eine Schicht unterhalb** des Betriebssystems und beschreiben Sie mithilfe der Tabelle jeweils eine **Funktion** dieser Schicht.\n\n| Schicht | Funktion |\n|---|---|\n| (oberhalb des Betriebssystems) | ? |\n| Betriebssystem | (gegeben) |\n| (unterhalb des Betriebssystems) | ? |",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "Im Schalenmodell liegt das Betriebssystem zwischen der Hardware (innen) und den Anwendungen (außen):\n\n| Schicht | Funktion |\n|---|---|\n| **oberhalb: Anwendungssoftware** (Anwendungsprogramme) | Erfüllt die konkreten Benutzeraufgaben (z. B. Office, Browser); greift nicht direkt auf die Hardware zu, sondern fordert Dienste über das Betriebssystem an. |\n| Betriebssystem | (gegeben) – verwaltet Ressourcen, steuert Prozesse und stellt Schnittstellen bereit. |\n| **unterhalb: Hardware** (ggf. BIOS/Firmware/Treiber als Zwischenschicht) | Physische Geräte (CPU, RAM, Datenträger, Peripherie), die die Befehle tatsächlich ausführen; werden vom Betriebssystem über Treiber angesteuert. |\n\nAlternativ unterhalb: **BIOS/UEFI (Firmware)** – initialisiert die Hardware und startet das Betriebssystem; oberhalb auch **Dienst-/Hilfsprogramme (Utilities)** möglich.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Hardware/Komponenten"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Anwendung",
+              "synonyme": [
+                "Anwendungssoftware",
+                "Anwendungsprogramm",
+                "Software"
+              ],
+              "label": "oberhalb: Anwendungen",
+              "pflicht": true
+            },
+            {
+              "begriff": "Benutzeraufgabe",
+              "synonyme": [
+                "Benutzer",
+                "Anwender",
+                "fordert Dienste an"
+              ],
+              "label": "Funktion Anwendungsschicht"
+            },
+            {
+              "begriff": "Hardware",
+              "synonyme": [
+                "BIOS",
+                "UEFI",
+                "Firmware",
+                "Treiber"
+              ],
+              "label": "unterhalb: Hardware",
+              "pflicht": true
+            },
+            {
+              "begriff": "ausführen",
+              "synonyme": [
+                "physisch",
+                "CPU",
+                "Geräte",
+                "ansteuern"
+              ],
+              "label": "Funktion Hardware-Schicht"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_3b",
@@ -2960,14 +3498,63 @@
           "ueberschrift": "Aufgaben des BSI (2 Punkte)",
           "frage_text": "**Nennen Sie zwei allgemeine Aufgaben des BSI** (Bundesamt für Sicherheit in der Informationstechnik). *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Aufgaben des BSI (zwei genügen):\n\n- **Schutz der IT von Staat, Wirtschaft und Bürgern** als nationale Cyber-Sicherheitsbehörde\n- **Warnung vor Schwachstellen, Schadsoftware und aktuellen Bedrohungen** (z. B. Sicherheitswarnungen, CERT-Bund)\n- **Herausgabe von Standards, Richtlinien und Handlungsempfehlungen** (z. B. IT-Grundschutz, Härtungsempfehlungen)\n- **Zertifizierung** von IT-Produkten und -Dienstleistungen nach Sicherheitskriterien\n- **Beratung und Sensibilisierung** von Behörden, Unternehmen und Öffentlichkeit\n- **Betrieb von Lagezentrum/CERT** und Reaktion auf IT-Sicherheitsvorfälle",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Schutz",
+              "synonyme": [
+                "absichern",
+                "IT-Sicherheit gewährleisten",
+                "Cyber-Sicherheit"
+              ],
+              "label": "Schutz der IT"
+            },
+            {
+              "begriff": "warn",
+              "synonyme": [
+                "Warnung",
+                "Bedrohung",
+                "Schwachstelle",
+                "CERT"
+              ],
+              "label": "Warnung vor Bedrohungen"
+            },
+            {
+              "begriff": "Standard",
+              "synonyme": [
+                "Richtlinie",
+                "Empfehlung",
+                "Grundschutz",
+                "Handlungsempfehlung"
+              ],
+              "label": "Standards/Richtlinien"
+            },
+            {
+              "begriff": "Zertifizier",
+              "synonyme": [
+                "Zertifizierung",
+                "zertifizieren"
+              ],
+              "label": "Zertifizierung"
+            },
+            {
+              "begriff": "Beratung",
+              "synonyme": [
+                "beraten",
+                "Sensibilisierung",
+                "Aufklärung"
+              ],
+              "label": "Beratung"
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2023_Frühjahr_3bb",
@@ -2980,14 +3567,44 @@
           "ueberschrift": "Begriff Härtung erklären (2 Punkte)",
           "frage_text": "**Erklären Sie**, was unter der **\"Härtung\" (Hardening)** eines Betriebssystems zu verstehen ist. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Unter **Härtung (Hardening)** versteht man alle Maßnahmen, mit denen ein Betriebssystem so **konfiguriert** wird, dass die **Angriffsfläche reduziert** und die Sicherheit erhöht wird.\n\nKerngedanke: Nur das Notwendige bleibt aktiv – **nicht benötigte Dienste, Programme, Schnittstellen und Benutzerkonten werden deaktiviert oder entfernt**, sichere Standardeinstellungen werden gesetzt und Rechte minimiert. Dadurch gibt es weniger potenzielle Einfallstore für Angreifer.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Angriffsfläche",
+              "synonyme": [
+                "Angriffsvektor",
+                "Einfallstor",
+                "Schwachstellen reduzieren"
+              ],
+              "label": "Angriffsfläche reduzieren",
+              "pflicht": true
+            },
+            {
+              "begriff": "deaktivier",
+              "synonyme": [
+                "abschalten",
+                "entfernen",
+                "nicht benötigte Dienste"
+              ],
+              "label": "unnötiges deaktivieren"
+            },
+            {
+              "begriff": "sicher konfigur",
+              "synonyme": [
+                "sichere Einstellungen",
+                "absichern",
+                "Konfiguration"
+              ],
+              "label": "sichere Konfiguration"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_3bc",
@@ -3000,14 +3617,63 @@
           "ueberschrift": "Beispiele für Härtungsmaßnahmen (2 Punkte)",
           "frage_text": "**Nennen Sie zwei konkrete Maßnahmen**, mit denen ein Betriebssystem gehärtet werden kann. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Konkrete Härtungsmaßnahmen (zwei genügen):\n\n- **Nicht benötigte Dienste/Programme deinstallieren oder deaktivieren**\n- **Sicherheitsupdates/Patches** zeitnah einspielen\n- **Nicht benötigte Ports/Schnittstellen sperren** (Firewall-Regeln)\n- **Standard-/Gast-Konten deaktivieren**, starke Passwortrichtlinien erzwingen\n- **Benutzerrechte minimieren** (Prinzip der minimalen Rechte, kein Arbeiten als Administrator)\n- **Festplattenverschlüsselung** aktivieren (z. B. BitLocker)\n- **Automatisches Ausführen (Autorun)** deaktivieren\n- **Protokollierung/Logging** und Virenschutz aktivieren",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Dienst deaktivier",
+              "synonyme": [
+                "Dienste abschalten",
+                "Programme entfernen",
+                "deinstallieren"
+              ]
+            },
+            {
+              "begriff": "Update",
+              "synonyme": [
+                "Patch",
+                "Sicherheitsupdate",
+                "aktualisieren"
+              ]
+            },
+            {
+              "begriff": "Port",
+              "synonyme": [
+                "Schnittstelle sperren",
+                "Firewall"
+              ]
+            },
+            {
+              "begriff": "Konto deaktivier",
+              "synonyme": [
+                "Gastkonto",
+                "Standardkonto",
+                "Passwortrichtlinie"
+              ]
+            },
+            {
+              "begriff": "Rechte minimier",
+              "synonyme": [
+                "minimale Rechte",
+                "least privilege",
+                "Berechtigungen einschränken"
+              ]
+            },
+            {
+              "begriff": "Verschlüsselung",
+              "synonyme": [
+                "BitLocker",
+                "verschlüsseln"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2023_Frühjahr_3bd",
@@ -3020,14 +3686,62 @@
           "ueberschrift": "Bordmittel zur Erhöhung der IT-Sicherheit (2 Punkte)",
           "frage_text": "**Nennen Sie zwei Systemwerkzeuge (\"Bordmittel\")** eines Betriebssystems, mit denen sich die IT-Sicherheit eines Arbeitsplatzrechners erhöhen lässt. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Bordmittel (im Betriebssystem enthaltene Werkzeuge – zwei genügen):\n\n- **Firewall** (z. B. Windows Defender Firewall) – steuert ein-/ausgehenden Netzwerkverkehr\n- **Virenschutz** (z. B. Microsoft Defender Antivirus)\n- **Festplattenverschlüsselung** (z. B. BitLocker)\n- **Benutzerkontensteuerung (UAC)** – verhindert unbeabsichtigte Rechteausweitung\n- **Gruppenrichtlinien-Editor (gpedit)** – zentrale Sicherheitsrichtlinien\n- **Ereignisanzeige / Auditing (Logging)** – Protokollierung von Sicherheitsereignissen\n- **Windows Update** – Einspielen von Sicherheitspatches",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Firewall",
+              "synonyme": [
+                "Defender Firewall",
+                "Paketfilter"
+              ]
+            },
+            {
+              "begriff": "Virenschutz",
+              "synonyme": [
+                "Antivirus",
+                "Defender",
+                "Virenscanner"
+              ]
+            },
+            {
+              "begriff": "Verschlüsselung",
+              "synonyme": [
+                "BitLocker",
+                "Festplattenverschlüsselung"
+              ]
+            },
+            {
+              "begriff": "Benutzerkontensteuerung",
+              "synonyme": [
+                "UAC"
+              ]
+            },
+            {
+              "begriff": "Gruppenrichtlinie",
+              "synonyme": [
+                "GPO",
+                "gpedit",
+                "Richtlinien-Editor"
+              ]
+            },
+            {
+              "begriff": "Ereignisanzeige",
+              "synonyme": [
+                "Logging",
+                "Protokollierung",
+                "Auditing",
+                "Eventlog"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2023_Frühjahr_3be",
@@ -3040,14 +3754,58 @@
           "ueberschrift": "Einsatz von Gruppenrichtlinien (4 Punkte)",
           "frage_text": "**Beschreiben Sie**, wofür **Gruppenrichtlinien (Group Policies)** auf Arbeitsplatzrechnern in einer Unternehmensumgebung eingesetzt werden können. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "**Gruppenrichtlinien (Group Policy Objects, GPO)** ermöglichen die **zentrale, einheitliche Konfiguration und Verwaltung** vieler Arbeitsplatzrechner – meist über Active Directory.\n\nTypische Einsatzzwecke:\n- **Sicherheitseinstellungen zentral durchsetzen** (Passwortrichtlinien, Kontosperrung, Firewall, Verschlüsselung)\n- **Benutzer-/Computerrechte und -beschränkungen** vergeben (z. B. Sperren von Einstellungen, Wechseldatenträgern, bestimmten Programmen)\n- **Software automatisiert verteilen/installieren** und Updates steuern\n- **Standard-Arbeitsumgebung vorgeben** (Laufwerke verbinden, Drucker, Desktop-/Browser-Einstellungen)\n- **Protokollierung/Auditing** aktivieren\n\n**Vorteil:** Einstellungen werden **einmal definiert und auf alle zugeordneten Rechner/Benutzer automatisch angewendet** → konsistentes, sicheres und administrierbares Umfeld bei geringem Aufwand. Das BSI stellt seine Empfehlungen genau deshalb als fertige GPOs bereit.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "zentral",
+              "synonyme": [
+                "einheitlich",
+                "Active Directory",
+                "AD"
+              ],
+              "label": "zentrale Verwaltung",
+              "pflicht": true
+            },
+            {
+              "begriff": "Sicherheitseinstellung",
+              "synonyme": [
+                "Passwortrichtlinie",
+                "Sicherheitsrichtlinie",
+                "durchsetzen"
+              ]
+            },
+            {
+              "begriff": "einschränk",
+              "synonyme": [
+                "beschränken",
+                "sperren",
+                "Rechte vergeben",
+                "Berechtigung"
+              ]
+            },
+            {
+              "begriff": "Softwareverteilung",
+              "synonyme": [
+                "Software verteilen",
+                "Installation",
+                "Updates"
+              ]
+            },
+            {
+              "begriff": "automatisch",
+              "synonyme": [
+                "automatisiert",
+                "auf alle anwenden"
+              ]
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_3ca",
@@ -3060,14 +3818,57 @@
           "ueberschrift": "Protokollierung zur Erhöhung der IT-Sicherheit (4 Punkte)",
           "frage_text": "**Beschreiben Sie**, inwiefern eine **Protokollierung (Logging)** zur Erhöhung der IT-Sicherheit auf den Arbeitsplatzrechnern beitragen kann. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "Bei der **Protokollierung (Logging)** werden sicherheitsrelevante Ereignisse (Anmeldungen, fehlgeschlagene Logins, Rechteänderungen, Zugriffe, Systemfehler) automatisch **aufgezeichnet**. Beitrag zur IT-Sicherheit:\n\n- **Erkennung von Angriffen/Auffälligkeiten:** z. B. viele fehlgeschlagene Anmeldeversuche (Brute-Force) oder Zugriffe zu ungewöhnlichen Zeiten fallen auf.\n- **Nachvollziehbarkeit/Beweissicherung:** Im Schadensfall lässt sich **rekonstruieren, wer wann was getan hat** (Forensik) – wichtig für Ursachenanalyse und ggf. rechtliche Aufklärung.\n- **Abschreckung:** Wer weiß, dass Aktionen protokolliert werden, handelt vorsichtiger (auch gegen Innentäter).\n- **Frühwarnung/Alarmierung:** Logs können ausgewertet werden (SIEM), um automatisch auf Vorfälle zu reagieren.\n\nProtokolle sind damit Grundlage für **Erkennung, Reaktion und Aufarbeitung** von Sicherheitsvorfällen.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "aufzeichn",
+              "synonyme": [
+                "protokollieren",
+                "festhalten",
+                "Ereignisse erfassen"
+              ],
+              "label": "Ereignisse aufzeichnen",
+              "pflicht": true
+            },
+            {
+              "begriff": "erkenn",
+              "synonyme": [
+                "Angriff erkennen",
+                "Auffälligkeit",
+                "ungewöhnlich",
+                "Brute-Force"
+              ],
+              "label": "Angriffe erkennen"
+            },
+            {
+              "begriff": "nachvollziehbar",
+              "synonyme": [
+                "Nachvollziehbarkeit",
+                "rekonstruieren",
+                "wer wann was",
+                "Forensik",
+                "Beweis"
+              ],
+              "label": "Nachvollziehbarkeit"
+            },
+            {
+              "begriff": "Reaktion",
+              "synonyme": [
+                "Alarm",
+                "reagieren",
+                "Auswertung",
+                "SIEM"
+              ],
+              "label": "Reaktion/Frühwarnung"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_3cb",
@@ -3080,14 +3881,70 @@
           "ueberschrift": "Datenschutzanforderungen bei der Protokollierung (4 Punkte)",
           "frage_text": "**Beschreiben Sie** die besonderen **Datenschutzanforderungen**, die bei der Protokollierung (Logging) von Benutzeraktivitäten beachtet werden müssen. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "Protokolle von Benutzeraktivitäten sind **personenbezogene Daten** → es gilt die **DSGVO/BDSG**. Wichtige Anforderungen:\n\n- **Zweckbindung:** Logging nur zu einem festgelegten, legitimen Zweck (z. B. IT-Sicherheit), **keine heimliche Leistungs-/Verhaltenskontrolle** der Beschäftigten.\n- **Datenminimierung:** nur die wirklich nötigen Daten protokollieren, nicht „auf Vorrat\".\n- **Speicherbegrenzung:** **Löschfristen** festlegen; Logs nach Ablauf automatisch löschen.\n- **Zugriffsbeschränkung/Vertraulichkeit:** Nur Berechtigte dürfen Logs einsehen, Schutz vor Manipulation.\n- **Transparenz:** Beschäftigte müssen über Art und Umfang der Protokollierung **informiert** werden.\n- **Mitbestimmung:** Der **Betriebsrat ist zu beteiligen** (Mitbestimmungspflicht bei Verhaltens-/Leistungskontrolle, § 87 BetrVG).\n\nKurz: zulässig nur **zweckgebunden, sparsam, befristet, transparent und unter Wahrung der Mitbestimmung**.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenschutz/IT-Sicherheit"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "personenbezogen",
+              "synonyme": [
+                "DSGVO",
+                "Datenschutzgrundverordnung",
+                "BDSG"
+              ],
+              "label": "personenbezogene Daten",
+              "pflicht": true
+            },
+            {
+              "begriff": "Zweckbindung",
+              "synonyme": [
+                "Zweck",
+                "keine Leistungskontrolle",
+                "keine Verhaltenskontrolle"
+              ],
+              "label": "Zweckbindung"
+            },
+            {
+              "begriff": "Datenminimierung",
+              "synonyme": [
+                "Datensparsamkeit",
+                "nur nötige Daten"
+              ],
+              "label": "Datenminimierung"
+            },
+            {
+              "begriff": "Löschfrist",
+              "synonyme": [
+                "Speicherbegrenzung",
+                "Aufbewahrungsfrist",
+                "löschen"
+              ],
+              "label": "Löschfristen"
+            },
+            {
+              "begriff": "Zugriffsbeschränk",
+              "synonyme": [
+                "nur Berechtigte",
+                "Vertraulichkeit",
+                "Zugriffsschutz"
+              ],
+              "label": "Zugriffsschutz"
+            },
+            {
+              "begriff": "Betriebsrat",
+              "synonyme": [
+                "Mitbestimmung",
+                "informieren",
+                "Transparenz"
+              ],
+              "label": "Betriebsrat/Transparenz"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_4a",
@@ -3100,7 +3957,7 @@
           "ueberschrift": "KI-Chatbot – Vor- und Nachteile (4 Punkte)",
           "frage_text": "Die **NordPolice Versicherung AG** möchte ihren Kundinnen und Kunden künftig anbieten, Schadensfälle schnell und unkompliziert online zu melden. Dazu soll ein **KI-gestützter Chatbot** eingeführt werden. Erstellen Sie eine Übersicht über die **Vor- und Nachteile** eines solchen Chatbots, getrennt nach wirtschaftlichen und sozialen Aspekten:\n\n| | Vorteile | Nachteile |\n|---|---|---|\n| wirtschaftliche Aspekte | ? | ? |\n| soziale Aspekte | ? | ? |",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "| | Vorteile | Nachteile |\n|---|---|---|\n| **wirtschaftlich** | Personalkosten sinken, 24/7-Verfügbarkeit, schnellere/parallele Bearbeitung, Entlastung der Mitarbeitenden | Anschaffungs-/Entwicklungs- und Wartungskosten, laufende Pflege/Training der KI, Fehlentscheidungen können teuer werden |\n| **sozial** | jederzeit erreichbar, kurze Wartezeiten, niedrigschwelliger/anonymer Zugang | unpersönlich, Überforderung bei komplexen/emotionalen Fällen, mögliche Akzeptanzprobleme, Arbeitsplatzabbau/Ängste der Beschäftigten |\n\nJe Feld genügt **ein** passender Aspekt.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
@@ -3108,7 +3965,50 @@
             "Kommunikation/Soft Skills"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Personalkosten",
+              "synonyme": [
+                "Kosten senken",
+                "Einsparung",
+                "Entlastung",
+                "24/7",
+                "schneller"
+              ],
+              "label": "wirtschaftl. Vorteil"
+            },
+            {
+              "begriff": "Anschaffungskosten",
+              "synonyme": [
+                "Entwicklungskosten",
+                "Wartungskosten",
+                "Pflege",
+                "Fehler teuer"
+              ],
+              "label": "wirtschaftl. Nachteil"
+            },
+            {
+              "begriff": "erreichbar",
+              "synonyme": [
+                "jederzeit",
+                "kurze Wartezeit",
+                "anonym",
+                "niedrigschwellig"
+              ],
+              "label": "sozialer Vorteil"
+            },
+            {
+              "begriff": "unpersönlich",
+              "synonyme": [
+                "komplexe Fälle",
+                "Akzeptanz",
+                "Arbeitsplatzabbau",
+                "emotional"
+              ],
+              "label": "sozialer Nachteil"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_4b",
@@ -3141,14 +4041,53 @@
           "ueberschrift": "Unterschiede Lastenheft / Pflichtenheft (4 Punkte)",
           "frage_text": "**Beschreiben Sie zwei Unterschiede** zwischen einem **Lastenheft** und einem **Pflichtenheft**. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "Zwei Unterschiede (je genügt einer):\n\n| Aspekt | Lastenheft | Pflichtenheft |\n|---|---|---|\n| **Ersteller** | vom **Auftraggeber** (NordPolice AG) | vom **Auftragnehmer** (Entwickler/Dienstleister) |\n| **Inhalt** | beschreibt das **\"Was\"** – Anforderungen und Ziele aus Kundensicht (Gesamtheit der Forderungen) | beschreibt das **\"Wie\"** – konkrete technische Umsetzung der Anforderungen |\n| **Zeitpunkt** | zuerst, am Projektanfang | danach, als Antwort auf das Lastenheft |\n| **Detailgrad** | grob, lösungsneutral | detailliert, lösungsorientiert |\n\nKurz: Das **Lastenheft sagt, *was* gefordert ist (Auftraggeber)**, das **Pflichtenheft, *wie* es umgesetzt wird (Auftragnehmer)**.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Projektmanagement"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Auftraggeber",
+              "synonyme": [
+                "Kunde",
+                "Besteller"
+              ],
+              "label": "Lastenheft: Auftraggeber",
+              "pflicht": true
+            },
+            {
+              "begriff": "Auftragnehmer",
+              "synonyme": [
+                "Entwickler",
+                "Dienstleister",
+                "Lieferant"
+              ],
+              "label": "Pflichtenheft: Auftragnehmer",
+              "pflicht": true
+            },
+            {
+              "begriff": "was",
+              "synonyme": [
+                "Anforderungen",
+                "Ziele",
+                "Forderungen"
+              ],
+              "label": "Lastenheft = Was"
+            },
+            {
+              "begriff": "wie",
+              "synonyme": [
+                "Umsetzung",
+                "Realisierung",
+                "technische Lösung"
+              ],
+              "label": "Pflichtenheft = Wie"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_4bb",
@@ -3161,14 +4100,62 @@
           "ueberschrift": "Weitere Inhalte eines Lastenhefts (2 Punkte)",
           "frage_text": "Sie wirken an der Erstellung des Lastenhefts für den Chatbot mit. Bisher enthält es lediglich die **Ausgangssituation**. **Nennen Sie zwei weitere Inhalte**, die neben der Ausgangssituation in ein Lastenheft gehören. *(2 Punkte)*",
           "punkte": 2,
-          "loesung_text": null,
+          "loesung_text": "Weitere Inhalte eines Lastenhefts (zwei genügen):\n\n- **Zielsetzung / Projektziele**\n- **Funktionale Anforderungen** (Muss-/Soll-/Kann-Anforderungen an den Chatbot)\n- **Nicht-funktionale Anforderungen** (z. B. Verfügbarkeit, Datenschutz, Performance, Usability)\n- **Schnittstellen** zu vorhandenen Systemen\n- **Rahmenbedingungen** (Budget, Termine, Technik)\n- **Abnahmekriterien / Lieferumfang**",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Projektmanagement"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Ziel",
+              "synonyme": [
+                "Zielsetzung",
+                "Projektziel"
+              ]
+            },
+            {
+              "begriff": "funktionale Anforderung",
+              "synonyme": [
+                "Anforderungen",
+                "Muss-Anforderung",
+                "Funktionen"
+              ]
+            },
+            {
+              "begriff": "nicht-funktional",
+              "synonyme": [
+                "nichtfunktional",
+                "Verfügbarkeit",
+                "Performance",
+                "Usability"
+              ]
+            },
+            {
+              "begriff": "Schnittstelle",
+              "synonyme": [
+                "Schnittstellen"
+              ]
+            },
+            {
+              "begriff": "Rahmenbedingung",
+              "synonyme": [
+                "Budget",
+                "Termine",
+                "Randbedingungen"
+              ]
+            },
+            {
+              "begriff": "Abnahmekriterium",
+              "synonyme": [
+                "Abnahme",
+                "Lieferumfang"
+              ]
+            }
+          ],
+          "mindest_treffer": 2
         },
         {
           "id": "2023_Frühjahr_4c",
@@ -3181,14 +4168,68 @@
           "ueberschrift": "UML-Klassendiagramm \"Versicherungsobjekt\" (8 Punkte)",
           "frage_text": "Für die Schadensabwicklung der NordPolice Versicherung AG wird ein **UML-Klassendiagramm** entworfen. Für die Schadensarten **KFZ** und **Immobilie** sollen eigene Klassen modelliert werden.\n\n**Klasse `KFZ`** – Eigenschaften:\n- hersteller\n- typschluessel\n- neupreis\n- baujahr\n- laufleistung\n- schadenshoehe\n\nMethoden:\n- `restwertBerechnen()`\n- `auszahlen()`\n\n**Klasse `Immobilie`** – Eigenschaften:\n- neupreis\n- baujahr\n- wohnflaeche\n- lagebewertung\n- schadenshoehe\n\nMethoden:\n- `restwertBerechnen()`\n- `getLagebewertung()`\n- `auszahlen()`\n\n**Aufgabe:** Entwerfen Sie eine sinnvolle **Klassenhierarchie** mit einer gemeinsamen Oberklasse `Versicherungsobjekt`. Ordnen Sie gemeinsame Eigenschaften und Methoden der Oberklasse zu und nutzen Sie **Vererbung**.\n\n> Hinweis: Die Restwertberechnung erfolgt bei KFZ und Immobilie unterschiedlich. Zusätzliche Methoden, Konstruktoren und Zugriffsmodifikatoren sind nicht erforderlich.",
           "punkte": 8,
-          "loesung_text": null,
+          "loesung_text": "**Gemeinsame** Merkmale wandern in die Oberklasse `Versicherungsobjekt`, **spezifische** bleiben in den Unterklassen. `restwertBerechnen()` wird in der Oberklasse deklariert und in beiden Unterklassen **überschrieben** (unterschiedliche Berechnung). `KFZ` und `Immobilie` **erben** von `Versicherungsobjekt` (Generalisierung, Pfeil mit leerer Spitze zeigt zur Oberklasse).\n\n```\n            ┌─────────────────────────────┐\n            │      Versicherungsobjekt      │\n            ├─────────────────────────────┤\n            │  neupreis                     │\n            │  baujahr                      │\n            │  schadenshoehe                │\n            ├─────────────────────────────┤\n            │  restwertBerechnen()          │  (in Unterklassen überschrieben)\n            │  auszahlen()                  │\n            └──────────────▲──────────────┘\n                           │  (Vererbung / Generalisierung)\n          ┌────────────────┴─────────────────┐\n          │                                  │\n┌───────────────────┐            ┌───────────────────────────┐\n│       KFZ          │            │        Immobilie           │\n├───────────────────┤            ├───────────────────────────┤\n│  hersteller        │            │  wohnflaeche               │\n│  typschluessel     │            │  lagebewertung             │\n│  laufleistung      │            ├───────────────────────────┤\n├───────────────────┤            │  getLagebewertung()        │\n│  restwertBerechnen()│           │  restwertBerechnen()       │\n└───────────────────┘            └───────────────────────────┘\n```\n\n**Zuordnung:**\n- **Oberklasse `Versicherungsobjekt`:** `neupreis`, `baujahr`, `schadenshoehe`; Methoden `restwertBerechnen()`, `auszahlen()`.\n- **`KFZ` (erbt):** zusätzlich `hersteller`, `typschluessel`, `laufleistung`; überschreibt `restwertBerechnen()`.\n- **`Immobilie` (erbt):** zusätzlich `wohnflaeche`, `lagebewertung`; eigene Methode `getLagebewertung()`; überschreibt `restwertBerechnen()`.\n\n`auszahlen()` ist identisch → nur in der Oberklasse. `restwertBerechnen()` steht in der Oberklasse, wird aber in beiden Unterklassen **redefiniert**, da KFZ und Immobilie unterschiedlich berechnet werden.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "UML/Diagramme"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Vererbung",
+              "synonyme": [
+                "erben",
+                "Generalisierung",
+                "Spezialisierung",
+                "is-a"
+              ],
+              "label": "Vererbung",
+              "pflicht": true
+            },
+            {
+              "begriff": "neupreis",
+              "synonyme": [
+                "baujahr",
+                "schadenshoehe"
+              ],
+              "label": "gemeinsame Attribute in Oberklasse"
+            },
+            {
+              "begriff": "auszahlen",
+              "synonyme": [
+                "auszahlen() in Oberklasse"
+              ],
+              "label": "auszahlen() in Oberklasse"
+            },
+            {
+              "begriff": "überschreib",
+              "synonyme": [
+                "redefinieren",
+                "überschreiben",
+                "polymorph",
+                "unterschiedlich"
+              ],
+              "label": "restwertBerechnen überschrieben"
+            },
+            {
+              "begriff": "hersteller",
+              "synonyme": [
+                "typschluessel",
+                "laufleistung"
+              ],
+              "label": "KFZ-spezifisch"
+            },
+            {
+              "begriff": "wohnflaeche",
+              "synonyme": [
+                "lagebewertung",
+                "getLagebewertung"
+              ],
+              "label": "Immobilie-spezifisch"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_4d",
@@ -3221,14 +4262,41 @@
           "ueberschrift": "SQL-Abfrage: durchschnittliche Versicherungssumme (3 Punkte)",
           "frage_text": "Sie erhalten von der Versicherungszentrale den Auftrag, die **durchschnittliche Versicherungssumme über alle KFZ-Versicherungsverträge** zu ermitteln. Erstellen Sie dazu eine geeignete **SQL-Abfrage** auf die Tabelle `KFZ_Versicherung`. *(3 Punkte)*",
           "punkte": 3,
-          "loesung_text": null,
+          "loesung_text": "Die Durchschnittsfunktion **`AVG()`** über alle Datensätze:\n\n```sql\nSELECT AVG(versicherungssumme) AS durchschnitt\nFROM KFZ_Versicherung;\n```\n\n`AVG(versicherungssumme)` bildet den Mittelwert über alle Zeilen der Tabelle; das optionale `AS durchschnitt` benennt die Ergebnisspalte. Ohne `WHERE` werden **alle** Verträge berücksichtigt.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenbank/SQL/ER-Modell"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "AVG",
+              "synonyme": [
+                "AVG(versicherungssumme)",
+                "Durchschnitt",
+                "Mittelwert"
+              ],
+              "label": "AVG()",
+              "pflicht": true
+            },
+            {
+              "begriff": "SELECT",
+              "synonyme": [
+                "select"
+              ],
+              "label": "SELECT"
+            },
+            {
+              "begriff": "FROM KFZ_Versicherung",
+              "synonyme": [
+                "from KFZ_Versicherung",
+                "KFZ_Versicherung"
+              ],
+              "label": "FROM Tabelle"
+            }
+          ]
         },
         {
           "id": "2023_Frühjahr_4db",
@@ -3241,14 +4309,68 @@
           "ueberschrift": "SQL-Abfrage mit mehreren Bedingungen (4 Punkte)",
           "frage_text": "Sie erhalten den Auftrag, alle **Versicherungsnummern (`vid`)** zu ermitteln, die folgende Bedingungen erfüllen:\n\n- Der Vertrag wurde im **Mai 2022** abgeschlossen (`abschlussdatum`).\n- Die Versicherungssumme beträgt **mehr als 100.000,00 EUR**.\n- Das Fahrzeug wird **nicht** in einer Garage abgestellt (`garage`).\n\nErstellen Sie dazu eine geeignete **SQL-Abfrage** auf die Tabelle `KFZ_Versicherung`. *(4 Punkte)*",
           "punkte": 4,
-          "loesung_text": null,
+          "loesung_text": "Alle drei Bedingungen mit **`AND`** verknüpfen:\n\n```sql\nSELECT vid\nFROM KFZ_Versicherung\nWHERE abschlussdatum BETWEEN '2022-05-01' AND '2022-05-31'\n  AND versicherungssumme > 100000\n  AND garage = FALSE;\n```\n\n**Erläuterung:**\n- **Mai 2022:** `BETWEEN '2022-05-01' AND '2022-05-31'` (alternativ `abschlussdatum >= '2022-05-01' AND abschlussdatum <= '2022-05-31'` oder `YEAR(abschlussdatum)=2022 AND MONTH(abschlussdatum)=5`).\n- **Summe:** `versicherungssumme > 100000` (echtes „mehr als\", also ohne Gleichheit).\n- **Keine Garage:** Da `garage` BOOLEAN ist und TRUE = Garage, bedeutet „nicht in der Garage\" `garage = FALSE` (bzw. `garage <> TRUE` / `NOT garage`).",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "Datenbank/SQL/ER-Modell"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "SELECT vid",
+              "synonyme": [
+                "select vid",
+                "vid"
+              ],
+              "label": "SELECT vid",
+              "pflicht": true
+            },
+            {
+              "begriff": "WHERE",
+              "synonyme": [
+                "where"
+              ],
+              "label": "WHERE"
+            },
+            {
+              "begriff": "BETWEEN",
+              "synonyme": [
+                "2022-05",
+                "Mai 2022",
+                "MONTH",
+                "abschlussdatum"
+              ],
+              "label": "Mai 2022"
+            },
+            {
+              "begriff": "> 100000",
+              "synonyme": [
+                ">100000",
+                "mehr als 100000",
+                "100.000"
+              ],
+              "label": "Summe > 100000"
+            },
+            {
+              "begriff": "garage = FALSE",
+              "synonyme": [
+                "garage=false",
+                "NOT garage",
+                "garage <> TRUE",
+                "keine Garage"
+              ],
+              "label": "garage = FALSE"
+            },
+            {
+              "begriff": "AND",
+              "synonyme": [
+                "and"
+              ],
+              "label": "AND-Verknüpfung"
+            }
+          ]
         }
       ]
     },
@@ -3280,14 +4402,66 @@
           "ueberschrift": "UML-Anwendungsfalldiagramm ergänzen (6 Punkte)",
           "frage_text": "Die **GrünTech Gartengeräte GmbH** betreibt einen technischen Reparaturservice. Ein begonnenes UML-Anwendungsfalldiagramm (Use-Case-Diagramm) bildet bisher nur die Anwendungsfälle *\"Reparaturanfrage aufnehmen\"* und *\"Reparaturauftrag durchführen\"* (mit «include»-Beziehung) sowie den Akteur *\"Werkstatt-Team\"* ab.\n\nErgänzen Sie das Diagramm um die fehlenden Akteure und Anwendungsfälle. Berücksichtigen Sie dabei mindestens folgende Beteiligte und Abläufe:\n\n- die **Kundin / den Kunden**, die bzw. der eine Reparaturanfrage stellt und eine Rückmeldung über den Bearbeitungsstand erhält,\n- die **Disposition**, die eingehende Anfragen einplant und priorisiert.\n\nZeichnen Sie die passenden Akteure, Anwendungsfälle und Beziehungen ein.",
           "punkte": 6,
-          "loesung_text": null,
+          "loesung_text": "Zu ergänzen sind die Akteure **Kunde/Kundin** und **Disposition** sowie die fehlenden Anwendungsfälle und ihre Beziehungen.\n\n**Akteure (3 insgesamt):**\n- Kunde/Kundin\n- Disposition\n- Werkstatt-Team *(bereits vorhanden)*\n\n**Anwendungsfälle und Zuordnung:**\n\n| Akteur | Anwendungsfall (Verbindung) |\n|---|---|\n| Kunde/Kundin | *Reparaturanfrage stellen* — und — *Rückmeldung über Bearbeitungsstand erhalten* |\n| Disposition | *Reparaturanfrage aufnehmen* sowie *Anfrage einplanen und priorisieren* |\n| Werkstatt-Team | *Reparaturauftrag durchführen* *(bereits vorhanden)* |\n\n**Beziehungen:**\n- Der Kunde löst den Anwendungsfall *\"Reparaturanfrage aufnehmen\"* aus (bzw. ist über *\"Reparaturanfrage stellen\"* damit verbunden).\n- *\"Reparaturanfrage aufnehmen\"* «include» *\"Reparaturauftrag durchführen\"* *(bereits vorgegeben)*.\n- *\"Anfrage einplanen und priorisieren\"* wird von der Disposition durchgeführt und steht zwischen Aufnahme und Durchführung; sinnvoll als «include» bzw. eigener, mit \"Reparaturauftrag durchführen\" verknüpfter Anwendungsfall.\n- *\"Rückmeldung über Bearbeitungsstand erhalten\"* verbindet das System mit dem Akteur Kunde (Information über den Status).\n\nAlle Anwendungsfälle liegen innerhalb der Systemgrenze (Rechteck \"Reparaturservice\"), die Akteure als Strichmännchen außerhalb; assoziative Verbindungen als einfache Linien, «include» als gestrichelter Pfeil.",
           "hat_offizielle_loesung": false,
           "unverifiziert_markiert": false,
           "thema_tags": [
             "UML/Diagramme"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Kunde",
+              "synonyme": [
+                "Kundin",
+                "Kunde/Kundin",
+                "Auftraggeber"
+              ]
+            },
+            {
+              "begriff": "Disposition",
+              "synonyme": [
+                "Disponent",
+                "Einplanung",
+                "Planung"
+              ]
+            },
+            {
+              "begriff": "einplan",
+              "synonyme": [
+                "priorisier",
+                "Anfrage einplanen",
+                "priorisieren"
+              ]
+            },
+            {
+              "begriff": "Rückmeldung",
+              "synonyme": [
+                "Bearbeitungsstand",
+                "Status",
+                "Statusmeldung",
+                "Benachrichtigung"
+              ]
+            },
+            {
+              "begriff": "Anwendungsfall",
+              "synonyme": [
+                "Use-Case",
+                "Use Case",
+                "Reparaturanfrage stellen"
+              ]
+            },
+            {
+              "begriff": "include",
+              "synonyme": [
+                "«include»",
+                "Beziehung",
+                "Assoziation"
+              ]
+            }
+          ],
+          "mindest_treffer": 4
         },
         {
           "id": "2023_Herbst_1b",
