@@ -1,8 +1,14 @@
 import { hash, verify } from '@node-rs/argon2';
 import { createSession, deleteSession } from './session.js';
+import { erstelleRateLimiter } from './lib/rateLimit.js';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORT = 8;
+
+/** Limiter-Schlüssel aus Client-IP und (ggf.) E-Mail. */
+function limitSchluessel(req, email) {
+  return `${req.ip}|${typeof email === 'string' ? email.trim().toLowerCase() : ''}`;
+}
 
 /** Setzt das Sitzungs-Cookie auf der Antwort. */
 function setSessionCookie(reply, token, expires) {
@@ -21,6 +27,11 @@ function setSessionCookie(reply, token, expires) {
  */
 export async function authRoutes(app) {
   const { db } = app;
+
+  // Brute-Force-Bremse fürs öffentliche Hosting: max. 8 fehlgeschlagene
+  // Login-Versuche je IP+E-Mail in 15 Minuten. Pro App-Instanz (nicht modulweit),
+  // damit Tests/Mehrfach-Apps sich nicht denselben Zähler teilen.
+  const loginLimiter = app.loginLimiter || erstelleRateLimiter({ maxVersuche: 8, fensterMs: 15 * 60 * 1000 });
 
   app.post('/api/auth/register', async (req, reply) => {
     const { email, password } = req.body || {};
@@ -50,6 +61,12 @@ export async function authRoutes(app) {
     if (typeof email !== 'string' || typeof password !== 'string') {
       return reply.code(400).send({ error: 'E-Mail und Passwort erforderlich.' });
     }
+    const schluessel = limitSchluessel(req, email);
+    const limit = loginLimiter.pruefe(schluessel);
+    if (!limit.erlaubt) {
+      reply.header('Retry-After', String(limit.retryNachSek));
+      return reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
+    }
     const normEmail = email.trim().toLowerCase();
     const user = db.prepare('SELECT id, email, password_hash FROM users WHERE email = ?').get(normEmail);
     // Konstante-Zeit-ähnliches Verhalten: bei unbekannter E-Mail trotzdem antworten.
@@ -57,6 +74,7 @@ export async function authRoutes(app) {
     if (!user || !ok) {
       return reply.code(401).send({ error: 'E-Mail oder Passwort falsch.' });
     }
+    loginLimiter.erfolg(schluessel); // gültiger Login → Zähler leeren
     const { token, expires } = createSession(db, user.id);
     setSessionCookie(reply, token, expires);
     return reply.send({ user: { id: user.id, email: user.email } });

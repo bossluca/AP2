@@ -51,6 +51,10 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
 - DB-Schema (`progress`) trägt neben `status/box/due/…` auch die **FSRS-Felder**
   (`stability/difficulty/reps/lapses/last_review`); additive Migration in `db.js`
   (`ALTER TABLE … ADD COLUMN`). Tabelle `gamification` (user_id, activity, xp, klausur_best)
+- **Brute-Force-Schutz** auf `/api/auth/login`: reines, getestetes In-Memory-Sliding-Window
+  `src/lib/rateLimit.js` (Zeit injizierbar, pro App-Instanz via `app.loginLimiter` dekoriert) –
+  8 Fehlversuche je IP+E-Mail / 15 min → HTTP 429 + `Retry-After`; erfolgreicher Login resettet
+  den Zähler. `trustProxy` (Env `TRUST_PROXY`, Default an) liefert hinter Nginx die echte Client-IP
 - Testbare App-Factory (`src/app.js`, `app.inject`); Tests via `npm test` (node:test)
 - Konfiguration über `.env` (siehe `server/.env.example`); DB-Pfad als Volume in Docker
 - **Wichtig:** Das Frontend funktioniert auch **ohne** Backend voll (rein lokal,

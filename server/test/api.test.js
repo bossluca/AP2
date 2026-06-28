@@ -1,6 +1,7 @@
 import { test, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildApp } from '../src/app.js';
+import { erstelleRateLimiter } from '../src/lib/rateLimit.js';
 
 let app;
 beforeEach(async () => {
@@ -76,6 +77,60 @@ test('Login mit falschem Passwort schlägt fehl, mit richtigem klappt', async ()
     payload: { email: 'login@example.de', password: 'richtig123' },
   });
   assert.equal(ok.statusCode, 200);
+});
+
+test('Login-Rate-Limit: nach zu vielen Fehlversuchen 429 mit Retry-After', async () => {
+  // Eigene App mit kleinem Limit, damit der Test schnell greift.
+  const eng = await buildApp({
+    dbPath: ':memory:',
+    loginLimiter: erstelleRateLimiter({ maxVersuche: 3, fensterMs: 60_000 }),
+  });
+  try {
+    await eng.inject({
+      method: 'POST',
+      url: '/api/auth/register',
+      payload: { email: 'rl@example.de', password: 'richtig123' },
+    });
+    const falsch = () =>
+      eng.inject({
+        method: 'POST',
+        url: '/api/auth/login',
+        payload: { email: 'rl@example.de', password: 'falsch999' },
+      });
+    assert.equal((await falsch()).statusCode, 401);
+    assert.equal((await falsch()).statusCode, 401);
+    assert.equal((await falsch()).statusCode, 401);
+    const blockiert = await falsch(); // 4. Versuch
+    assert.equal(blockiert.statusCode, 429);
+    assert.ok(Number(blockiert.headers['retry-after']) > 0);
+  } finally {
+    await eng.close();
+  }
+});
+
+test('Login-Rate-Limit: erfolgreicher Login setzt den Zähler zurück', async () => {
+  const eng = await buildApp({
+    dbPath: ':memory:',
+    loginLimiter: erstelleRateLimiter({ maxVersuche: 3, fensterMs: 60_000 }),
+  });
+  try {
+    await eng.inject({
+      method: 'POST',
+      url: '/api/auth/register',
+      payload: { email: 'ok@example.de', password: 'richtig123' },
+    });
+    const login = (pw) =>
+      eng.inject({ method: 'POST', url: '/api/auth/login', payload: { email: 'ok@example.de', password: pw } });
+    await login('falsch999'); // 1 Fehlversuch
+    await login('falsch999'); // 2 Fehlversuche
+    assert.equal((await login('richtig123')).statusCode, 200); // Erfolg → reset
+    // Danach wieder volles Budget: zwei Fehlversuche bleiben unter dem Limit.
+    assert.equal((await login('falsch999')).statusCode, 401);
+    assert.equal((await login('falsch999')).statusCode, 401);
+    assert.notEqual((await login('falsch999')).statusCode, 429); // 3. erst jetzt am Limit, nicht drüber
+  } finally {
+    await eng.close();
+  }
 });
 
 test('Fortschritt: setzen, laden, zurücksetzen', async () => {

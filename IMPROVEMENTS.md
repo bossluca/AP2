@@ -115,11 +115,16 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       26 Assets precached). Plus Mobile-Meta (lang=de, theme-color, Safe-Area). ✅ 2026-06-21
 - [ ] **P2 · S** **Fortschritt exportieren/importieren** (JSON) – Backup für Nutzer ohne
       Konto, und einfacher Geräte-Umzug.
-- [ ] **P2 · S** **GitHub Actions CI:** `npm test` (Frontend + Backend) bei jedem Push –
-      hält die Suite grün und dokumentiert den Status im Repo.
+- [x] **P2 · S** ~~**GitHub Actions CI:**~~ `.github/workflows/ci.yml` läuft `npm ci` +
+      Lint + Test + Build + `validate-data` (Frontend) und `npm test` (Backend) bei jedem
+      Push/PR auf `main` (Node 22, npm-Cache). ✅ 2026-06-28
 - [ ] **P3 · M** **E2E-Tests** (Playwright) für die Kern-Flows (Quiz, Wiederholen, Login).
-- [ ] **P3 · S** **Rate-Limit/Brute-Force-Schutz** für `/api/auth/login` (kleiner
-      In-Memory-Limiter) – Härtung fürs öffentliche Hosting.
+- [x] **P3 · S** ~~**Rate-Limit/Brute-Force-Schutz** für `/api/auth/login`~~ – reines,
+      getestetes In-Memory-Sliding-Window `server/src/lib/rateLimit.js` (Zeit injizierbar,
+      pro App-Instanz dekoriert): max. 8 Fehlversuche je IP+E-Mail / 15 min → HTTP 429 +
+      `Retry-After`; erfolgreicher Login setzt den Zähler zurück. `trustProxy` (Env
+      `TRUST_PROXY`, Default an) sorgt hinter Nginx für die echte Client-IP. 7 Modul- +
+      2 Integrationstests. ✅ 2026-06-28
 
 ## 4. Inhalte (mehr Stoff) + Integration
 

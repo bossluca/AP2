@@ -6,6 +6,7 @@ import { userFromToken } from './session.js';
 import { authRoutes } from './auth.js';
 import { progressRoutes } from './progress.js';
 import { gamificationRoutes } from './gamification.js';
+import { erstelleRateLimiter } from './lib/rateLimit.js';
 
 /**
  * Baut die Fastify-App (ohne sie zu starten) – so kann sie in Tests via
@@ -17,10 +18,20 @@ import { gamificationRoutes } from './gamification.js';
  * @param {string} [opts.cookieName]
  * @param {boolean} [opts.secureCookie]
  * @param {boolean} [opts.logger]
+ * @param {object}  [opts.loginLimiter] Rate-Limiter für /api/auth/login (Test-Injektion).
+ * @param {boolean} [opts.trustProxy]    Hinter Reverse-Proxy `X-Forwarded-For` vertrauen
+ *                                        (damit `req.ip` die echte Client-IP ist).
  * @returns {Promise<import('fastify').FastifyInstance>}
  */
 export async function buildApp(opts = {}) {
-  const app = Fastify({ logger: opts.logger ?? false });
+  // Hinter Nginx/Caddy muss Fastify dem `X-Forwarded-For`-Header vertrauen,
+  // sonst ist `req.ip` immer die Proxy-IP (Rate-Limit würde alle Nutzer in
+  // denselben Topf werfen). In Tests/lokal ohne Proxy bewusst aus.
+  const app = Fastify({ logger: opts.logger ?? false, trustProxy: opts.trustProxy ?? false });
+
+  // Rate-Limiter pro App-Instanz (Auth-Routen lesen ihn). Tests können einen
+  // eigenen (z. B. mit kleinem Limit / fixer Uhr) injizieren.
+  app.decorate('loginLimiter', opts.loginLimiter || erstelleRateLimiter({ maxVersuche: 8, fensterMs: 15 * 60 * 1000 }));
 
   // Konfiguration zentral ablegen (Routen lesen daraus).
   app.decorate('config', {
