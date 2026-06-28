@@ -38,9 +38,10 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 | Methode | Pfad | Beschreibung |
 |---|---|---|
 | `POST` | `/register` | `{ email, password }` → Konto anlegen (argon2id-Hash), Cookie setzen. `409` bei vorhandener E-Mail, `400` bei ungültiger Eingabe (Passwort ≥ 8 Zeichen) |
-| `POST` | `/login` | `{ email, password }` → anmelden, Cookie setzen. `401` bei falschen Daten |
+| `POST` | `/login` | `{ email, password }` → anmelden, Cookie setzen. `401` bei falschen Daten. **Rate-Limit:** `429` (+`Retry-After`) nach zu vielen Fehlversuchen je IP+E-Mail |
 | `POST` | `/logout` | Sitzung beenden, Cookie löschen |
 | `GET` | `/me` | aktuellen Nutzer liefern (`401` wenn nicht angemeldet) |
+| `DELETE` | `/account` | **Konto löschen** (DSGVO): entfernt den Nutzer und – per `ON DELETE CASCADE` – alle sessions/progress/gamification; Cookie wird gelöscht. `401` wenn nicht angemeldet |
 
 ### Fortschritt (`/api/progress`) — erfordert Login
 

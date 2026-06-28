@@ -1,32 +1,71 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useProgress } from '../context/ProgressContext';
 
 /**
- * Konto-Seite: Registrieren / Anmelden / Abmelden. Im angemeldeten Zustand wird
- * der Lernfortschritt automatisch mit dem Konto synchronisiert (Migration des
- * lokalen Stands beim ersten Login passiert im ProgressContext).
+ * Konto-Seite: Registrieren / Anmelden / Abmelden / Konto löschen. Im angemeldeten
+ * Zustand synchronisiert der ProgressContext den Lernfortschritt mit dem Konto.
  *
- * Die App funktioniert auch ohne Konto rein lokal – dieser Bereich ist optional.
+ * Datentransparenz ist hier bewusst sichtbar (was wird wo gespeichert) – Details
+ * auf der Seite „Über & Datenschutz". Die App funktioniert auch ohne Konto rein
+ * lokal; dieser Bereich ist optional.
  */
 export default function Konto() {
-  const { user, login, register, logout } = useAuth();
+  const { user, login, register, logout, deleteAccount } = useAuth();
+  const { resetProgress } = useProgress();
   const [modus, setModus] = useState('login'); // 'login' | 'register'
   const [email, setEmail] = useState('');
   const [passwort, setPasswort] = useState('');
+  const [passwort2, setPasswort2] = useState('');
+  const [einwilligung, setEinwilligung] = useState(false);
   const [fehler, setFehler] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [loeschen, setLoeschen] = useState(false);
 
   const submit = async (e) => {
     e.preventDefault();
     setFehler(null);
+    if (modus === 'register') {
+      if (passwort !== passwort2) {
+        setFehler('Die Passwörter stimmen nicht überein.');
+        return;
+      }
+      if (!einwilligung) {
+        setFehler('Bitte stimme der Speicherung gemäß Datenschutzhinweis zu.');
+        return;
+      }
+    }
     setBusy(true);
     try {
       if (modus === 'register') await register(email, passwort);
       else await login(email, passwort);
       setEmail('');
       setPasswort('');
+      setPasswort2('');
+      setEinwilligung(false);
     } catch (err) {
-      setFehler(err.message || 'Aktion fehlgeschlagen.');
+      // 429 = Rate-Limit (Brute-Force-Schutz) klar benennen.
+      if (err.status === 429) {
+        setFehler('Zu viele Versuche. Bitte kurz warten und erneut probieren.');
+      } else {
+        setFehler(err.message || 'Aktion fehlgeschlagen.');
+      }
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const kontoLoeschen = async () => {
+    setFehler(null);
+    setBusy(true);
+    try {
+      await deleteAccount();
+      resetProgress(); // lokalen Stand ebenfalls leeren
+      setLoeschen(false);
+    } catch (err) {
+      setFehler(err.message || 'Löschen fehlgeschlagen.');
     } finally {
       setBusy(false);
     }
@@ -43,18 +82,54 @@ export default function Konto() {
           Dein Fortschritt – Lernstand, XP/Level und Streak – wird mit diesem Konto synchronisiert
           und ist auf anderen Geräten verfügbar. Jedes Konto hat seinen eigenen Fortschritt.
         </p>
-        <button
-          onClick={() => logout()}
-          className="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 hover:border-red-400 text-sm"
-        >
-          Abmelden
-        </button>
+
+        {fehler && <p className="text-sm text-red-600">{fehler}</p>}
+
+        <div className="flex flex-wrap gap-2">
+          <button onClick={() => logout()} className="btn-ghost px-4 py-2">
+            Abmelden
+          </button>
+        </div>
+
+        {/* Konto löschen (DSGVO „Recht auf Löschung") */}
+        <div className="border-t border-gray-200 dark:border-[#1d271a] pt-4 space-y-2">
+          <h2 className="text-sm font-semibold">Konto löschen</h2>
+          <p className="text-xs text-gray-500">
+            Entfernt dein Konto und alle serverseitig gespeicherten Daten (E-Mail, Fortschritt,
+            XP/Streak) unwiderruflich. Der lokale Stand in diesem Browser wird ebenfalls geleert.
+          </p>
+          {!loeschen ? (
+            <button
+              onClick={() => setLoeschen(true)}
+              className="px-3 py-1.5 rounded-md border border-gray-300 dark:border-gray-600 hover:border-red-400 text-sm"
+            >
+              Konto löschen …
+            </button>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={kontoLoeschen}
+                disabled={busy}
+                className="px-3 py-1.5 rounded-md bg-red-600 text-white text-sm disabled:opacity-60"
+              >
+                {busy ? '…' : 'Endgültig löschen'}
+              </button>
+              <button
+                onClick={() => setLoeschen(false)}
+                className="px-3 py-1.5 rounded-md border border-gray-300 dark:border-gray-600 text-sm"
+              >
+                Abbrechen
+              </button>
+            </div>
+          )}
+        </div>
+
+        <Link to="/info" className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-accent">
+          <ShieldCheck size={13} aria-hidden="true" /> Was wird gespeichert? – Über &amp; Datenschutz
+        </Link>
       </div>
     );
   }
-
-  const inputClass =
-    'w-full input';
 
   return (
     <div className="space-y-4 max-w-md">
@@ -63,6 +138,18 @@ export default function Konto() {
         Optional: Mit einem Konto wird dein Fortschritt geräteübergreifend gespeichert. Ohne Konto
         läuft alles lokal im Browser.
       </p>
+
+      {/* Speicher-Transparenz */}
+      <div className="card p-3 text-xs text-gray-500 space-y-1">
+        <p>
+          <ShieldCheck size={13} className="inline mr-1 -mt-0.5 text-accent" aria-hidden="true" />
+          Gespeichert werden deine <strong>E-Mail</strong>, ein <strong>Passwort-Hash</strong>{' '}
+          (nie im Klartext) und dein <strong>Lernfortschritt</strong>. Kein Tracking, keine Werbung.
+        </p>
+        <Link to="/info" className="text-accent hover:underline">
+          Mehr unter „Über &amp; Datenschutz" →
+        </Link>
+      </div>
 
       <div className="flex gap-2 text-sm">
         <button
@@ -105,7 +192,7 @@ export default function Konto() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={inputClass}
+            className="w-full input"
           />
         </div>
         <div>
@@ -120,17 +207,48 @@ export default function Konto() {
             minLength={8}
             value={passwort}
             onChange={(e) => setPasswort(e.target.value)}
-            className={inputClass}
+            className="w-full input"
           />
         </div>
 
+        {modus === 'register' && (
+          <>
+            <div>
+              <label className="block text-xs text-gray-500 mb-1" htmlFor="passwort2">
+                Passwort bestätigen
+              </label>
+              <input
+                id="passwort2"
+                type="password"
+                autoComplete="new-password"
+                required
+                minLength={8}
+                value={passwort2}
+                onChange={(e) => setPasswort2(e.target.value)}
+                className="w-full input"
+              />
+            </div>
+            <label className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300">
+              <input
+                type="checkbox"
+                checked={einwilligung}
+                onChange={(e) => setEinwilligung(e.target.checked)}
+                className="mt-0.5"
+              />
+              <span>
+                Ich stimme zu, dass meine E-Mail und mein Lernfortschritt gemäß dem{' '}
+                <Link to="/info" className="text-accent hover:underline">
+                  Datenschutzhinweis
+                </Link>{' '}
+                gespeichert werden.
+              </span>
+            </label>
+          </>
+        )}
+
         {fehler && <p className="text-sm text-red-600">{fehler}</p>}
 
-        <button
-          type="submit"
-          disabled={busy}
-          className="btn-primary w-full py-2.5"
-        >
+        <button type="submit" disabled={busy} className="btn-primary w-full py-2.5">
           {busy ? '…' : modus === 'register' ? 'Konto erstellen' : 'Jetzt anmelden'}
         </button>
       </form>

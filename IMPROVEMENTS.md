@@ -63,8 +63,10 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       reduced-motion-bewusster Hook `hooks/useCountUp.js` (getestet) zählt Prozent +
       Punkte hoch; erkannte Schlagwörter „poppen" (`treffer-pop`). **Offen:** Count-up
       auch auf Home-/Statistik-Kennzahlen ausweiten, gestaffeltes Listen-Einblenden.
-- [ ] **P2 · S** **Lade-/Leerzustände:** Skeletons bzw. ein dezenter Lade-Indikator,
-      solange `AuthContext.ready` lädt; freundliche Empty-States mit CTA.
+- [~] **P2 · S** **Lade-/Leerzustände:** **Empty-States erledigt** – wiederverwendbare
+      `components/LeerZustand.jsx` (rein, getestet) mit CTA in `Wiederholen`/`Lernen`/`Luecken`/
+      `Lernzettel`/`Flashcards` + Command-Palette. **Offen:** Skeletons/Lade-Indikator solange
+      `AuthContext.ready` lädt. ✅ teilw. 2026-06-28
 - [ ] **P2 · S** **Toaster/Snackbar** statt nur Inline-Meldungen (gespeichert,
       angemeldet, Fehler) – ein winziger eigener Toast-Context reicht.
 - [~] **P3 · M** **Icon-System (`lucide-react`):** Navigation (Top-Leiste + Bottom-Nav +
@@ -201,6 +203,13 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
 - [ ] **P1 · S** **Vor öffentlichem Hosting: Inhalte urheberrechtlich entschärfen**
       (s. §4, P1 + `DECISIONS.md` ADR-007). Keine 1:1-Prüfungen ausliefern; Roh-/
       Aufbereitet-Material nicht öffentlich. **Voraussetzung** für Public-Deployment.
+- [x] **P1 · S** ~~**Transparenz & Inhalts-Kennzeichnung im UI**~~ – Seite **`/info`** („Über &
+      Datenschutz", Footer-Link): welche Daten wo gespeichert werden (localStorage vs. Konto,
+      Passwort-Hash, kein Tracking), Recht auf Löschung; Inhalts-Herkunft/Urheberrecht (KI/
+      paraphrasiert/unverifiziert). **Herkunfts-Badge** (`lib/herkunft.js` + `HerkunftBadge`) an
+      jeder Lösung. Konto-Seite mit Speicher-Hinweis + Einwilligung + **Konto-Löschung**
+      (`DELETE /api/auth/account`, kaskadiert). **Hinweis:** Info-Seite ist eine Vorlage; der
+      Betreiber ergänzt Impressum/verantwortliche Stelle. ✅ 2026-06-28
 - [ ] **P1 · S** `docker compose build` **real verifizieren** (auf dem Proxmox-Host oder
       einer Docker-Umgebung) – in der Dev-Umgebung war kein Docker verfügbar.
 - [ ] **P3 · S** Healthcheck im `docker-compose.yml` (Backend `/api/health`) +
@@ -217,8 +226,10 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       priorisiert Schwaches/Fälliges, füllt mit Neuem auf, klares Ende mit motivierender
       Auswertung (gewusst-Quote, +XP, Streak). Flip-Karte + Tastatur, nutzt SRS/XP.
       Modul `lib/lernsession.js` (rein, 5 Tests), Seite `pages/Lernen.jsx`. ✅ 2026-06-21
-- [ ] **P2 · S** **„Weiterlernen" / Resume:** letzte Position bzw. „dort weiter, wo du
-      warst" anbieten; reduziert Einstiegs-Reibung weiter.
+- [x] **P2 · S** ~~**„Weiterlernen" / Resume:**~~ „dort weiter, wo du warst" – reines,
+      getestetes `lib/resume.js` (gerätelokal, 3-Tage-TTL) + `ProgressContext`
+      (`resume`/`setResume`/`clearResume`); `Lernen`+`ModulTraining` merken die Position.
+      Home priorisiert es im Primär-CTA via `lib/naechsteAktion.js` (rein, getestet). ✅ 2026-06-28
 - [ ] **P2 · S** **Session-Länge wählbar** („nur 5", „10", „bis fällig leer") – kurze
       Optionen für das „leicht"-Gefühl, kein Zwang zu langen Runden.
 - [ ] **P3 · S** **Swipe-Gesten** (mobil) im Lern-/Karteikarten-Modus für „gewusst/nicht"
@@ -263,8 +274,10 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       ✅ 2026-06-27 (Sprint 3, s. PRODUKT_STRATEGIE.md)
 - [ ] **P2 · M** **Lernpfad / Fortschritts-Map:** visuelle Themen-Reise (Knoten je
       Kategorie, freischaltbar), statt reiner Listen – greift Schwächen aus der Statistik auf.
-- [ ] **P2 · S** **Command-Palette (Cmd/Ctrl-K):** Schnell-Navigation + Sofort-Suche –
-      wirkt sehr „pro" und beschleunigt die Bedienung.
+- [x] **P2 · S** ~~**Command-Palette (Cmd/Ctrl-K):**~~ Schnell-Navigation + Aktionen über die
+      Tastatur (`components/CommandPalette.jsx` + reines, getestetes `lib/befehle.js` mit
+      tolerantem Fuzzy-Filter; Nav zentral in `src/navigation.js`). Öffnet per Cmd/K + Such-Icon.
+      Terminal-Optik (`>_`-Prompt). ✅ 2026-06-28
 - [ ] **P2 · S** **Motivierende Microcopy & Leerzustände** mit kleinen Illustrationen/
       Maskottchen statt nüchterner Texte; situative Tipps („Noch 3 bis zum Tagesziel!").
 - [ ] **P3 · M** **Onboarding-Tour** beim ersten Start (3–4 Schritte, was die App kann).

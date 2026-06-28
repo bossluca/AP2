@@ -9,6 +9,7 @@ import { authApi } from '../lib/api';
  * @property {(email:string, password:string)=>Promise<void>} login
  * @property {(email:string, password:string)=>Promise<void>} register
  * @property {()=>Promise<void>} logout
+ * @property {()=>Promise<void>} deleteAccount  Konto + Serverdaten löschen (DSGVO).
  */
 
 // Default-Wert, damit useAuth auch ohne Provider funktioniert (z. B. in Tests
@@ -20,6 +21,7 @@ const AuthContext = createContext(
     login: async () => {},
     register: async () => {},
     logout: async () => {},
+    deleteAccount: async () => {},
   })
 );
 
@@ -56,8 +58,15 @@ export function AuthProvider({ children }) {
     setUser(null);
   }, []);
 
+  // Konto serverseitig löschen; danach abgemeldet. Wirft bei Fehler, damit die
+  // UI eine Rückmeldung geben kann.
+  const deleteAccount = useCallback(async () => {
+    await authApi.deleteAccount();
+    setUser(null);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, ready, login, register, logout }}>
+    <AuthContext.Provider value={{ user, ready, login, register, logout, deleteAccount }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,6 +6,7 @@ import { shuffle } from '../lib/shuffle';
 import { BEWERTUNGEN } from '../lib/bewertung';
 import { xpFuerErgebnis } from '../lib/level';
 import FilterBar from '../components/FilterBar';
+import HerkunftBadge from '../components/HerkunftBadge';
 import MarkdownContent from '../components/MarkdownContent';
 
 /**
@@ -211,11 +212,7 @@ export default function Quiz() {
               {current.hat_antwort ? (
                 <>
                   <MarkdownContent>{current.loesung_text}</MarkdownContent>
-                  {current.unverifiziert_markiert && (
-                    <p className="text-xs text-amber-600">
-                      ⚠️ Diese Lösung ist unverifiziert / nicht offiziell.
-                    </p>
-                  )}
+                  <HerkunftBadge obj={current} />
                 </>
               ) : (
                 <p className="text-sm text-gray-500 italic">Keine Lösung verfügbar.</p>

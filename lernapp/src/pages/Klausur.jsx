@@ -7,6 +7,7 @@ import { useCountUp } from '../hooks/useCountUp';
 import { BEWERTUNGEN, ANTEIL } from '../lib/bewertung';
 import { xpFuerErgebnis } from '../lib/level';
 import MarkdownContent from '../components/MarkdownContent';
+import HerkunftBadge from '../components/HerkunftBadge';
 
 /** Sekunden → "mm:ss". */
 function formatZeit(sekunden) {
@@ -419,11 +420,7 @@ export default function Klausur() {
                 {frage.hat_antwort ? (
                   <>
                     <MarkdownContent>{frage.loesung_text}</MarkdownContent>
-                    {frage.unverifiziert_markiert && (
-                      <p className="text-xs text-amber-600">
-                        ⚠️ Diese Lösung ist unverifiziert / nicht offiziell.
-                      </p>
-                    )}
+                    <HerkunftBadge obj={frage} />
                   </>
                 ) : (
                   <p className="text-sm text-gray-500 italic">Keine Musterlösung hinterlegt.</p>

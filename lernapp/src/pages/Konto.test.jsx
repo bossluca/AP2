@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 
 // API-Client mocken – kein echtes Netzwerk im Test.
 vi.mock('../lib/api', () => ({
@@ -9,12 +10,17 @@ vi.mock('../lib/api', () => ({
     login: vi.fn().mockResolvedValue({ user: { id: 1, email: 'a@b.de' } }),
     register: vi.fn().mockResolvedValue({ user: { id: 2, email: 'neu@b.de' } }),
     logout: vi.fn().mockResolvedValue({ ok: true }),
+    deleteAccount: vi.fn().mockResolvedValue({ ok: true }),
   },
   progressApi: {
     getAll: vi.fn().mockResolvedValue({ progress: {} }),
     put: vi.fn().mockResolvedValue({ ok: true }),
     merge: vi.fn().mockResolvedValue({ imported: 0 }),
     reset: vi.fn().mockResolvedValue({ ok: true }),
+  },
+  gamificationApi: {
+    get: vi.fn().mockResolvedValue({ gamification: null }),
+    put: vi.fn().mockResolvedValue({ ok: true }),
   },
 }));
 
@@ -25,11 +31,13 @@ import Konto from './Konto';
 
 function renderKonto() {
   return render(
-    <AuthProvider>
-      <ProgressProvider>
-        <Konto />
-      </ProgressProvider>
-    </AuthProvider>
+    <MemoryRouter>
+      <AuthProvider>
+        <ProgressProvider>
+          <Konto />
+        </ProgressProvider>
+      </AuthProvider>
+    </MemoryRouter>
   );
 }
 

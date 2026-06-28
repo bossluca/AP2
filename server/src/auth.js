@@ -91,4 +91,13 @@ export async function authRoutes(app) {
     if (!req.user) return reply.code(401).send({ error: 'Nicht angemeldet.' });
     return reply.send({ user: req.user });
   });
+
+  // DSGVO „Recht auf Löschung": entfernt das Konto und – per ON DELETE CASCADE
+  // (foreign_keys=ON) – alle zugehörigen sessions/progress/gamification-Zeilen.
+  app.delete('/api/auth/account', async (req, reply) => {
+    if (!req.user) return reply.code(401).send({ error: 'Nicht angemeldet.' });
+    db.prepare('DELETE FROM users WHERE id = ?').run(req.user.id);
+    reply.clearCookie(app.config.cookieName, { path: '/' });
+    return reply.send({ ok: true });
+  });
 }

@@ -133,6 +133,51 @@ test('Login-Rate-Limit: erfolgreicher Login setzt den Zähler zurück', async ()
   }
 });
 
+test('Konto löschen entfernt Konto + zugehörige Daten', async () => {
+  const { cookieHeader } = await registriere('del@example.de');
+  const headers = { cookie: cookieHeader };
+  // Daten anlegen.
+  await app.inject({ method: 'PUT', url: '/api/progress/x', headers, payload: { box: 2 } });
+  await app.inject({
+    method: 'PUT',
+    url: '/api/gamification',
+    headers,
+    payload: { activity: { '2026-06-28': 3 }, xp: 50, klausurBest: 70 },
+  });
+
+  const del = await app.inject({ method: 'DELETE', url: '/api/auth/account', headers });
+  assert.equal(del.statusCode, 200);
+
+  // Cookie ist nun ungültig → me ist 401.
+  const me = await app.inject({ url: '/api/auth/me', headers });
+  assert.equal(me.statusCode, 401);
+
+  // Erneute Anmeldung schlägt fehl (Konto existiert nicht mehr).
+  const login = await app.inject({
+    method: 'POST',
+    url: '/api/auth/login',
+    payload: { email: 'del@example.de', password: 'geheim1234' },
+  });
+  assert.equal(login.statusCode, 401);
+
+  // E-Mail ist wieder frei (Registrierung möglich) → users-Zeile war weg.
+  const reReg = await app.inject({
+    method: 'POST',
+    url: '/api/auth/register',
+    payload: { email: 'del@example.de', password: 'geheim1234' },
+  });
+  assert.equal(reReg.statusCode, 201);
+  // Neues Konto hat keinen alten Fortschritt (progress kaskadiert gelöscht).
+  const neu = reReg.cookies.find((c) => c.name === 'ap_session');
+  const get = await app.inject({ url: '/api/progress', headers: { cookie: `ap_session=${neu.value}` } });
+  assert.deepEqual(get.json().progress, {});
+});
+
+test('Konto löschen ohne Login ist 401', async () => {
+  const res = await app.inject({ method: 'DELETE', url: '/api/auth/account' });
+  assert.equal(res.statusCode, 401);
+});
+
 test('Fortschritt: setzen, laden, zurücksetzen', async () => {
   const { cookieHeader } = await registriere();
   const headers = { cookie: cookieHeader };
