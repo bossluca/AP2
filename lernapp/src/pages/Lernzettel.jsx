@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { getLerneinheiten } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
 import MarkdownContent from '../components/MarkdownContent';
+import LeerZustand from '../components/LeerZustand';
 
 /** Status-Badge für eine markierte Lerneinheit. */
 function StatusBadge({ status }) {
@@ -168,7 +169,11 @@ export default function Lernzettel() {
           </div>
 
           {filtered.length === 0 ? (
-            <p className="text-sm text-gray-500">Keine Lernzettel für diese Filter.</p>
+            <LeerZustand
+              emoji="📝"
+              titel="Keine Lernzettel für diese Filter"
+              text="Setze die Filter zurück oder probier einen anderen Prüfungsteil/Kategorie."
+            />
           ) : (
             <ul className="space-y-2">
               {filtered.map((e) => {

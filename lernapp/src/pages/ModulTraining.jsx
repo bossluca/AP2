@@ -9,6 +9,7 @@ import { BEWERTUNGEN } from '../lib/bewertung';
 import { xpFuerErgebnis } from '../lib/level';
 import MarkdownContent from '../components/MarkdownContent';
 import ClozeFrage from '../components/ClozeFrage';
+import HerkunftBadge from '../components/HerkunftBadge';
 
 /** Kleines Typ-Label oben auf jeder Trainings-Karte. */
 function SchrittKopf({ typ }) {
@@ -101,9 +102,7 @@ function FrageSchritt({ schritt, onErgebnis }) {
         <div className="border-t border-gray-200 dark:border-[#1d271a] pt-3 space-y-3">
           <h4 className="font-semibold text-sm">Lösung</h4>
           <MarkdownContent>{f.loesung_text}</MarkdownContent>
-          {f.unverifiziert_markiert && (
-            <p className="text-xs text-amber-600">⚠️ Diese Lösung ist unverifiziert / nicht offiziell.</p>
-          )}
+          <HerkunftBadge obj={f} />
           <p className="text-sm font-medium pt-1">Wie war deine Antwort?</p>
           <div className="grid grid-cols-3 gap-2">
             {BEWERTUNGEN.map((opt) => (
@@ -137,7 +136,8 @@ export default function ModulTraining() {
   const navigate = useNavigate();
   const einheiten = useMemo(() => getLerneinheiten(), []);
   const alleFragen = useMemo(() => getLearnableQuestions(), []);
-  const { progress, setStatus, recordReview, recordActivity, recordXp } = useProgress();
+  const { progress, setStatus, recordReview, recordActivity, recordXp, setResume, clearResume } =
+    useProgress();
 
   // Lerneinheit-Lookup über die ID (Map memoisiert, Cache-stabil).
   const einheitenById = useMemo(() => {
@@ -194,11 +194,18 @@ export default function ModulTraining() {
     }
     const naechste = [...ergebnisse, bewertung];
     setErgebnisse(naechste);
-    // Am Ende: Modul als gelernt markieren, wenn bestanden.
+    // Am Ende: Modul als gelernt markieren, wenn bestanden; Resume löschen.
     if (index + 1 >= session.length) {
       const aus = werteTrainingAus(naechste);
       if (aus.bestanden) setStatus(lerneinheit.id, 'gelernt');
       else setStatus(lerneinheit.id, 'ueben');
+      clearResume();
+    } else {
+      setResume({
+        to: `/lernpfade/${pfad.id}/${modul.id}`,
+        titel: `Modul: ${lerneinheit.titel}`,
+        modus: 'modul',
+      });
     }
     setIndex((i) => i + 1);
   };

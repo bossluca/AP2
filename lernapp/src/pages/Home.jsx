@@ -1,13 +1,18 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Play, RotateCcw, Target } from 'lucide-react';
 import { getAllExams } from '../data/useExamData';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
 import { berechneStatistik } from '../lib/statistik';
 import { berechneReife } from '../lib/reife';
+import { naechsteAktion } from '../lib/naechsteAktion';
 import { ladePruefungstermin, setzePruefungstermin, tageBisTermin } from '../lib/pruefungstermin';
 import { baueTagesquests, questFortschritt } from '../lib/quests';
 import ProgressRing from '../components/ProgressRing';
+
+/** Icon-Auflösung für den Primär-CTA (aus `naechsteAktion`). */
+const CTA_ICONS = { Play, RotateCcw, Target };
 
 const KACHELN = [
   { to: '/lernpfade', titel: '🧭 Lernpfade', text: 'Geführter Lernweg je Thema – Modul-Training mit Karten, Lücken & Fragen.' },
@@ -26,9 +31,22 @@ const KACHELN = [
 export default function Home() {
   const exams = getAllExams();
   const objekte = useMemo(() => getLernobjekte(), []);
-  const { progress, resetProgress, gami } = useProgress();
+  const { progress, resetProgress, gami, resume } = useProgress();
   const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
   const reife = useMemo(() => berechneReife(objekte, progress), [objekte, progress]);
+  // „Was jetzt dran ist" – ein klarer Primär-CTA statt mehrerer gleichrangiger.
+  const aktion = useMemo(
+    () =>
+      naechsteAktion({
+        resume,
+        faellig: s.faellig,
+        schwachstellen: s.schwachstellen,
+        heuteAktivitaet: gami.heuteAktivitaet,
+        tagesziel: gami.tagesziel,
+      }),
+    [resume, s.faellig, s.schwachstellen, gami.heuteAktivitaet, gami.tagesziel]
+  );
+  const AktionIcon = CTA_ICONS[aktion.icon] || Play;
   const [confirmReset, setConfirmReset] = useState(false);
   const [termin, setTermin] = useState(() => ladePruefungstermin());
   const tage = useMemo(() => tageBisTermin(termin), [termin]);
@@ -67,9 +85,16 @@ export default function Home() {
               Deine AP2-Vorbereitung – {s.art.frage} Prüfungsfragen aus {exams.length} Terminen +{' '}
               {s.art.lernzettel} Lernzettel.
             </p>
-            <Link to="/lernen" className="btn-primary px-5 py-2.5 mt-1 text-base">
-              ▶ Heute lernen
-            </Link>
+            <div className="pt-1">
+              <Link
+                to={aktion.to}
+                className="btn-primary px-5 py-2.5 text-base inline-flex items-center gap-2"
+              >
+                <AktionIcon size={18} aria-hidden="true" />
+                {aktion.cta}
+              </Link>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5">{aktion.text}</p>
+            </div>
           </div>
           <ProgressRing value={pctGelernt} size={120}>
             <div className="text-2xl font-bold">{pctGelernt}%</div>
@@ -126,36 +151,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tages-Quests */}
-      <section className="card p-4 space-y-2">
-        <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-sm">🗒️ Tages-Quests</h2>
-          <span className="text-xs text-gray-500">
-            {questFortschritt(quests).erfuellt}/{quests.length}
-            {questFortschritt(quests).alleErfuellt && ' 🎉'}
-          </span>
-        </div>
-        <ul className="space-y-1.5">
-          {quests.map((q) => (
-            <li key={q.id} className="flex items-center gap-2 text-sm">
-              <span aria-hidden="true" className={q.erfuellt ? 'text-green-600' : 'text-gray-400'}>
-                {q.erfuellt ? '✓' : '○'}
-              </span>
-              <span className={`flex-1 min-w-0 ${q.erfuellt ? 'text-gray-400 line-through' : ''}`}>
-                {q.label}
-              </span>
-              {q.ziel > 1 && (
-                <span className="text-xs text-gray-400 tabular-nums">
-                  {q.wert}/{q.ziel}
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Prüfungstermin-Countdown + Reife */}
-      <section className="card p-4">
+      {/* „Dein Tag": Countdown/Reife + (bei Bedarf) Fällig & Schwächen + Quests –
+          gebündelt in einer ruhigen Sektion statt mehrerer gleichrangiger Karten. */}
+      <section className="card p-4 space-y-3">
+        {/* Prüfungstermin-Countdown + Reife */}
         {termin && tage != null ? (
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div className="min-w-0">
@@ -206,41 +205,60 @@ export default function Home() {
             />
           </div>
         )}
+
+        {/* Kompakte Schnell-Hinweise (nur wenn relevant; Haupteinstieg ist der Hero-CTA). */}
+        {(s.faellig > 0 || s.schwachstellen.length > 0) && (
+          <div className="flex flex-wrap gap-2 pt-1 border-t border-gray-100 dark:border-[#1d271a]">
+            {s.faellig > 0 && (
+              <Link
+                to="/wiederholen"
+                className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline"
+              >
+                <RotateCcw size={15} aria-hidden="true" /> {s.faellig} fällig wiederholen
+              </Link>
+            )}
+            {s.schwachstellen.length > 0 && (
+              <Link
+                to="/lernen?modus=schwaechen"
+                className="inline-flex items-center gap-1.5 text-sm text-amber-600 hover:underline min-w-0"
+              >
+                <Target size={15} aria-hidden="true" />
+                <span className="truncate">
+                  Schwächen: {s.schwachstellen.slice(0, 3).map((x) => x.tag).join(' · ')}
+                </span>
+              </Link>
+            )}
+          </div>
+        )}
+
+        {/* Tages-Quests – aufklappbar, damit sie die Sektion nicht dominieren. */}
+        <details className="group pt-1 border-t border-gray-100 dark:border-[#1d271a]">
+          <summary className="flex items-center justify-between cursor-pointer select-none text-sm font-medium list-none">
+            <span>🗒️ Tages-Quests</span>
+            <span className="text-xs text-gray-500">
+              {questFortschritt(quests).erfuellt}/{quests.length}
+              {questFortschritt(quests).alleErfuellt && ' 🎉'}
+            </span>
+          </summary>
+          <ul className="space-y-1.5 pt-2">
+            {quests.map((q) => (
+              <li key={q.id} className="flex items-center gap-2 text-sm">
+                <span aria-hidden="true" className={q.erfuellt ? 'text-green-600' : 'text-gray-400'}>
+                  {q.erfuellt ? '✓' : '○'}
+                </span>
+                <span className={`flex-1 min-w-0 ${q.erfuellt ? 'text-gray-400 line-through' : ''}`}>
+                  {q.label}
+                </span>
+                {q.ziel > 1 && (
+                  <span className="text-xs text-gray-400 tabular-nums">
+                    {q.wert}/{q.ziel}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </details>
       </section>
-
-      {/* Fällig-Hinweis */}
-      {s.faellig > 0 && (
-        <Link
-          to="/wiederholen"
-          className="card-interactive flex items-center justify-between gap-3 p-4"
-        >
-          <div>
-            <div className="text-lg font-semibold">🔁 {s.faellig} Objekte fällig</div>
-            <div className="text-sm text-gray-500">Jetzt wiederholen, um sie zu festigen.</div>
-          </div>
-          <span className="text-accent font-medium text-sm">Los →</span>
-        </Link>
-      )}
-
-      {/* Schwächen-Training: gezielt an den schwachen Themen arbeiten */}
-      {s.schwachstellen.length > 0 && (
-        <Link
-          to="/lernen?modus=schwaechen"
-          className="card-interactive flex items-center justify-between gap-3 p-4"
-        >
-          <div className="min-w-0">
-            <div className="text-lg font-semibold">🎯 Schwächen-Training</div>
-            <div className="text-sm text-gray-500 truncate">
-              Gezielt üben:{' '}
-              {s.schwachstellen
-                .slice(0, 3)
-                .map((x) => x.tag)
-                .join(' · ')}
-            </div>
-          </div>
-          <span className="text-amber-600 font-medium text-sm whitespace-nowrap">Üben →</span>
-        </Link>
-      )}
 
       {/* Statusüberblick */}
       <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
@@ -264,20 +282,25 @@ export default function Home() {
         Detaillierte Statistik ansehen →
       </Link>
 
-      {/* Einstiegskacheln */}
-      <div className="grid sm:grid-cols-2 gap-4">
-        {KACHELN.map((k) => (
-          <Link key={k.to} to={k.to} className="card-interactive group block p-4">
-            <div className="flex items-start justify-between gap-2">
-              <h2 className="text-lg font-semibold mb-1">{k.titel}</h2>
-              <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">
-                →
-              </span>
-            </div>
-            <p className="text-sm text-gray-500">{k.text}</p>
-          </Link>
-        ))}
-      </div>
+      {/* Einstiegskacheln – sekundär: alle Lernmodi zum Stöbern. */}
+      <section className="space-y-3">
+        <h2 className="font-mono text-xs uppercase tracking-wide text-gray-400 dark:text-[#6B7A66]">
+          // alle Lernmodi
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {KACHELN.map((k) => (
+            <Link key={k.to} to={k.to} className="card-interactive group block p-4">
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="text-base font-semibold mb-1">{k.titel}</h3>
+                <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
+              <p className="text-sm text-gray-500">{k.text}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <div className="text-xs text-gray-500 border-t border-gray-200 dark:border-gray-800 pt-3 space-y-3">
         <p>

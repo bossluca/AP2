@@ -6,6 +6,7 @@ import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import { useTastenkuerzel } from '../hooks/useTastenkuerzel';
 import MarkdownContent from '../components/MarkdownContent';
+import LeerZustand from '../components/LeerZustand';
 
 const TAG_MS = 86400000;
 
@@ -187,11 +188,21 @@ export default function Wiederholen() {
       </div>
 
       {session.length === 0 ? (
-        <p className="text-sm text-gray-500">
-          {filter.nurFaellig
-            ? 'Nichts fällig für diese Auswahl – alles wiederholt! 🎉 (Filter „nur fällige" abwählen, um trotzdem zu üben.)'
-            : 'Keine Lernobjekte für diese Filter.'}
-        </p>
+        filter.nurFaellig ? (
+          <LeerZustand
+            emoji="🎉"
+            titel="Alles wiederholt!"
+            text="Für diese Auswahl ist gerade nichts fällig. Du kannst trotzdem freiwillig weiterüben."
+            cta={{ label: 'Frei üben', onClick: () => setF({ nurFaellig: false }) }}
+          />
+        ) : (
+          <LeerZustand
+            emoji="🗂️"
+            titel="Keine Lernobjekte für diese Filter"
+            text="Lockere die Filter oder starte eine geführte Session."
+            cta={{ label: 'Heute lernen', to: '/lernen' }}
+          />
+        )
       ) : finished ? (
         <div className="card p-6 text-center space-y-3">
           <p className="text-lg font-semibold">Sitzung abgeschlossen 🎉</p>

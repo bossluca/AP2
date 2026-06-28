@@ -1,24 +1,7 @@
 import { useState, lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route, NavLink, useLocation } from 'react-router-dom';
-import {
-  Home as HomeIcon,
-  Play,
-  Route as RouteIcon,
-  Layers,
-  FileText,
-  RotateCcw,
-  HelpCircle,
-  GraduationCap,
-  BarChart3,
-  Search,
-  User,
-  Moon,
-  Sun,
-  Flame,
-  Menu,
-  X,
-  PencilLine,
-} from 'lucide-react';
+import { Search, User, Moon, Sun, Flame, Menu, X } from 'lucide-react';
+import { NAV, NAV_SEKUNDAER, BOTTOM_ROUTES } from './navigation';
 import Home from './pages/Home';
 // Übrige Seiten lazy laden – schlankerer Start-Chunk, Seite kommt bei Bedarf.
 const Lernen = lazy(() => import('./pages/Lernen'));
@@ -36,23 +19,8 @@ const Konto = lazy(() => import('./pages/Konto'));
 import { useTheme } from './context/ThemeContext';
 import { useProgress } from './context/ProgressContext';
 import ErfolgWatcher from './components/ErfolgWatcher';
-
-/** Hauptnavigationspunkte (Reihenfolge = Anzeige). */
-const NAV = [
-  { to: '/', label: 'Start', end: true, icon: HomeIcon },
-  { to: '/lernen', label: 'Lernen', icon: Play },
-  { to: '/lernpfade', label: 'Lernpfade', icon: RouteIcon },
-  { to: '/karteikarten', label: 'Karten', icon: Layers },
-  { to: '/lernzettel', label: 'Lernzettel', icon: FileText },
-  { to: '/wiederholen', label: 'Wiederholen', icon: RotateCcw },
-  { to: '/quiz', label: 'Quiz', icon: HelpCircle },
-  { to: '/luecken', label: 'Lückentext', icon: PencilLine },
-  { to: '/klausur', label: 'Klausur', icon: GraduationCap },
-  { to: '/statistik', label: 'Statistik', icon: BarChart3 },
-];
-
-/** Routen, die in der mobilen Bottom-Leiste primär erscheinen. */
-const BOTTOM_ROUTES = ['/', '/lernen', '/wiederholen', '/statistik'];
+import CommandPalette from './components/CommandPalette';
+const Info_Seite = lazy(() => import('./pages/Info'));
 
 const linkClass = ({ isActive }) =>
   `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -100,7 +68,7 @@ function StreakBadge() {
 }
 
 /** Obere Leiste: Marke, Desktop-Linkleiste (ab lg), rechte Icon-Gruppe. */
-function TopBar() {
+function TopBar({ onPalette }) {
   return (
     <nav className="border-b border-gray-200/70 dark:border-[#1d271a] sticky top-0 bg-white/80 dark:bg-[#0B0F0C]/80 backdrop-blur z-20">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex items-center gap-1 sm:gap-2">
@@ -127,9 +95,14 @@ function TopBar() {
         {/* Rechte Icon-Gruppe (immer sichtbar) */}
         <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
           <StreakBadge />
-          <NavLink to="/suche" className={iconClass} aria-label="Suche">
+          <button
+            onClick={onPalette}
+            className="grid place-items-center w-9 h-9 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors"
+            aria-label="Befehle & Suche (Strg/Cmd + K)"
+            title="Befehle & Suche (Strg/Cmd + K)"
+          >
             <Search size={18} />
-          </NavLink>
+          </button>
           <NavLink to="/konto" className={iconClass} aria-label="Konto">
             <User size={18} />
           </NavLink>
@@ -179,7 +152,7 @@ function MehrSheet({ onClose }) {
           </button>
         </div>
         <div className="grid grid-cols-3 gap-2">
-          {NAV.map((it) => (
+          {[...NAV, ...NAV_SEKUNDAER].map((it) => (
             <NavLink
               key={it.to}
               to={it.to}
@@ -194,7 +167,7 @@ function MehrSheet({ onClose }) {
               }
             >
               <it.icon size={22} aria-hidden="true" />
-              <span>{it.label}</span>
+              <span className="text-center leading-tight">{it.label}</span>
             </NavLink>
           ))}
         </div>
@@ -232,10 +205,27 @@ function AnimatedMain() {
           <Route path="/klausur" element={<Klausur />} />
           <Route path="/statistik" element={<Statistik />} />
           <Route path="/suche" element={<Suche />} />
+          <Route path="/info" element={<Info_Seite />} />
           <Route path="/konto" element={<Konto />} />
         </Routes>
       </Suspense>
     </main>
+  );
+}
+
+/** Dezenter Footer mit Marke + Link zu „Über & Datenschutz". */
+function AppFooter() {
+  return (
+    <footer className="max-w-4xl mx-auto px-4 pb-28 lg:pb-10 pt-2">
+      <div className="border-t border-gray-200/70 dark:border-[#1d271a] pt-4 flex items-center justify-between flex-wrap gap-2 text-xs text-gray-400 dark:text-[#6B7A66]">
+        <span className="font-mono">
+          <span className="text-accent">&gt;_</span> FiSi.dev
+        </span>
+        <NavLink to="/info" className="hover:text-accent transition-colors">
+          Über &amp; Datenschutz
+        </NavLink>
+      </div>
+    </footer>
   );
 }
 
@@ -245,16 +235,23 @@ function AnimatedMain() {
  */
 export default function App() {
   const [mehrOffen, setMehrOffen] = useState(false);
+  const [paletteOffen, setPaletteOffen] = useState(false);
   return (
     <HashRouter>
       <div className="relative isolate min-h-screen bg-gray-50 text-gray-900 dark:bg-[#0B0F0C] dark:text-[#D8E6D4]">
         <div className="aurora" aria-hidden="true" />
         <div className="relative z-10">
-          <TopBar />
+          <TopBar onPalette={() => setPaletteOffen(true)} />
           <AnimatedMain />
+          <AppFooter />
         </div>
         <BottomNav onMehr={() => setMehrOffen(true)} />
         {mehrOffen && <MehrSheet onClose={() => setMehrOffen(false)} />}
+        <CommandPalette
+          offen={paletteOffen}
+          onClose={() => setPaletteOffen(false)}
+          onToggle={() => setPaletteOffen((o) => !o)}
+        />
         <ErfolgWatcher />
       </div>
     </HashRouter>

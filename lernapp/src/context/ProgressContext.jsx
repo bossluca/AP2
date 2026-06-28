@@ -19,6 +19,7 @@ import {
   STANDARD_TAGESZIEL,
 } from '../lib/aktivitaet';
 import { berechneLevel } from '../lib/level';
+import { ladeResume, speichereResume, loescheResume } from '../lib/resume';
 import { useAuth } from './AuthContext';
 import { progressApi, gamificationApi } from '../lib/api';
 import { mergeGamification } from '../lib/gamiMerge';
@@ -134,6 +135,9 @@ function saveProgress(progress) {
  * @property {(id:string) => (QuestionProgress|null)} getEntry   Refstabil.
  * @property {(id:string) => boolean} isDue  Refstabil – ist das Objekt fällig?
  * @property {{total:number, gelernt:number, ueben:number, offen:number}} stats
+ * @property {import('../lib/resume').ResumeEintrag|null} resume  Zuletzt begonnene Session.
+ * @property {(e:{to:string,titel:string,modus?:string}) => void} setResume
+ * @property {() => void} clearResume
  */
 
 /** @type {import('react').Context<ProgressContextValue|null>} */
@@ -152,6 +156,8 @@ const ProgressContext = createContext(null);
 export function ProgressProvider({ children }) {
   const [progress, setProgress] = useState(loadProgress);
   const [gamification, setGamification] = useState(loadGamification);
+  // „Weiterlernen": zuletzt begonnene Session (gerätelokal, best-effort).
+  const [resume, setResumeState] = useState(() => ladeResume());
   const { user } = useAuth();
 
   // Ref auf den jeweils aktuellen Stand, damit `getStatus` refstabil bleibt
@@ -196,6 +202,7 @@ export function ProgressProvider({ children }) {
     const onStorage = (e) => {
       if (e.key === STORAGE_KEY) setProgress(loadProgress());
       else if (e.key === GAMIFICATION_KEY) setGamification(loadGamification());
+      else if (e.key === 'ap2_lernapp_resume_v1') setResumeState(ladeResume());
     };
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
@@ -300,6 +307,8 @@ export function ProgressProvider({ children }) {
   const resetProgress = useCallback(() => {
     setProgress({});
     setGamification({ activity: {}, klausurBest: 0, xp: 0 });
+    loescheResume();
+    setResumeState(null);
     if (userRef.current) progressApi.reset().catch(() => {});
   }, []);
 
@@ -323,6 +332,18 @@ export function ProgressProvider({ children }) {
   const recordKlausurErgebnis = useCallback((prozent) => {
     const p = Math.round(Number(prozent) || 0);
     setGamification((g) => ({ ...g, klausurBest: Math.max(g.klausurBest || 0, p) }));
+  }, []);
+
+  /** Merkt die zuletzt begonnene Lern-Aktion (für „Weiterlernen"). */
+  const setResume = useCallback((eintrag) => {
+    const voll = speichereResume(eintrag);
+    if (voll) setResumeState(voll);
+  }, []);
+
+  /** Löscht den Weiterlernen-Zustand (z. B. nach sauberem Session-Abschluss). */
+  const clearResume = useCallback(() => {
+    loescheResume();
+    setResumeState(null);
   }, []);
 
   /** Refstabiler Status-Lookup über die Ref (keine Abhängigkeit von `progress`). */
@@ -388,6 +409,9 @@ export function ProgressProvider({ children }) {
       isDue,
       stats,
       gami,
+      resume,
+      setResume,
+      clearResume,
     }),
     [
       progress,
@@ -403,6 +427,9 @@ export function ProgressProvider({ children }) {
       isDue,
       stats,
       gami,
+      resume,
+      setResume,
+      clearResume,
     ]
   );
 

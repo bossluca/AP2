@@ -17,8 +17,18 @@ import MarkdownContent from '../components/MarkdownContent';
  */
 export default function Lernen() {
   const objekte = useMemo(() => getLernobjekte(), []);
-  const { getStatus, isDue, getEntry, progress, recordReview, recordActivity, recordXp, gami } =
-    useProgress();
+  const {
+    getStatus,
+    isDue,
+    getEntry,
+    progress,
+    recordReview,
+    recordActivity,
+    recordXp,
+    gami,
+    setResume,
+    clearResume,
+  } = useProgress();
   const [searchParams] = useSearchParams();
 
   const [sessionKey, setSessionKey] = useState(0);
@@ -63,6 +73,12 @@ export default function Lernen() {
   const titel =
     modus === 'schwaechen' ? '🎯 Schwächen-Training' : modus === 'frei' ? '🎲 Lockere Runde' : '📚 Heute lernen';
 
+  // Resume-Ziel je Modus (für „Weiterlernen" auf der Startseite).
+  const resumeZiel = () => {
+    const q = modus === 'schwaechen' ? '?modus=schwaechen' : modus === 'frei' ? '?modus=frei' : '';
+    return { to: `/lernen${q}`, titel, modus };
+  };
+
   const bewerten = (gewusst) => {
     if (!current) return;
     recordReview(current.id, gewusst);
@@ -72,6 +88,10 @@ export default function Lernen() {
     setXpGesammelt((v) => v + x);
     setVerlauf((v) => [...v, gewusst]);
     setRevealed(false);
+    const letzte = index + 1 >= session.length;
+    // Mitten in der Session „Weiterlernen" merken, am Ende wieder löschen.
+    if (letzte) clearResume();
+    else setResume(resumeZiel());
     setIndex((i) => i + 1);
   };
 

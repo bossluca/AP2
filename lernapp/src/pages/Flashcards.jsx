@@ -7,6 +7,8 @@ import { xpFuerErgebnis } from '../lib/level';
 import { useTastenkuerzel } from '../hooks/useTastenkuerzel';
 import FilterBar from '../components/FilterBar';
 import MarkdownContent from '../components/MarkdownContent';
+import LeerZustand from '../components/LeerZustand';
+import HerkunftBadge from '../components/HerkunftBadge';
 
 /**
  * Karteikarten-Seite: durch (gefilterte) Fragen blättern, Lösung aufdecken,
@@ -111,11 +113,17 @@ export default function Flashcards() {
 
       {showFilters && <FilterBar filters={filters} onChange={setFilters} />}
 
-      <p className="text-sm text-gray-500">
-        {filtered.length === 0
-          ? 'Keine Fragen für diese Filter.'
-          : `Frage ${safeIndex + 1} von ${filtered.length}`}
-      </p>
+      {filtered.length === 0 ? (
+        <LeerZustand
+          emoji="📇"
+          titel="Keine Fragen für diese Filter"
+          text="Lockere die Filter oder wechsle den Prüfungsteil, um Karten zu sehen."
+        />
+      ) : (
+        <p className="text-sm text-gray-500">
+          Frage {safeIndex + 1} von {filtered.length}
+        </p>
+      )}
 
       {current && (
         <div className="card p-4 space-y-4">
@@ -155,11 +163,7 @@ export default function Flashcards() {
                 {current.hat_antwort ? (
                   <>
                     <MarkdownContent>{current.loesung_text}</MarkdownContent>
-                    {current.unverifiziert_markiert && (
-                      <p className="text-xs text-amber-600">
-                        ⚠️ Diese Lösung ist unverifiziert / nicht offiziell.
-                      </p>
-                    )}
+                    <HerkunftBadge obj={current} />
                   </>
                 ) : (
                   <p className="text-sm text-gray-500 italic">Keine Lösung verfügbar.</p>

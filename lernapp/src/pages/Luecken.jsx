@@ -5,6 +5,7 @@ import { useProgress } from '../context/ProgressContext';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import ClozeFrage from '../components/ClozeFrage';
+import LeerZustand from '../components/LeerZustand';
 
 const UMFANG = 10;
 
@@ -89,7 +90,12 @@ export default function Luecken() {
       </div>
 
       {session.length === 0 ? (
-        <p className="text-sm text-gray-500">Keine Begriffe für diese Auswahl.</p>
+        <LeerZustand
+          emoji="✍️"
+          titel="Keine Begriffe für diese Auswahl"
+          text="Wähle einen anderen Prüfungsteil oder lies zuerst ein paar Lernzettel."
+          cta={{ label: 'Zu den Lernzetteln', to: '/lernzettel' }}
+        />
       ) : finished ? (
         <div className="card p-6 text-center space-y-3">
           <p className="text-lg font-semibold">Sitzung abgeschlossen 🎉</p>
