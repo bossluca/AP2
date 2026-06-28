@@ -162,7 +162,12 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Themen u. a. Subnetting, Virtualisierung, IT-Sicherheit, RAID/Backup, SQL, TCO,
       Datenschutz, **WLAN/VPN, Monitoring, Pseudocode, Netzplan**. Rechtlich sauber
       (eigene Aufgaben, keine 1:1-IHK-Inhalte). Keyword-Selbsttest 21/21.
-      **Optional:** weitere Übungsklausuren / mehr Aufgaben pro Thema.
+      **Zweite Übungsklausur ergänzt (2026-06-28):** `import-ap2-pruefungsfragen-2.mjs`
+      (eigener Marker/ID-Präfix, idempotent) – **11 Aufgaben / 22 Fragen / 101 Punkte**,
+      komplementäre Themen (DNS/DHCP, IPv6, Active Directory & Berechtigungen, PKI/
+      Verschlüsselung, Cloud-Modelle IaaS/PaaS/SaaS, DB-Normalisierung, ITIL/Change,
+      Lasten-/Pflichtenheft, Ransomware/Phishing, Verfügbarkeitsrechnung, strukturierte
+      Verkabelung/LWL). Keyword-Selbsttest 22/22. **Optional:** weitere Sets / mehr Aufgaben.
 - [x] **P1 · L** ~~**Lernzettel-Qualität (AP1) deutlich verbessert**~~ – AP1-Import auf
       `pdftotext -layout` umgestellt und Markdown rekonstruiert: zuvor zu Fließtext
       kollabierte **Aufzählungen** sind jetzt echte `- `-Listen, **über die Spaltenbreite
