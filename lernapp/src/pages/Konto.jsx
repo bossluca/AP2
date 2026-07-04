@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useProgress } from '../context/ProgressContext';
+import DatenSicherung from '../components/DatenSicherung';
 
 /**
  * Konto-Seite: Registrieren / Anmelden / Abmelden / Konto löschen. Im angemeldeten
@@ -90,6 +91,8 @@ export default function Konto() {
             Abmelden
           </button>
         </div>
+
+        <DatenSicherung />
 
         {/* Konto löschen (DSGVO „Recht auf Löschung") */}
         <div className="border-t border-gray-200 dark:border-[#1d271a] pt-4 space-y-2">
@@ -252,6 +255,8 @@ export default function Konto() {
           {busy ? '…' : modus === 'register' ? 'Konto erstellen' : 'Jetzt anmelden'}
         </button>
       </form>
+
+      <DatenSicherung />
     </div>
   );
 }
