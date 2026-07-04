@@ -7,6 +7,7 @@ import { baueLernsession, baueSchwaechenSession, STANDARD_UMFANG } from '../lib/
 import { berechneStatistik } from '../lib/statistik';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
+import { noteAusConfidence, istFehlSicherheit } from '../lib/confidence';
 import { useTastenkuerzel } from '../hooks/useTastenkuerzel';
 import MarkdownContent from '../components/MarkdownContent';
 
@@ -39,6 +40,10 @@ export default function Lernen() {
   const [revealed, setRevealed] = useState(false);
   const [verlauf, setVerlauf] = useState([]); // bool[] – gewusst je Karte
   const [xpGesammelt, setXpGesammelt] = useState(0);
+  // Confidence: beim Aufdecken gesetzt (true = „weiß ich", false = „unsicher",
+  // null = ohne Angabe aufgedeckt, z. B. per Leertaste).
+  const [sicherheit, setSicherheit] = useState(null);
+  const [fehlSicher, setFehlSicher] = useState(0); // sicher geglaubt, aber falsch
 
   // Schwache Themen-Tags aus der Statistik (für den Schwächen-Modus).
   const schwachTags = useMemo(
@@ -67,6 +72,8 @@ export default function Lernen() {
     setRevealed(false);
     setVerlauf([]);
     setXpGesammelt(0);
+    setSicherheit(null);
+    setFehlSicher(0);
   };
 
   const titel =
@@ -80,13 +87,19 @@ export default function Lernen() {
 
   const bewerten = (gewusst) => {
     if (!current) return;
-    recordReview(current.id, gewusst);
+    // Mit Confidence-Angabe wird die FSRS-Note feiner (Leicht/Gut/Nochmal);
+    // ohne Angabe (Leertaste) bleibt das bisherige boolean-Mapping.
+    recordReview(current.id, sicherheit === null ? gewusst : noteAusConfidence(sicherheit, gewusst));
+    if (istFehlSicherheit(sicherheit === null ? false : sicherheit, gewusst)) {
+      setFehlSicher((n) => n + 1);
+    }
     recordActivity(1);
     const x = xpFuerErgebnis(gewusst ? 'gewusst' : 'nicht');
     recordXp(x);
     setXpGesammelt((v) => v + x);
     setVerlauf((v) => [...v, gewusst]);
     setRevealed(false);
+    setSicherheit(null);
     const letzte = index + 1 >= session.length;
     // Mitten in der Session „Weiterlernen" merken, am Ende wieder löschen.
     if (letzte) clearResume();
@@ -150,6 +163,13 @@ export default function Lernen() {
             ? 'Klasse Lauf – so bleibt es leicht und es sitzt.'
             : 'Dranbleiben lohnt sich – jede Runde festigt mehr.'}
         </p>
+        {fehlSicher > 0 && (
+          <p className="text-xs text-amber-600">
+            ⚠️ Bei {fehlSicher} {fehlSicher === 1 ? 'Karte' : 'Karten'} warst du sicher – und lagst
+            daneben. Genau diese Fehl-Sicherheit kostet in der Prüfung Punkte; sie kommen bald
+            zur Wiederholung.
+          </p>
+        )}
         <div className="flex gap-2 justify-center">
           <Link to="/" className="btn-ghost px-4 py-2.5">
             Startseite
@@ -200,9 +220,27 @@ export default function Lernen() {
             <div className={`flip-inner ${revealed ? 'is-flipped' : ''}`}>
               <div className="flip-face space-y-4">
                 <MarkdownContent>{current.front}</MarkdownContent>
-                <button onClick={() => setRevealed(true)} className="w-full py-2.5 btn-primary">
-                  Aufdecken
-                </button>
+                {/* Aufdecken mit Confidence-Angabe: ein Tipp, gleiche Reibung. */}
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      setSicherheit(false);
+                      setRevealed(true);
+                    }}
+                    className="btn-soft-amber flex-1 py-2.5"
+                  >
+                    🤔 Bin unsicher
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSicherheit(true);
+                      setRevealed(true);
+                    }}
+                    className="btn-primary flex-1 py-2.5"
+                  >
+                    💡 Weiß ich
+                  </button>
+                </div>
               </div>
               <div className="flip-face flip-back border-t border-gray-200 dark:border-gray-800 pt-3 space-y-2">
                 {current.back ? (
@@ -224,13 +262,20 @@ export default function Lernen() {
           </div>
 
           {revealed && (
-            <div className="flex gap-2">
-              <button onClick={() => bewerten(false)} className="btn-soft-red flex-1 py-2.5">
-                Nicht gewusst <span className="opacity-60" aria-hidden="true">(1)</span>
-              </button>
-              <button onClick={() => bewerten(true)} className="btn-soft-green flex-1 py-2.5">
-                Gewusst <span className="opacity-60" aria-hidden="true">(2)</span>
-              </button>
+            <div className="space-y-2">
+              {sicherheit === true && (
+                <p className="text-[11px] text-gray-400 text-center">
+                  Du warst sicher – sei ehrlich, hat es wirklich gesessen?
+                </p>
+              )}
+              <div className="flex gap-2">
+                <button onClick={() => bewerten(false)} className="btn-soft-red flex-1 py-2.5">
+                  Nicht gewusst <span className="opacity-60" aria-hidden="true">(1)</span>
+                </button>
+                <button onClick={() => bewerten(true)} className="btn-soft-green flex-1 py-2.5">
+                  Gewusst <span className="opacity-60" aria-hidden="true">(2)</span>
+                </button>
+              </div>
             </div>
           )}
 
