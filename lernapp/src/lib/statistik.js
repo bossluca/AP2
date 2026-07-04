@@ -20,7 +20,7 @@ function istSchwach(entry) {
   if (entry.status === 'ueben') return true;
   if (entry.box != null && entry.box <= 2 && entry.lastSeen) return true;
   const last = entry.history?.[entry.history.length - 1]?.result;
-  if (last === 'nicht' || last === 'falsch') return true;
+  if (last === 'nicht' || last === 'falsch' || last === 'sicher-falsch') return true;
   if (entry.lastResult === 'falsch') return true;
   return false;
 }
@@ -71,11 +71,18 @@ export function berechneStatistik(objekte, progress, now = new Date()) {
     }
   }
 
-  // Lernverlauf: Reviews pro Tag aus allen Historien.
+  // Lernverlauf: Reviews pro Tag aus allen Historien. Nebenbei Fehl-Sicherheit
+  // zählen (sicher geglaubt, aber falsch – aus dem Confidence-Rating).
+  let fehlSicherEreignisse = 0;
+  const fehlSicherIds = new Set();
   for (const id in progress) {
     for (const h of progress[id]?.history || []) {
       const k = dayKey(h.ts);
       if (k) verlaufMap.set(k, (verlaufMap.get(k) || 0) + 1);
+      if (h.result === 'sicher-falsch') {
+        fehlSicherEreignisse += 1;
+        fehlSicherIds.add(id);
+      }
     }
   }
 
@@ -96,5 +103,7 @@ export function berechneStatistik(objekte, progress, now = new Date()) {
     proTeil,
     schwachstellen,
     verlauf,
+    // Fehl-Sicherheit: „gefährliche" Karten (sicher geglaubt, aber falsch).
+    fehlSicher: { ereignisse: fehlSicherEreignisse, objekte: fehlSicherIds.size },
   };
 }

@@ -84,7 +84,7 @@ export function clozeAusText(inhalt, { tags = [], quelle = '' } = {}) {
  * Baut aus mehreren Lernzettel-Einheiten eine deduplizierte Cloze-Sammlung.
  * @param {{id:string, inhalt_text?:string, titel?:string, thema_tags?:string[]}[]} einheiten
  * @param {{maxProEinheit?:number}} [optionen]
- * @returns {{id:string, text:string, begriff:string, tags:string[], quelle:string}[]}
+ * @returns {{id:string, einheitId:string, text:string, begriff:string, tags:string[], quelle:string}[]}
  */
 export function baueGlossarCloze(einheiten, { maxProEinheit = 3 } = {}) {
   const alle = [];
@@ -96,7 +96,9 @@ export function baueGlossarCloze(einheiten, { maxProEinheit = 3 } = {}) {
       const key = it.begriff.toLowerCase();
       if (gesehen.has(key)) continue;
       gesehen.add(key);
-      alle.push({ ...it, id: `cloze_${e.id}_${n}` });
+      // einheitId: Quell-Lerneinheit – erlaubt es Drill/Lücken, Ergebnisse als
+      // FSRS-Review auf die Einheit zu buchen (Lernschleife schließen).
+      alle.push({ ...it, id: `cloze_${e.id}_${n}`, einheitId: e.id });
       n += 1;
       if (n >= maxProEinheit) break;
     }

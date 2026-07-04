@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { getLerneinheiten } from '../data/useExamData';
 import { baueGlossarCloze } from '../lib/glossar';
 import { baueMcFragen } from '../lib/mcDrill';
+import { useProgress } from '../context/ProgressContext';
 import { useGamification } from '../context/GamificationContext';
 import { xpFuerErgebnis } from '../lib/level';
 import { useTastenkuerzel } from '../hooks/useTastenkuerzel';
@@ -17,6 +18,7 @@ const UMFANG = 10;
  * Aktivität und gibt XP.
  */
 export default function Drill() {
+  const { recordReview } = useProgress();
   const { recordActivity, recordXp } = useGamification();
   const [teil, setTeil] = useState('alle');
   const [sessionKey, setSessionKey] = useState(0);
@@ -54,6 +56,9 @@ export default function Drill() {
     setBeantwortet((n) => n + 1);
     recordActivity(1);
     recordXp(xpFuerErgebnis(richtig ? 'richtig' : 'falsch'));
+    // Objektives Signal ins Gedächtnismodell: das MC-Ergebnis zählt als
+    // FSRS-Review der Quell-Lerneinheit (Wiedererkennen = „Gut", nicht „Leicht").
+    if (frage.einheitId) recordReview(frage.einheitId, richtig ? 3 : 1);
   };
 
   const weiter = () => {

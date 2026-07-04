@@ -47,6 +47,20 @@ describe('baueLernsession', () => {
     expect(baueLernsession(objekte, helfer())).toHaveLength(STANDARD_UMFANG);
     expect(baueLernsession(objekte, helfer(), { umfang: 5 })).toHaveLength(5);
   });
+
+  it('sortiert neue Objekte leicht → schwer (unbekannt = mittel)', () => {
+    const objekte = [
+      { id: 's', schwierigkeit: 3 },
+      { id: 'l', schwierigkeit: 1 },
+      { id: 'o' }, // ohne Angabe → wie mittel (2)
+      { id: 'm', schwierigkeit: 2 },
+    ];
+    const session = baueLernsession(objekte, helfer(), { rng: () => 0 });
+    const stufen = session.map((x) => x.schwierigkeit ?? 2);
+    expect(stufen).toEqual([...stufen].sort((a, b) => a - b)); // aufsteigend
+    expect(session[0].id).toBe('l');
+    expect(session[session.length - 1].id).toBe('s');
+  });
 });
 
 const tagObj = (id, tags) => ({ id, tags });

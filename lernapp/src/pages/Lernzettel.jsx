@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { getLerneinheiten } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
 import MarkdownContent from '../components/MarkdownContent';
@@ -32,12 +33,28 @@ export default function Lernzettel() {
   const einheiten = useMemo(() => getLerneinheiten(), []);
   const { setStatus, getStatus, progress } = useProgress();
 
+  // Deeplink „Zum Nachlesen" (aus Quiz/Klausur): ?einheit=<id> öffnet den
+  // Lernzettel direkt und scrollt hin.
+  const [searchParams] = useSearchParams();
+  const zielId = searchParams.get('einheit');
+
   const [teil, setTeil] = useState('all');
   const [kategorie, setKategorie] = useState('all');
   const [tag, setTag] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [query, setQuery] = useState('');
-  const [expanded, setExpanded] = useState(() => new Set());
+  const [expanded, setExpanded] = useState(() => new Set(zielId ? [zielId] : []));
+
+  useEffect(() => {
+    if (!zielId) return undefined;
+    // Aufklappen + Hinscrollen nach dem Rendern (best-effort; asynchron, damit
+    // kein synchroner setState im Effect-Body läuft).
+    const t = setTimeout(() => {
+      setExpanded((prev) => (prev.has(zielId) ? prev : new Set([...prev, zielId])));
+      document.getElementById(`lz-${zielId}`)?.scrollIntoView({ block: 'start' });
+    }, 50);
+    return () => clearTimeout(t);
+  }, [zielId]);
 
   const teile = useMemo(() => {
     const set = new Set();
@@ -182,7 +199,8 @@ export default function Lernzettel() {
                 return (
                   <li
                     key={e.id}
-                    className="card overflow-hidden"
+                    id={`lz-${e.id}`}
+                    className="card overflow-hidden scroll-mt-16"
                   >
                     <button
                       onClick={() => toggle(e.id)}

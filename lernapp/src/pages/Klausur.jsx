@@ -9,6 +9,7 @@ import { BEWERTUNGEN, ANTEIL } from '../lib/bewertung';
 import { xpFuerErgebnis } from '../lib/level';
 import MarkdownContent from '../components/MarkdownContent';
 import HerkunftBadge from '../components/HerkunftBadge';
+import NachlesenLinks from '../components/NachlesenLinks';
 
 /** Sekunden → "mm:ss". */
 function formatZeit(sekunden) {
@@ -106,6 +107,7 @@ export default function Klausur() {
         id: f.id,
         bewertung,
         gewicht,
+        schwierigkeit: f.schwierigkeit ?? null,
         punkte: gewicht * (ANTEIL[bewertung] ?? 0),
         tags: f.thema_tags || [],
       };
@@ -121,7 +123,9 @@ export default function Klausur() {
       for (const e of ergebnisse) {
         recordQuizResult(e.id, e.bewertung);
         setStatus(e.id, e.bewertung === 'richtig' ? 'gelernt' : 'ueben');
-        recordReview(e.id, e.bewertung === 'richtig');
+        recordReview(e.id, e.bewertung === 'richtig', {
+          schwierigkeit: e.schwierigkeit ?? undefined,
+        });
       }
       recordActivity(ergebnisse.length);
       recordKlausurErgebnis(proz);
@@ -386,26 +390,42 @@ export default function Klausur() {
                       <span className="text-gray-500 font-normal"> · Vorschlag: {pruefung.bewertung}</span>
                     )}
                   </p>
-                  {pruefung.erforderlich != null && (
+                  {pruefung.erforderlich != null ? (
                     <p className="text-xs text-gray-500">
                       ○ = weitere gültige Stichwörter – nicht alle nötig.
                     </p>
+                  ) : (
+                    pruefung.fehlend.length > 0 && (
+                      <p className="text-xs text-amber-600">
+                        Das hat in deiner Antwort gefehlt – genau hier liegen die Punkte:
+                      </p>
+                    )
                   )}
                   <div className="flex flex-wrap gap-1.5">
-                    {pruefung.alle.map((t, i) => (
-                      <span
-                        key={i}
-                        className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs ${
-                          t.getroffen
-                            ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 treffer-pop'
-                            : 'bg-gray-100 dark:bg-gray-800 text-gray-500'
-                        }`}
-                        title={t.pflicht ? 'Pflicht-Schlagwort' : undefined}
-                      >
-                        {t.getroffen ? '✓' : '○'} {t.label}
-                        {t.pflicht && ' *'}
-                      </span>
-                    ))}
+                    {pruefung.alle.map((t, i) => {
+                      // Verfehlte Begriffe klar kennzeichnen: im Anteils-Modus sind
+                      // sie „verfehlt" (amber), im „Nennen Sie N"-Modus nur weitere
+                      // gleichwertige Optionen (neutral). Verfehlte Pflicht-Begriffe
+                      // sind in beiden Modi rot.
+                      const verfehlt = !t.getroffen && pruefung.erforderlich == null;
+                      const cls = t.getroffen
+                        ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 treffer-pop'
+                        : t.pflicht
+                          ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300'
+                          : verfehlt
+                            ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300'
+                            : 'bg-gray-100 dark:bg-gray-800 text-gray-500';
+                      return (
+                        <span
+                          key={i}
+                          className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs ${cls}`}
+                          title={t.pflicht ? 'Pflicht-Schlagwort' : undefined}
+                        >
+                          {t.getroffen ? '✓' : verfehlt || t.pflicht ? '✗' : '○'} {t.label}
+                          {t.pflicht && ' *'}
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -420,6 +440,7 @@ export default function Klausur() {
                 ) : (
                   <p className="text-sm text-gray-500 italic">Keine Musterlösung hinterlegt.</p>
                 )}
+                <NachlesenLinks frage={frage} />
               </div>
 
               <div>

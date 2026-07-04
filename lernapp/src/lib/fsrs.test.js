@@ -59,6 +59,20 @@ describe('bewerten – Erstbewertung (neues Objekt)', () => {
     expect(r.lapses).toBe(1);
   });
 
+  it('objektSchwierigkeit wirkt als Prior: schwer > neutral > leicht (nur Erstbewertung)', () => {
+    const leicht = bewerten(null, NOTEN.GUT, JETZT, { objektSchwierigkeit: 1 });
+    const mittel = bewerten(null, NOTEN.GUT, JETZT, { objektSchwierigkeit: 2 });
+    const schwer = bewerten(null, NOTEN.GUT, JETZT, { objektSchwierigkeit: 3 });
+    const ohne = bewerten(null, NOTEN.GUT, JETZT);
+    expect(schwer.difficulty).toBeGreaterThan(mittel.difficulty);
+    expect(mittel.difficulty).toBeGreaterThan(leicht.difficulty);
+    expect(mittel.difficulty).toBeCloseTo(ohne.difficulty, 5); // mittel = neutral
+    // Bei Folgebewertungen zählt der gespeicherte Zustand, nicht der Prior.
+    const folge = bewerten(schwer, NOTEN.GUT, JETZT, { objektSchwierigkeit: 1 });
+    const folgeOhne = bewerten(schwer, NOTEN.GUT, JETZT);
+    expect(folge.difficulty).toBeCloseTo(folgeOhne.difficulty, 5);
+  });
+
   it('„Leicht" plant deutlich länger als „Gut"', () => {
     const leicht = bewerten(null, NOTEN.LEICHT, JETZT);
     const gut = bewerten(null, NOTEN.GUT, JETZT);

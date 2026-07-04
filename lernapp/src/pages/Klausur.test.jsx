@@ -31,6 +31,7 @@ vi.mock('../data/useExamData', () => {
   return {
     getKlausuren: () => [klausur],
     getLearnableQuestions: () => [],
+    getLerneinheiten: () => [], // für NachlesenLinks (leer → rendert nichts)
   };
 });
 

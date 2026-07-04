@@ -14,6 +14,7 @@ const LUECKE = '____';
 /**
  * @typedef {Object} McFrage
  * @property {string}   id
+ * @property {string}   einheitId     Quell-Lerneinheit (FSRS-Review-Ziel).
  * @property {string}   frage         Text mit `____` statt des Begriffs.
  * @property {string[]} optionen      Antwortmöglichkeiten (gemischt).
  * @property {number}   loesungIndex  Index der richtigen Option.
@@ -24,7 +25,7 @@ const LUECKE = '____';
 
 /**
  * Baut MC-Fragen aus Glossar-Cloze-Items.
- * @param {{id:string, text:string, begriff:string, tags?:string[], quelle?:string}[]} clozeItems
+ * @param {{id:string, einheitId?:string, text:string, begriff:string, tags?:string[], quelle?:string}[]} clozeItems
  * @param {{anzahl?:number, optionenAnzahl?:number, rng?:() => number}} [opt]
  * @returns {McFrage[]}
  */
@@ -58,6 +59,7 @@ export function baueMcFragen(clozeItems, { anzahl = 10, optionenAnzahl = 4, rng 
     const optionen = shuffle([korrekt, ...distraktoren], rng);
     fragen.push({
       id: `mc_${item.id}`,
+      einheitId: item.einheitId || '',
       frage: item.text.replace(/\{\{.+?\}\}/, LUECKE),
       optionen,
       loesungIndex: optionen.indexOf(korrekt),

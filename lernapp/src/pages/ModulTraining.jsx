@@ -190,7 +190,9 @@ export default function ModulTraining() {
     recordXp(xpFuerErgebnis(bewertung));
     // Frage-Schritte zählen ins FSRS (richtig/teilweise = gewusst, falsch = nicht).
     if (current.typ === 'frage') {
-      recordReview(current.id, bewertung !== 'falsch');
+      recordReview(current.id, bewertung !== 'falsch', {
+        schwierigkeit: current.frage?.schwierigkeit ?? undefined,
+      });
       setStatus(current.id, bewertung === 'falsch' ? 'ueben' : 'gelernt');
     }
     const naechste = [...ergebnisse, bewertung];

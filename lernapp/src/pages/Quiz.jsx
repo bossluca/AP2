@@ -8,6 +8,7 @@ import { BEWERTUNGEN } from '../lib/bewertung';
 import { xpFuerErgebnis } from '../lib/level';
 import FilterBar from '../components/FilterBar';
 import HerkunftBadge from '../components/HerkunftBadge';
+import NachlesenLinks from '../components/NachlesenLinks';
 import MarkdownContent from '../components/MarkdownContent';
 
 /**
@@ -219,6 +220,7 @@ export default function Quiz() {
               ) : (
                 <p className="text-sm text-gray-500 italic">Keine Lösung verfügbar.</p>
               )}
+              <NachlesenLinks frage={current} />
 
               <p className="text-sm font-medium pt-1">Wie war deine Antwort?</p>
               <div className="grid grid-cols-3 gap-2">

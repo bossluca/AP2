@@ -194,6 +194,10 @@ export function istFaellig(entry, jetzt = new Date()) {
  * @param {Object} [optionen]
  * @param {number}   [optionen.retention=0.9]  Ziel-Retention.
  * @param {number[]} [optionen.weights]        Eigene Gewichte (Default FSRS_WEIGHTS).
+ * @param {1|2|3}    [optionen.objektSchwierigkeit]  Inhaltliche Schwierigkeit des
+ *        Lernobjekts (Datenfeld `schwierigkeit`: 1 leicht · 2 mittel · 3 schwer).
+ *        Fließt nur in die **Erstbewertung** ein (Prior für die FSRS-Schwierigkeit
+ *        D: leicht −1 / schwer +1); danach lernt FSRS aus den Antworten selbst.
  * @returns {{stability:number, difficulty:number, due:string, reps:number,
  *            lapses:number, last_review:string, box:number}}
  */
@@ -212,6 +216,10 @@ export function bewerten(entry, note, jetzt = new Date(), optionen = {}) {
     // Erstbewertung
     S = initStabilitaet(n, w);
     D = initSchwierigkeit(n, w);
+    const os = optionen.objektSchwierigkeit;
+    if (os === 1 || os === 2 || os === 3) {
+      D = clamp(D + (os - 2), 1, 10);
+    }
     reps = 1;
     lapses = n === NOTEN.NOCHMAL ? 1 : 0;
   } else {

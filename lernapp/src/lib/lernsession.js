@@ -53,10 +53,22 @@ function eimer(objekte, { getStatus, isDue, getEntry }) {
  * @param {() => number} [optionen.rng]  Zufallsquelle (für Tests).
  * @returns {Array<{id: string}>} Höchstens `umfang` Objekte in Lernreihenfolge.
  */
+/**
+ * Neues zuerst leicht, dann schwer (sanfter Einstieg ins Thema): mischt und
+ * sortiert dann **stabil** nach `schwierigkeit` (1–3; unbekannt = mittel).
+ * Innerhalb einer Stufe bleibt die Zufallsreihenfolge erhalten.
+ */
+function neuLeichtZuerst(neu, rng) {
+  return shuffle(neu, rng)
+    .map((o, i) => ({ o, i }))
+    .sort((a, b) => (a.o.schwierigkeit ?? 2) - (b.o.schwierigkeit ?? 2) || a.i - b.i)
+    .map((x) => x.o);
+}
+
 export function baueLernsession(objekte, helfer, optionen = {}) {
   const { umfang = STANDARD_UMFANG, rng } = optionen;
   const { ueben, faellig, neu } = eimer(objekte, helfer);
-  const reihenfolge = [...shuffle(ueben, rng), ...shuffle(faellig, rng), ...shuffle(neu, rng)];
+  const reihenfolge = [...shuffle(ueben, rng), ...shuffle(faellig, rng), ...neuLeichtZuerst(neu, rng)];
   return reihenfolge.slice(0, umfang);
 }
 

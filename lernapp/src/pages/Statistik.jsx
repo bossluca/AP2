@@ -259,6 +259,26 @@ export default function Statistik() {
         </div>
       </section>
 
+      {/* Fehl-Sicherheit (aus dem Confidence-Rating im „Heute lernen"-Modus) */}
+      {s.fehlSicher.objekte > 0 && (
+        <section className="card p-4 border-amber-200 dark:border-amber-800">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <div>
+              <h2 className="font-semibold text-sm">⚠️ Fehl-Sicherheit</h2>
+              <p className="text-xs text-gray-500 mt-1">
+                Bei <strong>{s.fehlSicher.objekte}</strong>{' '}
+                {s.fehlSicher.objekte === 1 ? 'Karte' : 'Karten'} warst du sicher – und lagst
+                daneben ({s.fehlSicher.ereignisse}×). Genau diese Karten kosten in der Prüfung
+                Punkte; sie zählen als Schwachstellen und kommen früh zur Wiederholung.
+              </p>
+            </div>
+            <Link to="/lernen?modus=schwaechen" className="btn-soft-amber px-3 py-1.5 text-xs shrink-0">
+              🎯 Gezielt üben
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* Schwachstellen */}
       <section className="space-y-2">
         <div className="flex items-center justify-between gap-2">

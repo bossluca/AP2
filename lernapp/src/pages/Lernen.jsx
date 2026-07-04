@@ -89,10 +89,15 @@ export default function Lernen() {
     if (!current) return;
     // Mit Confidence-Angabe wird die FSRS-Note feiner (Leicht/Gut/Nochmal);
     // ohne Angabe (Leertaste) bleibt das bisherige boolean-Mapping.
-    recordReview(current.id, sicherheit === null ? gewusst : noteAusConfidence(sicherheit, gewusst));
-    if (istFehlSicherheit(sicherheit === null ? false : sicherheit, gewusst)) {
-      setFehlSicher((n) => n + 1);
-    }
+    const fehlSicherheit = istFehlSicherheit(sicherheit === null ? false : sicherheit, gewusst);
+    recordReview(current.id, sicherheit === null ? gewusst : noteAusConfidence(sicherheit, gewusst), {
+      // Persistiert als eigenes History-Label → Statistik/Schwächen-Training
+      // erkennen „gefährliche" Karten auch über die Session hinaus.
+      ...(fehlSicherheit ? { label: 'sicher-falsch' } : {}),
+      // Objekt-Schwierigkeit als FSRS-Prior für die Erstbewertung.
+      schwierigkeit: current.schwierigkeit ?? undefined,
+    });
+    if (fehlSicherheit) setFehlSicher((n) => n + 1);
     recordActivity(1);
     const x = xpFuerErgebnis(gewusst ? 'gewusst' : 'nicht');
     recordXp(x);

@@ -250,14 +250,20 @@ function ProgressProviderInnen({ children }) {
    * @param {string} questionId
    * @param {boolean|1|2|3|4} note  boolean (gewusst?) oder FSRS-Note
    *        (1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht).
+   * @param {{label?:string, schwierigkeit?:1|2|3}} [opts]  `label`: optionales
+   *        History-Label statt des abgeleiteten (z. B. 'sicher-falsch' für
+   *        Fehl-Sicherheit). `schwierigkeit`: inhaltliche Objekt-Schwierigkeit
+   *        als FSRS-Prior für die Erstbewertung.
    */
   const recordReview = useCallback(
-    (questionId, note) => {
+    (questionId, note, opts = {}) => {
       const existing = progressRef.current[questionId] || {};
-      const srs = bewerten(existing, note);
+      const srs = bewerten(existing, note, new Date(), {
+        objektSchwierigkeit: opts.schwierigkeit,
+      });
       const history = [
         ...(existing.history || []),
-        { ts: new Date().toISOString(), result: reviewLabel(note) },
+        { ts: new Date().toISOString(), result: opts.label || reviewLabel(note) },
       ].slice(-20);
       persist(questionId, {
         ...existing,

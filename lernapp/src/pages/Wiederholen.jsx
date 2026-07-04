@@ -98,7 +98,7 @@ export default function Wiederholen() {
 
   const handleReview = (note) => {
     if (!current) return;
-    recordReview(current.id, note);
+    recordReview(current.id, note, { schwierigkeit: current.schwierigkeit ?? undefined });
     recordActivity(1);
     recordXp(xpFuerErgebnis(NOTE_XP[note] || 'nicht'));
     setDone((d) => d + 1);
