@@ -41,7 +41,13 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 | `POST` | `/login` | `{ email, password }` → anmelden, Cookie setzen. `401` bei falschen Daten. **Rate-Limit:** `429` (+`Retry-After`) nach zu vielen Fehlversuchen je IP+E-Mail |
 | `POST` | `/logout` | Sitzung beenden, Cookie löschen |
 | `GET` | `/me` | aktuellen Nutzer liefern (`401` wenn nicht angemeldet) |
+| `POST` | `/recover` | **Passwort-Reset per Recovery-Code** (s. ADR-008): `{ email, recoveryCode, newPassword }` → neues Passwort setzen, **alle** Sitzungen widerrufen, Code rotieren (Antwort enthält den neuen), direkt anmelden. `401` bei falschem Code, teilt das Login-Rate-Limit |
+| `POST` | `/recovery-code` | (angemeldet) neuen Recovery-Code erzeugen/rotieren – Antwort `{ recoveryCode }`, wird nur einmal angezeigt |
 | `DELETE` | `/account` | **Konto löschen** (DSGVO): entfernt den Nutzer und – per `ON DELETE CASCADE` – alle sessions/progress/gamification; Cookie wird gelöscht. `401` wenn nicht angemeldet |
+
+> `POST /register` liefert zusätzlich `recoveryCode` mit – der einzige Weg, ein
+> vergessenes Passwort zurückzusetzen (kein E-Mail-Reset). Es wird nur der
+> argon2-Hash gespeichert (`users.recovery_hash`).
 
 ### Fortschritt (`/api/progress`) — erfordert Login
 
@@ -60,10 +66,12 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 
 ## Datenmodell (SQLite)
 
-- **`users`** — `id`, `email` (unique), `password_hash` (argon2id), `created_at`
+- **`users`** — `id`, `email` (unique), `password_hash` (argon2id), `created_at`,
+  `recovery_hash` (argon2 des Recovery-Codes; additive Migration)
 - **`sessions`** — `token` (PK), `user_id`, `created_at`, `expires_at` (30 Tage)
 - **`progress`** — PK `(user_id, item_id)`; Felder `status`, `box`, `due`,
-  `last_seen`, `last_result`, `history` (JSON), `updated_at`
+  `last_seen`, `last_result`, `history` (JSON), FSRS-Felder
+  (`stability`, `difficulty`, `reps`, `lapses`, `last_review`), `updated_at`
 
 `item_id` ist die Frage- bzw. Lerneinheit-ID aus dem Frontend – Fragen und
 Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
@@ -73,6 +81,7 @@ Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
 - `src/app.js` — testbare Fastify-Factory (`buildApp`, via `app.inject` ohne Netzwerk testbar)
 - `src/index.js` — Entrypoint (liest `.env`, startet den Server)
 - `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen
-- `src/auth.js` · `src/progress.js` — Routen · `test/api.test.js` — Tests
+- `src/auth.js` · `src/progress.js` · `src/gamification.js` — Routen ·
+  `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` — Tests
 
 Architektur-Begründungen (Backend-/Auth-Wahl): siehe [`../DECISIONS.md`](../DECISIONS.md).

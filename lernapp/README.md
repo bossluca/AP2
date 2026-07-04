@@ -1,12 +1,14 @@
 # AP Lernapp
 
-Lokale Lern-Webapp zur Prüfungsvorbereitung der IT-Berufe (AO 2020), speziell
-**Fachinformatiker für Systemintegration**. Sie deckt **AP1 (Teil 1 / GA1)** als
-Grundlage und **AP2** ab und bietet mehrere Lernmodi über echte Prüfungsfragen und
-themenbezogene Lernzettel: Karteikarten, Quiz, einen **Wiederholen-Modus mit Spaced
-Repetition (Leitner)**, eine **Statistik**-Ansicht und eine **Volltextsuche**. Der
-Fortschritt wird lokal im Browser (`localStorage`) gespeichert – keine Anmeldung,
-kein Server, keine Cloud.
+Lern-Webapp zur Prüfungsvorbereitung der IT-Berufe (AO 2020), speziell
+**Fachinformatiker für Systemintegration** („FiSi.dev"). Sie deckt **AP1 (Teil 1 / GA1)**
+als Grundlage und **AP2** ab und bietet viele Lernmodi über Prüfungsfragen und
+themenbezogene Lernzettel: Karteikarten, Quiz, **Lernpfade mit Modul-Training**,
+**Lückentext**, **Multiple-Choice-Drill**, einen **Wiederholen-Modus mit Spaced
+Repetition (FSRS)**, **Klausur-Simulation**, **Statistik mit Prüfungsreife-Prognose**
+und **Volltextsuche**. Der Fortschritt wird lokal im Browser (`localStorage`)
+gespeichert; **optional** synchronisiert ein Konto (s. `../server/`) Lernstand und
+Streak/XP geräteübergreifend – ohne Konto läuft alles rein lokal.
 
 ## Inhalt
 
@@ -23,16 +25,18 @@ kein Server, keine Cloud.
 
 Quelle ist eine gebündelte JSON-Datei (`src/data/exam_data.json`) mit zwei Bereichen:
 
-**`exams`** – 6 Prüfungstermine (Frühjahr 2022, Herbst 2022, Frühjahr 2023, Herbst 2023,
-Frühjahr 2024, Herbst 2025); jede Prüfung trägt `meta.pruefungsteil` (AP1/AP2).
+**`exams`** – 9 Prüfungstermine: 6 AP1-Prüfungen (Frühjahr 2022 – Herbst 2025,
+**paraphrasiert/KI-überarbeitet**, s. `../DECISIONS.md` ADR-007) + **3 KI-generierte
+AP2-Übungsklausuren** (je 11 Aufgaben mit Schlagwort-Auto-Auswertung); jede Prüfung
+trägt `meta.pruefungsteil` (AP1/AP2).
 
 | Kennzahl | Wert |
 | --- | --- |
-| Einträge insgesamt | 200 |
+| Einträge insgesamt | 265 |
 | davon reine Kontext-/Situationsblöcke | 22 |
-| **lernbare Fragen** (in App genutzt) | **178** |
-| Fragen mit hinterlegter Lösung | 107 |
-| Themen-Tags | 17 |
+| **lernbare Fragen** (in App genutzt) | **243** |
+| Fragen mit hinterlegter Lösung | 244 |
+| Fragen mit `schwierigkeit` (1–3, aus Punkten) | 242 |
 
 **`lerneinheiten`** – **278 Lernzettel-Einheiten** (111 AP1 + 167 AP2), getrennt von den
 Prüfungsfragen, je mit `kategorie`, `thema_tags`, `quelle` und `pruefungsteil`. Import
@@ -57,9 +61,26 @@ reproduzierbar über `scripts/import/*.mjs` aus den Quelldateien unter
   Zufalls-Modus mit „Neu mischen".
 - **Lernzettel:** Eigene Seite für die themenbezogenen Spickzettel (AP1 + AP2) mit
   Filter nach Prüfungsteil/Kategorie/Thema/Status, Suche und Lese-/Markier-Modus.
-- **Wiederholen (Spaced Repetition):** Leitner-System mit 5 Boxen über Fragen **und**
-  Lernzettel. „Gewusst/Nicht gewusst" steuert Box und Fälligkeitsdatum; Sitzung
-  filterbar nach Art/Teil/Kategorie/Thema und „nur fällige".
+- **Wiederholen (Spaced Repetition):** **FSRS**-Gedächtnismodell (Stabilität/
+  Schwierigkeit/Abrufwahrscheinlichkeit, Ziel-Retention 90 %) über Fragen **und**
+  Lernzettel; 4-stufige Bewertung (Nochmal/Schwer/Gut/Leicht) mit Intervall-Vorschau
+  je Knopf. Sitzung filterbar nach Art/Teil/Kategorie/Thema und „nur fällige".
+- **Lernpfade + Modul-Training:** geführter Lernweg über die AP1-Kategorien; je Modul
+  ein abschließbarer Lern-Loop (Lernzettel → Lückentexte → passende Prüfungsfragen),
+  ab 80 % gilt das Modul als gelernt.
+- **Lückentext (Cloze):** Begriffe aktiv abrufen – Lücken werden **automatisch aus den
+  Lernzetteln** erzeugt, Eingaben tolerant geprüft (Umlaute/Formulierung egal).
+- **Drill (Multiple Choice):** schnelle 10er-Runde mit sofortiger, objektiver
+  Bewertung; Fragen und **plausible Distraktoren** entstehen automatisch aus dem
+  Lernzettel-Glossar (gleiche Themenfelder). Tastatur 1–4/Leertaste.
+- **Confidence-based Answering („Heute lernen"):** Aufdecken über „Weiß ich" /
+  „Bin unsicher" – das ergibt ein ehrlicheres FSRS-Signal, und die Auswertung warnt
+  vor **Fehl-Sicherheit** (sicher geglaubt, aber falsch).
+- **Prüfungstermin + Tagesplan:** Termin setzen → Countdown, Prüfungsreife-Prognose
+  und ein ehrliches Tagespensum („heute X Wiederholungen + Y neue"), rückwärts vom
+  Termin geplant.
+- **Backup:** Fortschritt als JSON exportieren/importieren (Konto-Seite) – Import
+  merged nicht-destruktiv (jüngerer Stand gewinnt je Eintrag).
 - **Quiz:** Fragenrunde mit Selbsteinschätzung (richtig / teilweise / falsch), am Ende
   Auswertung mit Prozent-Score und Aufschlüsselung nach Thema.
 - **Klausur-Simulation:** Komplette Prüfung mit echten Fragen in Original-Reihenfolge,

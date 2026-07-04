@@ -7,22 +7,31 @@ Spaced Repetition, optionales Konto für geräteübergreifenden Fortschritt.
 
 ## Funktionen
 
-- 📇 **Karteikarten** über echte Prüfungsfragen (mit Filter & Zufallsmodus)
+- 📚 **„Heute lernen"** – kurze Smart-Session mit einem Klick, priorisiert Fälliges/
+  Schwaches; **Confidence-Abfrage** („Weiß ich"/„Bin unsicher") deckt Fehl-Sicherheit auf
+- 🧭 **Lernpfade + Modul-Training** – geführter Lernweg, je Modul ein abschließbarer
+  Lern-Loop (Lernzettel → Lückentexte → Prüfungsfragen)
+- 📇 **Karteikarten** über Prüfungsfragen (mit Filter & Zufallsmodus)
 - 📝 **Lernzettel** – durchsuchbare Themen-Spickzettel (AP1 + AP2)
-- 🔁 **Wiederholen** – Spaced Repetition (Leitner, 5 Boxen) über Fragen **und** Lernzettel
-- 🎯 **Quiz** mit Selbsteinschätzung und Auswertung
-- 🎓 **Klausur-Simulation** – ganze Prüfung mit echten Fragen, Freitext-Antworten und
+- 🔁 **Wiederholen** – Spaced Repetition mit **FSRS**-Gedächtnismodell (4-stufige
+  Bewertung, Intervall-Vorschau) über Fragen **und** Lernzettel
+- 🎯 **Quiz** mit Selbsteinschätzung · ✍️ **Lückentext** (automatisch aus den
+  Lernzetteln) · ⚡ **Drill** (Multiple Choice mit automatischen Distraktoren)
+- 🎓 **Klausur-Simulation** – ganze Prüfung mit Freitext-Antworten und
   **flexibler Schlagwort-Prüfung** (abweichende Formulierungen zählen), optional mit Timer
-- 📊 **Statistik** – Lernstand, Box-Verteilung, Schwachstellen, Verlauf
-- 🔥 **Motivation** – Lern-Streak, Tagesziel, Aktivitäts-Heatmap, Erfolge/Badges und
-  ein Konfetti-Moment bei bestandener Klausur
-- 🔍 **Volltextsuche** über alle Inhalte
+- 📊 **Statistik** – Lernstand, **Prüfungsreife-Prognose** (punktgewichtet), Schwachstellen,
+  Verlauf; 🎯 **Prüfungstermin + Tagesplan** („heute X Wiederholungen + Y neue")
+- 🔥 **Motivation** – Lern-Streak (mit Freezes), Tagesziel, Tages-Quests, XP/Level,
+  Aktivitäts-Heatmap, Erfolge/Badges und Konfetti-Momente
+- 🔍 **Volltextsuche** über alle Inhalte · ⌨️ **Command-Palette** (Cmd/Ctrl+K)
 - 📱 **Installierbar & offline** (PWA) + mobile Bottom-Navigation; schlanker Start dank
   Code-Splitting (Start-Chunk ~32 kB)
-- 👤 **Konto (optional)** – Fortschritt geräteübergreifend; ohne Konto läuft alles lokal
+- 👤 **Konto (optional)** – Fortschritt + Streak/XP geräteübergreifend, Passwort-Reset
+  per **Recovery-Code**, DSGVO-Konto-Löschung; ohne Konto läuft alles lokal
+- 💾 **Backup** – Fortschritt als JSON exportieren/importieren (nicht-destruktives Merge)
 
-**Datenstand:** 178 lernbare Prüfungsfragen (6 Termine) + 278 Lernzettel-Einheiten
-(111 AP1 + 167 AP2).
+**Datenstand:** 243 lernbare Prüfungsfragen (6 paraphrasierte AP1-Prüfungen + 3
+KI-generierte AP2-Übungsklausuren) + 278 Lernzettel-Einheiten (111 AP1 + 167 AP2).
 
 ## Aufbau des Repos
 

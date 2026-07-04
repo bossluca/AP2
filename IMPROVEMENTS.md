@@ -111,12 +111,35 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Generator `lib/glossar.js`, der Cloze-Items **automatisch aus den Lernzetteln** erzeugt
       (Muster „Begriff: Erklärung" + `**fett**`; 487 Items aus 278 Einheiten). Renderer
       `components/ClozeFrage.jsx`. Alles getestet (21 neue Tests). ✅ 2026-06-27 (Sprint 2)
-      **Offen (Sprint 2-Rest):** MC/Matching/Reihenfolge, Confidence-based Answering.
+      **Sprint-2-Rest teilerledigt (2026-07-04):** ✅ **Multiple Choice** – Drill-Modus
+      `/drill` (`lib/mcDrill.js` rein/getestet: MC-Fragen + Distraktoren automatisch aus dem
+      Glossar, Distraktoren aus demselben Themenfeld). ✅ **Confidence-based Answering** –
+      „Weiß ich"/„Bin unsicher" beim Aufdecken in `Lernen` (`lib/confidence.js` rein/getestet,
+      feineres FSRS-Signal, Fehl-Sicherheits-Warnung). **Offen:** Matching/Reihenfolge.
 - [x] **P2 · M** ~~**PWA/Offline:**~~ installierbar (Manifest + maskierbares Icon) und
       **offline** nutzbar (Service Worker via `vite-plugin-pwa`/Workbox, Auto-Update,
       26 Assets precached). Plus Mobile-Meta (lang=de, theme-color, Safe-Area). ✅ 2026-06-21
-- [ ] **P2 · S** **Fortschritt exportieren/importieren** (JSON) – Backup für Nutzer ohne
-      Konto, und einfacher Geräte-Umzug.
+- [x] **P2 · S** ~~**Fortschritt exportieren/importieren** (JSON)~~ – Backup für Nutzer ohne
+      Konto und einfacher Geräte-Umzug: reines `lib/datensicherung.js` (Format
+      `fisidev-backup` v1, defensive Validierung) + `components/DatenSicherung.jsx`
+      auf der Konto-Seite. Import **nicht-destruktiv** (je Eintrag gewinnt der jüngere
+      `updatedAt` via `lib/progressMerge.js`; Gamification max-Merge). ✅ 2026-07-04
+- [x] **P1 · M** ~~**Sync-Robustheit: Offline-Outbox + `updatedAt`**~~ – jeder
+      Fortschritts-Write stempelt `updatedAt`; fehlgeschlagene Server-PUTs landen in
+      einer koaleszierten **Outbox** (`lib/outbox.js`, rein/getestet) und werden bei
+      online-Event/Login/nächstem Erfolg nachgeschrieben. Vorher gingen Offline-Writes
+      angemeldeter Nutzer bis zum nächsten Login-Merge verloren. ✅ 2026-07-04
+- [x] **P1 · M** ~~**Passwort-Reset (Recovery-Code)**~~ – vergessenes Passwort war endgültig
+      (Blocker für Multi-User-Hosting). Recovery-Code bei Registrierung (Einmal-Anzeige,
+      nur argon2-Hash gespeichert), `POST /api/auth/recover` (Sitzungen widerrufen,
+      Code rotiert, Login-Rate-Limit geteilt), Code-Erneuern für Bestandskonten,
+      „Passwort vergessen?"-UI. S. ADR-008. ✅ 2026-07-04
+- [x] **P1 · S** ~~**Error Boundary + App-Rauchtest**~~ – `components/FehlerGrenze.jsx`
+      fängt Render-Fehler einer Seite ab (statt weißer Seite), `App.smoke.test.jsx`
+      rendert die ganze App mit echten Providern/Daten. ✅ 2026-07-04
+- [x] **P2 · S** ~~**GamificationContext-Split**~~ – Streak/XP/Quests in eigenem Context
+      (`ProgressProvider` komponiert ihn; Aufrufer unverändert) → gezielte Re-Renders,
+      schlankerer ProgressContext. ✅ 2026-07-04
 - [x] **P2 · S** ~~**GitHub Actions CI:**~~ `.github/workflows/ci.yml` läuft `npm ci` +
       Lint + Test + Build + `validate-data` (Frontend) und `npm test` (Backend) bei jedem
       Push/PR auf `main` (Node 22, npm-Cache). ✅ 2026-06-28
@@ -169,7 +192,12 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       komplementäre Themen (DNS/DHCP, IPv6, Active Directory & Berechtigungen, PKI/
       Verschlüsselung, Cloud-Modelle IaaS/PaaS/SaaS, DB-Normalisierung, ITIL/Change,
       Lasten-/Pflichtenheft, Ransomware/Phishing, Verfügbarkeitsrechnung, strukturierte
-      Verkabelung/LWL). Keyword-Selbsttest 22/22. **Optional:** weitere Sets / mehr Aufgaben.
+      Verkabelung/LWL). Keyword-Selbsttest 22/22.
+      **Dritte Übungsklausur ergänzt (2026-07-04):** `import-ap2-pruefungsfragen-3.mjs` –
+      **11 Aufgaben / 22 Fragen / 97 Punkte** (Routing/NAT, Firewall/DMZ, Container vs.
+      VM, NAS/SAN/iSCSI, USV + Rechnung, Lizenzen/Open Source, Automatisierung/
+      Pseudocode, VoIP/QoS, Nutzwertanalyse + Rechnung, OSI-Fehlersuche, Green IT +
+      Stromkosten-Rechnung). Keyword-Selbsttest 22/22. **Optional:** weitere Sets.
 - [x] **P1 · L** ~~**Lernzettel-Qualität (AP1) deutlich verbessert**~~ – AP1-Import auf
       `pdftotext -layout` umgestellt und Markdown rekonstruiert: zuvor zu Fließtext
       kollabierte **Aufzählungen** sind jetzt echte `- `-Listen, **über die Spaltenbreite
@@ -191,7 +219,10 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
 - [x] **P2 · M** ~~**Tags der bestehenden Fragen anreichern**~~ – im Zuge der
       Paraphrasierung **alle AP1-Fragen getaggt** (vorher 24 ohne `thema_tags`, jetzt 0),
       kontrolliertes Vokabular. Verbessert Filter, SRS-Gruppierung und Schwachstellen-
-      Statistik. **Offen:** Schwierigkeitsgrad je Frage (leicht/mittel/schwer).
+      Statistik. ✅ **Schwierigkeitsgrad je Frage** (2026-07-04): `schwierigkeit` (1–3) für
+      alle 220 Fragen mit Punktzahl aus den Punkten abgeleitet (Migration
+      `003-schwierigkeit-aus-punkten.mjs`, idempotent, überschreibt nie manuelle Werte);
+      Set 3 bringt das Feld direkt mit.
 - [ ] **P3 · L** **Alte Zwischenprüfungen 2017–2020** (FISI GA1/GA2/WiSo) – gescannte
       PDFs, brauchen OCR/visuelles Einlesen. Viel Material, hoher Aufwand; termin-/
       themenweise, ein Commit pro Termin.

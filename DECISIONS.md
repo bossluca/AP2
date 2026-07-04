@@ -130,3 +130,26 @@ sie weiter). Repo enthält damit kein urheberrechtlich geschütztes Original meh
 - **Repo vorerst privat halten**; Roh-/Aufbereitet-Material **nicht** zurück ins Repo
   holen / nicht öffentlich ausliefern (Bezug zu `DEPLOYMENT.md`).
 - **Keine Rechtsberatung** – im Zweifel rechtlich prüfen lassen.
+
+---
+
+## ADR-008 — Passwort-Reset per Recovery-Code (statt E-Mail-Reset)
+**Status:** akzeptiert · **Datum:** 2026-07-04
+**Problem:** Ein vergessenes Passwort war endgültig (kein Reset-Weg) – für
+Multi-User-Hosting ein Blocker. Ein klassischer E-Mail-Reset bräuchte einen
+Mail-Server/SMTP-Dienst (Betriebsaufwand, Zustellbarkeit, weitere personenbezogene
+Verarbeitung).
+
+**Entscheidung:** **Recovery-Code** statt E-Mail-Reset. Die Registrierung erzeugt
+einen zufälligen Code (`XXXX-XXXX-XXXX-XXXX`, ~80 Bit, Alphabet ohne verwechselbare
+Zeichen), der dem Nutzer **genau einmal** angezeigt wird; serverseitig liegt nur der
+**argon2-Hash** (`users.recovery_hash`, additive Migration). `POST /api/auth/recover`
+setzt mit E-Mail + Code ein neues Passwort, **widerruft alle Sitzungen** und
+**rotiert** den Code (Einmal-Gebrauch); die Route teilt sich die
+**Brute-Force-Bremse** mit dem Login. Angemeldete Nutzer können jederzeit einen
+neuen Code erzeugen (deckt Bestandskonten ab).
+
+**Trade-off:** Wer Code **und** Passwort verliert, kann das Konto nicht
+wiederherstellen (nur löschen) – bewusst akzeptiert; die UI sagt das klar an.
+Re-evaluieren (E-Mail-Reset), falls die App echten Fremdbetrieb mit vielen
+Nutzern bekommt.
