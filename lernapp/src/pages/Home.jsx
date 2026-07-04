@@ -9,6 +9,7 @@ import { berechneStatistik } from '../lib/statistik';
 import { berechneReife } from '../lib/reife';
 import { naechsteAktion } from '../lib/naechsteAktion';
 import { ladePruefungstermin, setzePruefungstermin, tageBisTermin } from '../lib/pruefungstermin';
+import { baueTagesplan } from '../lib/tagesplan';
 import { baueTagesquests, questFortschritt } from '../lib/quests';
 import ProgressRing from '../components/ProgressRing';
 
@@ -52,6 +53,8 @@ export default function Home() {
   const [confirmReset, setConfirmReset] = useState(false);
   const [termin, setTermin] = useState(() => ladePruefungstermin());
   const tage = useMemo(() => tageBisTermin(termin), [termin]);
+  // Ehrliches Tagespensum rückwärts vom Termin (Wiederholungen + neue Objekte).
+  const plan = useMemo(() => baueTagesplan(objekte, progress, termin), [objekte, progress, termin]);
   const updateTermin = (v) => {
     setzePruefungstermin(v);
     setTermin(v || null);
@@ -168,11 +171,20 @@ export default function Home() {
                     : '🎯 Prüfung vorbei'}
               </div>
               <div className="text-sm text-gray-500">
-                Prüfungsreife {reife.prognoseProzent}% · {s.faellig} heute fällig
-                {tage > 0 &&
-                  s.faellig > 0 &&
-                  ` · ~${Math.ceil(s.faellig / tage)} Karten/Tag bis dahin`}
+                Prüfungsreife {reife.prognoseProzent}%
+                {plan &&
+                  ` · heute: ${plan.wiederholungenHeute} Wiederholungen + ${Math.min(plan.neu, plan.neuProTag)} neue`}
               </div>
+              {plan && (
+                <div className="text-xs text-gray-400 mt-0.5">
+                  {plan.einschaetzung === 'locker' && 'Entspanntes Pensum – du bist gut in der Zeit. 🌱'}
+                  {plan.einschaetzung === 'gut' && 'Machbares Pensum – dranbleiben. 💪'}
+                  {plan.einschaetzung === 'sportlich' &&
+                    (plan.schaffbarBisTermin
+                      ? 'Sportliches Pensum – kürzere, häufigere Sessions helfen. 🔥'
+                      : `Sportlich: ${plan.neu} Objekte sind noch neu – priorisiere Schwächen statt Vollständigkeit. 🔥`)}
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-1">
               <input
