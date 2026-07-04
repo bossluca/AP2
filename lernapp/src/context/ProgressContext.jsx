@@ -15,6 +15,7 @@ import { useAuth } from './AuthContext';
 import { progressApi } from '../lib/api';
 import { GamificationProvider, useGamification } from './GamificationContext';
 import { mergeProgress } from '../lib/progressMerge';
+import { ladeOutbox, speichereOutbox, merkeEintrag, flusheOutbox } from '../lib/outbox';
 
 /**
  * Versionierter localStorage-Schlüssel. Bei inkompatiblen Schema-Änderungen
@@ -149,6 +150,29 @@ function ProgressProviderInnen({ children }) {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
+  // Outbox: fehlgeschlagene Server-Writes nachschreiben, sobald wieder Netz
+  // da ist. Läuft nur angemeldet und ist selbst best-effort (Rest bleibt liegen).
+  const outboxFlushLaeuft = useRef(false);
+  const flusheAusstehende = useCallback(async () => {
+    if (!userRef.current || outboxFlushLaeuft.current) return;
+    const liste = ladeOutbox();
+    if (liste.length === 0) return;
+    outboxFlushLaeuft.current = true;
+    try {
+      const { rest } = await flusheOutbox(liste, (id, entry) => progressApi.put(id, entry));
+      speichereOutbox(rest);
+    } finally {
+      outboxFlushLaeuft.current = false;
+    }
+  }, []);
+
+  // Wenn der Browser wieder online kommt: Outbox leeren.
+  useEffect(() => {
+    const onOnline = () => flusheAusstehende();
+    window.addEventListener('online', onOnline);
+    return () => window.removeEventListener('online', onOnline);
+  }, [flusheAusstehende]);
+
   // Nach dem Login: lokalen Fortschritt nicht-destruktiv ins Konto übernehmen
   // (Migration) und anschließend den Kontostand als maßgeblich laden. Offline /
   // ohne Backend schlägt das fehl und der lokale Stand bleibt erhalten.
@@ -157,6 +181,7 @@ function ProgressProviderInnen({ children }) {
     let aktiv = true;
     (async () => {
       try {
+        await flusheAusstehende(); // liegengebliebene Writes zuerst
         await progressApi.merge(progressRef.current);
         const { progress: server } = await progressApi.getAll();
         if (aktiv && server) setProgress(server);
@@ -167,15 +192,25 @@ function ProgressProviderInnen({ children }) {
     return () => {
       aktiv = false;
     };
-  }, [user]);
+  }, [user, flusheAusstehende]);
 
   // Schreibt einen Eintrag in den State und (falls angemeldet) best-effort
   // ans Backend. Jeder Schreibvorgang stempelt `updatedAt` (Sync/Merge-Basis).
-  const persist = useCallback((questionId, entry) => {
-    const gestempelt = { ...entry, updatedAt: new Date().toISOString() };
-    setProgress((prev) => ({ ...prev, [questionId]: gestempelt }));
-    if (userRef.current) progressApi.put(questionId, gestempelt).catch(() => {});
-  }, []);
+  // Fehlgeschlagene Writes landen in der Outbox; erfolgreiche stoßen einen
+  // Flush evtl. liegengebliebener an.
+  const persist = useCallback(
+    (questionId, entry) => {
+      const gestempelt = { ...entry, updatedAt: new Date().toISOString() };
+      setProgress((prev) => ({ ...prev, [questionId]: gestempelt }));
+      if (userRef.current) {
+        progressApi.put(questionId, gestempelt).then(
+          () => flusheAusstehende(),
+          () => speichereOutbox(merkeEintrag(ladeOutbox(), questionId, gestempelt))
+        );
+      }
+    },
+    [flusheAusstehende]
+  );
 
   /** Setzt den Lernstatus einer Frage und aktualisiert `lastSeen`. */
   const setStatus = useCallback(

@@ -120,6 +120,18 @@ export function GamificationProvider({ children }) {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
+  // Wieder online: aktuellen Stand best-effort durchschreiben (der Stand ist
+  // ein Ganzes-Dokument-PUT – eine Outbox-Queue braucht es hier nicht).
+  useEffect(() => {
+    const onOnline = () => {
+      if (userRef.current && gamiSyncBereit.current) {
+        gamificationApi.put(gamificationRef.current).catch(() => {});
+      }
+    };
+    window.addEventListener('online', onOnline);
+    return () => window.removeEventListener('online', onOnline);
+  }, []);
+
   // Nach dem Login: Kontostand laden, max-basiert mit lokalem Stand mergen.
   // Der Save-Effekt schreibt den gemergten Stand anschließend zurück.
   useEffect(() => {
