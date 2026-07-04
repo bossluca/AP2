@@ -104,7 +104,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Frühjahr_1ab",
@@ -167,7 +168,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_1b",
@@ -229,7 +231,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Frühjahr_1c",
@@ -321,7 +324,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Frühjahr_1cb",
@@ -366,7 +370,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2a",
@@ -436,7 +441,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_2ab",
@@ -491,7 +497,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2b",
@@ -543,7 +550,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2c",
@@ -591,7 +599,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_2d",
@@ -639,7 +648,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2e",
@@ -680,7 +690,8 @@
               "synonyme": []
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_2fa",
@@ -730,7 +741,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2fb",
@@ -785,7 +797,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2g",
@@ -859,7 +872,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2gb",
@@ -915,7 +929,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_2gc",
@@ -953,7 +968,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_3a",
@@ -994,7 +1010,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_3b",
@@ -1056,7 +1073,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_3c",
@@ -1116,7 +1134,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Frühjahr_3d",
@@ -1173,7 +1192,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_3e",
@@ -1317,7 +1337,8 @@
               "pflicht": true
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_3fb",
@@ -1361,7 +1382,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_3fc",
@@ -1409,7 +1431,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Frühjahr_4a",
@@ -1464,7 +1487,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_4b",
@@ -1529,7 +1553,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Frühjahr_4c",
@@ -1591,7 +1616,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Frühjahr_4d",
@@ -1655,7 +1681,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Frühjahr_4e",
@@ -1710,7 +1737,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         }
       ]
     },
@@ -1779,7 +1807,8 @@
               "pflicht": true
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_1ab",
@@ -1812,7 +1841,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_1b",
@@ -1873,7 +1903,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Herbst_1c",
@@ -1932,7 +1963,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_1d",
@@ -1999,7 +2031,8 @@
               ]
             }
           ],
-          "mindest_treffer": 5
+          "mindest_treffer": 5,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Herbst_1e",
@@ -2049,7 +2082,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Herbst_1f",
@@ -2094,7 +2128,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_2a",
@@ -2135,7 +2170,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_2ba",
@@ -2178,7 +2214,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_2bb",
@@ -2222,7 +2259,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_2c",
@@ -2290,7 +2328,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_2cb",
@@ -2335,7 +2374,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_2cc",
@@ -2387,7 +2427,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_2d",
@@ -2444,7 +2485,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_2e",
@@ -2507,7 +2549,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_3a",
@@ -2568,7 +2611,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_3b",
@@ -2604,7 +2648,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_3c",
@@ -2641,7 +2686,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_3d",
@@ -2689,7 +2735,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Herbst_3e",
@@ -2732,7 +2779,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_3f",
@@ -2778,7 +2826,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2022_Herbst_3g",
@@ -2828,7 +2877,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Herbst_4aa",
@@ -2880,7 +2930,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_4ab",
@@ -2924,7 +2975,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_4ac",
@@ -2976,7 +3028,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2022_Herbst_4b",
@@ -3034,7 +3087,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2022_Herbst_4c",
@@ -3088,7 +3142,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 3
         }
       ]
     },
@@ -3166,7 +3221,8 @@
               ],
               "label": "Desktop: aufrüstbar"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_1b",
@@ -3269,7 +3325,8 @@
               ],
               "pflicht": true
             }
-          ]
+          ],
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Frühjahr_2aa",
@@ -3340,7 +3397,8 @@
               ],
               "label": "Bareinkaufspreis NordCom"
             }
-          ]
+          ],
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Frühjahr_2ab",
@@ -3410,7 +3468,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_2b",
@@ -3487,7 +3546,8 @@
               ],
               "label": "Leasingnehmer ist Besitzer"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_2bb",
@@ -3543,7 +3603,8 @@
               ],
               "label": "48 Monate"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_2bc",
@@ -3612,7 +3673,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_2bd",
@@ -3675,7 +3737,8 @@
                 "Eigentumsübergang"
               ]
             }
-          ]
+          ],
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Frühjahr_3a",
@@ -3737,7 +3800,8 @@
               ],
               "label": "Funktion Hardware-Schicht"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_3b",
@@ -3826,7 +3890,8 @@
               "label": "Beratung"
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Frühjahr_3bb",
@@ -3876,7 +3941,8 @@
               ],
               "label": "sichere Konfiguration"
             }
-          ]
+          ],
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Frühjahr_3bc",
@@ -3945,7 +4011,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Frühjahr_3bd",
@@ -4013,7 +4080,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Frühjahr_3be",
@@ -4077,7 +4145,8 @@
                 "auf alle anwenden"
               ]
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_3ca",
@@ -4140,7 +4209,8 @@
               ],
               "label": "Reaktion/Frühwarnung"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_3cb",
@@ -4216,7 +4286,8 @@
               ],
               "label": "Betriebsrat/Transparenz"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_4a",
@@ -4280,7 +4351,8 @@
               ],
               "label": "sozialer Nachteil"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_4b",
@@ -4300,7 +4372,8 @@
             "Projektmanagement"
           ],
           "ist_kontext_block": false,
-          "hat_antwort": false
+          "hat_antwort": false,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Frühjahr_4ba",
@@ -4359,7 +4432,8 @@
               ],
               "label": "Pflichtenheft = Wie"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_4bb",
@@ -4427,7 +4501,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Frühjahr_4c",
@@ -4501,7 +4576,8 @@
               ],
               "label": "Immobilie-spezifisch"
             }
-          ]
+          ],
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Frühjahr_4d",
@@ -4568,7 +4644,8 @@
               ],
               "label": "FROM Tabelle"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Frühjahr_4db",
@@ -4642,7 +4719,8 @@
               ],
               "label": "AND-Verknüpfung"
             }
-          ]
+          ],
+          "schwierigkeit": 2
         }
       ]
     },
@@ -4733,7 +4811,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_1b",
@@ -4812,7 +4891,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_1ba",
@@ -4870,7 +4950,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_1bb",
@@ -4928,7 +5009,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_1c",
@@ -4989,7 +5071,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_1d",
@@ -5062,7 +5145,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_1da",
@@ -5104,7 +5188,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_1db",
@@ -5144,7 +5229,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_1dc",
@@ -5200,7 +5286,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_1e",
@@ -5260,7 +5347,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_2a",
@@ -5319,7 +5407,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_2b",
@@ -5379,7 +5468,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_2c",
@@ -5435,7 +5525,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_2d",
@@ -5495,7 +5586,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_2e",
@@ -5559,7 +5651,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_2f",
@@ -5620,7 +5713,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_3a",
@@ -5671,7 +5765,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_3b",
@@ -5734,7 +5829,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_3c",
@@ -5816,7 +5912,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_3cb",
@@ -5874,7 +5971,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_3cc",
@@ -5934,7 +6032,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_3cd",
@@ -5990,7 +6089,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_3d",
@@ -6063,7 +6163,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_3da",
@@ -6117,7 +6218,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_3db",
@@ -6173,7 +6275,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_4a",
@@ -6247,7 +6350,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_4aa",
@@ -6307,7 +6411,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_4ab",
@@ -6370,7 +6475,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_4b",
@@ -6441,7 +6547,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_4ba",
@@ -6495,7 +6602,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_4bb",
@@ -6539,7 +6647,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_4bc",
@@ -6584,7 +6693,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_4ca",
@@ -6642,7 +6752,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2023_Herbst_4cb",
@@ -6695,7 +6806,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 1
         },
         {
           "id": "2023_Herbst_4cc",
@@ -6748,7 +6860,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2023_Herbst_4cd",
@@ -6805,7 +6918,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         }
       ]
     },
@@ -6880,7 +6994,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2024_Frühjahr_1aa",
@@ -6935,7 +7050,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_1ab",
@@ -6982,7 +7098,8 @@
               "synonyme": []
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_1b",
@@ -7035,7 +7152,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2024_Frühjahr_1c",
@@ -7088,7 +7206,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_1d",
@@ -7137,7 +7256,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_1e",
@@ -7193,7 +7313,8 @@
               "synonyme": []
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_1fa",
@@ -7241,7 +7362,8 @@
               "synonyme": []
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_1fb",
@@ -7288,7 +7410,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_2a",
@@ -7328,7 +7451,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_2b",
@@ -7381,7 +7505,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_2c",
@@ -7423,7 +7548,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 3
         },
         {
           "id": "2024_Frühjahr_2d",
@@ -7475,7 +7601,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_2e",
@@ -7529,7 +7656,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_2f",
@@ -7556,7 +7684,8 @@
               "synonyme": []
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_2g",
@@ -7619,7 +7748,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_3a",
@@ -7676,7 +7806,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_3b",
@@ -7716,7 +7847,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_3c",
@@ -7766,7 +7898,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_3d",
@@ -7829,7 +7962,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_3db",
@@ -7866,7 +8000,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_3dc",
@@ -7908,7 +8043,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_3e",
@@ -7950,7 +8086,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_3f",
@@ -8001,7 +8138,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_4a",
@@ -8057,7 +8195,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2024_Frühjahr_4b",
@@ -8108,7 +8247,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2024_Frühjahr_4c",
@@ -8165,7 +8305,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_4d",
@@ -8220,7 +8361,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 3
         },
         {
           "id": "2024_Frühjahr_4da",
@@ -8274,7 +8416,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_4db",
@@ -8335,7 +8478,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_4e",
@@ -8394,7 +8538,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2024_Frühjahr_4f",
@@ -8446,7 +8591,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         }
       ]
     },
@@ -8513,7 +8659,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_1b",
@@ -8562,7 +8709,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2025_Herbst_1ca",
@@ -8607,7 +8755,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_1cb",
@@ -8661,7 +8810,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_1da",
@@ -8712,7 +8862,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_1db",
@@ -8759,7 +8910,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_1e",
@@ -8827,7 +8979,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_1eb",
@@ -8883,7 +9036,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_2a",
@@ -8939,7 +9093,8 @@
               ]
             }
           ],
-          "mindest_treffer": 4
+          "mindest_treffer": 4,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_2b",
@@ -9023,7 +9178,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2025_Herbst_2bb",
@@ -9073,7 +9229,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_2c",
@@ -9136,7 +9293,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_2cb",
@@ -9181,7 +9339,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_2cc",
@@ -9228,7 +9387,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_3a",
@@ -9276,7 +9436,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_3b",
@@ -9332,7 +9493,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_3c",
@@ -9372,7 +9534,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_3d",
@@ -9420,7 +9583,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_3e",
@@ -9486,7 +9650,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_3eb",
@@ -9535,7 +9700,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_3f",
@@ -9580,7 +9746,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_3g",
@@ -9628,7 +9795,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_3h",
@@ -9682,7 +9850,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_4a",
@@ -9749,7 +9918,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_4ab",
@@ -9796,7 +9966,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_4ac",
@@ -9836,7 +10007,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_4b",
@@ -9898,7 +10070,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 3
         },
         {
           "id": "2025_Herbst_4c",
@@ -9967,7 +10140,8 @@
               ]
             }
           ],
-          "mindest_treffer": 3
+          "mindest_treffer": 3,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_4cb",
@@ -10002,7 +10176,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 1
         },
         {
           "id": "2025_Herbst_4d",
@@ -10071,7 +10246,8 @@
               ]
             }
           ],
-          "mindest_treffer": 2
+          "mindest_treffer": 2,
+          "schwierigkeit": 2
         },
         {
           "id": "2025_Herbst_4db",
@@ -10110,7 +10286,8 @@
               ]
             }
           ],
-          "mindest_treffer": 1
+          "mindest_treffer": 1,
+          "schwierigkeit": 1
         }
       ]
     },
@@ -10173,7 +10350,8 @@
             }
           ],
           "kategorie": "Netzwerk planen",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki_1b",
@@ -10220,7 +10398,8 @@
             }
           ],
           "kategorie": "Netzwerk planen",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_2a",
@@ -10279,7 +10458,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Virtualisierung & Server",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_2b",
@@ -10329,7 +10509,8 @@
             }
           ],
           "kategorie": "Virtualisierung & Server",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki_3a",
@@ -10381,7 +10562,8 @@
             }
           ],
           "kategorie": "IT-Sicherheit",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki_3b",
@@ -10437,7 +10619,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "IT-Sicherheit",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_4a",
@@ -10474,7 +10657,8 @@
             }
           ],
           "kategorie": "Verfügbarkeit & Datensicherung",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_4b",
@@ -10521,7 +10705,8 @@
             }
           ],
           "kategorie": "Verfügbarkeit & Datensicherung",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_5a",
@@ -10563,7 +10748,8 @@
             }
           ],
           "kategorie": "Datenbanken & SQL",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki_5b",
@@ -10609,7 +10795,8 @@
             }
           ],
           "kategorie": "Datenbanken & SQL",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_6a",
@@ -10653,7 +10840,8 @@
             }
           ],
           "kategorie": "Wirtschaftlichkeit",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki_6b",
@@ -10714,7 +10902,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Wirtschaftlichkeit",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_7a",
@@ -10760,7 +10949,8 @@
             }
           ],
           "kategorie": "Datenschutz",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_8a",
@@ -10819,7 +11009,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "WLAN & VPN",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_8b",
@@ -10876,7 +11067,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "WLAN & VPN",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_9a",
@@ -10936,7 +11128,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "Monitoring & IT-Betrieb",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_9b",
@@ -11002,7 +11195,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Monitoring & IT-Betrieb",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_10a",
@@ -11064,7 +11258,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "Algorithmen & Pseudocode",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki_10b",
@@ -11125,7 +11320,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "Algorithmen & Pseudocode",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_11a",
@@ -11182,7 +11378,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "Projektplanung (Netzplan)",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki_11b",
@@ -11230,7 +11427,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Projektplanung (Netzplan)",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         }
       ]
     },
@@ -11295,7 +11493,8 @@
           ],
           "mindest_treffer": 4,
           "kategorie": "DNS & DHCP",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_1b",
@@ -11346,7 +11545,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "DNS & DHCP",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_2a",
@@ -11408,7 +11608,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "IPv6",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_2b",
@@ -11435,7 +11636,8 @@
             }
           ],
           "kategorie": "IPv6",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_3a",
@@ -11490,7 +11692,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Active Directory & Berechtigungen",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_3b",
@@ -11541,7 +11744,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Active Directory & Berechtigungen",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_4a",
@@ -11617,7 +11821,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "Verschlüsselung & PKI",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_4b",
@@ -11676,7 +11881,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Verschlüsselung & PKI",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_5a",
@@ -11734,7 +11940,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "Cloud-Modelle",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_5b",
@@ -11799,7 +12006,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Cloud-Modelle",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_6a",
@@ -11850,7 +12058,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Datenbank-Normalisierung",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_6b",
@@ -11902,7 +12111,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Datenbank-Normalisierung",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_7a",
@@ -11962,7 +12172,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "ITIL & Change-Management",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_7b",
@@ -12023,7 +12234,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "ITIL & Change-Management",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_8a",
@@ -12080,7 +12292,8 @@
           ],
           "mindest_treffer": 3,
           "kategorie": "Anforderungen: Lasten- & Pflichtenheft",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_8b",
@@ -12126,7 +12339,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Anforderungen: Lasten- & Pflichtenheft",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_9a",
@@ -12185,7 +12399,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Schadsoftware & Angriffe",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_9b",
@@ -12256,7 +12471,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Schadsoftware & Angriffe",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_10a",
@@ -12305,7 +12521,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Verfügbarkeit berechnen",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_10b",
@@ -12355,7 +12572,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Verfügbarkeit berechnen",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
         },
         {
           "id": "ap2ki2_11a",
@@ -12409,7 +12627,8 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Strukturierte Verkabelung",
-          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 3
         },
         {
           "id": "ap2ki2_11b",
@@ -12471,6 +12690,1230 @@
           ],
           "mindest_treffer": 2,
           "kategorie": "Strukturierte Verkabelung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)",
+          "schwierigkeit": 2
+        }
+      ]
+    },
+    {
+      "meta": {
+        "jahr": 2026,
+        "saison": "Übungsklausur 3",
+        "fachrichtung": "Fachinformatiker/in für Systemintegration",
+        "teil": "AP2 – Ganzheitliche Aufgabe (Übung)",
+        "titel": "AP2 Übungsklausur 3 (KI-generiert)",
+        "datum": null,
+        "dauer": "90 Minuten",
+        "punkte_gesamt": 97,
+        "status": "KI-generiert – an AP2-Prüfungsthemen angelehnt, nicht offiziell",
+        "quelle_dateiname": "ki_ap2_uebung3_2026",
+        "pruefungsteil": "AP2"
+      },
+      "fragen": [
+        {
+          "id": "ap2ki3_1a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 1,
+          "aufgabe_titel": "Routing & NAT",
+          "teilfrage": "1a",
+          "ueberschrift": "",
+          "frage_text": "Die Systemhaus Falke GmbH betreibt zwei Standorte (Netz A: 192.168.10.0/24, Netz B: 192.168.20.0/24), verbunden über einen Router. Erläutern Sie, **wozu ein Router eine Routingtabelle nutzt** und was das **Default-Gateway** für einen Client bedeutet.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Die **Routingtabelle** enthält je Zielnetz den **nächsten Hop** bzw. die Ausgangs-Schnittstelle – der Router entscheidet damit für jedes Paket anhand der **Ziel-IP**, **wohin es weitergeleitet** wird. Das **Default-Gateway** ist die Router-Adresse, an die ein Client alle Pakete schickt, deren Ziel **außerhalb des eigenen Netzes** liegt.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/IP-Adressierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Routingtabelle",
+              "synonyme": [
+                "Routing-Tabelle",
+                "Tabelle mit Routen"
+              ]
+            },
+            {
+              "begriff": "weiterleit",
+              "synonyme": [
+                "weitergeleitet",
+                "Weiterleitung",
+                "nächster Hop",
+                "naechster Hop",
+                "next hop"
+              ]
+            },
+            {
+              "begriff": "Ziel-IP",
+              "synonyme": [
+                "Zieladresse",
+                "Zielnetz",
+                "anhand des Ziels"
+              ]
+            },
+            {
+              "begriff": "außerhalb des eigenen Netzes",
+              "synonyme": [
+                "ausserhalb des eigenen Netzes",
+                "fremdes Netz",
+                "anderes Netz",
+                "nicht im eigenen Subnetz"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Routing & NAT",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_1b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 1,
+          "aufgabe_titel": "Routing & NAT",
+          "teilfrage": "1b",
+          "ueberschrift": "",
+          "frage_text": "Der Internetanschluss der Firma hat nur **eine öffentliche IPv4-Adresse**. Erklären Sie, wie **NAT (genauer: PAT/Masquerading)** trotzdem allen internen Clients den Internetzugang ermöglicht.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Der Router ersetzt beim Verlassen des Netzes die **private Quell-IP** jedes Clients durch seine **öffentliche Adresse** und merkt sich die Zuordnung über unterschiedliche **Ports** in einer **NAT-Tabelle**. Antworten aus dem Internet werden anhand des Ports wieder dem richtigen **internen Client** zugestellt – so teilen sich viele Clients eine öffentliche Adresse.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/IP-Adressierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "private",
+              "synonyme": [
+                "private IP",
+                "interne Adresse"
+              ]
+            },
+            {
+              "begriff": "öffentliche Adresse",
+              "synonyme": [
+                "oeffentliche Adresse",
+                "öffentliche IP",
+                "oeffentliche IP"
+              ]
+            },
+            {
+              "begriff": "Port",
+              "synonyme": [
+                "Ports",
+                "Portnummer",
+                "PAT"
+              ]
+            },
+            {
+              "begriff": "Tabelle",
+              "synonyme": [
+                "NAT-Tabelle",
+                "Zuordnung",
+                "merkt sich"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Routing & NAT",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_2a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 2,
+          "aufgabe_titel": "Firewall & DMZ",
+          "teilfrage": "2a",
+          "ueberschrift": "",
+          "frage_text": "Die Firma will ihren **Webserver** aus dem Internet erreichbar machen, ohne das interne Netz zu gefährden. Erläutern Sie das Konzept einer **DMZ (demilitarisierte Zone)** und warum der Webserver dort stehen sollte.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Eine **DMZ** ist ein **eigenes, durch Firewalls abgetrenntes Zwischennetz** zwischen Internet und internem LAN. Öffentlich erreichbare Dienste (Webserver) stehen in der DMZ: Aus dem Internet ist **nur die DMZ** erreichbar, und aus der DMZ sind Verbindungen ins **interne Netz blockiert** bzw. streng begrenzt. Wird der Webserver **kompromittiert**, hat der Angreifer keinen direkten Zugriff auf das LAN.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Zwischennetz",
+              "synonyme": [
+                "eigenes Netz",
+                "abgetrenntes Netz",
+                "eigene Zone",
+                "Pufferzone"
+              ]
+            },
+            {
+              "begriff": "Firewall",
+              "synonyme": [
+                "Firewalls",
+                "abgetrennt",
+                "gefiltert"
+              ]
+            },
+            {
+              "begriff": "intern",
+              "synonyme": [
+                "internes Netz",
+                "LAN geschützt",
+                "LAN geschuetzt",
+                "kein Zugriff auf LAN"
+              ]
+            },
+            {
+              "begriff": "kompromittiert",
+              "synonyme": [
+                "gehackt",
+                "übernommen",
+                "uebernommen",
+                "Angreifer kommt nicht weiter"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Firewall & DMZ",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_2b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 2,
+          "aufgabe_titel": "Firewall & DMZ",
+          "teilfrage": "2b",
+          "ueberschrift": "",
+          "frage_text": "Eine Firewall arbeitet nach dem Prinzip **„Default Deny\"** (Whitelist). Erklären Sie das Prinzip und geben Sie an, welche **Regel** für den Webserver (HTTPS) mindestens nötig ist.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "**Default Deny** bedeutet: **Alles ist verboten**, was nicht ausdrücklich **erlaubt** wurde – nur explizit freigegebene Verbindungen passieren die Firewall (sicherer als Blacklisting). Für den Webserver ist mindestens eine Regel nötig, die **eingehende** Verbindungen auf **Port 443 (HTTPS)** zur Server-IP **erlaubt**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "verboten",
+              "synonyme": [
+                "alles blockiert",
+                "standardmäßig gesperrt",
+                "standardmaessig gesperrt",
+                "deny"
+              ]
+            },
+            {
+              "begriff": "erlaubt",
+              "synonyme": [
+                "ausdrücklich freigegeben",
+                "ausdruecklich freigegeben",
+                "Whitelist",
+                "explizit"
+              ]
+            },
+            {
+              "begriff": "443",
+              "synonyme": [
+                "Port 443",
+                "HTTPS-Port"
+              ]
+            },
+            {
+              "begriff": "eingehend",
+              "synonyme": [
+                "inbound",
+                "von außen",
+                "von aussen"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Firewall & DMZ",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_3a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 3,
+          "aufgabe_titel": "Container & Virtualisierung",
+          "teilfrage": "3a",
+          "ueberschrift": "",
+          "frage_text": "Die Entwicklungsabteilung überlegt, eine Anwendung statt in einer **virtuellen Maschine** künftig in einem **Container** (z. B. Docker) zu betreiben. Erläutern Sie den **grundlegenden Unterschied** zwischen VM und Container.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Eine **VM** virtualisiert **komplette Hardware** und bringt ein **eigenes Betriebssystem** mit (Hypervisor). Ein **Container** teilt sich dagegen den **Kernel des Host-Betriebssystems** und kapselt nur die Anwendung mit ihren **Bibliotheken/Abhängigkeiten** – dadurch ist er deutlich **leichtgewichtiger**, startet in Sekunden und braucht weniger Ressourcen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "eigenes Betriebssystem",
+              "synonyme": [
+                "eigenes OS",
+                "komplettes Betriebssystem",
+                "Hypervisor"
+              ]
+            },
+            {
+              "begriff": "Kernel",
+              "synonyme": [
+                "teilt sich den Kernel",
+                "Host-Kernel",
+                "gemeinsamer Kernel"
+              ]
+            },
+            {
+              "begriff": "leichtgewichtig",
+              "synonyme": [
+                "weniger Ressourcen",
+                "schneller Start",
+                "startet in Sekunden",
+                "schlanker"
+              ]
+            },
+            {
+              "begriff": "Abhängigkeiten",
+              "synonyme": [
+                "Abhaengigkeiten",
+                "Bibliotheken",
+                "Libraries",
+                "gekapselt"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Container & Virtualisierung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_3b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 3,
+          "aufgabe_titel": "Container & Virtualisierung",
+          "teilfrage": "3b",
+          "ueberschrift": "",
+          "frage_text": "Was ist der Unterschied zwischen einem **Image** und einem **Container** und warum erleichtern Container den Weg **von der Entwicklung in den Betrieb**?",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Ein **Image** ist die **unveränderliche Vorlage** (Anwendung + Abhängigkeiten, in Schichten); ein **Container** ist eine **laufende Instanz** dieses Images. Weil das Image **überall identisch** läuft (Entwickler-Notebook, Test, Produktion), entfällt das „läuft bei mir\"-Problem – die Umgebung ist **reproduzierbar** und Deployments werden einheitlich.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Vorlage",
+              "synonyme": [
+                "Template",
+                "Blaupause",
+                "unveränderlich",
+                "unveraenderlich"
+              ]
+            },
+            {
+              "begriff": "laufende Instanz",
+              "synonyme": [
+                "Instanz",
+                "gestartetes Image",
+                "zur Laufzeit"
+              ]
+            },
+            {
+              "begriff": "reproduzierbar",
+              "synonyme": [
+                "überall identisch",
+                "ueberall identisch",
+                "gleiche Umgebung",
+                "läuft überall gleich",
+                "laeuft ueberall gleich"
+              ]
+            }
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "Container & Virtualisierung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_4a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 4,
+          "aufgabe_titel": "NAS, SAN & iSCSI",
+          "teilfrage": "4a",
+          "ueberschrift": "",
+          "frage_text": "Für einen wachsenden Speicherbedarf stehen **NAS** und **SAN** zur Auswahl. Erläutern Sie den Unterschied der beiden Konzepte (Zugriffsart, typischer Einsatz).",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Ein **NAS** (Network Attached Storage) stellt Speicher **dateibasiert** über Freigabeprotokolle wie **SMB/NFS** im normalen LAN bereit – einfach, ideal für Fileserver/Teamablagen. Ein **SAN** (Storage Area Network) stellt Speicher **blockbasiert** über ein (oft eigenes) Speichernetz bereit (Fibre Channel, iSCSI); Server sehen die LUNs wie **lokale Festplatten** – typisch für Datenbanken und Virtualisierungshosts.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datensicherung/Storage"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "dateibasiert",
+              "synonyme": [
+                "Datei-Ebene",
+                "File-Level",
+                "Freigabe"
+              ]
+            },
+            {
+              "begriff": "SMB",
+              "synonyme": [
+                "NFS",
+                "Freigabeprotokoll"
+              ]
+            },
+            {
+              "begriff": "blockbasiert",
+              "synonyme": [
+                "Block-Ebene",
+                "Block-Level"
+              ]
+            },
+            {
+              "begriff": "lokale Festplatte",
+              "synonyme": [
+                "wie eine Festplatte",
+                "LUN",
+                "eigenes Laufwerk"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "NAS, SAN & iSCSI",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_4b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 4,
+          "aufgabe_titel": "NAS, SAN & iSCSI",
+          "teilfrage": "4b",
+          "ueberschrift": "",
+          "frage_text": "Was ist **iSCSI** und welchen Vorteil bietet es gegenüber Fibre Channel beim Aufbau eines SAN?",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "**iSCSI** transportiert **SCSI-Blockbefehle über normales TCP/IP-Ethernet**. Vorteil: Es nutzt die **vorhandene Netzwerk-Infrastruktur** (Switches, Kabel, Know-how) statt teurer spezieller **Fibre-Channel**-Hardware – dadurch deutlich **günstiger** und einfacher einzuführen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datensicherung/Storage"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "TCP/IP",
+              "synonyme": [
+                "Ethernet",
+                "normales Netzwerk",
+                "IP-Netz"
+              ]
+            },
+            {
+              "begriff": "vorhandene",
+              "synonyme": [
+                "bestehende Infrastruktur",
+                "keine Spezialhardware",
+                "normale Switches"
+              ]
+            },
+            {
+              "begriff": "günstiger",
+              "synonyme": [
+                "guenstiger",
+                "billiger",
+                "kostengünstig",
+                "kostenguenstig",
+                "preiswerter"
+              ]
+            }
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "NAS, SAN & iSCSI",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_5a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 5,
+          "aufgabe_titel": "USV",
+          "teilfrage": "5a",
+          "ueberschrift": "",
+          "frage_text": "Für den Serverraum soll eine **USV** beschafft werden. Nennen und unterscheiden Sie **zwei USV-Typen** (Klassen).",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Z. B.: **Offline-USV** (Standby): schaltet erst **bei Stromausfall** auf Batterie um (kurze Umschaltlücke, günstig). **Line-Interactive**: glättet zusätzlich **Spannungsschwankungen** über einen Spannungsregler. **Online-USV** (Doppelwandler): Verbraucher hängen **permanent** hinter Gleich-/Wechselrichter – **keine Umschaltzeit**, bester Schutz, für Server empfohlen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Hardware/Komponenten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Offline",
+              "synonyme": [
+                "Standby",
+                "schaltet um",
+                "Umschaltlücke",
+                "Umschaltluecke"
+              ]
+            },
+            {
+              "begriff": "Line-Interactive",
+              "synonyme": [
+                "Spannungsschwankung",
+                "Spannungsregler"
+              ]
+            },
+            {
+              "begriff": "Online",
+              "synonyme": [
+                "Doppelwandler",
+                "permanent",
+                "keine Umschaltzeit"
+              ]
+            }
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "USV",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_5b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 5,
+          "aufgabe_titel": "USV",
+          "teilfrage": "5b",
+          "ueberschrift": "",
+          "frage_text": "Die Server ziehen zusammen **1.800 W**; die USV liefert **3.600 Wh** nutzbare Energie. Berechnen Sie die **Überbrückungszeit** in Stunden und Minuten (vereinfachte Rechnung, Wirkungsgrad vernachlässigt).",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Überbrückungszeit = Energie / Leistung = 3.600 Wh / 1.800 W = **2 Stunden** = **120 Minuten**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Hardware/Komponenten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "2 Stunden",
+              "synonyme": [
+                "2h",
+                "120 Minuten",
+                "120 min",
+                "zwei Stunden"
+              ]
+            }
+          ],
+          "kategorie": "USV",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_6a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 6,
+          "aufgabe_titel": "Lizenzen & Open Source",
+          "teilfrage": "6a",
+          "ueberschrift": "",
+          "frage_text": "Erläutern Sie den Unterschied zwischen **proprietärer Software** und **Open-Source-Software** hinsichtlich Quellcode und Nutzungsrechten.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Bei **proprietärer** Software bleibt der **Quellcode geschlossen**; der Kunde erwirbt nur ein begrenztes **Nutzungsrecht** nach Lizenzvertrag (EULA), Anpassungen/Weitergabe sind untersagt. Bei **Open Source** ist der **Quellcode offen** – die Lizenz erlaubt es, die Software zu **nutzen, zu verändern und weiterzugeben** (je nach Lizenz mit Auflagen, z. B. Copyleft bei der GPL).",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Wirtschaftlichkeit/Kosten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Quellcode geschlossen",
+              "synonyme": [
+                "geschlossener Quellcode",
+                "kein Quellcode",
+                "Quellcode nicht einsehbar"
+              ]
+            },
+            {
+              "begriff": "Nutzungsrecht",
+              "synonyme": [
+                "Lizenzvertrag",
+                "EULA",
+                "nur nutzen"
+              ]
+            },
+            {
+              "begriff": "Quellcode offen",
+              "synonyme": [
+                "offener Quellcode",
+                "einsehbar",
+                "open source"
+              ]
+            },
+            {
+              "begriff": "verändern",
+              "synonyme": [
+                "veraendern",
+                "anpassen",
+                "weitergeben",
+                "weiterentwickeln"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Lizenzen & Open Source",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_6b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 6,
+          "aufgabe_titel": "Lizenzen & Open Source",
+          "teilfrage": "6b",
+          "ueberschrift": "",
+          "frage_text": "Nennen Sie **zwei Chancen** und **ein Risiko** des Einsatzes von Open-Source-Software im Unternehmen.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Chancen: **keine Lizenzkosten**, **Unabhängigkeit vom Hersteller** (kein Vendor-Lock-in), Quellcode **prüfbar** (Sicherheit/Transparenz), große Community. Risiken: **kein garantierter Support**/Gewährleistung (ggf. Support einkaufen), Weiterentwicklung ungewiss, ggf. **Lizenzauflagen** (Copyleft) bei eigener Weitergabe.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Wirtschaftlichkeit/Kosten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Lizenzkosten",
+              "synonyme": [
+                "kostenlos",
+                "keine Kosten",
+                "gratis"
+              ]
+            },
+            {
+              "begriff": "Unabhängigkeit",
+              "synonyme": [
+                "Unabhaengigkeit",
+                "Vendor-Lock",
+                "Herstellerbindung"
+              ]
+            },
+            {
+              "begriff": "prüfbar",
+              "synonyme": [
+                "pruefbar",
+                "Transparenz",
+                "einsehbar",
+                "Community"
+              ]
+            },
+            {
+              "begriff": "Support",
+              "synonyme": [
+                "keine Gewährleistung",
+                "keine Gewaehrleistung",
+                "kein Anspruch auf Hilfe"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Lizenzen & Open Source",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_7a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 7,
+          "aufgabe_titel": "Automatisierung & Skripte",
+          "teilfrage": "7a",
+          "ueberschrift": "",
+          "frage_text": "Die Administration richtet wiederkehrend neue Arbeitsplätze ein (Benutzer anlegen, Software installieren, Laufwerke verbinden). Nennen Sie **drei Vorteile**, diese Schritte per **Skript zu automatisieren**, statt sie manuell auszuführen.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Z. B.: **Zeitersparnis** bei Wiederholung, **weniger Fehler** (keine Tipp-/Flüchtigkeitsfehler), **einheitliche/reproduzierbare** Ergebnisse auf jedem Gerät, Schritte sind im Skript **dokumentiert** und versionierbar, Aufgaben sind **delegierbar/planbar** (z. B. zeitgesteuert).",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Algorithmen/Pseudocode"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Zeit",
+              "synonyme": [
+                "Zeitersparnis",
+                "schneller"
+              ]
+            },
+            {
+              "begriff": "Fehler",
+              "synonyme": [
+                "weniger Fehler",
+                "fehlerfrei",
+                "Flüchtigkeitsfehler",
+                "Fluechtigkeitsfehler"
+              ]
+            },
+            {
+              "begriff": "einheitlich",
+              "synonyme": [
+                "reproduzierbar",
+                "konsistent",
+                "gleich"
+              ]
+            },
+            {
+              "begriff": "dokumentiert",
+              "synonyme": [
+                "Dokumentation",
+                "nachvollziehbar",
+                "versionierbar"
+              ]
+            },
+            {
+              "begriff": "planbar",
+              "synonyme": [
+                "zeitgesteuert",
+                "delegierbar",
+                "automatisch ausführen",
+                "automatisch ausfuehren"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Automatisierung & Skripte",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_7b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 7,
+          "aufgabe_titel": "Automatisierung & Skripte",
+          "teilfrage": "7b",
+          "ueberschrift": "",
+          "frage_text": "Ein Skript soll alle Dateien eines Ordners durchlaufen und Dateien **älter als 30 Tage** in ein Archiv verschieben. Beschreiben Sie den Ablauf als **Pseudocode** (Schleife + Bedingung).",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Beispiel:\n```\nFÜR JEDE datei IN ordner\n  WENN (heute - datei.aenderungsdatum) > 30 Tage DANN\n    VERSCHIEBE datei NACH archiv\n  ENDE WENN\nENDE FÜR\n```\nKern: eine **Schleife** über alle Dateien, je Datei eine **Bedingung** auf das Alter (> 30 Tage), im Wahr-Fall **verschieben**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Algorithmen/Pseudocode"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Schleife",
+              "synonyme": [
+                "für jede",
+                "fuer jede",
+                "foreach",
+                "while",
+                "FÜR"
+              ]
+            },
+            {
+              "begriff": "Bedingung",
+              "synonyme": [
+                "wenn",
+                "if",
+                "30 Tage",
+                "älter als",
+                "aelter als"
+              ]
+            },
+            {
+              "begriff": "verschieben",
+              "synonyme": [
+                "verschiebe",
+                "move",
+                "ins Archiv"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Automatisierung & Skripte",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_8a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 8,
+          "aufgabe_titel": "VoIP & QoS",
+          "teilfrage": "8a",
+          "ueberschrift": "",
+          "frage_text": "Nach der Umstellung auf **VoIP-Telefonie** klagen Mitarbeiter über abgehackte Gespräche. Erklären Sie die Begriffe **Latenz**, **Jitter** und **Paketverlust** und warum sie für VoIP kritisch sind.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "**Latenz** = **Verzögerung** der Pakete auf dem Weg (spürbar als Gesprächsverzögerung, kritisch ab ~150 ms). **Jitter** = **Schwankung** der Latenz – Pakete kommen unregelmäßig an, die Sprache klingt abgehackt. **Paketverlust** = Pakete kommen **gar nicht an** → Aussetzer. Sprache ist ein **Echtzeit**-Dienst: verspätete Pakete sind wertlos und können nicht wie bei Downloads einfach erneut gesendet werden.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Übertragung/Datenraten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Verzögerung",
+              "synonyme": [
+                "Verzoegerung",
+                "Laufzeit",
+                "Delay"
+              ]
+            },
+            {
+              "begriff": "Schwankung",
+              "synonyme": [
+                "schwankende Latenz",
+                "unregelmäßig",
+                "unregelmaessig"
+              ]
+            },
+            {
+              "begriff": "Paketverlust",
+              "synonyme": [
+                "Pakete verloren",
+                "kommen nicht an",
+                "Aussetzer"
+              ]
+            },
+            {
+              "begriff": "Echtzeit",
+              "synonyme": [
+                "Realtime",
+                "live",
+                "nicht wiederholbar"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "VoIP & QoS",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_8b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 8,
+          "aufgabe_titel": "VoIP & QoS",
+          "teilfrage": "8b",
+          "ueberschrift": "",
+          "frage_text": "Wie kann **QoS (Quality of Service)** im Firmennetz die VoIP-Qualität verbessern? Erläutern Sie das Prinzip.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "QoS **priorisiert** den Netzverkehr: VoIP-Pakete werden **markiert** (z. B. DSCP) und von Switches/Routern **bevorzugt** weitergeleitet, während unkritischer Verkehr (Downloads, Backups) warten muss. So bekommen Sprachpakete auch bei **Auslastung** genügend **Bandbreite** und geringe Verzögerung.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Übertragung/Datenraten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "priorisier",
+              "synonyme": [
+                "Priorität",
+                "Prioritaet",
+                "bevorzugt"
+              ]
+            },
+            {
+              "begriff": "markiert",
+              "synonyme": [
+                "DSCP",
+                "Markierung",
+                "Klassifizierung",
+                "getaggt"
+              ]
+            },
+            {
+              "begriff": "Bandbreite",
+              "synonyme": [
+                "Auslastung",
+                "reserviert",
+                "garantiert"
+              ]
+            }
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "VoIP & QoS",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_9a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 9,
+          "aufgabe_titel": "Nutzwertanalyse",
+          "teilfrage": "9a",
+          "ueberschrift": "",
+          "frage_text": "Für neue Firewalls liegen zwei Angebote vor. Kriterien und Gewichtung: **Sicherheit 50 %**, **Preis 30 %**, **Support 20 %**. Bewertung (1–10): Angebot A: Sicherheit 8, Preis 6, Support 4 · Angebot B: Sicherheit 6, Preis 9, Support 8. Führen Sie die **Nutzwertanalyse** durch und empfehlen Sie ein Angebot.",
+          "punkte": 6,
+          "schwierigkeit": 3,
+          "loesung_text": "**Angebot A:** 8·0,5 + 6·0,3 + 4·0,2 = 4,0 + 1,8 + 0,8 = **6,6**. **Angebot B:** 6·0,5 + 9·0,3 + 8·0,2 = 3,0 + 2,7 + 1,6 = **7,3**. Empfehlung: **Angebot B** (höherer Nutzwert 7,3 > 6,6).",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Kostenrechnung/Wirtschaft"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "6,6",
+              "synonyme": [
+                "6.6"
+              ]
+            },
+            {
+              "begriff": "7,3",
+              "synonyme": [
+                "7.3"
+              ]
+            },
+            {
+              "begriff": "Angebot B",
+              "synonyme": [
+                "B empfehlen",
+                "B ist besser"
+              ]
+            }
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "Nutzwertanalyse",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_9b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 9,
+          "aufgabe_titel": "Nutzwertanalyse",
+          "teilfrage": "9b",
+          "ueberschrift": "",
+          "frage_text": "Nennen Sie **einen Vorteil** und **einen Nachteil** der Nutzwertanalyse als Entscheidungsverfahren.",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "Vorteil: Auch **nicht-monetäre/qualitative** Kriterien werden **nachvollziehbar und strukturiert** vergleichbar gemacht; die Entscheidung ist dokumentiert. Nachteil: Gewichtung und Punktevergabe sind **subjektiv** – das Ergebnis lässt sich (bewusst oder unbewusst) **beeinflussen**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Kostenrechnung/Wirtschaft"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "nachvollziehbar",
+              "synonyme": [
+                "strukturiert",
+                "vergleichbar",
+                "qualitative Kriterien",
+                "nicht-monetär",
+                "nicht-monetaer"
+              ]
+            },
+            {
+              "begriff": "subjektiv",
+              "synonyme": [
+                "beeinflussbar",
+                "Gewichtung willkürlich",
+                "Gewichtung willkuerlich",
+                "manipulierbar"
+              ]
+            }
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "Nutzwertanalyse",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_10a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 10,
+          "aufgabe_titel": "Strukturierte Fehlersuche",
+          "teilfrage": "10a",
+          "ueberschrift": "",
+          "frage_text": "Ein Mitarbeiter erreicht eine interne Webanwendung nicht. Beschreiben Sie eine **strukturierte Fehlersuche entlang der Netzwerk-Schichten** (bottom-up) mit je einem konkreten Prüfschritt.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Bottom-up entlang des **OSI-Modells**: 1) **Physik/Link**: Kabel/WLAN verbunden, Link-LED? 2) **Netzwerk**: eigene **IP-Konfiguration** prüfen (ipconfig), dann **ping** auf Gateway und Ziel. 3) **Namensauflösung**: **nslookup** – wird der Servername in die richtige IP aufgelöst? 4) **Transport/Anwendung**: Ist der **Port/Dienst** erreichbar (z. B. Browser, telnet auf 443), läuft der Dienst auf dem Server? So wird die Fehlerquelle Schicht für Schicht **eingegrenzt**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "OSI-Modell"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Kabel",
+              "synonyme": [
+                "Link",
+                "physisch",
+                "WLAN verbunden",
+                "LED"
+              ]
+            },
+            {
+              "begriff": "ping",
+              "synonyme": [
+                "Gateway anpingen",
+                "Erreichbarkeit testen"
+              ]
+            },
+            {
+              "begriff": "ipconfig",
+              "synonyme": [
+                "IP-Konfiguration",
+                "eigene IP",
+                "ifconfig"
+              ]
+            },
+            {
+              "begriff": "nslookup",
+              "synonyme": [
+                "DNS prüfen",
+                "DNS pruefen",
+                "Namensauflösung",
+                "Namensaufloesung"
+              ]
+            },
+            {
+              "begriff": "Dienst",
+              "synonyme": [
+                "Port",
+                "Anwendung läuft",
+                "Anwendung laeuft",
+                "Server-Dienst"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Strukturierte Fehlersuche",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_10b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 10,
+          "aufgabe_titel": "Strukturierte Fehlersuche",
+          "teilfrage": "10b",
+          "ueberschrift": "",
+          "frage_text": "Wozu dient **traceroute/tracert** bei der Fehlersuche und was zeigt die Ausgabe?",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "**tracert** zeigt den **Weg (alle Router-Hops)** eines Pakets zum Ziel inklusive **Laufzeit je Hop**. Damit lässt sich erkennen, **an welcher Station** die Verbindung abbricht oder ungewöhnlich **langsam** wird – die Fehlerquelle wird im Netzpfad lokalisiert.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "OSI-Modell"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "Hop",
+              "synonyme": [
+                "Hops",
+                "Router auf dem Weg",
+                "Stationen",
+                "Weg des Pakets",
+                "Pfad"
+              ]
+            },
+            {
+              "begriff": "Laufzeit",
+              "synonyme": [
+                "Zeit je Hop",
+                "Latenz",
+                "langsam"
+              ]
+            },
+            {
+              "begriff": "abbricht",
+              "synonyme": [
+                "bricht ab",
+                "wo es hängt",
+                "wo es haengt",
+                "lokalisieren",
+                "eingrenzen"
+              ]
+            }
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "Strukturierte Fehlersuche",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_11a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 11,
+          "aufgabe_titel": "Green IT & Stromkosten",
+          "teilfrage": "11a",
+          "ueberschrift": "",
+          "frage_text": "Ein Altserver läuft **24/7** mit durchschnittlich **400 W**; der Strompreis beträgt **0,30 €/kWh**. Berechnen Sie die **jährlichen Stromkosten** (365 Tage).",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Energie pro Jahr: 0,4 kW · 24 h · 365 = **3.504 kWh**. Kosten: 3.504 kWh · 0,30 €/kWh = **1.051,20 € pro Jahr**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Wirtschaftlichkeit/Kosten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "1.051,20",
+              "synonyme": [
+                "1051,20",
+                "1051.20",
+                "1.051,2",
+                "rund 1.051",
+                "ca. 1050"
+              ]
+            },
+            {
+              "begriff": "3.504",
+              "synonyme": [
+                "3504",
+                "3.504 kWh"
+              ]
+            }
+          ],
+          "mindest_treffer": 1,
+          "kategorie": "Green IT & Stromkosten",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki3_11b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 3",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 11,
+          "aufgabe_titel": "Green IT & Stromkosten",
+          "teilfrage": "11b",
+          "ueberschrift": "",
+          "frage_text": "Nennen Sie **drei Maßnahmen**, mit denen ein Unternehmen den **Energieverbrauch seiner IT** senken kann (Green IT).",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Z. B.: Server **virtualisieren/konsolidieren** (weniger physische Maschinen), **energieeffiziente Hardware** beschaffen (80-PLUS-Netzteile, SSDs), **Energiesparfunktionen**/automatisches Abschalten ungenutzter Geräte, Kühlung optimieren (**Kalt-/Warmgang**, höhere Raumtemperatur), Lebenszyklus verlängern/Refurbished, Cloud-Ressourcen bedarfsgerecht skalieren.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Wirtschaftlichkeit/Kosten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            {
+              "begriff": "virtualisier",
+              "synonyme": [
+                "konsolidier",
+                "weniger Server"
+              ]
+            },
+            {
+              "begriff": "effizient",
+              "synonyme": [
+                "energieeffizient",
+                "80 PLUS",
+                "sparsame Hardware",
+                "SSD"
+              ]
+            },
+            {
+              "begriff": "abschalten",
+              "synonyme": [
+                "Energiesparfunktion",
+                "Standby",
+                "ausschalten",
+                "Ruhezustand"
+              ]
+            },
+            {
+              "begriff": "Kühlung",
+              "synonyme": [
+                "Kuehlung",
+                "Kaltgang",
+                "Warmgang",
+                "Klimatisierung",
+                "Raumtemperatur"
+              ]
+            }
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Green IT & Stromkosten",
           "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
         }
       ]
