@@ -144,6 +144,31 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Lint + Test + Build + `validate-data` (Frontend) und `npm test` (Backend) bei jedem
       Push/PR auf `main` (Node 22, npm-Cache). ✅ 2026-06-28
 - [ ] **P3 · M** **E2E-Tests** (Playwright) für die Kern-Flows (Quiz, Wiederholen, Login).
+      Der App-Rauchtest (`App.smoke.test.jsx`, jsdom) deckt seit 2026-07-04 die
+      „weiße Seite"-Klasse ab; Playwright bleibt für echtes Browser-Verhalten offen.
+- [ ] **P1 · S** **Drill → FSRS anbinden:** Der Drill bewertet objektiv, verbucht aber
+      nur XP/Aktivität – das beste Erinnerungs-Signal der App fließt **nicht** ins
+      Gedächtnismodell. MC-Ergebnis als `recordReview` auf die **Quell-Lerneinheit**
+      buchen (richtig+schnell → Gut/Leicht, falsch → Nochmal); Mapping rein in
+      `lib/mcDrill.js` ergänzen (`einheitId` steckt schon in der Item-ID).
+- [ ] **P2 · S** **Klausur-Feedback: verfehlte Schlagwörter zeigen.** Nach „Antwort
+      prüfen" erscheinen nur die **erkannten** Begriffe; die **verfehlten** (v. a.
+      Pflicht-Schlagwörter) kennt `antwortpruefung.js` bereits – anzeigen („Das hat
+      gefehlt: …"), das ist der eigentliche Lerneffekt der Simulation.
+- [ ] **P2 · S** **Übung ↔ Lernzettel-Deeplink:** Bei falscher Antwort in Quiz/Klausur
+      den **passenden Lernzettel** verlinken (über gemeinsame `thema_tags`, Muster wie
+      `modulTraining.js`) – Inhalt und Übung verzahnen statt getrennt lassen.
+- [ ] **P2 · M** **`schwierigkeit` wirklich nutzen** (seit Migration 003 flächig da):
+      (a) FSRS-**Initialschwierigkeit** aus `schwierigkeit` ableiten statt Default,
+      (b) Session-Aufbau **leicht → schwer** bei neuen Themen (`lernsession.js`),
+      (c) Filter/Anzeige („nur schwere Fragen üben").
+- [ ] **P2 · S** **Fehl-Sicherheit persistieren:** Das Confidence-Signal aus `Lernen`
+      lebt nur in der Session. Als History-Label (`sicher-falsch`) mitschreiben und in
+      der Statistik als eigene Kachel zeigen („deine gefährlichsten Karten") – speist
+      auch das Schwächen-Training.
+- [ ] **P3 · M** **`exam_data` aus dem PWA-Precache lösen:** Der Precache liegt bei
+      ~2 MB und wächst mit jedem Content-Set; jede Datenänderung invalidiert alles.
+      Daten-Chunk per Runtime-Caching (stale-while-revalidate) statt Precache.
 - [x] **P3 · S** ~~**Rate-Limit/Brute-Force-Schutz** für `/api/auth/login`~~ – reines,
       getestetes In-Memory-Sliding-Window `server/src/lib/rateLimit.js` (Zeit injizierbar,
       pro App-Instanz dekoriert): max. 8 Fehlversuche je IP+E-Mail / 15 min → HTTP 429 +
@@ -303,6 +328,14 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Reife-Gauge + Themen-Mastery (schwach zuerst) auf der Statistik-Seite. Plus
       **Prüfungstermin-Countdown + Tagesziel** auf Home (`lib/pruefungstermin.js`).
       ✅ 2026-06-27 (Sprint 3, s. PRODUKT_STRATEGIE.md)
+- [ ] **P2 · M** **Tagesplan ↔ Reife koppeln:** Der Tagesplan (2026-07-04) sagt *wie viel*,
+      die Reife-Analyse weiß *was* – das Pensum thematisch füllen: „heute dran:
+      X Wiederholungen + Y neue, **zuerst Thema A und B**" (schwächste reife-Themen),
+      mit Direkteinstieg in eine vorgefilterte Session.
+- [ ] **P2 · M** **Matching-Spiel + Reihenfolge-Format** (Sprint-2-Rest): Begriff ↔
+      Definition-Paare aus dem Glossar (Quizlet-„Match", mobil stark) und
+      Sortier-Aufgaben für Prozesse (DORA, OSI-Schichten, Subnetting-Schritte) –
+      beides speist wie der Drill das FSRS.
 - [ ] **P2 · M** **Lernpfad / Fortschritts-Map:** visuelle Themen-Reise (Knoten je
       Kategorie, freischaltbar), statt reiner Listen – greift Schwächen aus der Statistik auf.
 - [x] **P2 · S** ~~**Command-Palette (Cmd/Ctrl-K):**~~ Schnell-Navigation + Aktionen über die
@@ -344,15 +377,53 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
 
 ---
 
-## Vorgeschlagener nächster „Sprint" (kompakt & sichtbar)
+## Optimierungsplan (Stand 2026-07-04)
 
-Ein guter Block für eine **fesselnde** Plattform mit viel sichtbarem Effekt:
+> Nach der Robustheits-/Feature-Runde vom 2026-07-04 (Error Boundary, Outbox,
+> Backup, Recovery-Code, Tagesplan, Confidence, Drill, Set 3, `schwierigkeit`).
+> Leitgedanke: **erst die Lernschleife schließen** (Signale, die schon erhoben
+> werden, auch nutzen), dann **adaptiver werden**, dann **Politur & Betrieb**.
+> Alle Punkte stehen mit Details als Checkboxen in den Sektionen oben.
 
-1. **Lern-Streak & Tagesziel + Heatmap** (6.1–6.2) — der größte „dranbleiben"-Hebel.
-2. **Erfolge/Badges + Konfetti-Moment** (6.3–6.4) — Belohnung, die Spaß macht.
-3. **Tastatur-Shortcuts + Karten-Flip** (2.4–2.5) — wirkt dynamisch und schnell.
-4. **Statistik mit `ProgressRing` aufwerten** (2.6) — konsistente, schöne Visualisierung.
-5. **Bundle-Größe senken** (3.1) — spürbar schnellere Ladezeit.
+### Sprint A — Lernschleife schließen (P1–P2 · überwiegend S)
 
-Parallel/inhaltlich: **AP2-Prüfungsfragen** einpflegen (sobald Quelle da → sofort im
-Klausur-Modus nutzbar), danach PWA/Offline + CI.
+Kleine Eingriffe, die vorhandene Daten in Lernwirkung verwandeln:
+
+1. **Drill → FSRS** (§3) — objektive MC-Ergebnisse ins Gedächtnismodell buchen;
+   aktuell verpufft das beste Erinnerungs-Signal der App.
+2. **Klausur: verfehlte Schlagwörter zeigen** (§3) — der eigentliche Lerneffekt
+   der Simulation; die Engine kennt sie bereits.
+3. **Übung ↔ Lernzettel-Deeplink** (§3) — bei Fehlern direkt zum Nachlesen.
+4. **Fehl-Sicherheit persistieren** (§3) — Confidence-Signal in History/Statistik,
+   speist das Schwächen-Training.
+
+### Sprint B — Adaptivität (P2 · M)
+
+5. **`schwierigkeit` nutzen** (§3) — FSRS-Initialschwierigkeit, Sessions
+   leicht → schwer, „nur schwere"-Filter.
+6. **Tagesplan ↔ Reife koppeln** (§6) — das Pensum thematisch füllen
+   („zuerst Thema A und B") mit Direkteinstieg.
+7. **Matching + Reihenfolge** (§6) — die letzten zwei Abfrage-Formate,
+   beide aus dem Glossar generierbar.
+
+### Sprint C — Politur & Betrieb (P2–P3)
+
+8. **UX-Reste** (§2): Toaster-Context, Skeletons solange `AuthContext.ready` lädt,
+   Count-up auf Home/Statistik, A11y-Pass (aria-live fürs Antwort-Feedback,
+   Fokus-Management), Emoji → Lucide-Rest, Swipe-Gesten mobil.
+9. **Betrieb** (§5): `docker compose build` auf dem Proxmox-Host real verifizieren,
+   Healthcheck ins Compose; **PWA-Push-Erinnerung** (opt-in, §6).
+10. **Technik-Schulden** (§3): `exam_data` aus dem PWA-Precache lösen (~2 MB,
+    wächst mit jedem Set), Playwright-E2E für die Kern-Flows.
+
+### Content (läuft parallel, unabhängig von Sprints)
+
+- Fehlende offizielle Lösungen 2023/2024 nachtragen (§4) · gebündelte
+  Teilaufgaben-Lösungen aufteilen (§4) · optional **AP2-Set 4** (Themen-Kandidaten:
+  Kerberos/SSO, Backup-Strategien GFS, SNMP/Syslog, Netzwerksegmentierung/Zero Trust,
+  WLAN-Ausleuchtung, SQL-Joins vertieft) · Prüfungskatalog FISI als Kategorie-Gerüst (§4).
+
+### Bewusst NICHT (unverändert)
+
+Framework-Wechsel, Hearts/FOMO-Mechaniken, 1:1-Originalprüfungen (ADR-007),
+Bestenliste vor echten Mehrfachnutzern.
