@@ -32,6 +32,9 @@ export const authApi = {
   logout: () => request('/auth/logout', { method: 'POST' }),
   me: () => request('/auth/me'),
   deleteAccount: () => request('/auth/account', { method: 'DELETE' }),
+  recover: (email, recoveryCode, newPassword) =>
+    request('/auth/recover', { method: 'POST', body: { email, recoveryCode, newPassword } }),
+  neuerRecoveryCode: () => request('/auth/recovery-code', { method: 'POST' }),
 };
 
 export const progressApi = {

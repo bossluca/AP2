@@ -7,7 +7,10 @@ import { authApi } from '../lib/api';
  * @property {{id:number, email:string}|null} user  Angemeldeter Nutzer oder null.
  * @property {boolean} ready   true, sobald der initiale me()-Check durch ist.
  * @property {(email:string, password:string)=>Promise<void>} login
- * @property {(email:string, password:string)=>Promise<void>} register
+ * @property {(email:string, password:string)=>Promise<{recoveryCode?:string}>} register
+ *           Liefert den einmalig anzuzeigenden Recovery-Code mit.
+ * @property {(email:string, code:string, newPassword:string)=>Promise<{recoveryCode?:string}>} recover
+ *           Passwort-Reset per Recovery-Code; liefert den neuen Code mit.
  * @property {()=>Promise<void>} logout
  * @property {()=>Promise<void>} deleteAccount  Konto + Serverdaten löschen (DSGVO).
  */
@@ -19,7 +22,8 @@ const AuthContext = createContext(
     user: null,
     ready: true,
     login: async () => {},
-    register: async () => {},
+    register: async () => ({}),
+    recover: async () => ({}),
     logout: async () => {},
     deleteAccount: async () => {},
   })
@@ -51,6 +55,14 @@ export function AuthProvider({ children }) {
   const register = useCallback(async (email, password) => {
     const d = await authApi.register(email, password);
     setUser(d.user);
+    return d; // enthält den einmalig anzuzeigenden recoveryCode
+  }, []);
+
+  // Passwort vergessen: Reset per Recovery-Code; meldet direkt an.
+  const recover = useCallback(async (email, code, newPassword) => {
+    const d = await authApi.recover(email, code, newPassword);
+    setUser(d.user);
+    return d; // enthält den rotierten recoveryCode
   }, []);
 
   const logout = useCallback(async () => {
@@ -66,7 +78,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, ready, login, register, logout, deleteAccount }}>
+    <AuthContext.Provider value={{ user, ready, login, register, recover, logout, deleteAccount }}>
       {children}
     </AuthContext.Provider>
   );

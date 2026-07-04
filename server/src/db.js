@@ -84,5 +84,13 @@ export function openDb(path) {
   for (const [name, typ] of fsrsSpalten) {
     if (!vorhanden.has(name)) db.exec(`ALTER TABLE progress ADD COLUMN ${name} ${typ};`);
   }
+
+  // Idempotente Migration: Recovery-Code-Hash für den Passwort-Reset ohne
+  // Mail-Server (Konten von vor dem Feature haben NULL und können sich
+  // angemeldet einen Code erzeugen).
+  const userSpalten = new Set(db.prepare('PRAGMA table_info(users)').all().map((c) => c.name));
+  if (!userSpalten.has('recovery_hash')) {
+    db.exec('ALTER TABLE users ADD COLUMN recovery_hash TEXT;');
+  }
   return db;
 }

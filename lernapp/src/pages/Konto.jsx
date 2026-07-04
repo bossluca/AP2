@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck } from 'lucide-react';
+import { KeyRound, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { authApi } from '../lib/api';
 import { useProgress } from '../context/ProgressContext';
 import DatenSicherung from '../components/DatenSicherung';
 
@@ -14,16 +15,19 @@ import DatenSicherung from '../components/DatenSicherung';
  * lokal; dieser Bereich ist optional.
  */
 export default function Konto() {
-  const { user, login, register, logout, deleteAccount } = useAuth();
+  const { user, login, register, recover, logout, deleteAccount } = useAuth();
   const { resetProgress } = useProgress();
-  const [modus, setModus] = useState('login'); // 'login' | 'register'
+  const [modus, setModus] = useState('login'); // 'login' | 'register' | 'recover'
   const [email, setEmail] = useState('');
   const [passwort, setPasswort] = useState('');
   const [passwort2, setPasswort2] = useState('');
+  const [recoveryEingabe, setRecoveryEingabe] = useState('');
   const [einwilligung, setEinwilligung] = useState(false);
   const [fehler, setFehler] = useState(null);
   const [busy, setBusy] = useState(false);
   const [loeschen, setLoeschen] = useState(false);
+  // Einmalig anzuzeigender Recovery-Code (nach Registrierung/Reset/Erneuern).
+  const [neuerCode, setNeuerCode] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -40,11 +44,19 @@ export default function Konto() {
     }
     setBusy(true);
     try {
-      if (modus === 'register') await register(email, passwort);
-      else await login(email, passwort);
+      if (modus === 'register') {
+        const d = await register(email, passwort);
+        if (d?.recoveryCode) setNeuerCode(d.recoveryCode);
+      } else if (modus === 'recover') {
+        const d = await recover(email, recoveryEingabe, passwort);
+        if (d?.recoveryCode) setNeuerCode(d.recoveryCode);
+      } else {
+        await login(email, passwort);
+      }
       setEmail('');
       setPasswort('');
       setPasswort2('');
+      setRecoveryEingabe('');
       setEinwilligung(false);
     } catch (err) {
       // 429 = Rate-Limit (Brute-Force-Schutz) klar benennen.
@@ -72,6 +84,37 @@ export default function Konto() {
     }
   };
 
+  // Einmal-Anzeige des Recovery-Codes (nach Registrierung, Reset oder Erneuern).
+  const recoveryHinweis = neuerCode && (
+    <div className="card p-4 border-amber-300 dark:border-amber-700 space-y-2" role="alert">
+      <div className="flex items-center gap-1.5 font-semibold text-sm">
+        <KeyRound size={15} className="text-amber-500" aria-hidden="true" /> Dein Recovery-Code
+      </div>
+      <p className="font-mono text-lg tracking-wider select-all">{neuerCode}</p>
+      <p className="text-xs text-gray-500">
+        Notiere diesen Code sicher (Passwort-Manager, Zettel). Er wird <strong>nur jetzt</strong>{' '}
+        angezeigt und ist der einzige Weg, ein vergessenes Passwort zurückzusetzen – es gibt
+        keine E-Mail-Wiederherstellung.
+      </p>
+      <button onClick={() => setNeuerCode(null)} className="btn-ghost px-3 py-1.5 text-xs">
+        Ich habe ihn notiert
+      </button>
+    </div>
+  );
+
+  const codeErneuern = async () => {
+    setFehler(null);
+    setBusy(true);
+    try {
+      const d = await authApi.neuerRecoveryCode();
+      setNeuerCode(d.recoveryCode);
+    } catch (err) {
+      setFehler(err.message || 'Code konnte nicht erzeugt werden.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
   if (user) {
     return (
       <div className="space-y-4 max-w-md">
@@ -84,13 +127,21 @@ export default function Konto() {
           und ist auf anderen Geräten verfügbar. Jedes Konto hat seinen eigenen Fortschritt.
         </p>
 
+        {recoveryHinweis}
         {fehler && <p className="text-sm text-red-600">{fehler}</p>}
 
         <div className="flex flex-wrap gap-2">
           <button onClick={() => logout()} className="btn-ghost px-4 py-2">
             Abmelden
           </button>
+          <button onClick={codeErneuern} disabled={busy} className="btn-ghost px-4 py-2">
+            Neuen Recovery-Code erzeugen
+          </button>
         </div>
+        <p className="text-xs text-gray-500">
+          Mit dem Recovery-Code kannst du dein Passwort zurücksetzen, falls du es vergisst
+          (es gibt keine E-Mail-Wiederherstellung). Alter Code wird dabei ungültig.
+        </p>
 
         <DatenSicherung />
 
@@ -183,6 +234,14 @@ export default function Konto() {
         </button>
       </div>
 
+      {modus === 'recover' && (
+        <p className="text-xs text-gray-500">
+          Passwort vergessen? Setze es mit deinem <strong>Recovery-Code</strong> zurück (wurde
+          dir bei der Registrierung angezeigt). Ohne Code kann das Passwort nicht
+          wiederhergestellt werden.
+        </p>
+      )}
+
       <form onSubmit={submit} className="space-y-3">
         <div>
           <label className="block text-xs text-gray-500 mb-1" htmlFor="email">
@@ -198,14 +257,32 @@ export default function Konto() {
             className="w-full input"
           />
         </div>
+        {modus === 'recover' && (
+          <div>
+            <label className="block text-xs text-gray-500 mb-1" htmlFor="recovery">
+              Recovery-Code
+            </label>
+            <input
+              id="recovery"
+              type="text"
+              autoComplete="one-time-code"
+              required
+              placeholder="XXXX-XXXX-XXXX-XXXX"
+              value={recoveryEingabe}
+              onChange={(e) => setRecoveryEingabe(e.target.value)}
+              className="w-full input font-mono"
+            />
+          </div>
+        )}
         <div>
           <label className="block text-xs text-gray-500 mb-1" htmlFor="passwort">
-            Passwort {modus === 'register' && '(mind. 8 Zeichen)'}
+            {modus === 'recover' ? 'Neues Passwort (mind. 8 Zeichen)' : 'Passwort'}
+            {modus === 'register' && ' (mind. 8 Zeichen)'}
           </label>
           <input
             id="passwort"
             type="password"
-            autoComplete={modus === 'register' ? 'new-password' : 'current-password'}
+            autoComplete={modus === 'login' ? 'current-password' : 'new-password'}
             required
             minLength={8}
             value={passwort}
@@ -252,8 +329,39 @@ export default function Konto() {
         {fehler && <p className="text-sm text-red-600">{fehler}</p>}
 
         <button type="submit" disabled={busy} className="btn-primary w-full py-2.5">
-          {busy ? '…' : modus === 'register' ? 'Konto erstellen' : 'Jetzt anmelden'}
+          {busy
+            ? '…'
+            : modus === 'register'
+              ? 'Konto erstellen'
+              : modus === 'recover'
+                ? 'Passwort zurücksetzen'
+                : 'Jetzt anmelden'}
         </button>
+
+        {modus === 'login' && (
+          <button
+            type="button"
+            onClick={() => {
+              setModus('recover');
+              setFehler(null);
+            }}
+            className="block text-xs text-gray-500 hover:text-accent"
+          >
+            Passwort vergessen? Mit Recovery-Code zurücksetzen →
+          </button>
+        )}
+        {modus === 'recover' && (
+          <button
+            type="button"
+            onClick={() => {
+              setModus('login');
+              setFehler(null);
+            }}
+            className="block text-xs text-gray-500 hover:text-accent"
+          >
+            ← Zurück zur Anmeldung
+          </button>
+        )}
       </form>
 
       <DatenSicherung />
