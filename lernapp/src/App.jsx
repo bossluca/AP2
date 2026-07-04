@@ -20,6 +20,7 @@ import { useTheme } from './context/ThemeContext';
 import { useProgress } from './context/ProgressContext';
 import ErfolgWatcher from './components/ErfolgWatcher';
 import CommandPalette from './components/CommandPalette';
+import FehlerGrenze from './components/FehlerGrenze';
 const Info_Seite = lazy(() => import('./pages/Info'));
 
 const linkClass = ({ isActive }) =>
@@ -190,8 +191,9 @@ function AnimatedMain() {
   const location = useLocation();
   return (
     <main key={location.pathname} className="max-w-4xl mx-auto p-4 sm:p-6 pb-24 lg:pb-8 animate-in">
-      <Suspense fallback={<SeiteLaedt />}>
-        <Routes location={location}>
+      <FehlerGrenze>
+        <Suspense fallback={<SeiteLaedt />}>
+          <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/lernen" element={<Lernen />} />
           <Route path="/lernpfade" element={<Lernpfade />} />
@@ -207,8 +209,9 @@ function AnimatedMain() {
           <Route path="/suche" element={<Suche />} />
           <Route path="/info" element={<Info_Seite />} />
           <Route path="/konto" element={<Konto />} />
-        </Routes>
-      </Suspense>
+          </Routes>
+        </Suspense>
+      </FehlerGrenze>
     </main>
   );
 }
