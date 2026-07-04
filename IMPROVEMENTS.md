@@ -146,26 +146,27 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
 - [ ] **P3 · M** **E2E-Tests** (Playwright) für die Kern-Flows (Quiz, Wiederholen, Login).
       Der App-Rauchtest (`App.smoke.test.jsx`, jsdom) deckt seit 2026-07-04 die
       „weiße Seite"-Klasse ab; Playwright bleibt für echtes Browser-Verhalten offen.
-- [ ] **P1 · S** **Drill → FSRS anbinden:** Der Drill bewertet objektiv, verbucht aber
-      nur XP/Aktivität – das beste Erinnerungs-Signal der App fließt **nicht** ins
-      Gedächtnismodell. MC-Ergebnis als `recordReview` auf die **Quell-Lerneinheit**
-      buchen (richtig+schnell → Gut/Leicht, falsch → Nochmal); Mapping rein in
-      `lib/mcDrill.js` ergänzen (`einheitId` steckt schon in der Item-ID).
-- [ ] **P2 · S** **Klausur-Feedback: verfehlte Schlagwörter zeigen.** Nach „Antwort
-      prüfen" erscheinen nur die **erkannten** Begriffe; die **verfehlten** (v. a.
-      Pflicht-Schlagwörter) kennt `antwortpruefung.js` bereits – anzeigen („Das hat
-      gefehlt: …"), das ist der eigentliche Lerneffekt der Simulation.
-- [ ] **P2 · S** **Übung ↔ Lernzettel-Deeplink:** Bei falscher Antwort in Quiz/Klausur
-      den **passenden Lernzettel** verlinken (über gemeinsame `thema_tags`, Muster wie
-      `modulTraining.js`) – Inhalt und Übung verzahnen statt getrennt lassen.
-- [ ] **P2 · M** **`schwierigkeit` wirklich nutzen** (seit Migration 003 flächig da):
-      (a) FSRS-**Initialschwierigkeit** aus `schwierigkeit` ableiten statt Default,
-      (b) Session-Aufbau **leicht → schwer** bei neuen Themen (`lernsession.js`),
-      (c) Filter/Anzeige („nur schwere Fragen üben").
-- [ ] **P2 · S** **Fehl-Sicherheit persistieren:** Das Confidence-Signal aus `Lernen`
-      lebt nur in der Session. Als History-Label (`sicher-falsch`) mitschreiben und in
-      der Statistik als eigene Kachel zeigen („deine gefährlichsten Karten") – speist
-      auch das Schwächen-Training.
+- [x] **P1 · S** ~~**Drill → FSRS anbinden**~~ – MC-Ergebnis zählt als `recordReview`
+      auf die **Quell-Lerneinheit** (`einheitId` durch `glossar`/`mcDrill` gereicht;
+      richtig = Gut, falsch = Nochmal – Wiedererkennen ist schwächere Evidenz als
+      Abrufen, darum nie „Leicht"). ✅ 2026-07-04
+- [x] **P2 · S** ~~**Klausur-Feedback: verfehlte Schlagwörter zeigen.**~~ Verfehlte
+      Begriffe sind jetzt klar gekennzeichnet („Das hat gefehlt", amber ✗; verfehlte
+      **Pflicht**-Begriffe rot). Im „Nennen Sie N"-Modus bleiben nicht gebrauchte
+      Alternativen neutral (○). ✅ 2026-07-04
+- [x] **P2 · S** ~~**Übung ↔ Lernzettel-Deeplink**~~ – reines `lib/nachlesen.js`
+      (+4 Tests) findet die passendsten Lernzettel via `thema_tags`;
+      `components/NachlesenLinks.jsx` unter jeder Lösung in Quiz + Klausur; die
+      Lernzettel-Seite versteht `?einheit=<id>` (aufklappen + hinscrollen). ✅ 2026-07-04
+- [~] **P2 · M** **`schwierigkeit` wirklich nutzen** – ✅ (a) FSRS-Prior: `bewerten`
+      nimmt `objektSchwierigkeit` (leicht −1 / schwer +1 auf die Erstbewertungs-D),
+      durchgereicht aus Lernen/Wiederholen/Klausur/ModulTraining; ✅ (b) „Heute
+      lernen" sortiert neue Objekte **leicht → schwer** (stabil nach dem Mischen).
+      ✅ 2026-07-04. **Offen:** (c) Filter/Anzeige („nur schwere Fragen üben").
+- [x] **P2 · S** ~~**Fehl-Sicherheit persistieren**~~ – History-Label `sicher-falsch`
+      (`recordReview`-Option), zählt in `istSchwach` als Schwäche; Statistik zeigt
+      eine ⚠️-Kachel (Objekte/Ereignisse) mit Direkteinstieg ins Schwächen-Training.
+      ✅ 2026-07-04
 - [ ] **P3 · M** **`exam_data` aus dem PWA-Precache lösen:** Der Precache liegt bei
       ~2 MB und wächst mit jedem Content-Set; jede Datenänderung invalidiert alles.
       Daten-Chunk per Runtime-Caching (stale-while-revalidate) statt Precache.
@@ -268,8 +269,17 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Betreiber ergänzt Impressum/verantwortliche Stelle. ✅ 2026-06-28
 - [ ] **P1 · S** `docker compose build` **real verifizieren** (auf dem Proxmox-Host oder
       einer Docker-Umgebung) – in der Dev-Umgebung war kein Docker verfügbar.
-- [ ] **P3 · S** Healthcheck im `docker-compose.yml` (Backend `/api/health`) +
-      `restart`-Policy bereits gesetzt.
+- [x] **P3 · S** ~~Healthcheck im `docker-compose.yml`~~ – Healthchecks für Backend
+      (`/api/health` via node-fetch) **und** web (wget); `web` startet erst bei
+      gesundem Backend (`depends_on: condition: service_healthy`). ✅ 2026-07-04
+- [x] **P1 · M** ~~**Self-Hosting-Härtung**~~ – Backend-Container non-root (`USER node`),
+      beide Container `no-new-privileges` + Memory-Limits; nginx mit **Security-Headern**
+      (CSP, X-Content-Type-Options, X-Frame-Options, Referrer-/Permissions-Policy,
+      `server_tokens off`, `client_max_body_size`); Fastify **Body-Limit 1 MiB**;
+      **Session-Aufräumjob** (abgelaufene Sitzungen, alle 6 h; `raeumeSessionsAuf`
+      getestet). Neue **Sicherheits-Checkliste Self-Hosting** + Backup-Cron in
+      `DEPLOYMENT.md`; Doku vom alten Caddy- aufs tatsächliche NPM/nginx-Setup
+      korrigiert. ✅ 2026-07-04
 
 ## 6. Erlebnis & Gamification (die „fesselnde" Lernplattform)
 
@@ -385,9 +395,10 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
 > werden, auch nutzen), dann **adaptiver werden**, dann **Politur & Betrieb**.
 > Alle Punkte stehen mit Details als Checkboxen in den Sektionen oben.
 
-### Sprint A — Lernschleife schließen (P1–P2 · überwiegend S)
+### Sprint A — Lernschleife schließen (P1–P2 · überwiegend S) · ✅ ERLEDIGT 2026-07-04
 
-Kleine Eingriffe, die vorhandene Daten in Lernwirkung verwandeln:
+Kleine Eingriffe, die vorhandene Daten in Lernwirkung verwandeln (alle vier
+umgesetzt, Details in §3):
 
 1. **Drill → FSRS** (§3) — objektive MC-Ergebnisse ins Gedächtnismodell buchen;
    aktuell verpufft das beste Erinnerungs-Signal der App.
@@ -397,10 +408,10 @@ Kleine Eingriffe, die vorhandene Daten in Lernwirkung verwandeln:
 4. **Fehl-Sicherheit persistieren** (§3) — Confidence-Signal in History/Statistik,
    speist das Schwächen-Training.
 
-### Sprint B — Adaptivität (P2 · M)
+### Sprint B — Adaptivität (P2 · M) · teilerledigt
 
-5. **`schwierigkeit` nutzen** (§3) — FSRS-Initialschwierigkeit, Sessions
-   leicht → schwer, „nur schwere"-Filter.
+5. **`schwierigkeit` nutzen** (§3) — ✅ FSRS-Initialschwierigkeit + Sessions
+   leicht → schwer (2026-07-04); offen: „nur schwere"-Filter.
 6. **Tagesplan ↔ Reife koppeln** (§6) — das Pensum thematisch füllen
    („zuerst Thema A und B") mit Direkteinstieg.
 7. **Matching + Reihenfolge** (§6) — die letzten zwei Abfrage-Formate,
@@ -411,8 +422,9 @@ Kleine Eingriffe, die vorhandene Daten in Lernwirkung verwandeln:
 8. **UX-Reste** (§2): Toaster-Context, Skeletons solange `AuthContext.ready` lädt,
    Count-up auf Home/Statistik, A11y-Pass (aria-live fürs Antwort-Feedback,
    Fokus-Management), Emoji → Lucide-Rest, Swipe-Gesten mobil.
-9. **Betrieb** (§5): `docker compose build` auf dem Proxmox-Host real verifizieren,
-   Healthcheck ins Compose; **PWA-Push-Erinnerung** (opt-in, §6).
+9. **Betrieb** (§5): ✅ Healthchecks + Container-/Proxy-Härtung + Checkliste
+   (2026-07-04); offen: `docker compose build` auf dem Proxmox-Host real
+   verifizieren; **PWA-Push-Erinnerung** (opt-in, §6).
 10. **Technik-Schulden** (§3): `exam_data` aus dem PWA-Precache lösen (~2 MB,
     wächst mit jedem Set), Playwright-E2E für die Kern-Flows.
 

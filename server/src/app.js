@@ -27,7 +27,13 @@ export async function buildApp(opts = {}) {
   // Hinter Nginx/Caddy muss Fastify dem `X-Forwarded-For`-Header vertrauen,
   // sonst ist `req.ip` immer die Proxy-IP (Rate-Limit würde alle Nutzer in
   // denselben Topf werfen). In Tests/lokal ohne Proxy bewusst aus.
-  const app = Fastify({ logger: opts.logger ?? false, trustProxy: opts.trustProxy ?? false });
+  const app = Fastify({
+    logger: opts.logger ?? false,
+    trustProxy: opts.trustProxy ?? false,
+    // Härtung: Request-Bodies deckeln (größter legitimer Body ist der
+    // Progress-Merge mit einigen hundert kB; 1 MiB lässt Luft).
+    bodyLimit: 1024 * 1024,
+  });
 
   // Rate-Limiter pro App-Instanz (Auth-Routen lesen ihn). Tests können einen
   // eigenen (z. B. mit kleinem Limit / fixer Uhr) injizieren.

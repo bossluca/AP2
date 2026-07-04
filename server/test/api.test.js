@@ -2,6 +2,7 @@ import { test, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildApp } from '../src/app.js';
 import { erstelleRateLimiter } from '../src/lib/rateLimit.js';
+import { raeumeSessionsAuf } from '../src/session.js';
 
 let app;
 beforeEach(async () => {
@@ -285,6 +286,35 @@ test('Gamification: pro Nutzer speichern, laden und isolieren', async () => {
 test('Gamification ohne Login ist 401', async () => {
   const res = await app.inject({ url: '/api/gamification' });
   assert.equal(res.statusCode, 401);
+});
+
+test('Session-Aufräumjob entfernt nur abgelaufene Sitzungen', async () => {
+  const { cookieHeader } = await registriere('cleanup@example.de');
+
+  // Eine künstlich abgelaufene Sitzung direkt einfügen.
+  app.db
+    .prepare('INSERT INTO sessions (token, user_id, created_at, expires_at) VALUES (?, 1, ?, ?)')
+    .run('abgelaufen', new Date().toISOString(), new Date(Date.now() - 1000).toISOString());
+
+  const entfernt = raeumeSessionsAuf(app.db);
+  assert.equal(entfernt, 1);
+
+  // Die gültige Sitzung lebt weiter.
+  const me = await app.inject({ url: '/api/auth/me', headers: { cookie: cookieHeader } });
+  assert.equal(me.statusCode, 200);
+  // Idempotent: zweiter Lauf findet nichts mehr.
+  assert.equal(raeumeSessionsAuf(app.db), 0);
+});
+
+test('Body-Limit: übergroße Requests werden mit 413 abgewiesen', async () => {
+  const { cookieHeader } = await registriere('big@example.de');
+  const res = await app.inject({
+    method: 'POST',
+    url: '/api/progress/merge',
+    headers: { cookie: cookieHeader, 'content-type': 'application/json' },
+    payload: `{"progress":{"x":{"status":"${'a'.repeat(1024 * 1024 + 100)}"}}}`,
+  });
+  assert.equal(res.statusCode, 413);
 });
 
 test('Nutzer sehen den Fortschritt anderer nicht', async () => {

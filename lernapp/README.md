@@ -282,7 +282,7 @@ das clientseitige Routing (das läuft über `#/...` und braucht keine Server-Rew
 Es gibt zwei Wege:
 
 1. **Voller Stack mit Konto/Sync (Docker):** Frontend + Backend (`server/`) zusammen
-   per `docker compose up -d --build` (Caddy serviert das Frontend statisch, proxyt
+   per `docker compose up -d --build` (Nginx serviert das Frontend statisch, proxyt
    `/api` ans Backend und besorgt automatisch HTTPS). Schritte für Proxmox-LXC **und**
    VPS/Hostinger inkl. Empfehlung: siehe **[`../DEPLOYMENT.md`](../DEPLOYMENT.md)**.
 2. **Nur Frontend (statisch, ohne Konto):** wie unten beschrieben – nur `dist/`

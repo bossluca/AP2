@@ -1,4 +1,5 @@
 import { buildApp } from './app.js';
+import { raeumeSessionsAuf } from './session.js';
 
 /**
  * Produktiv-/Dev-Entrypoint. Liest Konfiguration aus Umgebungsvariablen
@@ -18,6 +19,20 @@ const app = await buildApp({
   trustProxy: process.env.TRUST_PROXY !== '0',
   logger: true,
 });
+
+// Abgelaufene Sitzungen periodisch aufräumen (sonst wachsen verwaiste Zeilen
+// unbegrenzt). Beim Start einmal, danach alle 6 Stunden; unref() blockiert
+// ein sauberes Beenden nicht.
+const aufraeumen = () => {
+  try {
+    const n = raeumeSessionsAuf(app.db);
+    if (n > 0) app.log.info(`Session-Aufräumjob: ${n} abgelaufene Sitzung(en) entfernt.`);
+  } catch (err) {
+    app.log.warn({ err }, 'Session-Aufräumjob fehlgeschlagen.');
+  }
+};
+aufraeumen();
+setInterval(aufraeumen, 6 * 60 * 60 * 1000).unref();
 
 try {
   await app.listen({ port, host });

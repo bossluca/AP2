@@ -6,7 +6,8 @@
 # Produktion:     docker compose up -d --build
 #                 NPM zeigt auf http://<LXC-IP>:8080
 #
-# Funktioniert auf Proxmox-LXC (mit Docker). Siehe PROXMOX_SETUP.md.
+# Funktioniert auf Proxmox-LXC (mit Docker). Siehe PROXMOX_SETUP.md und die
+# Sicherheits-Checkliste in DEPLOYMENT.md.
 
 services:
   backend:
@@ -22,6 +23,18 @@ services:
     # Kein direkter Port nach außen – nur intern für den web-Container
     expose:
       - "3001"
+    # Härtung: Prozesse im Container können keine zusätzlichen Privilegien
+    # erlangen (setuid o. ä.); moderate Ressourcen-Deckel gegen Amok-Prozesse.
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    healthcheck:
+      # node ist im Image vorhanden; fetch wirft bei != 2xx nicht → Status prüfen.
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   web:
     build:
@@ -30,10 +43,20 @@ services:
         VITE_BASE: /
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
       # NPM zeigt auf diesen Port. Auf dem Host eine freie Portnummer wählen.
       - "${WEB_PORT:-8080}:8080"
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
 
 volumes:
   db_data:

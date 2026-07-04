@@ -2,13 +2,16 @@
 
 Die App besteht aus zwei Teilen:
 
-- **Frontend** – statische React-App (Vite-Build), ausgeliefert von **Caddy**.
-- **Backend** – Fastify + SQLite (`node:sqlite`), bedient `/api/*`.
+- **Frontend** – statische React-App (Vite-Build), ausgeliefert von **Nginx**
+  (im `web`-Container; gehärtet mit Security-Headern/CSP).
+- **Backend** – Fastify + SQLite (`node:sqlite`), bedient `/api/*` (nur intern
+  erreichbar, non-root, Healthcheck).
 
-Caddy ist der einzige Entry-Point: es liefert die statischen Dateien aus, leitet
-`/api/*` ans Backend weiter und besorgt in Produktion **automatisch ein HTTPS-Zertifikat**
-(Let's Encrypt). Dasselbe Setup läuft unverändert auf einem **Proxmox-LXC** (mit Docker)
-und auf einem **VPS** (z. B. Hostinger).
+Der `web`-Container ist der Entry-Point des Stacks: er liefert die statischen
+Dateien aus und leitet `/api/*` ans Backend weiter. **TLS/HTTPS terminiert der
+vorgelagerte Nginx Proxy Manager (NPM)** mit Let's-Encrypt-Zertifikat. Dasselbe
+Setup läuft unverändert auf einem **Proxmox-LXC** (mit Docker) und auf einem
+**VPS** (z. B. Hostinger).
 
 > Hinweis: Die Container-Images wurden in der Entwicklungsumgebung **nicht gebaut**
 > (kein Docker vorhanden). Frontend-Build, Backend-Start und die API wurden jedoch
@@ -17,31 +20,33 @@ und auf einem **VPS** (z. B. Hostinger).
 ## Voraussetzungen
 
 - Docker + Docker Compose auf dem Zielsystem.
-- Eine (Sub-)Domain, die auf die öffentliche IP des Servers zeigt (für HTTPS).
-- Offene Ports **80** und **443**.
+- Ein laufender **Nginx Proxy Manager** (oder anderer TLS-Reverse-Proxy) davor.
+- Eine (Sub-)Domain, die auf die öffentliche IP zeigt (für HTTPS am NPM).
 
 ## Schnellstart (lokal testen, ohne TLS)
 
 ```bash
-cp .env.example .env          # SITE_ADDRESS=:80 belassen
+cp .env.example .env          # WEB_PORT=8080 belassen
 docker compose up --build
-# -> http://localhost
+# -> http://localhost:8080
 ```
 
 ## Produktion
 
-1. `.env` anlegen und Domain eintragen:
+1. `.env` anlegen (Port für den web-Container wählen):
    ```bash
    cp .env.example .env
-   # in .env:
-   # SITE_ADDRESS=lernapp.example.de
+   # in .env: WEB_PORT=8080 (oder ein freier Port)
    ```
-2. Sicherstellen, dass der DNS-A-/AAAA-Record von `lernapp.example.de` auf den Server zeigt.
-3. Starten:
+2. Starten:
    ```bash
    docker compose up -d --build
+   docker compose ps    # beide Services sollten "healthy" melden
    ```
-   Caddy holt automatisch ein Let's-Encrypt-Zertifikat. Fertig.
+3. TLS/HTTPS terminiert der vorgelagerte **Nginx Proxy Manager** (NPM):
+   Proxy-Host auf `http://<Host-IP>:${WEB_PORT}` anlegen, Let's-Encrypt-Zertifikat
+   holen, **„Force SSL" + HSTS aktivieren** (die Security-Header der App selbst
+   setzt der web-Container, HSTS gehört an den TLS-Terminator).
 
 Der Fortschritt der Nutzer liegt in der SQLite-Datei im Volume `db_data`
 (`/app/data/lernapp.sqlite` im Backend-Container).
@@ -55,6 +60,50 @@ docker compose cp backend:/app/data/lernapp.sqlite ./lernapp-backup.sqlite
 # Restore (Stack vorher stoppen)
 docker compose cp ./lernapp-backup.sqlite backend:/app/data/lernapp.sqlite
 ```
+
+Automatisieren (Cron auf dem Host, täglich 03:00, 14 Tage Aufbewahrung):
+
+```bash
+0 3 * * * cd /pfad/zum/repo && docker compose cp backend:/app/data/lernapp.sqlite \
+  /var/backups/lernapp/lernapp-$(date +\%F).sqlite && \
+  find /var/backups/lernapp -name 'lernapp-*.sqlite' -mtime +14 -delete
+```
+
+### Sicherheits-Checkliste Self-Hosting
+
+Was der Stack **bereits mitbringt** (Stand 2026-07-04):
+
+- ✅ **Container gehärtet:** Backend läuft als unprivilegierter `node`-User,
+  beide Container mit `no-new-privileges` + Memory-Limits; Backend-Port ist
+  **nicht** nach außen exponiert (nur `web` erreicht ihn).
+- ✅ **Healthchecks:** `docker compose ps` zeigt den echten Zustand; `web`
+  startet erst, wenn das Backend gesund ist. `restart: unless-stopped`.
+- ✅ **Security-Header** (nginx im web-Container): CSP (nur eigene Ressourcen +
+  Google Fonts), `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+  `Permissions-Policy`, `server_tokens off`.
+- ✅ **Auth-Härtung:** argon2id-Hashes, httpOnly-Session-Cookies (`Secure` in
+  Produktion), Brute-Force-Rate-Limit auf Login **und** Recovery,
+  Passwort-Reset nur per Recovery-Code (kein Mail-Reset-Angriffsweg),
+  Session-Widerruf bei Reset, periodischer Session-Aufräumjob,
+  Request-Body-Limit 1 MiB (nginx deckelt zusätzlich bei 2 MB).
+
+Was **du beim Aufsetzen** prüfen musst:
+
+- [ ] **HTTPS erzwingen + HSTS** im Nginx Proxy Manager (s. o.) – ohne TLS sind
+      Session-Cookies abgreifbar.
+- [ ] **Firewall des Hosts:** nur 80/443 (NPM) und SSH offen; `WEB_PORT` (8080)
+      idealerweise nur aus dem LAN/vom NPM erreichbar, nicht aus dem Internet.
+- [ ] **SSH härten** (Key-Login statt Passwort, root-Login aus) und das System
+      aktuell halten (`unattended-upgrades` im LXC/VPS).
+- [ ] **Backups einrichten** (Cron oben) und **einmal die Wiederherstellung
+      testen** – ein ungetestetes Backup ist keins.
+- [ ] **Images aktuell halten:** regelmäßig `docker compose build --pull` +
+      `up -d` (zieht node/nginx-Basis-Image-Updates nach).
+- [ ] **Inhalte:** Repo bleibt privat; nur die paraphrasierten/KI-Inhalte
+      ausliefern (ADR-007). Die `/info`-Seite (Datenschutz/Impressum) vor
+      öffentlichem Betrieb als Betreiber finalisieren.
+- [ ] **Recovery-Codes kommunizieren:** Es gibt bewusst keinen E-Mail-Reset –
+      Nutzer müssen ihren Code notieren (die UI sagt das deutlich).
 
 ---
 
@@ -133,7 +182,7 @@ Browser ── HTTPS ──▶ app.vercel.app ──(Rewrite /api/*)──▶ ht
   deployen, **persistentes Volume** auf den DB-Pfad mounten, HTTPS gibt's automatisch.
 - **Self-host:** den vorhandenen Stack auf Proxmox/VPS (Variante A/B); für Variante C
   genügt, dass das **Backend** unter einer eigenen HTTPS-(Sub-)Domain erreichbar ist
-  (z. B. `api.deine-domain.de` via Caddy-Reverse-Proxy auf den Backend-Container).
+  (z. B. `api.deine-domain.de` via Nginx-Proxy-Manager-Host auf den Backend-Container).
 
 **2. Backend-Env (Produktion):**
 ```bash
@@ -207,4 +256,4 @@ Ideal für einen schnellen Test-Link (rein statisch, ohne Backend → lokaler Fo
 > [Variante C](#variante-c--frontend-auf-vercel--backend-separat-loginsync)**.
 
 Danach derselbe `dist/`-Build später auf dem **Proxmox-Server** (mit Backend via
-Docker/Caddy) – siehe oben.
+Docker/Nginx) – siehe oben.

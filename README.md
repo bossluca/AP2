@@ -57,11 +57,11 @@ Details: [`lernapp/README.md`](lernapp/README.md) · [`server/README.md`](server
 
 ## Deployment
 
-Containerisiert (Backend + Caddy mit automatischem HTTPS) – läuft auf Proxmox-LXC
-und auf einem VPS:
+Containerisiert (Backend non-root + Nginx mit Security-Headern; TLS/HTTPS über den
+vorgelagerten Nginx Proxy Manager) – läuft auf Proxmox-LXC und auf einem VPS:
 
 ```bash
-cp .env.example .env      # SITE_ADDRESS setzen
+cp .env.example .env      # WEB_PORT setzen (Default 8080)
 docker compose up -d --build
 ```
 

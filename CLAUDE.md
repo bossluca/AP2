@@ -73,8 +73,11 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
   `localStorage`). Alle Server-Aufrufe sind best-effort; ohne Backend = abgemeldet.
 
 ### Deployment
-- **Mit Backend (Docker):** `docker compose up -d --build` startet Backend + Caddy
-  (Frontend statisch + Reverse-Proxy `/api` + automatisches HTTPS). Siehe `DEPLOYMENT.md`.
+- **Mit Backend (Docker):** `docker compose up -d --build` startet Backend + Nginx
+  (Frontend statisch + Reverse-Proxy `/api`; **gehärtet**: Backend non-root ohne
+  Außenport, Healthchecks, `no-new-privileges`, Memory-Limits, Security-Header/CSP,
+  Body-Limit 1 MiB, Session-Aufräumjob). TLS/HTTPS + HSTS terminiert der vorgelagerte
+  **Nginx Proxy Manager**. Sicherheits-Checkliste in `DEPLOYMENT.md`.
 - **Nur Frontend (statisch):** HashRouter, kein Server-Routing nötig.
   - Root-Domain: Standard-Build (`base='/'`); Subpfad: `VITE_BASE=/lernapp/ npm run build`
 - Dev: `lernapp` (`npm run dev`, Port 5173, proxyt `/api` → `localhost:3001`) +

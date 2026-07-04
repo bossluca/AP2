@@ -46,3 +46,16 @@ export function userFromToken(db, token) {
 export function deleteSession(db, token) {
   if (token) db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
 }
+
+/**
+ * Räumt abgelaufene Sitzungen auf. Ohne diesen Job wachsen verwaiste Zeilen
+ * unbegrenzt (gelöscht wurde bisher nur beim zufälligen Zugriff auf das
+ * jeweilige Token). Wird vom Entrypoint periodisch aufgerufen.
+ * @param {import('node:sqlite').DatabaseSync} db
+ * @param {Date} [jetzt]  Injizierbar für Tests.
+ * @returns {number} Anzahl entfernter Sitzungen.
+ */
+export function raeumeSessionsAuf(db, jetzt = new Date()) {
+  const info = db.prepare('DELETE FROM sessions WHERE expires_at < ?').run(jetzt.toISOString());
+  return Number(info.changes);
+}
