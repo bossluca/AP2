@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { getLerneinheiten } from '../data/useExamData';
 import { baueGlossarCloze } from '../lib/glossar';
-import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import ClozeFrage from '../components/ClozeFrage';
@@ -16,7 +16,7 @@ const UMFANG = 10;
  * zehn Begriffe; jede Bewertung zählt als Aktivität und gibt XP.
  */
 export default function Luecken() {
-  const { recordActivity, recordXp } = useProgress();
+  const { recordActivity, recordXp } = useGamification();
   const [teil, setTeil] = useState('alle');
   const [sessionKey, setSessionKey] = useState(0);
   const [index, setIndex] = useState(0);

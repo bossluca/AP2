@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getKlausuren } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { pruefeAntwort } from '../lib/antwortpruefung';
 import { feiern } from '../lib/konfetti';
 import { useCountUp } from '../hooks/useCountUp';
@@ -34,14 +35,8 @@ function dauerInMinuten(dauerText, fallback = 90) {
  */
 export default function Klausur() {
   const klausuren = useMemo(() => getKlausuren(), []);
-  const {
-    recordQuizResult,
-    recordReview,
-    setStatus,
-    recordActivity,
-    recordKlausurErgebnis,
-    recordXp,
-  } = useProgress();
+  const { recordQuizResult, recordReview, setStatus } = useProgress();
+  const { recordActivity, recordKlausurErgebnis, recordXp } = useGamification();
 
   // Default-Auswahl: erste AP2-Klausur, sonst die erste verfügbare.
   const defaultIndex = useMemo(() => {

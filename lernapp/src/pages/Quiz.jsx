@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { getLearnableQuestions } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { applyFilters, defaultFilters } from '../lib/filters';
 import { shuffle } from '../lib/shuffle';
 import { BEWERTUNGEN } from '../lib/bewertung';
@@ -17,7 +18,8 @@ import MarkdownContent from '../components/MarkdownContent';
  */
 export default function Quiz() {
   const allQuestions = useMemo(() => getLearnableQuestions(), []);
-  const { setStatus, getStatus, recordQuizResult, recordActivity, recordXp } = useProgress();
+  const { setStatus, getStatus, recordQuizResult } = useProgress();
+  const { recordActivity, recordXp } = useGamification();
 
   const [filters, setFilters] = useState(defaultFilters);
   const [showFilters, setShowFilters] = useState(false);

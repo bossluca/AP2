@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { getLernobjekte, filterLernobjekte, defaultLernfilter } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { MAX_BOX, bewerten as fsrsBewerten } from '../lib/fsrs';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
@@ -36,7 +37,8 @@ function tageBis(dueIso) {
  */
 export default function Wiederholen() {
   const objekte = useMemo(() => getLernobjekte(), []);
-  const { recordReview, recordActivity, recordXp, getStatus, getEntry, isDue } = useProgress();
+  const { recordReview, getStatus, getEntry, isDue } = useProgress();
+  const { recordActivity, recordXp } = useGamification();
 
   const [filter, setFilter] = useState({ ...defaultLernfilter, nurFaellig: true });
   const [sessionKey, setSessionKey] = useState(0);

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { baueLernsession, baueSchwaechenSession, STANDARD_UMFANG } from '../lib/lernsession';
 import { berechneStatistik } from '../lib/statistik';
 import { shuffle } from '../lib/shuffle';
@@ -23,12 +24,10 @@ export default function Lernen() {
     getEntry,
     progress,
     recordReview,
-    recordActivity,
-    recordXp,
-    gami,
     setResume,
     clearResume,
   } = useProgress();
+  const { recordActivity, recordXp, gami } = useGamification();
   const [searchParams] = useSearchParams();
 
   const [sessionKey, setSessionKey] = useState(0);

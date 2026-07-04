@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen, PencilLine, HelpCircle } from 'lucide-react';
 import { getLerneinheiten, getLearnableQuestions } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { baueLernpfade, findePfad } from '../lib/lernpfade';
 import { baueModulTraining, werteTrainingAus } from '../lib/modulTraining';
 import { BEWERTUNGEN } from '../lib/bewertung';
@@ -136,8 +137,8 @@ export default function ModulTraining() {
   const navigate = useNavigate();
   const einheiten = useMemo(() => getLerneinheiten(), []);
   const alleFragen = useMemo(() => getLearnableQuestions(), []);
-  const { progress, setStatus, recordReview, recordActivity, recordXp, setResume, clearResume } =
-    useProgress();
+  const { progress, setStatus, recordReview, setResume, clearResume } = useProgress();
+  const { recordActivity, recordXp } = useGamification();
 
   // Lerneinheit-Lookup über die ID (Map memoisiert, Cache-stabil).
   const einheitenById = useMemo(() => {

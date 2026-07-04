@@ -10,58 +10,17 @@ import {
 } from 'react';
 import { getLearnableQuestions } from '../data/useExamData';
 import { bewerten, istFaellig } from '../lib/fsrs';
-import {
-  addAktivitaet,
-  streakDetail,
-  verfuegbareFreezes,
-  heuteAnzahl,
-  aktiveTage as zaehleAktiveTage,
-  STANDARD_TAGESZIEL,
-} from '../lib/aktivitaet';
-import { berechneLevel } from '../lib/level';
 import { ladeResume, speichereResume, loescheResume } from '../lib/resume';
 import { useAuth } from './AuthContext';
-import { progressApi, gamificationApi } from '../lib/api';
-import { mergeGamification } from '../lib/gamiMerge';
+import { progressApi } from '../lib/api';
+import { GamificationProvider, useGamification } from './GamificationContext';
+import { mergeProgress } from '../lib/progressMerge';
 
 /**
  * Versionierter localStorage-Schlüssel. Bei inkompatiblen Schema-Änderungen
  * Suffix erhöhen (`_v2`, ...), damit alte Daten nicht falsch interpretiert werden.
  */
 const STORAGE_KEY = 'ap2_lernapp_progress_v1';
-
-/**
- * Lokaler Gamification-Stand (Lern-Aktivität pro Tag + bestes Klausur-Ergebnis).
- * Bewusst getrennt vom synchronisierten Fortschritt: rein lokal, best-effort.
- */
-const GAMIFICATION_KEY = 'ap2_lernapp_gamification_v1';
-
-/** Lädt den Gamification-Stand defensiv aus localStorage. */
-function loadGamification() {
-  try {
-    const raw = localStorage.getItem(GAMIFICATION_KEY);
-    const parsed = raw ? JSON.parse(raw) : null;
-    if (parsed && typeof parsed === 'object') {
-      return {
-        activity: parsed.activity && typeof parsed.activity === 'object' ? parsed.activity : {},
-        klausurBest: Number(parsed.klausurBest) || 0,
-        xp: Number(parsed.xp) || 0,
-      };
-    }
-  } catch {
-    /* ignore */
-  }
-  return { activity: {}, klausurBest: 0, xp: 0 };
-}
-
-/** Persistiert den Gamification-Stand (Fehler werden geschluckt). */
-function saveGamification(g) {
-  try {
-    localStorage.setItem(GAMIFICATION_KEY, JSON.stringify(g));
-  } catch {
-    /* ignore */
-  }
-}
 
 /**
  * @typedef {Object} QuestionProgress
@@ -76,6 +35,7 @@ function saveGamification(g) {
  * @property {number}            [lapses]      Anzahl Vergessens-Ereignisse.
  * @property {string}            [last_review] ISO-Zeitstempel der letzten Bewertung.
  * @property {string}            [due]      ISO-Zeitstempel der nächsten Fälligkeit.
+ * @property {string}            [updatedAt] ISO-Zeitstempel der letzten Änderung (Sync/Merge).
  */
 
 /**
@@ -130,7 +90,9 @@ function saveProgress(progress) {
  * @property {(id:string, status:'gelernt'|'ueben') => void} setStatus
  * @property {(id:string, result:'richtig'|'teilweise'|'falsch') => void} recordQuizResult
  * @property {(id:string, note:boolean|number) => void} recordReview  FSRS-Bewertung (boolean oder Note 1–4).
- * @property {() => void} resetProgress
+ * @property {() => void} resetProgress  Löscht Fortschritt UND Gamification.
+ * @property {(map:ProgressMap) => void} importProgress  Nicht-destruktives Merge (Backup-Import).
+ * @property {() => ProgressMap} getProgressRoh  Refstabil – roher Stand für Export.
  * @property {(id:string) => (string|null)} getStatus  Refstabil.
  * @property {(id:string) => (QuestionProgress|null)} getEntry   Refstabil.
  * @property {(id:string) => boolean} isDue  Refstabil – ist das Objekt fällig?
@@ -144,21 +106,19 @@ function saveProgress(progress) {
 const ProgressContext = createContext(null);
 
 /**
- * Single Source of Truth für den Lernfortschritt der gesamten App.
- *
- * Hält den Fortschritt in einem zentralen State, synchronisiert ihn mit
- * localStorage und – über das `storage`-Event – mit anderen offenen Tabs.
- * Alle Seiten (Home, Quiz, Karteikarten) konsumieren denselben State, sodass
- * z. B. eine im Quiz bewertete Frage sofort in der Home-Statistik auftaucht.
+ * Innerer Provider: hält den Lernfortschritt. Gamification lebt seit dem
+ * Context-Split in `GamificationContext` (eigener Provider, eigener
+ * localStorage-Schlüssel) – hier wird nur noch für `resetProgress` darauf
+ * zugegriffen.
  *
  * @param {{children: import('react').ReactNode}} props
  */
-export function ProgressProvider({ children }) {
+function ProgressProviderInnen({ children }) {
   const [progress, setProgress] = useState(loadProgress);
-  const [gamification, setGamification] = useState(loadGamification);
   // „Weiterlernen": zuletzt begonnene Session (gerätelokal, best-effort).
   const [resume, setResumeState] = useState(() => ladeResume());
   const { user } = useAuth();
+  const { resetGamification } = useGamification();
 
   // Ref auf den jeweils aktuellen Stand, damit `getStatus` refstabil bleibt
   // und nachgelagerte useMemo-Filter nicht bei jeder Bewertung neu rechnen.
@@ -166,15 +126,6 @@ export function ProgressProvider({ children }) {
   useEffect(() => {
     progressRef.current = progress;
   }, [progress]);
-
-  // Ref auf den Gamification-Stand (für den Login-Merge) + Flag, ab wann der
-  // Server-Sync „scharf" ist (erst nach dem Login-Merge, sonst würde der lokale
-  // Stand den evtl. höheren Kontostand überschreiben).
-  const gamificationRef = useRef(gamification);
-  useEffect(() => {
-    gamificationRef.current = gamification;
-  }, [gamification]);
-  const gamiSyncBereit = useRef(false);
 
   // Ref auf den angemeldeten Nutzer, damit die Mutatoren refstabil bleiben und
   // trotzdem wissen, ob serverseitig synchronisiert werden soll.
@@ -188,20 +139,10 @@ export function ProgressProvider({ children }) {
     saveProgress(progress);
   }, [progress]);
 
-  // Gamification-Stand lokal persistieren – und, wenn angemeldet und der
-  // Login-Merge durch ist, best-effort ins Konto durchschreiben (Overwrite).
-  useEffect(() => {
-    saveGamification(gamification);
-    if (userRef.current && gamiSyncBereit.current) {
-      gamificationApi.put(gamification).catch(() => {});
-    }
-  }, [gamification]);
-
   // Multi-Tab-Sync: Änderungen in einem anderen Tab übernehmen.
   useEffect(() => {
     const onStorage = (e) => {
       if (e.key === STORAGE_KEY) setProgress(loadProgress());
-      else if (e.key === GAMIFICATION_KEY) setGamification(loadGamification());
       else if (e.key === 'ap2_lernapp_resume_v1') setResumeState(ladeResume());
     };
     window.addEventListener('storage', onStorage);
@@ -212,7 +153,6 @@ export function ProgressProvider({ children }) {
   // (Migration) und anschließend den Kontostand als maßgeblich laden. Offline /
   // ohne Backend schlägt das fehl und der lokale Stand bleibt erhalten.
   useEffect(() => {
-    gamiSyncBereit.current = false; // bei Nutzerwechsel/Logout Sync pausieren
     if (!user) return;
     let aktiv = true;
     (async () => {
@@ -223,16 +163,6 @@ export function ProgressProvider({ children }) {
       } catch {
         /* offline: lokalen Stand behalten */
       }
-      // Gamification: Server-Stand laden, mit lokalem mischen (max-basiert) und
-      // übernehmen. Das anschließende setGamification schreibt via Save-Effekt
-      // den gemergten Stand ins Konto zurück.
-      try {
-        const { gamification: serverGami } = await gamificationApi.get();
-        if (aktiv) setGamification((lokal) => mergeGamification(lokal, serverGami));
-      } catch {
-        /* offline: lokalen Stand behalten */
-      }
-      if (aktiv) gamiSyncBereit.current = true;
     })();
     return () => {
       aktiv = false;
@@ -240,10 +170,11 @@ export function ProgressProvider({ children }) {
   }, [user]);
 
   // Schreibt einen Eintrag in den State und (falls angemeldet) best-effort
-  // ans Backend. Inhalt wird aus dem aktuellen Stand (Ref) berechnet.
+  // ans Backend. Jeder Schreibvorgang stempelt `updatedAt` (Sync/Merge-Basis).
   const persist = useCallback((questionId, entry) => {
-    setProgress((prev) => ({ ...prev, [questionId]: entry }));
-    if (userRef.current) progressApi.put(questionId, entry).catch(() => {});
+    const gestempelt = { ...entry, updatedAt: new Date().toISOString() };
+    setProgress((prev) => ({ ...prev, [questionId]: gestempelt }));
+    if (userRef.current) progressApi.put(questionId, gestempelt).catch(() => {});
   }, []);
 
   /** Setzt den Lernstatus einer Frage und aktualisiert `lastSeen`. */
@@ -306,33 +237,28 @@ export function ProgressProvider({ children }) {
   /** Löscht den gesamten Fortschritt (lokal und – falls angemeldet – im Konto). */
   const resetProgress = useCallback(() => {
     setProgress({});
-    setGamification({ activity: {}, klausurBest: 0, xp: 0 });
+    resetGamification();
     loescheResume();
     setResumeState(null);
     if (userRef.current) progressApi.reset().catch(() => {});
-  }, []);
+  }, [resetGamification]);
 
   /**
-   * Verbucht Lernaktivität für heute (für Streak/Tagesziel/Heatmap). Wird von den
-   * Lernmodi pro bewerteter Karte/Frage aufgerufen.
-   * @param {number} [n]
+   * Übernimmt einen importierten Fortschritts-Stand nicht-destruktiv
+   * (je Eintrag gewinnt der jüngere `updatedAt`). Für Backup-Import.
+   * @param {ProgressMap} map
    */
-  const recordActivity = useCallback((n = 1) => {
-    setGamification((g) => ({ ...g, activity: addAktivitaet(g.activity, n) }));
+  const importProgress = useCallback((map) => {
+    setProgress((prev) => {
+      const gemergt = mergeProgress(prev, map);
+      // Angemeldet: gemergten Stand best-effort ins Konto migrieren.
+      if (userRef.current) progressApi.merge(gemergt).catch(() => {});
+      return gemergt;
+    });
   }, []);
 
-  /** Schreibt Erfahrungspunkte gut (für Level-Fortschritt). */
-  const recordXp = useCallback((amount) => {
-    const x = Math.max(0, Math.floor(Number(amount) || 0));
-    if (x === 0) return;
-    setGamification((g) => ({ ...g, xp: (g.xp || 0) + x }));
-  }, []);
-
-  /** Merkt sich das beste Klausur-Ergebnis (in %) für den Klausur-Held-Erfolg. */
-  const recordKlausurErgebnis = useCallback((prozent) => {
-    const p = Math.round(Number(prozent) || 0);
-    setGamification((g) => ({ ...g, klausurBest: Math.max(g.klausurBest || 0, p) }));
-  }, []);
+  /** Refstabil: roher Fortschritts-Stand (für den Export). */
+  const getProgressRoh = useCallback(() => progressRef.current, []);
 
   /** Merkt die zuletzt begonnene Lern-Aktion (für „Weiterlernen"). */
   const setResume = useCallback((eintrag) => {
@@ -375,25 +301,6 @@ export function ProgressProvider({ children }) {
     return { total, gelernt, ueben, offen: total - gelernt - ueben };
   }, [progress]);
 
-  // Abgeleitete Gamification-Kennzahlen (Streak, heutige Aktivität, aktive Tage).
-  const gami = useMemo(() => {
-    const at = zaehleAktiveTage(gamification.activity);
-    const freezes = verfuegbareFreezes(at);
-    const det = streakDetail(gamification.activity, new Date(), freezes);
-    return {
-      activity: gamification.activity,
-      streak: det.streak,
-      freezesGenutzt: det.genutzt,
-      freezesVerfuegbar: freezes,
-      heuteAktivitaet: heuteAnzahl(gamification.activity),
-      aktiveTage: at,
-      klausurBest: gamification.klausurBest || 0,
-      xp: gamification.xp || 0,
-      level: berechneLevel(gamification.xp || 0),
-      tagesziel: STANDARD_TAGESZIEL,
-    };
-  }, [gamification]);
-
   const value = useMemo(
     () => ({
       progress,
@@ -401,14 +308,12 @@ export function ProgressProvider({ children }) {
       recordQuizResult,
       recordReview,
       resetProgress,
-      recordActivity,
-      recordKlausurErgebnis,
-      recordXp,
+      importProgress,
+      getProgressRoh,
       getStatus,
       getEntry,
       isDue,
       stats,
-      gami,
       resume,
       setResume,
       clearResume,
@@ -419,14 +324,12 @@ export function ProgressProvider({ children }) {
       recordQuizResult,
       recordReview,
       resetProgress,
-      recordActivity,
-      recordKlausurErgebnis,
-      recordXp,
+      importProgress,
+      getProgressRoh,
       getStatus,
       getEntry,
       isDue,
       stats,
-      gami,
       resume,
       setResume,
       clearResume,
@@ -434,6 +337,24 @@ export function ProgressProvider({ children }) {
   );
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
+}
+
+/**
+ * Single Source of Truth für den Lernfortschritt der gesamten App.
+ *
+ * Komponiert den {@link GamificationProvider} (Streak/XP/Quests) um den
+ * eigentlichen Fortschritts-Provider, damit Aufrufer (App, Tests) weiterhin
+ * nur einen Provider mounten müssen. Fortschritt und Gamification bleiben
+ * getrennte Context-Werte → gezielte Re-Renders.
+ *
+ * @param {{children: import('react').ReactNode}} props
+ */
+export function ProgressProvider({ children }) {
+  return (
+    <GamificationProvider>
+      <ProgressProviderInnen>{children}</ProgressProviderInnen>
+    </GamificationProvider>
+  );
 }
 
 /**

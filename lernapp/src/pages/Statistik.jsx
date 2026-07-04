@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { berechneStatistik } from '../lib/statistik';
 import { berechneReife } from '../lib/reife';
 import { MAX_BOX } from '../lib/fsrs';
@@ -28,7 +29,8 @@ function Bar({ value, total, className }) {
  */
 export default function Statistik() {
   const objekte = useMemo(() => getLernobjekte(), []);
-  const { progress, gami } = useProgress();
+  const { progress } = useProgress();
+  const { gami } = useGamification();
   const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
   const reife = useMemo(() => berechneReife(objekte, progress), [objekte, progress]);
 

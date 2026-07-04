@@ -17,7 +17,7 @@ const Statistik = lazy(() => import('./pages/Statistik'));
 const Suche = lazy(() => import('./pages/Suche'));
 const Konto = lazy(() => import('./pages/Konto'));
 import { useTheme } from './context/ThemeContext';
-import { useProgress } from './context/ProgressContext';
+import { useGamification } from './context/GamificationContext';
 import ErfolgWatcher from './components/ErfolgWatcher';
 import CommandPalette from './components/CommandPalette';
 import FehlerGrenze from './components/FehlerGrenze';
@@ -55,7 +55,7 @@ function ThemeToggle() {
 
 /** Lern-Streak: Flamme + Tage in Folge. Nur ab Streak ≥ 1 sichtbar. */
 function StreakBadge() {
-  const { gami } = useProgress();
+  const { gami } = useGamification();
   if (!gami || gami.streak < 1) return null;
   return (
     <span

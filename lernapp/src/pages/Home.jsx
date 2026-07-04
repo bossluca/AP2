@@ -4,6 +4,7 @@ import { Play, RotateCcw, Target } from 'lucide-react';
 import { getAllExams } from '../data/useExamData';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { berechneStatistik } from '../lib/statistik';
 import { berechneReife } from '../lib/reife';
 import { naechsteAktion } from '../lib/naechsteAktion';
@@ -31,7 +32,8 @@ const KACHELN = [
 export default function Home() {
   const exams = getAllExams();
   const objekte = useMemo(() => getLernobjekte(), []);
-  const { progress, resetProgress, gami, resume } = useProgress();
+  const { progress, resetProgress, resume } = useProgress();
+  const { gami } = useGamification();
   const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
   const reife = useMemo(() => berechneReife(objekte, progress), [objekte, progress]);
   // „Was jetzt dran ist" – ein klarer Primär-CTA statt mehrerer gleichrangiger.

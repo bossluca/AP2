@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { getLernobjekte } from '../data/lernobjekte';
 import { berechneStatistik } from '../lib/statistik';
 import { bewerteErfolge } from '../lib/erfolge';
@@ -14,7 +15,8 @@ import { feiern } from '../lib/konfetti';
  * gekapselt hier drin. Datenbasis identisch zur Statistik-Seite.
  */
 export default function ErfolgWatcher() {
-  const { progress, gami } = useProgress();
+  const { progress } = useProgress();
+  const { gami } = useGamification();
   const objekte = useMemo(() => getLernobjekte(), []);
   const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
 

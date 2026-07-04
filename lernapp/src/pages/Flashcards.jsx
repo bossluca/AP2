@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { getLearnableQuestions } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
+import { useGamification } from '../context/GamificationContext';
 import { applyFilters, defaultFilters } from '../lib/filters';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
@@ -17,7 +18,8 @@ import HerkunftBadge from '../components/HerkunftBadge';
  */
 export default function Flashcards() {
   const allQuestions = useMemo(() => getLearnableQuestions(), []);
-  const { setStatus, getStatus, recordActivity, recordXp } = useProgress();
+  const { setStatus, getStatus } = useProgress();
+  const { recordActivity, recordXp } = useGamification();
 
   const [filters, setFilters] = useState(defaultFilters);
   const [showFilters, setShowFilters] = useState(false);
