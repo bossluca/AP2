@@ -10,6 +10,7 @@ const ModulTraining = lazy(() => import('./pages/ModulTraining'));
 const Flashcards = lazy(() => import('./pages/Flashcards'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const Luecken = lazy(() => import('./pages/Luecken'));
+const Drill = lazy(() => import('./pages/Drill'));
 const Klausur = lazy(() => import('./pages/Klausur'));
 const Lernzettel = lazy(() => import('./pages/Lernzettel'));
 const Wiederholen = lazy(() => import('./pages/Wiederholen'));
@@ -204,6 +205,7 @@ function AnimatedMain() {
           <Route path="/wiederholen" element={<Wiederholen />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/luecken" element={<Luecken />} />
+          <Route path="/drill" element={<Drill />} />
           <Route path="/klausur" element={<Klausur />} />
           <Route path="/statistik" element={<Statistik />} />
           <Route path="/suche" element={<Suche />} />

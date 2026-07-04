@@ -9,6 +9,7 @@ import {
   GraduationCap,
   BarChart3,
   PencilLine,
+  Zap,
   Info,
 } from 'lucide-react';
 
@@ -27,6 +28,7 @@ export const NAV = [
   { to: '/wiederholen', label: 'Wiederholen', icon: RotateCcw, iconName: 'RotateCcw' },
   { to: '/quiz', label: 'Quiz', icon: HelpCircle, iconName: 'HelpCircle' },
   { to: '/luecken', label: 'Lückentext', icon: PencilLine, iconName: 'PencilLine' },
+  { to: '/drill', label: 'Drill', icon: Zap, iconName: 'Zap' },
   { to: '/klausur', label: 'Klausur', icon: GraduationCap, iconName: 'GraduationCap' },
   { to: '/statistik', label: 'Statistik', icon: BarChart3, iconName: 'BarChart3' },
 ];

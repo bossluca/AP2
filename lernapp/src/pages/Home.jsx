@@ -23,6 +23,7 @@ const KACHELN = [
   { to: '/wiederholen', titel: '🔁 Wiederholen', text: 'Spaced-Repetition-Sitzung über fällige Fragen & Lernzettel.' },
   { to: '/quiz', titel: '🎯 Quiz', text: 'Fragenrunde mit Selbsteinschätzung und Auswertung.' },
   { to: '/luecken', titel: '✍️ Lückentext', text: 'Begriffe aktiv abrufen – automatisch aus den Lernzetteln, sofort geprüft.' },
+  { to: '/drill', titel: '⚡ Drill', text: 'Schnelle Multiple-Choice-Runde – objektiv bewertet, perfekt für zwischendurch.' },
   { to: '/klausur', titel: '🎓 Klausur', text: 'Ganze Prüfung simulieren – Freitext + Schlagwort-Check, optional mit Timer.' },
 ];
 
