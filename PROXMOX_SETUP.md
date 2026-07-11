@@ -1,13 +1,15 @@
-# Proxmox-LXC: Schritt-für-Schritt (AP-Lernapp mit Docker)
+# Proxmox: Schritt-für-Schritt (AP-Lernapp mit Docker)
 
 Konkrete Anleitung, um den Docker-Stack (`docker-compose.yml`: Backend + Nginx)
-in einem unprivilegierten Debian/Ubuntu-LXC auf Proxmox zu betreiben.
+in einer Debian-VM oder einem unprivilegierten Debian/Ubuntu-LXC auf Proxmox zu
+betreiben. Eine Debian-VM ist für Docker am unkompliziertesten.
 SSL/HTTPS übernimmt der vorgelagerte **Nginx Proxy Manager (NPM)**.
 Allgemeiner Überblick: siehe [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
 > **Status Container-Build:** Die Images wurden bisher **nicht** mit Docker gebaut
 > (in der Entwicklungsumgebung war kein Docker verfügbar). Verifiziert sind:
-> Frontend-Build (`npm run build`), Backend-Start, API end-to-end, 47 + 9 Tests.
+> Frontend-Build (`npm run build`), Backend-Start, API end-to-end,
+> 275 Frontend- und 31 Backendtests.
 > Der erste `docker compose build` findet also auf dem Proxmox-Host statt – unten
 > steht, worauf zu achten ist.
 
@@ -53,7 +55,24 @@ pct reboot 120
 > kleine **KVM-VM** statt LXC nutzen – dasselbe `docker compose` läuft dort ohne
 > Nesting-Sonderfälle.
 
-## 3. Docker im LXC installieren
+### Empfohlene Alternative: Debian-VM
+
+Für die bestehende VM `106 (Docker-Host)` sind keine LXC-Features nötig. In der
+VM-Konsole IP und SSH-Benutzer prüfen:
+
+```bash
+hostname -I
+whoami
+systemctl status ssh
+```
+
+Danach vom Entwicklungsrechner verbinden:
+
+```bash
+ssh <BENUTZER>@<VM-IP>
+```
+
+## 3. Docker im Gast installieren
 
 In der LXC-Konsole (`pct enter 120` oder via SSH):
 
@@ -67,16 +86,19 @@ docker --version && docker compose version
 ## 4. Projekt holen und starten
 
 ```bash
-git clone https://github.com/bossluca/AP2.git
-cd AP2
+mkdir -p /opt
+cd /opt
+git clone https://github.com/bossluca/AP2.git lernapp
+cd lernapp
 
 # .env anlegen (Standard-Port 8080 reicht)
 cp .env.example .env
 
-docker compose up -d --build
+chmod +x scripts/*.sh
+./scripts/deploy.sh
 ```
 
-Erreichbar intern: `http://<LXC-IP>:8080`
+Erreichbar intern: `http://<VM-ODER-LXC-IP>:8080`
 
 **Worauf beim ersten Build achten:**
 - Genug RAM/Swap (s. o.), sonst kann `npm ci`/Vite mit OOM abbrechen.
@@ -87,7 +109,7 @@ Erreichbar intern: `http://<LXC-IP>:8080`
 ## 5. Nginx Proxy Manager einrichten
 
 Der Stack läuft auf Port `8080` des LXC-Containers. NPM übernimmt SSL und
-leitet den Traffic weiter. **Wichtig:** NPM muss die LXC-IP erreichen können
+leitet den Traffic weiter. **Wichtig:** NPM muss die VM-/LXC-IP erreichen können
 (gleicher Proxmox-Host oder Netzwerk-Erreichbarkeit).
 
 ### Proxy Host anlegen
@@ -98,7 +120,7 @@ Im NPM-Webinterface unter *Proxy Hosts → Add Proxy Host*:
 |---|---|
 | Domain Names | `lernapp.deinedomain.de` |
 | Scheme | `http` |
-| Forward Hostname / IP | `<LXC-IP>` (z. B. `192.168.1.120`) |
+| Forward Hostname / IP | `<VM-ODER-LXC-IP>` (z. B. `192.168.1.120`) |
 | Forward Port | `8080` |
 | Cache Assets | ✓ (optional, empfohlen) |
 | Block Common Exploits | ✓ |

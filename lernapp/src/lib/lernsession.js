@@ -15,6 +15,13 @@ import { shuffle } from './shuffle';
 
 /** Standard-Sessionlänge – kurz genug, dass es sich „leicht" anfühlt. */
 export const STANDARD_UMFANG = 10;
+export const SESSION_UMFAENGE = [5, 10, 20];
+
+/** Hält gespeicherte/URL-Werte auf den unterstützten mobilen Sessionlängen. */
+export function normalisiereSessionUmfang(wert) {
+  const zahl = Number(wert);
+  return SESSION_UMFAENGE.includes(zahl) ? zahl : STANDARD_UMFANG;
+}
 
 /**
  * Sortiert Objekte in Lern-Eimer (interne Naht, von beiden Session-Buildern

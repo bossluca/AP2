@@ -2,6 +2,7 @@
 # Verhindert das CRLF-Rauschen (35 „modified" Dateien ohne Inhaltsänderung)
 # zwischen Windows-Dev und Cloud-/Linux-Umgebungen.
 * text=auto
+*.sh text eol=lf
 
 # Explizit binär (nie anfassen)
 *.png binary

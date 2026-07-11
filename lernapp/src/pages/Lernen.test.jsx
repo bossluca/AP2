@@ -25,6 +25,20 @@ describe('Heute lernen', () => {
     // Aufdecken passiert über die Confidence-Angabe („ein Tipp, gleiche Reibung").
     expect(screen.getByRole('button', { name: /Weiß ich/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Bin unsicher/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /Sessionlänge/i })).toHaveValue('10');
+  });
+
+  it('merkt eine kurze 5-Karten-Session lokal', async () => {
+    const user = userEvent.setup();
+    const { unmount } = renderPage();
+    await user.selectOptions(screen.getByRole('combobox', { name: /Sessionlänge/i }), '5');
+    expect(screen.getByText(/^1 \/ 5$/)).toBeInTheDocument();
+    expect(localStorage.getItem('ap2_lernapp_session_umfang_v1')).toBe('5');
+
+    unmount();
+    renderPage();
+    expect(screen.getByRole('combobox', { name: /Sessionlänge/i })).toHaveValue('5');
+    expect(screen.getByText(/^1 \/ 5$/)).toBeInTheDocument();
   });
 
   it('aufdecken (unsicher) und bewerten rückt zur nächsten Karte vor', async () => {

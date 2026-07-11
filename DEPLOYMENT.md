@@ -40,9 +40,11 @@ docker compose up --build
    ```
 2. Starten:
    ```bash
-   docker compose up -d --build
-   docker compose ps    # beide Services sollten "healthy" melden
+   chmod +x scripts/*.sh
+   ./scripts/deploy.sh
    ```
+   Das Skript validiert die Compose-Datei, baut und startet beide Container,
+   wartet auf `healthy` und prüft `/healthz` sowie `/api/health`.
 3. TLS/HTTPS terminiert der vorgelagerte **Nginx Proxy Manager** (NPM):
    Proxy-Host auf `http://<Host-IP>:${WEB_PORT}` anlegen, Let's-Encrypt-Zertifikat
    holen, **„Force SSL" + HSTS aktivieren** (die Security-Header der App selbst
@@ -50,6 +52,22 @@ docker compose up --build
 
 Der Fortschritt der Nutzer liegt in der SQLite-Datei im Volume `db_data`
 (`/app/data/lernapp.sqlite` im Backend-Container).
+
+Vollständige Vor-/Nachkontrolle und Rollback-Auslöser:
+[`DEPLOY_CHECKLIST.md`](DEPLOY_CHECKLIST.md).
+
+### Manuelle Diagnose
+
+```bash
+docker compose ps
+docker compose logs --tail=100 backend web
+./scripts/smoke-test.sh
+```
+
+Die Logdateien werden durch Compose auf drei Dateien mit jeweils maximal 10 MB
+begrenzt. Beide Container laufen mit Read-only-Root-Dateisystem, eigenen temporären
+Dateisystemen und `no-new-privileges`; nur das SQLite-Volume bleibt dauerhaft
+beschreibbar.
 
 ### Backup / Restore
 

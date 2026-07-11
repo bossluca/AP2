@@ -41,7 +41,10 @@ KI-generierte AP2-Übungsklausuren) + 278 Lernzettel-Einheiten (111 AP1 + 167 AP
 | [`server/`](server/) | Backend (Fastify + `node:sqlite`): Auth + Fortschritts-Sync |
 | `Pruefungen_Rohdaten/`, `Pruefungen_Aufbereitet/` | Quell-/aufbereitetes Lernmaterial |
 | [`DEPLOYMENT.md`](DEPLOYMENT.md), [`PROXMOX_SETUP.md`](PROXMOX_SETUP.md) | Hosting (Docker, Proxmox/VPS) |
-| [`ROADMAP.md`](ROADMAP.md), [`DECISIONS.md`](DECISIONS.md), [`IMPROVEMENTS.md`](IMPROVEMENTS.md) | Plan, Architektur-Entscheidungen, Backlog |
+| [`PROJECT_STATUS.md`](PROJECT_STATUS.md) | Aktueller, verifizierter Stand und nächste Roadmap |
+| [`CHANGELOG.md`](CHANGELOG.md), [`CONTRIBUTING.md`](CONTRIBUTING.md) | Änderungsprotokoll und verbindlicher Arbeitsablauf |
+| [`MOBILE_DEPLOYMENT_PLAN.md`](MOBILE_DEPLOYMENT_PLAN.md), [`DEPLOY_CHECKLIST.md`](DEPLOY_CHECKLIST.md) | Aktiver Mobile-Sprint und sichere Proxmox-Auslieferung |
+| [`ROADMAP.md`](ROADMAP.md), [`DECISIONS.md`](DECISIONS.md), [`IMPROVEMENTS.md`](IMPROVEMENTS.md) | Historische Phasen, Architektur-Entscheidungen, ausführliches Backlog |
 
 ## Schnellstart (lokal)
 
@@ -62,7 +65,7 @@ vorgelagerten Nginx Proxy Manager) – läuft auf Proxmox-LXC und auf einem VPS:
 
 ```bash
 cp .env.example .env      # WEB_PORT setzen (Default 8080)
-docker compose up -d --build
+chmod +x scripts/*.sh && ./scripts/deploy.sh
 ```
 
 Schritt-für-Schritt: [`DEPLOYMENT.md`](DEPLOYMENT.md) und [`PROXMOX_SETUP.md`](PROXMOX_SETUP.md).

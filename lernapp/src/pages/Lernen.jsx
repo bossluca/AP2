@@ -3,13 +3,20 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
 import { useGamification } from '../context/GamificationContext';
-import { baueLernsession, baueSchwaechenSession, STANDARD_UMFANG } from '../lib/lernsession';
+import {
+  baueLernsession,
+  baueSchwaechenSession,
+  normalisiereSessionUmfang,
+  SESSION_UMFAENGE,
+} from '../lib/lernsession';
 import { berechneStatistik } from '../lib/statistik';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import { noteAusConfidence, istFehlSicherheit } from '../lib/confidence';
 import { useTastenkuerzel } from '../hooks/useTastenkuerzel';
 import MarkdownContent from '../components/MarkdownContent';
+
+const SESSION_UMFANG_KEY = 'ap2_lernapp_session_umfang_v1';
 
 /**
  * „Heute lernen" – eine kurze, fertige Lern-Session ohne Filterauswahl. Genau ein
@@ -32,6 +39,9 @@ export default function Lernen() {
   const [searchParams] = useSearchParams();
 
   const [sessionKey, setSessionKey] = useState(0);
+  const [umfang, setUmfang] = useState(() =>
+    normalisiereSessionUmfang(localStorage.getItem(SESSION_UMFANG_KEY))
+  );
   // Modus: 'heute' (Smart-Session) | 'schwaechen' (gezielt) | 'frei' (lockere Runde).
   const [modus, setModus] = useState(() =>
     searchParams.get('modus') === 'schwaechen' ? 'schwaechen' : 'heute'
@@ -55,18 +65,21 @@ export default function Lernen() {
   // damit die Reihe während des Lernens stabil bleibt. Neu nur bei „Neu starten".
   const session = useMemo(() => {
     const helfer = { getStatus, isDue, getEntry };
-    if (modus === 'frei') return shuffle(objekte).slice(0, STANDARD_UMFANG);
-    if (modus === 'schwaechen') return baueSchwaechenSession(objekte, helfer, { schwachTags });
-    return baueLernsession(objekte, helfer);
+    if (modus === 'frei') return shuffle(objekte).slice(0, umfang);
+    if (modus === 'schwaechen') {
+      return baueSchwaechenSession(objekte, helfer, { schwachTags, umfang });
+    }
+    return baueLernsession(objekte, helfer, { umfang });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [objekte, sessionKey, modus]);
+  }, [objekte, sessionKey, modus, umfang]);
 
   const current = index < session.length ? session[index] : null;
   const fertig = session.length > 0 && index >= session.length;
   const gewusstAnzahl = verlauf.filter(Boolean).length;
 
-  const neustart = (neuModus = modus) => {
+  const neustart = (neuModus = modus, neuerUmfang = umfang) => {
     setModus(neuModus);
+    setUmfang(neuerUmfang);
     setSessionKey((k) => k + 1);
     setIndex(0);
     setRevealed(false);
@@ -74,6 +87,12 @@ export default function Lernen() {
     setXpGesammelt(0);
     setSicherheit(null);
     setFehlSicher(0);
+  };
+
+  const umfangAendern = (event) => {
+    const neuerUmfang = normalisiereSessionUmfang(event.target.value);
+    localStorage.setItem(SESSION_UMFANG_KEY, String(neuerUmfang));
+    neustart(modus, neuerUmfang);
   };
 
   const titel =
@@ -190,15 +209,40 @@ export default function Lernen() {
   // --- Laufende Session -----------------------------------------------------
   return (
     <div className="max-w-xl mx-auto space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <h1 className="text-lg font-bold">{titel}</h1>
-        <span className="text-sm text-gray-500">
-          {index + 1} / {session.length}
-        </span>
+        <div className="flex items-center gap-2">
+          <label className="sr-only" htmlFor="session-umfang">
+            Sessionlänge
+          </label>
+          <select
+            id="session-umfang"
+            value={umfang}
+            onChange={umfangAendern}
+            className="input min-h-11 py-1.5 pr-8"
+            aria-label="Sessionlänge"
+          >
+            {SESSION_UMFAENGE.map((wert) => (
+              <option key={wert} value={wert}>
+                {wert} Karten
+              </option>
+            ))}
+          </select>
+          <span className="text-sm text-gray-500 whitespace-nowrap" aria-live="polite">
+            {index + 1} / {session.length}
+          </span>
+        </div>
       </div>
 
       {/* Fortschritts-Punkte */}
-      <div className="flex gap-1.5">
+      <div
+        className="flex gap-1.5"
+        role="progressbar"
+        aria-label="Fortschritt der Lernsession"
+        aria-valuemin="0"
+        aria-valuemax={session.length}
+        aria-valuenow={index}
+      >
         {session.map((_, i) => {
           const cls =
             i < index
@@ -225,27 +269,6 @@ export default function Lernen() {
             <div className={`flip-inner ${revealed ? 'is-flipped' : ''}`}>
               <div className="flip-face space-y-4">
                 <MarkdownContent>{current.front}</MarkdownContent>
-                {/* Aufdecken mit Confidence-Angabe: ein Tipp, gleiche Reibung. */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setSicherheit(false);
-                      setRevealed(true);
-                    }}
-                    className="btn-soft-amber flex-1 py-2.5"
-                  >
-                    🤔 Bin unsicher
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSicherheit(true);
-                      setRevealed(true);
-                    }}
-                    className="btn-primary flex-1 py-2.5"
-                  >
-                    💡 Weiß ich
-                  </button>
-                </div>
               </div>
               <div className="flip-face flip-back border-t border-gray-200 dark:border-gray-800 pt-3 space-y-2">
                 {current.back ? (
@@ -266,6 +289,29 @@ export default function Lernen() {
             </div>
           </div>
 
+          {!revealed && (
+            <div className="learning-actions">
+              <button
+                onClick={() => {
+                  setSicherheit(false);
+                  setRevealed(true);
+                }}
+                className="btn-soft-amber flex-1 py-2.5"
+              >
+                🤔 Bin unsicher
+              </button>
+              <button
+                onClick={() => {
+                  setSicherheit(true);
+                  setRevealed(true);
+                }}
+                className="btn-primary flex-1 py-2.5"
+              >
+                💡 Weiß ich
+              </button>
+            </div>
+          )}
+
           {revealed && (
             <div className="space-y-2">
               {sicherheit === true && (
@@ -273,7 +319,7 @@ export default function Lernen() {
                   Du warst sicher – sei ehrlich, hat es wirklich gesessen?
                 </p>
               )}
-              <div className="flex gap-2">
+              <div className="learning-actions">
                 <button onClick={() => bewerten(false)} className="btn-soft-red flex-1 py-2.5">
                   Nicht gewusst <span className="opacity-60" aria-hidden="true">(1)</span>
                 </button>
@@ -284,7 +330,7 @@ export default function Lernen() {
             </div>
           )}
 
-          <p className="text-[11px] text-gray-400 text-center">
+          <p className="hidden sm:block text-[11px] text-gray-400 text-center">
             Tipp: Leertaste aufdecken · 1 = nicht gewusst · 2 = gewusst
           </p>
         </div>

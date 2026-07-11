@@ -116,7 +116,7 @@ function TopBar({ onPalette }) {
 }
 
 const bottomItemClass = ({ isActive }) =>
-  `flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium transition-colors ${
+  `flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium transition-colors ${
     isActive ? 'text-accent' : 'text-gray-500 dark:text-gray-400'
   }`;
 
@@ -132,7 +132,7 @@ function BottomNav({ onMehr }) {
             <span>{it.label}</span>
           </NavLink>
         ))}
-        <button onClick={onMehr} className="flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-gray-500 dark:text-gray-400">
+        <button onClick={onMehr} className="flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-gray-500 dark:text-gray-400">
           <Menu size={20} aria-hidden="true" />
           <span>Mehr</span>
         </button>

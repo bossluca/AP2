@@ -9,15 +9,26 @@
 # Funktioniert auf Proxmox-LXC (mit Docker). Siehe PROXMOX_SETUP.md und die
 # Sicherheits-Checkliste in DEPLOYMENT.md.
 
+name: fisidev
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   backend:
     build: ./server
+    init: true
     restart: unless-stopped
+    read_only: true
     environment:
       NODE_ENV: production
       PORT: 3001
       DB_PATH: /app/data/lernapp.sqlite
       SESSION_COOKIE_NAME: ${SESSION_COOKIE_NAME:-ap_session}
+      TRUST_PROXY: "1"
     volumes:
       - db_data:/app/data
     # Kein direkter Port nach außen – nur intern für den web-Container
@@ -27,7 +38,11 @@ services:
     # erlangen (setuid o. ä.); moderate Ressourcen-Deckel gegen Amok-Prozesse.
     security_opt:
       - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=16m,noexec,nosuid
     mem_limit: 512m
+    logging: *default-logging
+    stop_grace_period: 20s
     healthcheck:
       # node ist im Image vorhanden; fetch wirft bei != 2xx nicht → Status prüfen.
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
@@ -42,17 +57,24 @@ services:
       args:
         VITE_BASE: /
     restart: unless-stopped
+    init: true
+    read_only: true
     depends_on:
       backend:
         condition: service_healthy
     ports:
       # NPM zeigt auf diesen Port. Auf dem Host eine freie Portnummer wählen.
-      - "${WEB_PORT:-8080}:8080"
+      - "${BIND_ADDRESS:-0.0.0.0}:${WEB_PORT:-8080}:8080"
     security_opt:
       - no-new-privileges:true
+    tmpfs:
+      - /var/cache/nginx:size=32m,noexec,nosuid
+      - /var/run:size=1m,noexec,nosuid
     mem_limit: 256m
+    logging: *default-logging
+    stop_grace_period: 10s
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/healthz"]
       interval: 30s
       timeout: 5s
       retries: 3

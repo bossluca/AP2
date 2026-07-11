@@ -93,7 +93,7 @@ details > summary {
 
 /* Buttons */
 @utility btn {
-  @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 disabled:opacity-60 disabled:pointer-events-none;
+  @apply inline-flex min-h-11 touch-manipulation items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 disabled:opacity-60 disabled:pointer-events-none;
   --tw-ring-color: color-mix(in srgb, var(--accent) 55%, transparent);
 }
 @utility btn-primary {
@@ -129,8 +129,35 @@ details > summary {
 
 /* Formularelemente */
 @utility input {
-  @apply rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 dark:border-[#2a3326] dark:bg-[#0d120b];
+  @apply min-h-11 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 dark:border-[#2a3326] dark:bg-[#0d120b];
   --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+/* Mobile Lernaktionen bleiben im Daumenbereich oberhalb der Bottom-Navigation. */
+.learning-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 639px) {
+  .learning-actions {
+    position: sticky;
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
+    z-index: 10;
+    margin-inline: -0.25rem;
+    padding: 0.5rem 0.25rem;
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, white 92%, transparent);
+    backdrop-filter: blur(12px);
+  }
+
+  .dark .learning-actions {
+    background: color-mix(in srgb, #11160f 92%, transparent);
+  }
+
+  .learning-actions > button {
+    min-height: 3rem;
+  }
 }
 
 /* --- Dekorativer „Aurora"-Hintergrund (weiche Farbverläufe) ------------- */

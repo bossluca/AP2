@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { baueLernsession, baueSchwaechenSession, STANDARD_UMFANG } from './lernsession';
+import {
+  baueLernsession,
+  baueSchwaechenSession,
+  normalisiereSessionUmfang,
+  STANDARD_UMFANG,
+} from './lernsession';
 
 /** Baut Helfer aus einfachen Maps. */
 function helfer({ status = {}, due = {}, box = {} } = {}) {
@@ -13,6 +18,12 @@ function helfer({ status = {}, due = {}, box = {} } = {}) {
 const obj = (id) => ({ id });
 
 describe('baueLernsession', () => {
+  it('normalisiert die auswählbare Sessionlänge', () => {
+    expect(normalisiereSessionUmfang('5')).toBe(5);
+    expect(normalisiereSessionUmfang(20)).toBe(20);
+    expect(normalisiereSessionUmfang('7')).toBe(STANDARD_UMFANG);
+  });
+
   it('lässt bereits Gelerntes, das nicht fällig ist, weg', () => {
     const objekte = [obj('a'), obj('b')];
     const h = helfer({ status: { a: 'gelernt', b: 'gelernt' }, due: { a: false, b: false } });
