@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "backup": "node scripts/backup-data.mjs",
     "validate-data": "node scripts/backup-data.mjs --check",
+    "analyse-ap2": "node scripts/analyse-ap2-themenmatrix.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },

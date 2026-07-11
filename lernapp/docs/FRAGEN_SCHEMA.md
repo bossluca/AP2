@@ -150,9 +150,14 @@ Tests: [`src/lib/antwortpruefung.test.js`](../src/lib/antwortpruefung.test.js).
   themen angelehnt, nicht offiziell)"`, `meta.status` entsprechend. **Nie** offizielle
   Aufgaben 1:1 übernehmen (Urheberrecht, `DECISIONS.md` ADR-007).
 
-**Referenz-Beispiel:** [`scripts/import/import-ap2-pruefungsfragen.mjs`](../scripts/import/import-ap2-pruefungsfragen.mjs)
+**Referenz-Beispiele:** [`scripts/import/import-ap2-pruefungsfragen.mjs`](../scripts/import/import-ap2-pruefungsfragen.mjs)
 baut eine komplette, strukturierte AP2-Übungsklausur (7 Aufgaben, Schlagwörter) –
-idempotent, als Vorlage für weitere Sets nutzbar.
+idempotent, als Vorlage für weitere Sets nutzbar. Set 4 unter
+[`scripts/import/import-ap2-pruefungsfragen-4.mjs`](../scripts/import/import-ap2-pruefungsfragen-4.mjs)
+zeigt zusätzlich den verpflichtenden Keyword-Selbsttest.
+
+Die reproduzierbare Abdeckungsanalyse wird mit `npm run analyse-ap2` erzeugt und
+nach [`AP2_THEMENMATRIX.md`](AP2_THEMENMATRIX.md) geschrieben.
 
 ## 5. Empfohlener Weg zum Einpflegen
 

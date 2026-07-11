@@ -25,8 +25,8 @@ Streak/XP geräteübergreifend – ohne Konto läuft alles rein lokal.
 
 Quelle ist eine gebündelte JSON-Datei (`src/data/exam_data.json`) mit zwei Bereichen:
 
-**`exams`** – 9 Prüfungstermine: 6 AP1-Prüfungen (Frühjahr 2022 – Herbst 2025,
-**paraphrasiert/KI-überarbeitet**, s. `../DECISIONS.md` ADR-007) + **3 KI-generierte
+**`exams`** – 10 Prüfungstermine: 6 AP1-Prüfungen (Frühjahr 2022 – Herbst 2025,
+**paraphrasiert/KI-überarbeitet**, s. `../DECISIONS.md` ADR-007) + **4 KI-generierte
 AP2-Übungsklausuren** (je 11 Aufgaben mit Schlagwort-Auto-Auswertung); jede Prüfung
 trägt `meta.pruefungsteil` (AP1/AP2).
 
@@ -139,7 +139,7 @@ lernapp/
    │  ├─ ProgressContext.jsx  # Single Source of Truth (Status + Leitner-SRS)
    │  └─ ThemeContext.jsx     # Hell-/Dunkel-Modus
    ├─ data/
-   │  ├─ exam_data.json       # exams (200 Einträge) + lerneinheiten (278)
+   │  ├─ exam_data.json       # exams (287 Einträge) + lerneinheiten (278)
    │  ├─ useExamData.js       # Selektoren (Fragen, Tags, Termine, Lerneinheiten)
    │  ├─ lernobjekte.js       # Einheitliche Sicht Fragen+Lernzettel + Filter
    │  └─ useProgress.js       # @deprecated Re-Export aus ProgressContext

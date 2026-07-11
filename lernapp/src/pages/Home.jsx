@@ -55,7 +55,14 @@ export default function Home() {
   const [termin, setTermin] = useState(() => ladePruefungstermin());
   const tage = useMemo(() => tageBisTermin(termin), [termin]);
   // Ehrliches Tagespensum rückwärts vom Termin (Wiederholungen + neue Objekte).
-  const plan = useMemo(() => baueTagesplan(objekte, progress, termin), [objekte, progress, termin]);
+  const plan = useMemo(
+    () => baueTagesplan(objekte, progress, termin, new Date(), { themenReife: reife.proThema }),
+    [objekte, progress, termin, reife.proThema]
+  );
+  const planLink =
+    plan?.prioritaetsThemen?.length > 0
+      ? `/lernen?modus=plan&themen=${encodeURIComponent(plan.prioritaetsThemen.join('|'))}`
+      : '/lernen';
   const updateTermin = (v) => {
     setzePruefungstermin(v);
     setTermin(v || null);
@@ -177,13 +184,25 @@ export default function Home() {
                   ` · heute: ${plan.wiederholungenHeute} Wiederholungen + ${Math.min(plan.neu, plan.neuProTag)} neue`}
               </div>
               {plan && (
-                <div className="text-xs text-gray-400 mt-0.5">
-                  {plan.einschaetzung === 'locker' && 'Entspanntes Pensum – du bist gut in der Zeit. 🌱'}
-                  {plan.einschaetzung === 'gut' && 'Machbares Pensum – dranbleiben. 💪'}
-                  {plan.einschaetzung === 'sportlich' &&
-                    (plan.schaffbarBisTermin
-                      ? 'Sportliches Pensum – kürzere, häufigere Sessions helfen. 🔥'
-                      : `Sportlich: ${plan.neu} Objekte sind noch neu – priorisiere Schwächen statt Vollständigkeit. 🔥`)}
+                <div className="space-y-1 mt-0.5">
+                  <div className="text-xs text-gray-400">
+                    {plan.einschaetzung === 'locker' && 'Entspanntes Pensum – du bist gut in der Zeit. 🌱'}
+                    {plan.einschaetzung === 'gut' && 'Machbares Pensum – dranbleiben. 💪'}
+                    {plan.einschaetzung === 'sportlich' &&
+                      (plan.schaffbarBisTermin
+                        ? 'Sportliches Pensum – kürzere, häufigere Sessions helfen. 🔥'
+                        : `Sportlich: ${plan.neu} Objekte sind noch neu – priorisiere Schwächen statt Vollständigkeit. 🔥`)}
+                  </div>
+                  {plan.prioritaetsThemen.length > 0 && (
+                    <div className="text-xs text-amber-600">
+                      Zuerst: {plan.prioritaetsThemen.join(' · ')}
+                    </div>
+                  )}
+                  {plan.pensumHeute > 0 && (
+                    <Link to={planLink} className="inline-flex text-xs font-medium text-accent hover:underline">
+                      Tagesplan starten →
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

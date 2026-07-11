@@ -20,7 +20,7 @@ sind da und sauber gebaut (tiefe, getestete Module; 117 Tests; PWA/offline; Back
 | **Übungsmodi** | Karteikarten, Quiz (Selbsteinschätzung), „Heute lernen"-Smart-Session, Schwächen-Training, Klausur-Simulation (Freitext + Schlagwort-Check + Timer) |
 | **Gamification** | Streak + Tagesziel, XP/Level, GitHub-Heatmap, 10 Badges, Konfetti |
 | **Statistik** | % gelernt, Box-Verteilung, Fälligkeit, **Schwachstellen je Tag**, Verlauf, Aufschlüsselung AP1/AP2 |
-| **Inhalt** | 213 Prüfungseinträge (6 AP1 paraphrasiert + 1 AP2-Übungsklausur), 278 Lernzettel |
+| **Inhalt** | 287 Prüfungseinträge (6 AP1 paraphrasiert + 4 AP2-Übungsklausuren), 278 Lernzettel |
 | **Technik** | React 19/Vite 6/Tailwind 4, PWA/offline, Dark-Mode, Mobile-Bottom-Nav, Fastify-Backend mit Auth + Sync, reproduzierbare Import-Pipeline |
 
 **Das ist eine starke Basis.** Der nächste Sprung kommt nicht aus „mehr vom Gleichen",

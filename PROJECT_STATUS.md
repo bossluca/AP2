@@ -23,24 +23,24 @@ Framework-Wechsel, sondern:
 | Frontend | React 19, Vite 6, Tailwind 4, React Router 7, HashRouter |
 | Backend | Fastify 5, `node:sqlite`, Session-Cookies, Argon2id |
 | Betrieb | Docker Compose, Nginx, PWA/Offline, optional rein statisch |
-| Tests | 47 Frontend-Testdateien / 275 Tests; 31 Backend-Tests |
+| Tests | 48 Frontend-Testdateien / 279 Tests; 31 Backend-Tests |
 | Qualität | ESLint, Datenvalidierung und Produktionsbuild erfolgreich |
-| Daten | 9 Prüfungen, 265 Einträge, 243 lernbar, 244 mit Lösung |
+| Daten | 10 Prüfungen, 287 Einträge, 265 lernbar, 266 mit Lösung |
 | Lernzettel | 278 Einheiten (111 AP1, 167 AP2) |
-| Prüfungen | 6 paraphrasierte AP1-Prüfungen, 3 KI-generierte AP2-Übungssets |
+| Prüfungen | 6 paraphrasierte AP1-Prüfungen, 4 KI-generierte AP2-Übungssets |
 
 Verifikation vom 2026-07-11:
 
 ```text
-lernapp: npm test               275/275 bestanden
+lernapp: npm test               279/279 bestanden
 lernapp: npm run lint           bestanden
 lernapp: npm run validate-data  bestanden
 lernapp: npm run build          bestanden
 server:  npm test               31/31 bestanden
 ```
 
-Build-Beobachtung: Der PWA-Precache umfasst rund 2,08 MiB. Die größten Chunks sind
-`vendor` (ca. 1,18 MB, gzip ca. 263 KB) und `examdata` (ca. 708 KB, gzip ca. 187 KB).
+Build-Beobachtung: Der PWA-Precache umfasst rund 2,10 MiB. Die größten Chunks sind
+`vendor` (ca. 1,18 MB, gzip ca. 263 KB) und `examdata` (ca. 729 KB, gzip ca. 191 KB).
 Das ist aktuell funktionsfähig, sollte aber vor stark wachsendem AP2-Datenbestand
 gezielt optimiert werden.
 
@@ -83,29 +83,30 @@ gezielt optimiert werden.
 
 ## Nächste Roadmap
 
-### Aktiver Sprint – Mobile Lernen und Deployment
+### Abgeschlossener Sprint – Mobile Lernen und Deployment
 
 Der erste Ausbau-Sprint ist in `MOBILE_DEPLOYMENT_PLAN.md` festgeschrieben. Er
 liefert kurze wählbare Handy-Sessions, daumenfreundliche Antwortaktionen und einen
 reproduzierbaren, gehärteten Docker-Deploy für die Debian-VM. Danach folgt Phase N1.
 
-### Phase N1 – Content-Fundament AP2 (höchste Priorität)
+### Phase N1 – Content-Fundament AP2 · teilweise abgeschlossen
 
-- Eine AP2-Themenmatrix aus Prüfungskatalog, vorhandenen 167 Einheiten und den drei
-  Übungssets erstellen: abgedeckt, schwach abgedeckt, fehlend.
+- ✅ Eine reproduzierbare AP2-Themenmatrix bündelt die 167 Einheiten und vier
+  Übungssets: `lernapp/docs/AP2_THEMENMATRIX.md`.
 - Qualitätskriterien für neue Fragen verbindlich machen: eindeutige Punkte,
   Schwierigkeit, Themen-Tags, Musterlösung, Schlagwörter, Keyword-Selbsttest,
   Herkunft und eigenständige Formulierung.
-- AP2-Set 4 als komplementäres Set planen. Gute Kandidaten aus dem Backlog sind
-  Kerberos/SSO, GFS/Backup, SNMP/Syslog, Segmentierung/Zero Trust,
-  WLAN-Ausleuchtung und vertiefte SQL-Joins.
+- ✅ AP2-Set 4 ergänzt 22 Fragen/99 Punkte zu Kerberos/SSO, GFS/Backup,
+  SNMP/Syslog, Segmentierung/Zero Trust, WLAN-Ausleuchtung, SQL-Joins,
+  TLS, Linux, Hochverfügbarkeit, Incident Response und SLA/Kapazität.
+- Als nächste Content-Lücke weist die Matrix nur noch VPN/Fernzugriff als „dünn“ aus.
 - Danach weitere Sets nur anhand nachweisbarer Lücken ergänzen, nicht nach Menge.
 
 ### Phase N2 – Adaptive Lernsteuerung
 
-- Tagesplan mit Themen-Mastery koppeln: Pensum nicht nur mengenmäßig, sondern nach
-  schwächsten und prüfungsrelevanten Themen zusammenstellen.
-- Direkteinstieg in die vorgeschlagene, vorgefilterte Session.
+- ✅ Tagesplan mit Themen-Mastery gekoppelt: Pensum wird nach den schwächsten
+  heute bearbeitbaren Themen zusammengestellt.
+- ✅ Direkteinstieg in die vorgeschlagene, vorgefilterte Tagesplan-Session.
 - Session-Länge wählbar machen und einen Filter für schwere Aufgaben ergänzen.
 - Prüfen, ob Matching- und Reihenfolgeaufgaben fachlich zuverlässig aus den Daten
   generiert werden können.

@@ -14,6 +14,10 @@ verständliche Ergebnis inklusive Verifikation.
   Einhandbedienung.
 - 2026-07-11: Reproduzierbarer Docker-Deploy mit Vorprüfung, Health-Wartephase
   und Smoke-Test sowie eine konkrete Deploy-/Rollback-Checkliste.
+- 2026-07-11: AP2-Übungsklausur 4 mit 22 KI-generierten Fragen in 11 Aufgaben
+  (99 Punkte), lückenorientiert und mit Keyword-Selbsttest.
+- 2026-07-11: Reproduzierbare AP2-Themenmatrix mit stabilem Themenkatalog,
+  Abdeckungsstatus und npm-Skript `analyse-ap2`.
 
 ### Geändert
 
@@ -23,6 +27,8 @@ verständliche Ergebnis inklusive Verifikation.
   zwischengespeichert; neue Versionen werden zuverlässiger erkannt.
 - 2026-07-11: Proxmox-Anleitung auf die tatsächlich verwendete Debian-VM als
   bevorzugten Docker-Host erweitert.
+- 2026-07-11: Tagesplan priorisiert schwache, heute bearbeitbare Themen und
+  startet direkt eine entsprechend vorgefilterte Lernsession.
 
 ### Dokumentation
 
@@ -35,7 +41,7 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Verifikation
 
-- 2026-07-11: Frontend 275 Tests, Backend 31 Tests, ESLint, Datenvalidierung und
+- 2026-07-11: Frontend 279 Tests, Backend 31 Tests, ESLint, Datenvalidierung und
   Produktionsbuild erfolgreich.
 - 2026-07-11: Bundle-Wachstum als technischer Fokus bestätigt: PWA-Precache rund
   2,08 MiB; große `vendor`- und `examdata`-Chunks.

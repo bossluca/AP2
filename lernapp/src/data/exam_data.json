@@ -13917,6 +13917,671 @@
           "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
         }
       ]
+    },
+    {
+      "meta": {
+        "jahr": 2026,
+        "saison": "Übungsklausur 4",
+        "fachrichtung": "Fachinformatiker/in für Systemintegration",
+        "teil": "AP2 – Ganzheitliche Aufgabe (Übung)",
+        "titel": "AP2 Übungsklausur 4 (KI-generiert)",
+        "datum": null,
+        "dauer": "90 Minuten",
+        "punkte_gesamt": 99,
+        "status": "KI-generiert – an AP2-Prüfungsthemen angelehnt, nicht offiziell",
+        "quelle_dateiname": "ki_ap2_uebung4_2026",
+        "pruefungsteil": "AP2"
+      },
+      "fragen": [
+        {
+          "id": "ap2ki4_1a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 1,
+          "aufgabe_titel": "Kerberos & Single Sign-on",
+          "teilfrage": "1a",
+          "ueberschrift": "",
+          "frage_text": "Ein Domänenbenutzer soll mehrere interne Dienste ohne erneute Passworteingabe verwenden. Erklären Sie den Kerberos-Ablauf mit **TGT** und **Service-Ticket**.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Nach der Anmeldung stellt das **KDC** nach erfolgreicher Authentifizierung ein **Ticket Granting Ticket (TGT)** aus. Für einen konkreten Dienst fordert der Client damit ein **Service-Ticket** an. Der Dienst prüft dieses Ticket; das Passwort wird nicht an jeden Dienst übertragen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Betriebssysteme/Verzeichnisdienst"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "KDC",
+            "TGT",
+            "Service-Ticket",
+            "Passwort"
+          ],
+          "kategorie": "Kerberos & Single Sign-on",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_1b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 1,
+          "aufgabe_titel": "Kerberos & Single Sign-on",
+          "teilfrage": "1b",
+          "ueberschrift": "",
+          "frage_text": "Nennen Sie zwei Vorteile und ein Risiko von Single Sign-on im Unternehmen.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Vorteile sind **weniger Passworteingaben**, eine zentrale **Kontosperrung** und weniger Passwort-Wildwuchs. Risiko: Ein kompromittiertes zentrales Konto ermöglicht Zugriff auf **mehrere Dienste**; deshalb sind MFA und kurze Sitzungen wichtig.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Betriebssysteme/Verzeichnisdienst"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Passworteingaben",
+            "Kontosperrung",
+            "mehrere Dienste",
+            "MFA"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Kerberos & Single Sign-on",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_2a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 2,
+          "aufgabe_titel": "Backup-Strategie, GFS, RPO & RTO",
+          "teilfrage": "2a",
+          "ueberschrift": "",
+          "frage_text": "Entwerfen Sie für einen Fileserver eine **GFS-Rotation** und erläutern Sie die Rollen von Großvater, Vater und Sohn.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Bei GFS stehen **Sohn** für tägliche, **Vater** für wöchentliche und **Großvater** für monatliche Sicherungen. Mehrere Generationen werden getrennt aufbewahrt, sodass kurzfristige Fehler und ältere Datenstände wiederherstellbar bleiben.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datensicherung/Storage"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "tägliche",
+            "wöchentliche",
+            "monatliche",
+            "Generationen"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Backup-Strategie, GFS, RPO & RTO",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_2b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 2,
+          "aufgabe_titel": "Backup-Strategie, GFS, RPO & RTO",
+          "teilfrage": "2b",
+          "ueberschrift": "",
+          "frage_text": "Ein Dienst hat RPO 4 Stunden und RTO 2 Stunden. Erklären Sie beide Werte und leiten Sie eine passende Sicherungsvorgabe ab.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "**RPO 4 Stunden** bedeutet höchstens vier Stunden tolerierten **Datenverlust**; Sicherungen oder Replikationen müssen daher mindestens alle vier Stunden erfolgen. **RTO 2 Stunden** bedeutet, dass der Dienst spätestens zwei Stunden nach dem Ausfall wieder **betriebsbereit** sein muss.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datensicherung/Storage"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "RPO",
+            "Datenverlust",
+            "RTO",
+            "betriebsbereit"
+          ],
+          "kategorie": "Backup-Strategie, GFS, RPO & RTO",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_3a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 3,
+          "aufgabe_titel": "SNMP, Syslog & Alarmierung",
+          "teilfrage": "3a",
+          "ueberschrift": "",
+          "frage_text": "Vergleichen Sie SNMP-Polling und SNMP-Traps für die Überwachung eines Switches.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Beim **Polling** fragt das Managementsystem regelmäßig Messwerte beim Gerät ab. Ein **Trap** wird vom Gerät bei einem **Ereignis** selbstständig gesendet. Polling erkennt Trends planbar, Traps melden Ereignisse schnell, können aber verloren gehen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Monitoring/IT-Betrieb"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Polling",
+            "regelmäßig",
+            "Trap",
+            "Ereignis"
+          ],
+          "kategorie": "SNMP, Syslog & Alarmierung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_3b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 3,
+          "aufgabe_titel": "SNMP, Syslog & Alarmierung",
+          "teilfrage": "3b",
+          "ueberschrift": "",
+          "frage_text": "Warum sollten Server und Netzwerkgeräte ihre Syslog-Meldungen an einen zentralen Logserver senden? Nennen Sie drei Gründe.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Zentrale Logs ermöglichen **Korrelation** über mehrere Systeme, schnelle **Suche**, einheitliche **Aufbewahrung** und Alarmierung. Bei einem kompromittierten Gerät bleiben ausgelagerte Protokolle außerdem gegen lokale **Manipulation** geschützt.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Monitoring/IT-Betrieb"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Korrelation",
+            "Suche",
+            "Aufbewahrung",
+            "Manipulation"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "SNMP, Syslog & Alarmierung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_4a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 4,
+          "aufgabe_titel": "Netzsegmentierung & Zero Trust",
+          "teilfrage": "4a",
+          "ueberschrift": "",
+          "frage_text": "Ein Unternehmen trennt Clients, Server, Verwaltung und IoT in VLANs. Erläutern Sie den Sicherheitsgewinn und die notwendige Kommunikation zwischen den VLANs.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "VLANs bilden getrennte **Broadcast-Domänen** und begrenzen die **laterale Bewegung** eines Angreifers. Verkehr zwischen den Segmenten läuft über einen **Router oder eine Firewall** und wird dort mit expliziten **Regeln** nach dem Least-Privilege-Prinzip freigegeben.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Broadcast-Domänen",
+            "laterale Bewegung",
+            "Firewall",
+            "Regeln"
+          ],
+          "kategorie": "Netzsegmentierung & Zero Trust",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_4b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 4,
+          "aufgabe_titel": "Netzsegmentierung & Zero Trust",
+          "teilfrage": "4b",
+          "ueberschrift": "",
+          "frage_text": "Erklären Sie den Zero-Trust-Grundsatz „Never trust, always verify“ und nennen Sie zwei technische Maßnahmen.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Zero Trust gewährt keinen pauschalen Vertrauensvorschuss. Jeder Zugriff wird anhand von **Identität**, Gerätezustand und Kontext **geprüft** und minimal autorisiert. Maßnahmen sind **MFA**, Geräte-Compliance, **Mikrosegmentierung** und zeitlich begrenzte Rechte.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Identität",
+            "geprüft",
+            "MFA",
+            "Mikrosegmentierung"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Netzsegmentierung & Zero Trust",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_5a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 5,
+          "aufgabe_titel": "WLAN-Ausleuchtung & Sicherheit",
+          "teilfrage": "5a",
+          "ueberschrift": "",
+          "frage_text": "Beschreiben Sie vier Schritte einer professionellen WLAN-Ausleuchtung für ein neues Büro.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Zuerst werden **Grundriss**, Materialien und Nutzerlast aufgenommen. Danach folgt eine Funkplanung. Vor Ort misst ein **Site Survey** Signalstärke, Störungen und Kanalbelegung. Anschließend werden AP-Positionen und **Kanäle** angepasst und durch eine **Nachmessung** validiert.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/IP-Adressierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Grundriss",
+            "Site Survey",
+            "Kanäle",
+            "Nachmessung"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "WLAN-Ausleuchtung & Sicherheit",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_5b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 5,
+          "aufgabe_titel": "WLAN-Ausleuchtung & Sicherheit",
+          "teilfrage": "5b",
+          "ueberschrift": "",
+          "frage_text": "Warum sind überlappungsfreie Kanäle und WPA3-Enterprise für ein Firmen-WLAN sinnvoll?",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Überlappungsarme **Kanäle** reduzieren gegenseitige **Interferenzen**. **WPA3-Enterprise** authentifiziert Benutzer oder Geräte zentral über 802.1X/**RADIUS** und liefert individuelle Zugangsdaten statt eines gemeinsam genutzten Schlüssels.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/IP-Adressierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Kanäle",
+            "Interferenzen",
+            "WPA3-Enterprise",
+            "RADIUS"
+          ],
+          "kategorie": "WLAN-Ausleuchtung & Sicherheit",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_6a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 6,
+          "aufgabe_titel": "SQL-Joins & Datenbankleistung",
+          "teilfrage": "6a",
+          "ueberschrift": "",
+          "frage_text": "Die Tabellen Kunde(id, name) und Ticket(id, kunde_id, status) sollen alle Kunden inklusive Kunden ohne Ticket ausgeben. Welcher Join ist nötig? Geben Sie ein SQL-Beispiel an.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Benötigt wird ein **LEFT JOIN**, weil alle Zeilen der linken Tabelle Kunde erhalten bleiben. Beispiel: SELECT Kunde.name, Ticket.status FROM Kunde LEFT JOIN Ticket **ON** Kunde.id = Ticket.**kunde_id**. Kunden ohne Ticket erhalten **NULL**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenbank/SQL/ER-Modell"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "LEFT JOIN",
+            "ON",
+            "kunde_id",
+            "NULL"
+          ],
+          "kategorie": "SQL-Joins & Datenbankleistung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_6b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 6,
+          "aufgabe_titel": "SQL-Joins & Datenbankleistung",
+          "teilfrage": "6b",
+          "ueberschrift": "",
+          "frage_text": "Erläutern Sie Nutzen und Nachteil eines Index auf Ticket(kunde_id).",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Der **Index** **beschleunigt** Suche und Join über kunde_id. Er benötigt zusätzlichen **Speicher** und macht **INSERT**, UPDATE und DELETE langsamer, weil die Indexstruktur mitgepflegt werden muss.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenbank/SQL/ER-Modell"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Index",
+            "beschleunigt",
+            "Speicher",
+            "INSERT"
+          ],
+          "kategorie": "SQL-Joins & Datenbankleistung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_7a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 7,
+          "aufgabe_titel": "TLS-Zertifikate & Widerruf",
+          "teilfrage": "7a",
+          "ueberschrift": "",
+          "frage_text": "Welche Prüfungen sollte ein Browser an einem TLS-Serverzertifikat durchführen?",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Der Browser prüft die **Signaturkette** bis zu einer vertrauenswürdigen CA, den passenden **Hostnamen**, den **Gültigkeitszeitraum** und den **Widerruf**. Nur dann ist die Serveridentität plausibel.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Signaturkette",
+            "Hostname",
+            "Gültigkeitszeitraum",
+            "Widerruf"
+          ],
+          "kategorie": "TLS-Zertifikate & Widerruf",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_7b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 7,
+          "aufgabe_titel": "TLS-Zertifikate & Widerruf",
+          "teilfrage": "7b",
+          "ueberschrift": "",
+          "frage_text": "Vergleichen Sie CRL und OCSP für die Zertifikatsprüfung.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Eine **CRL** ist eine regelmäßig geladene **Liste** widerrufener Zertifikate. **OCSP** fragt den **Status** eines einzelnen Zertifikats online ab und ist aktueller, erzeugt aber Verfügbarkeits- und Datenschutzabhängigkeiten.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "CRL",
+            "Liste",
+            "OCSP",
+            "Status"
+          ],
+          "kategorie": "TLS-Zertifikate & Widerruf",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_8a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 8,
+          "aufgabe_titel": "Linux-Berechtigungen & Dienste",
+          "teilfrage": "8a",
+          "ueberschrift": "",
+          "frage_text": "Interpretieren Sie die Linux-Rechte -rwxr-x--- und nennen Sie eine passende chmod-Oktalzahl.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Der **Besitzer** darf lesen, schreiben und ausführen. Die **Gruppe** darf lesen und ausführen. Andere besitzen **keine Rechte**. Die Oktalzahl lautet **750**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Algorithmen/Pseudocode"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Besitzer",
+            "Gruppe",
+            "keine Rechte",
+            "750"
+          ],
+          "kategorie": "Linux-Berechtigungen & Dienste",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_8b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 8,
+          "aufgabe_titel": "Linux-Berechtigungen & Dienste",
+          "teilfrage": "8b",
+          "ueberschrift": "",
+          "frage_text": "Ein Dienst startet nicht. Nennen Sie drei systematische Prüfschritte mit systemd und Journal.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Mit **systemctl status** wird der Zustand geprüft, mit **journalctl** werden die Dienstlogs gelesen. Danach werden **Konfiguration**, Rechte und belegte **Ports** geprüft; nach der Korrektur folgt ein kontrollierter Neustart.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Algorithmen/Pseudocode"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "systemctl status",
+            "journalctl",
+            "Konfiguration",
+            "Ports"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Linux-Berechtigungen & Dienste",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_9a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 9,
+          "aufgabe_titel": "Hochverfügbarkeit & Load Balancing",
+          "teilfrage": "9a",
+          "ueberschrift": "",
+          "frage_text": "Erklären Sie Active/Passive-Failover und nennen Sie eine Voraussetzung für einen zustandsbehafteten Dienst.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Beim **Active/Passive**-Betrieb verarbeitet der aktive Knoten Anfragen; ein passiver Knoten **übernimmt** beim **Ausfall**. Für zustandsbehaftete Dienste müssen Daten oder Sitzungen **repliziert** werden.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Active/Passive",
+            "übernimmt",
+            "Ausfall",
+            "repliziert"
+          ],
+          "kategorie": "Hochverfügbarkeit & Load Balancing",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_9b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 9,
+          "aufgabe_titel": "Hochverfügbarkeit & Load Balancing",
+          "teilfrage": "9b",
+          "ueberschrift": "",
+          "frage_text": "Welche Aufgaben übernimmt ein Load Balancer und wozu dient ein Healthcheck?",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Der **Load Balancer** **verteilt** Anfragen auf mehrere Backend-Systeme. Ein **Healthcheck** erkennt nicht funktionsfähige Backends und nimmt sie aus der Verteilung, damit Anfragen nur **gesunde Instanzen** erreichen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Load Balancer",
+            "verteilt",
+            "Healthcheck",
+            "gesunde Instanzen"
+          ],
+          "kategorie": "Hochverfügbarkeit & Load Balancing",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_10a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 10,
+          "aufgabe_titel": "Incident Response & Forensik",
+          "teilfrage": "10a",
+          "ueberschrift": "",
+          "frage_text": "Bringen Sie die Phasen Erkennen, Eindämmen, Beseitigen, Wiederherstellen und Nachbereiten in eine sinnvolle Incident-Response-Reihenfolge.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Reihenfolge: **Erkennen** und bewerten, **Eindämmen** der Ausbreitung, Ursache **beseitigen**, Systeme sicher **wiederherstellen** und anschließend **nachbereiten**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "IT-Service-Management"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Erkennen",
+            "Eindämmen",
+            "beseitigen",
+            "wiederherstellen",
+            "nachbereiten"
+          ],
+          "kategorie": "Incident Response & Forensik",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_10b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 10,
+          "aufgabe_titel": "Incident Response & Forensik",
+          "teilfrage": "10b",
+          "ueberschrift": "",
+          "frage_text": "Warum sind Beweissicherung, Zeitstempel und Chain of Custody bei einem Sicherheitsvorfall wichtig?",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "**Hashes** belegen die **Integrität**, konsistente **Zeitstempel** ordnen Ereignisse, und die **Chain of Custody** dokumentiert jede Übergabe. So bleiben Ergebnisse nachvollziehbar und belastbar.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "IT-Service-Management"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Hashes",
+            "Integrität",
+            "Zeitstempel",
+            "Chain of Custody"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Incident Response & Forensik",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_11a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 11,
+          "aufgabe_titel": "Kapazität, SLA & Kosten",
+          "teilfrage": "11a",
+          "ueberschrift": "",
+          "frage_text": "Ein Monitoring-System speichert täglich 80 GB Rohdaten. Kompression reduziert auf 40 %, Aufbewahrung 30 Tage, zusätzlich 20 % Reserve. Berechnen Sie den Speicherbedarf.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Pro Tag bleiben **32 GB**. Für 30 Tage sind das **960 GB**. Mit 20 % Reserve: **1.152 GB**, also rund **1,15 TB**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Wirtschaftlichkeit/Kosten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "32 GB",
+            "960 GB",
+            "1.152 GB",
+            "1,15 TB"
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "Kapazität, SLA & Kosten",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki4_11b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 4",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 11,
+          "aufgabe_titel": "Kapazität, SLA & Kosten",
+          "teilfrage": "11b",
+          "ueberschrift": "",
+          "frage_text": "Ein SLA garantiert 99,9 % Verfügbarkeit pro 30-Tage-Monat. Berechnen Sie die maximal zulässige Ausfallzeit in Minuten.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "30 Tage entsprechen **43.200** Minuten. Der nicht verfügbare Anteil beträgt **0,1** Prozent. Daraus folgen **43,2 Minuten** maximale **Ausfallzeit**.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Wirtschaftlichkeit/Kosten"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "43.200",
+            "0,1",
+            "43,2 Minuten",
+            "Ausfallzeit"
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "Kapazität, SLA & Kosten",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        }
+      ]
     }
   ],
   "lerneinheiten": [

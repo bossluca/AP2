@@ -30,7 +30,7 @@ Spaced Repetition, optionales Konto für geräteübergreifenden Fortschritt.
   per **Recovery-Code**, DSGVO-Konto-Löschung; ohne Konto läuft alles lokal
 - 💾 **Backup** – Fortschritt als JSON exportieren/importieren (nicht-destruktives Merge)
 
-**Datenstand:** 243 lernbare Prüfungsfragen (6 paraphrasierte AP1-Prüfungen + 3
+**Datenstand:** 265 lernbare Prüfungsfragen (6 paraphrasierte AP1-Prüfungen + 4
 KI-generierte AP2-Übungsklausuren) + 278 Lernzettel-Einheiten (111 AP1 + 167 AP2).
 
 ## Aufbau des Repos

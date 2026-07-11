@@ -43,8 +43,13 @@ export default function Lernen() {
     normalisiereSessionUmfang(localStorage.getItem(SESSION_UMFANG_KEY))
   );
   // Modus: 'heute' (Smart-Session) | 'schwaechen' (gezielt) | 'frei' (lockere Runde).
-  const [modus, setModus] = useState(() =>
-    searchParams.get('modus') === 'schwaechen' ? 'schwaechen' : 'heute'
+  const [modus, setModus] = useState(() => {
+    const wert = searchParams.get('modus');
+    return ['schwaechen', 'plan', 'frei'].includes(wert) ? wert : 'heute';
+  });
+  const planTags = useMemo(
+    () => (searchParams.get('themen') || '').split('|').map((t) => t.trim()).filter(Boolean),
+    [searchParams]
   );
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -66,12 +71,15 @@ export default function Lernen() {
   const session = useMemo(() => {
     const helfer = { getStatus, isDue, getEntry };
     if (modus === 'frei') return shuffle(objekte).slice(0, umfang);
-    if (modus === 'schwaechen') {
-      return baueSchwaechenSession(objekte, helfer, { schwachTags, umfang });
+    if (modus === 'schwaechen' || modus === 'plan') {
+      return baueSchwaechenSession(objekte, helfer, {
+        schwachTags: modus === 'plan' && planTags.length ? planTags : schwachTags,
+        umfang,
+      });
     }
     return baueLernsession(objekte, helfer, { umfang });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [objekte, sessionKey, modus, umfang]);
+  }, [objekte, sessionKey, modus, umfang, planTags]);
 
   const current = index < session.length ? session[index] : null;
   const fertig = session.length > 0 && index >= session.length;
@@ -96,11 +104,24 @@ export default function Lernen() {
   };
 
   const titel =
-    modus === 'schwaechen' ? '🎯 Schwächen-Training' : modus === 'frei' ? '🎲 Lockere Runde' : '📚 Heute lernen';
+    modus === 'schwaechen'
+      ? '🎯 Schwächen-Training'
+      : modus === 'plan'
+        ? '🧭 Dein Tagesplan'
+        : modus === 'frei'
+          ? '🎲 Lockere Runde'
+          : '📚 Heute lernen';
 
   // Resume-Ziel je Modus (für „Weiterlernen" auf der Startseite).
   const resumeZiel = () => {
-    const q = modus === 'schwaechen' ? '?modus=schwaechen' : modus === 'frei' ? '?modus=frei' : '';
+    const q =
+      modus === 'schwaechen'
+        ? '?modus=schwaechen'
+        : modus === 'plan'
+          ? `?modus=plan&themen=${encodeURIComponent(planTags.join('|'))}`
+          : modus === 'frei'
+            ? '?modus=frei'
+            : '';
     return { to: `/lernen${q}`, titel, modus };
   };
 

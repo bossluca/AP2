@@ -20,10 +20,10 @@ const LOCKER_BIS = 15;
  * @returns {null | {
  *   tage:number, wiederholungenHeute:number, neu:number, neuProTag:number,
  *   pensumHeute:number, einschaetzung:'locker'|'gut'|'sportlich',
- *   schaffbarBisTermin:boolean
+ *   schaffbarBisTermin:boolean, prioritaetsThemen:string[]
  * }} null ohne (zukünftigen) Termin.
  */
-export function baueTagesplan(objekte, progress, termin, jetzt = new Date()) {
+export function baueTagesplan(objekte, progress, termin, jetzt = new Date(), optionen = {}) {
   if (!termin) return null;
   const ziel = new Date(`${termin}T00:00:00`);
   if (Number.isNaN(ziel.getTime())) return null;
@@ -53,6 +53,22 @@ export function baueTagesplan(objekte, progress, termin, jetzt = new Date()) {
   const einschaetzung =
     pensumHeute <= LOCKER_BIS ? 'locker' : pensumHeute <= SPORTLICH_AB ? 'gut' : 'sportlich';
 
+  // Reife-Themen sind bereits aufsteigend sortiert (schwach zuerst). Für den
+  // Tagesplan zählen nur Themen, zu denen heute neue oder fällige Objekte
+  // existieren – so wird aus „wie viel?" auch ein konkretes „was zuerst?".
+  const heuteTags = new Set();
+  for (const o of objekte || []) {
+    const entry = progress?.[o.id];
+    const geuebt = entry && (Number(entry.reps) > 0 || Number(entry.box) > 0 || entry.status);
+    if (!geuebt || istFaellig(entry, jetzt)) {
+      for (const tag of o.tags || []) heuteTags.add(tag);
+    }
+  }
+  const prioritaetsThemen = (optionen.themenReife || [])
+    .filter((thema) => thema?.tag && heuteTags.has(thema.tag) && !thema.bereit)
+    .slice(0, 3)
+    .map((thema) => thema.tag);
+
   return {
     tage,
     wiederholungenHeute,
@@ -62,5 +78,6 @@ export function baueTagesplan(objekte, progress, termin, jetzt = new Date()) {
     einschaetzung,
     // Ehrliche Ansage: reicht die Zeit, um alle neuen Objekte noch zu sehen?
     schaffbarBisTermin: neuProTag <= SPORTLICH_AB,
+    prioritaetsThemen,
   };
 }

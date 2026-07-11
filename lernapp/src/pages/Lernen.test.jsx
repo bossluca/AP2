@@ -5,9 +5,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { ProgressProvider } from '../context/ProgressContext';
 import Lernen from './Lernen';
 
-function renderPage() {
+function renderPage(route = '/') {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[route]}>
       <ProgressProvider>
         <Lernen />
       </ProgressProvider>
@@ -57,5 +57,11 @@ describe('Heute lernen', () => {
     expect(screen.getByText(/sei ehrlich/i)).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /Nicht gewusst/i }));
     expect(screen.getByText(/^2 \/ \d+$/)).toBeInTheDocument();
+  });
+
+  it('startet einen thematisch vorgefilterten Tagesplan', () => {
+    renderPage('/lernen?modus=plan&themen=Netzwerk%2FIP-Adressierung');
+    expect(screen.getByRole('heading', { name: /Dein Tagesplan/i })).toBeInTheDocument();
+    expect(screen.getByText(/^1 \/ \d+$/)).toBeInTheDocument();
   });
 });

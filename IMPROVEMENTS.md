@@ -338,10 +338,10 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Reife-Gauge + Themen-Mastery (schwach zuerst) auf der Statistik-Seite. Plus
       **Prüfungstermin-Countdown + Tagesziel** auf Home (`lib/pruefungstermin.js`).
       ✅ 2026-06-27 (Sprint 3, s. PRODUKT_STRATEGIE.md)
-- [ ] **P2 · M** **Tagesplan ↔ Reife koppeln:** Der Tagesplan (2026-07-04) sagt *wie viel*,
-      die Reife-Analyse weiß *was* – das Pensum thematisch füllen: „heute dran:
-      X Wiederholungen + Y neue, **zuerst Thema A und B**" (schwächste reife-Themen),
-      mit Direkteinstieg in eine vorgefilterte Session.
+- [x] **P2 · M** ~~**Tagesplan ↔ Reife koppeln:**~~ Der Plan nennt nicht nur
+      „X Wiederholungen + Y neue", sondern priorisiert die schwächsten heute
+      bearbeitbaren Themen und bietet den Direkteinstieg in eine vorgefilterte
+      Session. ✅ 2026-07-11
 - [ ] **P2 · M** **Matching-Spiel + Reihenfolge-Format** (Sprint-2-Rest): Begriff ↔
       Definition-Paare aus dem Glossar (Quizlet-„Match", mobil stark) und
       Sortier-Aufgaben für Prozesse (DORA, OSI-Schichten, Subnetting-Schritte) –
@@ -412,8 +412,8 @@ umgesetzt, Details in §3):
 
 5. **`schwierigkeit` nutzen** (§3) — ✅ FSRS-Initialschwierigkeit + Sessions
    leicht → schwer (2026-07-04); offen: „nur schwere"-Filter.
-6. **Tagesplan ↔ Reife koppeln** (§6) — das Pensum thematisch füllen
-   („zuerst Thema A und B") mit Direkteinstieg.
+6. **Tagesplan ↔ Reife koppeln** (§6) — ✅ erledigt 2026-07-11:
+   thematische Prioritäten + Direkteinstieg.
 7. **Matching + Reihenfolge** (§6) — die letzten zwei Abfrage-Formate,
    beide aus dem Glossar generierbar.
 
@@ -431,9 +431,9 @@ umgesetzt, Details in §3):
 ### Content (läuft parallel, unabhängig von Sprints)
 
 - Fehlende offizielle Lösungen 2023/2024 nachtragen (§4) · gebündelte
-  Teilaufgaben-Lösungen aufteilen (§4) · optional **AP2-Set 4** (Themen-Kandidaten:
-  Kerberos/SSO, Backup-Strategien GFS, SNMP/Syslog, Netzwerksegmentierung/Zero Trust,
-  WLAN-Ausleuchtung, SQL-Joins vertieft) · Prüfungskatalog FISI als Kategorie-Gerüst (§4).
+  Teilaufgaben-Lösungen aufteilen (§4) · **AP2-Set 4 ist erledigt** (22 Fragen,
+  99 Punkte; 2026-07-11) · nächste dünne Matrix-Abdeckung: VPN/Fernzugriff ·
+  Prüfungskatalog FISI als Kategorie-Gerüst (§4).
 
 ### Bewusst NICHT (unverändert)
 

@@ -48,4 +48,24 @@ describe('baueTagesplan', () => {
     const plan = baueTagesplan(objekte(2), {}, '2026-07-14', jetzt);
     expect(plan.pensumHeute).toBe(1);
   });
+
+  it('priorisiert schwache Themen, die heute tatsächlich bearbeitbar sind', () => {
+    const stoff = [
+      { id: 'netz-neu', tags: ['Netzwerk'] },
+      { id: 'sql-spaeter', tags: ['SQL'] },
+      { id: 'backup-faellig', tags: ['Backup'] },
+    ];
+    const progress = {
+      'sql-spaeter': { reps: 1, due: '2026-08-01T00:00:00.000Z' },
+      'backup-faellig': { reps: 2, due: '2026-07-01T00:00:00.000Z' },
+    };
+    const themenReife = [
+      { tag: 'SQL', mastery: 0.1, bereit: false },
+      { tag: 'Backup', mastery: 0.2, bereit: false },
+      { tag: 'Netzwerk', mastery: 0.3, bereit: false },
+      { tag: 'Bereit', mastery: 0.9, bereit: true },
+    ];
+    const plan = baueTagesplan(stoff, progress, '2026-07-14', jetzt, { themenReife });
+    expect(plan.prioritaetsThemen).toEqual(['Backup', 'Netzwerk']);
+  });
 });
