@@ -47,11 +47,11 @@ export default function FilterBar({ filters, onChange }) {
     `px-2.5 py-1.5 rounded-full border text-xs transition-colors ${
       active
         ? 'bg-accent text-[var(--accent-contrast)] border-accent'
-        : 'border-gray-300 dark:border-[#2a3326] hover:border-accent'
+        : 'border-zinc-300 dark:border-input hover:border-accent'
     }`;
 
   return (
-    <div className="border border-gray-300 dark:border-gray-700 rounded-lg p-3 space-y-3 text-sm">
+    <div className="border border-zinc-300 dark:border-zinc-700 rounded-lg p-3 space-y-3 text-sm">
       <div>
         <div className="font-semibold mb-1">Prüfungstermin</div>
         <div className="flex flex-wrap gap-1.5">
@@ -108,7 +108,7 @@ export default function FilterBar({ filters, onChange }) {
       {hasActiveFilters(filters) && (
         <button
           onClick={clearAll}
-          className="text-xs underline text-gray-500 hover:text-accent"
+          className="text-xs underline text-zinc-500 hover:text-accent"
         >
           Filter zurücksetzen
         </button>

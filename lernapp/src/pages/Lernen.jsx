@@ -164,7 +164,7 @@ export default function Lernen() {
       <div className="max-w-md mx-auto text-center space-y-4 py-8">
         <div className="text-5xl">🎉</div>
         <h1 className="text-xl font-bold">Alles erledigt für heute!</h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-zinc-500">
           Nichts Fälliges offen – stark. Wenn du magst, leg eine lockere Übungsrunde ein.
         </p>
         <div className="flex gap-2 justify-center flex-wrap">
@@ -197,13 +197,13 @@ export default function Lernen() {
           <div className="text-3xl font-bold text-accent">
             {gewusstAnzahl} / {verlauf.length}
           </div>
-          <div className="text-sm text-gray-500">gewusst ({quote}%)</div>
+          <div className="text-sm text-zinc-500">gewusst ({quote}%)</div>
           <div className="text-sm font-medium text-accent pt-1">+{xpGesammelt} XP</div>
-          <div className="text-xs text-gray-400">
+          <div className="text-xs text-zinc-400">
             🔥 {gami.streak} Tage Streak · Level {gami.level.level}
           </div>
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-zinc-500">
           {quote >= 80
             ? 'Klasse Lauf – so bleibt es leicht und es sitzt.'
             : 'Dranbleiben lohnt sich – jede Runde festigt mehr.'}
@@ -249,7 +249,7 @@ export default function Lernen() {
               </option>
             ))}
           </select>
-          <span className="text-sm text-gray-500 whitespace-nowrap" aria-live="polite">
+          <span className="text-sm text-zinc-500 whitespace-nowrap" aria-live="polite">
             {index + 1} / {session.length}
           </span>
         </div>
@@ -272,14 +272,14 @@ export default function Lernen() {
                 : 'bg-amber-500'
               : i === index
                 ? 'bg-accent'
-                : 'bg-gray-200 dark:bg-[#2a3326]';
+                : 'bg-zinc-200 dark:bg-zinc-700';
           return <div key={i} className={`h-1.5 flex-1 rounded-full ${cls}`} />;
         })}
       </div>
 
       {current && (
         <div className="card p-5 space-y-4">
-          <div className="text-xs text-gray-500 flex flex-wrap gap-2">
+          <div className="text-xs text-zinc-500 flex flex-wrap gap-2">
             <span className="chip">{current.art === 'frage' ? '📄 Frage' : '📝 Lernzettel'}</span>
             <span className="chip">{current.pruefungsteil}</span>
             <span className="chip">{current.kategorie}</span>
@@ -291,7 +291,7 @@ export default function Lernen() {
               <div className="flip-face space-y-4">
                 <MarkdownContent>{current.front}</MarkdownContent>
               </div>
-              <div className="flip-face flip-back border-t border-gray-200 dark:border-gray-800 pt-3 space-y-2">
+              <div className="flip-face flip-back border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-2">
                 {current.back ? (
                   <>
                     <MarkdownContent>{current.back}</MarkdownContent>
@@ -302,7 +302,7 @@ export default function Lernen() {
                     )}
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic">
+                  <p className="text-sm text-zinc-500 italic">
                     Keine Lösung hinterlegt – selbst einschätzen.
                   </p>
                 )}
@@ -336,7 +336,7 @@ export default function Lernen() {
           {revealed && (
             <div className="space-y-2">
               {sicherheit === true && (
-                <p className="text-[11px] text-gray-400 text-center">
+                <p className="text-[11px] text-zinc-400 text-center">
                   Du warst sicher – sei ehrlich, hat es wirklich gesessen?
                 </p>
               )}
@@ -351,7 +351,7 @@ export default function Lernen() {
             </div>
           )}
 
-          <p className="hidden sm:block text-[11px] text-gray-400 text-center">
+          <p className="hidden sm:block text-[11px] text-zinc-400 text-center">
             Tipp: Leertaste aufdecken · 1 = nicht gewusst · 2 = gewusst
           </p>
         </div>

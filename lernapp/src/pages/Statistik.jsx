@@ -15,7 +15,7 @@ import ProgressRing from '../components/ProgressRing';
 function Bar({ value, total, className }) {
   const pct = total > 0 ? Math.round((value / total) * 100) : 0;
   return (
-    <div className="h-2 rounded bg-gray-200 dark:bg-gray-800 overflow-hidden">
+    <div className="h-2 rounded bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
       <div className={`h-full ${className}`} style={{ width: `${pct}%` }} />
     </div>
   );
@@ -63,19 +63,19 @@ export default function Statistik() {
         <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
           <div className="card p-3">
             <div className="text-2xl font-bold text-green-600">{s.status.gelernt}</div>
-            <div className="text-xs text-gray-500">Gelernt ({pct(s.status.gelernt)}%)</div>
+            <div className="text-xs text-zinc-500">Gelernt ({pct(s.status.gelernt)}%)</div>
           </div>
           <div className="card p-3">
             <div className="text-2xl font-bold text-amber-600">{s.status.ueben}</div>
-            <div className="text-xs text-gray-500">Üben ({pct(s.status.ueben)}%)</div>
+            <div className="text-xs text-zinc-500">Üben ({pct(s.status.ueben)}%)</div>
           </div>
           <div className="card p-3">
-            <div className="text-2xl font-bold text-gray-500">{s.status.offen}</div>
-            <div className="text-xs text-gray-500">Offen ({pct(s.status.offen)}%)</div>
+            <div className="text-2xl font-bold text-zinc-500">{s.status.offen}</div>
+            <div className="text-xs text-zinc-500">Offen ({pct(s.status.offen)}%)</div>
           </div>
         </div>
         <Bar value={s.status.gelernt} total={s.total} className="bg-green-500" />
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-zinc-500">
           {s.total} Lernobjekte gesamt ({s.art.frage} Fragen + {s.art.lernzettel} Lernzettel).
         </p>
       </section>
@@ -93,11 +93,11 @@ export default function Statistik() {
         <div className="card p-4 flex items-center gap-4">
           <ProgressRing value={reife.prognoseProzent} size={96}>
             <div className="text-xl font-bold">{reife.prognoseProzent}%</div>
-            <div className="text-[10px] uppercase tracking-wide text-gray-500">Reife</div>
+            <div className="text-[10px] uppercase tracking-wide text-zinc-500">Reife</div>
           </ProgressRing>
           <div className="flex-1 min-w-0 space-y-1">
             <p className="text-sm">Geschätzte Prüfungsreife – punktgewichtet über die Fragen.</p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-zinc-500">
               {reife.bereitThemen} von {reife.themenGesamt} Themen bereit (≥ 80 % gefestigt).
             </p>
           </div>
@@ -109,10 +109,10 @@ export default function Statistik() {
               const farbe = tpct < 50 ? 'bg-red-500' : tpct < 80 ? 'bg-amber-500' : 'bg-green-500';
               return (
                 <li key={t.tag} className="flex items-center gap-2 text-xs">
-                  <span className="w-40 sm:w-52 truncate text-gray-600 dark:text-gray-400">
+                  <span className="w-40 sm:w-52 truncate text-zinc-600 dark:text-zinc-400">
                     {t.tag}
                   </span>
-                  <div className="flex-1 h-2 rounded bg-gray-200 dark:bg-gray-800 overflow-hidden">
+                  <div className="flex-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
                     <div className={`h-full ${farbe}`} style={{ width: `${tpct}%` }} />
                   </div>
                   <span className="w-12 text-right tabular-nums">
@@ -124,7 +124,7 @@ export default function Statistik() {
             })}
           </ul>
         )}
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-zinc-500">
           Reife sinkt mit der Zeit (Vergessenskurve) – Wiederholen hält sie hoch. Schwächste Themen zuerst.
         </p>
       </section>
@@ -133,7 +133,7 @@ export default function Statistik() {
       <section className="rounded-lg border border-accent p-4 flex items-center justify-between gap-3">
         <div>
           <div className="text-2xl font-bold text-accent">{s.faellig}</div>
-          <div className="text-xs text-gray-500">jetzt fällig zum Wiederholen</div>
+          <div className="text-xs text-zinc-500">jetzt fällig zum Wiederholen</div>
         </div>
         <Link
           to="/wiederholen"
@@ -151,17 +151,17 @@ export default function Statistik() {
         <div className="flex-1 min-w-0">
           <div className="flex justify-between text-sm mb-1">
             <span className="font-medium">Level {gami.level.level}</span>
-            <span className="text-gray-500">
+            <span className="text-zinc-500">
               {gami.level.xpImLevel} / {gami.level.xpFuerLevel} XP
             </span>
           </div>
-          <div className="h-2.5 rounded-full bg-gray-200 dark:bg-[#1d271a] overflow-hidden">
+          <div className="h-2.5 rounded-full bg-zinc-200 dark:bg-muted overflow-hidden">
             <div
               className="h-full rounded-full bg-accent transition-all duration-500"
               style={{ width: `${Math.round(gami.level.fortschritt * 100)}%` }}
             />
           </div>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-zinc-400 mt-1">
             Noch {gami.level.xpBisNaechstes} XP bis Level {gami.level.level + 1} ·{' '}
             {gami.level.xpGesamt} XP gesamt
           </p>
@@ -172,7 +172,7 @@ export default function Statistik() {
       <section className="space-y-2">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <h2 className="font-semibold text-sm">Aktivität</h2>
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-zinc-500">
             🔥 {gami.streak} Tage Streak · {gami.aktiveTage} aktive Tage
           </span>
         </div>
@@ -198,7 +198,7 @@ export default function Statistik() {
               </span>
               <div className="leading-tight min-w-0">
                 <div className="text-sm font-medium truncate">{e.titel}</div>
-                <div className="text-[11px] text-gray-500">
+                <div className="text-[11px] text-zinc-500">
                   {e.freigeschaltet ? '✓ freigeschaltet' : e.beschreibung}
                 </div>
               </div>
@@ -212,7 +212,7 @@ export default function Statistik() {
         <h2 className="font-semibold text-sm">Karten-Stärke</h2>
         <div className="space-y-1.5">
           {[
-            ['neu', s.boxen.neu, 'bg-gray-400'],
+            ['neu', s.boxen.neu, 'bg-zinc-400'],
             ...Array.from({ length: MAX_BOX }, (_, i) => [
               `Stufe ${i + 1}`,
               s.boxen[i + 1],
@@ -220,8 +220,8 @@ export default function Statistik() {
             ]),
           ].map(([label, val, color]) => (
             <div key={label} className="flex items-center gap-2 text-xs">
-              <span className="w-12 text-gray-500">{label}</span>
-              <div className="flex-1 h-2 rounded bg-gray-200 dark:bg-gray-800 overflow-hidden">
+              <span className="w-12 text-zinc-500">{label}</span>
+              <div className="flex-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
                 <div
                   className={`h-full ${color}`}
                   style={{ width: `${Math.round((val / maxBox) * 100)}%` }}
@@ -231,7 +231,7 @@ export default function Statistik() {
             </div>
           ))}
         </div>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-zinc-500">
           Höhere Stufe = stabiler im Gedächtnis (längeres Intervall). „Neu" wurde noch nie bewertet.
         </p>
       </section>
@@ -249,7 +249,7 @@ export default function Statistik() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{teil}</span>
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-zinc-500">
                     {d.gelernt}/{d.total} gelernt · {d.faellig} fällig
                   </span>
                 </div>
@@ -265,7 +265,7 @@ export default function Statistik() {
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <div>
               <h2 className="font-semibold text-sm">⚠️ Fehl-Sicherheit</h2>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-zinc-500 mt-1">
                 Bei <strong>{s.fehlSicher.objekte}</strong>{' '}
                 {s.fehlSicher.objekte === 1 ? 'Karte' : 'Karten'} warst du sicher – und lagst
                 daneben ({s.fehlSicher.ereignisse}×). Genau diese Karten kosten in der Prüfung
@@ -290,7 +290,7 @@ export default function Statistik() {
           )}
         </div>
         {s.schwachstellen.length === 0 ? (
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-zinc-500">
             Noch keine Schwachstellen erkannt – markiere Objekte als „üben" oder bewerte sie im
             Wiederholen-Modus.
           </p>
@@ -298,10 +298,10 @@ export default function Statistik() {
           <ul className="space-y-1.5">
             {s.schwachstellen.slice(0, 8).map((x) => (
               <li key={x.tag} className="flex items-center gap-2 text-xs">
-                <span className="w-40 sm:w-52 truncate text-gray-600 dark:text-gray-400">
+                <span className="w-40 sm:w-52 truncate text-zinc-600 dark:text-zinc-400">
                   {x.tag}
                 </span>
-                <div className="flex-1 h-2 rounded bg-gray-200 dark:bg-gray-800 overflow-hidden">
+                <div className="flex-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
                   <div
                     className="h-full bg-amber-500"
                     style={{
@@ -320,7 +320,7 @@ export default function Statistik() {
       <section className="space-y-2">
         <h2 className="font-semibold text-sm">Lernverlauf (Bewertungen pro Tag)</h2>
         {letzteTage.length === 0 ? (
-          <p className="text-xs text-gray-500">Noch keine Bewertungen aufgezeichnet.</p>
+          <p className="text-xs text-zinc-500">Noch keine Bewertungen aufgezeichnet.</p>
         ) : (
           <div className="flex items-end gap-1 h-24">
             {letzteTage.map((v) => (
@@ -329,7 +329,7 @@ export default function Statistik() {
                   className="w-full bg-accent rounded-t"
                   style={{ height: `${Math.max(4, Math.round((v.count / maxVerlauf) * 80))}px` }}
                 />
-                <span className="text-[10px] text-gray-400">{v.date.slice(5)}</span>
+                <span className="text-[10px] text-zinc-400">{v.date.slice(5)}</span>
               </div>
             ))}
           </div>

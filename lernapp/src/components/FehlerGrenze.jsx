@@ -32,7 +32,7 @@ export default class FehlerGrenze extends Component {
       <div className="card p-6 sm:p-8 text-center max-w-lg mx-auto" role="alert">
         <AlertTriangle size={36} className="mx-auto text-amber-500" aria-hidden="true" />
         <h2 className="mt-3 text-lg font-bold">Hier ist etwas schiefgelaufen</h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
           Diese Seite konnte nicht angezeigt werden. Dein Lernfortschritt ist
           davon nicht betroffen. Lade die Seite neu oder wechsle zu einem
           anderen Bereich.
@@ -45,7 +45,7 @@ export default class FehlerGrenze extends Component {
             Zur Startseite
           </a>
         </div>
-        <p className="mt-4 font-mono text-xs text-gray-400 break-all">
+        <p className="mt-4 font-mono text-xs text-zinc-400 break-all">
           {String(this.state.fehler?.message || this.state.fehler)}
         </p>
       </div>

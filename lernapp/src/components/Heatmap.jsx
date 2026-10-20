@@ -5,11 +5,11 @@
 
 /** Farbstufen 0–4 (Akzentfarbe Grün/Terminal), light + dark. */
 const LEVELS = [
-  'bg-gray-100 dark:bg-[#1d271a]',
+  'bg-zinc-100 dark:bg-muted',
   'bg-green-200 dark:bg-green-900',
   'bg-green-300 dark:bg-green-700',
   'bg-green-400 dark:bg-green-500',
-  'bg-green-500 dark:bg-[#5be38a]',
+  'bg-green-500 dark:bg-accent',
 ];
 
 /**
@@ -34,7 +34,7 @@ export default function Heatmap({ weeks, withLegend = true }) {
         ))}
       </div>
       {withLegend && (
-        <div className="flex items-center gap-1 text-[10px] text-gray-400">
+        <div className="flex items-center gap-1 text-[10px] text-zinc-400">
           <span>weniger</span>
           {LEVELS.map((cls, i) => (
             <span key={i} className={`w-3 h-3 rounded-sm inline-block ${cls}`} />

@@ -96,7 +96,7 @@ export default function Drill() {
           <div className="text-3xl font-bold text-accent">
             {richtige} / {beantwortet}
           </div>
-          <div className="text-sm text-gray-500">richtig ({quote}%)</div>
+          <div className="text-sm text-zinc-500">richtig ({quote}%)</div>
         </div>
         <button onClick={neustart} className="btn-primary px-5 py-2.5">
           ⚡ Neue Runde
@@ -123,7 +123,7 @@ export default function Drill() {
             <option value="AP1">Nur AP1</option>
             <option value="AP2">Nur AP2</option>
           </select>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-zinc-500">
             {index + 1} / {fragen.length}
           </span>
         </div>
@@ -131,7 +131,7 @@ export default function Drill() {
 
       {frage && (
         <div className="card p-5 space-y-4">
-          <div className="text-xs text-gray-500">Welcher Begriff gehört in die Lücke?</div>
+          <div className="text-xs text-zinc-500">Welcher Begriff gehört in die Lücke?</div>
           <p className="font-medium">{frage.frage}</p>
 
           <div className="grid gap-2">
@@ -140,12 +140,12 @@ export default function Drill() {
               const korrekt = i === frage.loesungIndex;
               const getippt = i === gewaehlt;
               const cls = !aufgedeckt
-                ? 'border-gray-200 dark:border-[#1d271a] hover:border-accent'
+                ? 'border-zinc-200 dark:border-border hover:border-accent'
                 : korrekt
                   ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
                   : getippt
                     ? 'border-red-400 bg-red-50 dark:bg-red-900/20'
-                    : 'border-gray-200 dark:border-[#1d271a] opacity-60';
+                    : 'border-zinc-200 dark:border-border opacity-60';
               return (
                 <button
                   key={opt}
@@ -153,7 +153,7 @@ export default function Drill() {
                   disabled={gewaehlt !== null}
                   className={`text-left rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors ${cls}`}
                 >
-                  <span className="font-mono text-xs text-gray-400 mr-2" aria-hidden="true">
+                  <span className="font-mono text-xs text-zinc-400 mr-2" aria-hidden="true">
                     {i + 1}
                   </span>
                   {opt}
@@ -166,7 +166,7 @@ export default function Drill() {
 
           {gewaehlt !== null && (
             <div className="flex items-center justify-between gap-2 flex-wrap">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-zinc-500">
                 {gewaehlt === frage.loesungIndex ? 'Richtig! 🎉' : `Richtig wäre: ${frage.begriff}.`}
                 {frage.quelle && ` Nachlesen: „${frage.quelle}"`}
               </p>
@@ -176,7 +176,7 @@ export default function Drill() {
             </div>
           )}
 
-          <p className="text-[11px] text-gray-400 text-center">
+          <p className="text-[11px] text-zinc-400 text-center">
             Tipp: 1–4 = Antwort wählen · Leertaste = weiter
           </p>
         </div>

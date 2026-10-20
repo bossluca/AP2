@@ -69,7 +69,7 @@ export default function ErfolgWatcher() {
   return (
     <div
       role="status"
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 animate-in flex items-center gap-3 rounded-xl border border-green-200 dark:border-green-800 bg-white dark:bg-[#11160F] shadow-lg shadow-green-500/20 px-4 py-3"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 animate-in flex items-center gap-3 rounded-xl border bg-popover text-popover-foreground shadow-lg px-4 py-3"
     >
       <span className="text-3xl" aria-hidden="true">
         {toast.icon}

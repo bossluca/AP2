@@ -13,7 +13,7 @@ export default function HerkunftBadge({ obj, className = '' }) {
   const ton =
     h.ton === 'warnung'
       ? 'text-amber-700 bg-amber-100 dark:text-amber-300 dark:bg-amber-900/40'
-      : 'text-gray-600 bg-gray-100 dark:text-[#9aa894] dark:bg-[#1d271a]';
+      : 'text-zinc-600 bg-zinc-100 dark:text-muted-foreground dark:bg-muted';
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium ${ton} ${className}`}

@@ -17,7 +17,7 @@ function PfadIcon({ name, ...props }) {
 /** Schmaler Mastery-Balken (Terminal-Look). */
 function Balken({ wert }) {
   return (
-    <div className="h-1.5 rounded-full bg-gray-200 dark:bg-[#1d271a] overflow-hidden">
+    <div className="h-1.5 rounded-full bg-zinc-200 dark:bg-muted overflow-hidden">
       <div
         className="h-full rounded-full bg-accent transition-all duration-500"
         style={{ width: `${Math.round(wert * 100)}%` }}
@@ -34,9 +34,9 @@ function Uebersicht({ pfade }) {
   return (
     <div className="space-y-5">
       <header className="space-y-1">
-        <div className="font-mono text-xs text-gray-500 dark:text-[#6B7A66]">// lernpfade</div>
+        <div className="font-mono text-xs text-zinc-500 dark:text-muted-foreground">// lernpfade</div>
         <h1 className="text-xl font-bold">Lernpfade</h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-zinc-500">
           Geführter Weg durch die Themen – je Modul ein kurzes Training aus Karten, Lücken &
           Prüfungsfragen.
           {erledigt > 0 && (
@@ -58,7 +58,7 @@ function Uebersicht({ pfade }) {
           >
             <div className="flex items-center justify-between gap-2">
               <span
-                className="grid place-items-center w-10 h-10 rounded-xl bg-green-100 dark:bg-[#1d271a] text-accent shrink-0"
+                className="grid place-items-center w-10 h-10 rounded-xl bg-green-100 dark:bg-muted text-accent shrink-0"
                 aria-hidden="true"
               >
                 <PfadIcon name={p.icon} size={18} />
@@ -68,19 +68,19 @@ function Uebersicht({ pfade }) {
                   <CheckCircle2 size={14} /> fertig
                 </span>
               ) : (
-                <span className="font-mono text-xs text-gray-400 dark:text-[#6B7A66]">
+                <span className="font-mono text-xs text-zinc-400 dark:text-muted-foreground">
                   {Math.round(p.mastery * 100)}%
                 </span>
               )}
             </div>
             <div>
-              <div className="font-mono text-[11px] text-gray-400 dark:text-[#6B7A66]">
+              <div className="font-mono text-[11px] text-zinc-400 dark:text-muted-foreground">
                 pfad_{String(p.nummer).padStart(2, '0')}
               </div>
               <div className="font-semibold leading-tight">{p.titel}</div>
             </div>
             <Balken wert={p.mastery} />
-            <div className="text-[11px] text-gray-500 dark:text-[#6B7A66]">
+            <div className="text-[11px] text-zinc-500 dark:text-muted-foreground">
               {p.fertigeModule} / {p.n} Module
             </div>
           </Link>
@@ -106,7 +106,7 @@ function Detail({ pfad, einheitenById, getStatus, setStatus }) {
       <div>
         <Link
           to="/lernpfade"
-          className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-accent"
+          className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-accent"
         >
           <ArrowLeft size={15} /> Alle Pfade
         </Link>
@@ -114,15 +114,15 @@ function Detail({ pfad, einheitenById, getStatus, setStatus }) {
 
       <header className="flex items-center gap-3">
         <span
-          className="grid place-items-center w-12 h-12 rounded-2xl bg-green-100 dark:bg-[#1d271a] text-accent shrink-0"
+          className="grid place-items-center w-12 h-12 rounded-2xl bg-green-100 dark:bg-muted text-accent shrink-0"
           aria-hidden="true"
         >
           <PfadIcon name={pfad.icon} size={22} />
         </span>
         <div className="min-w-0">
-          <div className="font-mono text-xs text-gray-500 dark:text-[#6B7A66]">// lernpfad</div>
+          <div className="font-mono text-xs text-zinc-500 dark:text-muted-foreground">// lernpfad</div>
           <h1 className="text-xl font-bold truncate">{pfad.titel}</h1>
-          <div className="text-xs text-gray-500 dark:text-[#6B7A66]">
+          <div className="text-xs text-zinc-500 dark:text-muted-foreground">
             {pfad.fertigeModule} / {pfad.n} Module · {Math.round(pfad.mastery * 100)}%
           </div>
         </div>
@@ -147,7 +147,7 @@ function Detail({ pfad, einheitenById, getStatus, setStatus }) {
               <li key={m.id}>
                 <LernpfadNode modul={m} offen={offen} onToggle={() => onToggle(m.id)} />
                 {offen && einheit && (
-                  <div className="ml-[52px] mb-2 rounded-xl border border-gray-200 dark:border-[#1d271a] bg-white dark:bg-[#0d120b] p-3.5 space-y-3 animate-in">
+                  <div className="ml-[52px] mb-2 rounded-xl border border-zinc-200 dark:border-border bg-white dark:bg-background p-3.5 space-y-3 animate-in">
                     <Link
                       to={`/lernpfade/${pfad.id}/${m.id}`}
                       className="btn-primary w-full py-2.5 inline-flex items-center justify-center gap-2"
@@ -156,7 +156,7 @@ function Detail({ pfad, einheitenById, getStatus, setStatus }) {
                       Training starten
                     </Link>
                     <details className="group">
-                      <summary className="cursor-pointer text-sm text-gray-500 hover:text-accent select-none">
+                      <summary className="cursor-pointer text-sm text-zinc-500 hover:text-accent select-none">
                         Lernzettel nachlesen
                       </summary>
                       <div className="pt-3">
@@ -178,7 +178,7 @@ function Detail({ pfad, einheitenById, getStatus, setStatus }) {
                       </div>
                     </details>
                     {getStatus(m.einheitId) && (
-                      <div className="text-[11px] text-gray-400 text-right">
+                      <div className="text-[11px] text-zinc-400 text-right">
                         Status: {getStatus(m.einheitId)}
                       </div>
                     )}
@@ -226,7 +226,7 @@ export default function Lernpfade() {
   if (!pfad) {
     return (
       <div className="space-y-3">
-        <p className="text-sm text-gray-500">Dieser Pfad existiert nicht.</p>
+        <p className="text-sm text-zinc-500">Dieser Pfad existiert nicht.</p>
         <button onClick={() => navigate('/lernpfade')} className="btn-ghost px-3 py-2">
           Zur Übersicht
         </button>

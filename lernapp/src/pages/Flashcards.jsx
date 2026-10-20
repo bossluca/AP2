@@ -122,14 +122,14 @@ export default function Flashcards() {
           text="Lockere die Filter oder wechsle den Prüfungsteil, um Karten zu sehen."
         />
       ) : (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-zinc-500">
           Frage {safeIndex + 1} von {filtered.length}
         </p>
       )}
 
       {current && (
         <div className="card p-4 space-y-4">
-          <div className="text-xs text-gray-500 flex flex-wrap gap-2">
+          <div className="text-xs text-zinc-500 flex flex-wrap gap-2">
             <span>
               {current.saison} {current.jahr} – Aufgabe {current.aufgabe_nr}
               {current.teilfrage ? ` ${current.teilfrage})` : ''}
@@ -146,7 +146,7 @@ export default function Flashcards() {
             <h2 className="font-semibold text-base">{current.aufgabe_titel}</h2>
           )}
           {current.ueberschrift && (
-            <h3 className="font-medium text-sm text-gray-600 dark:text-gray-400">
+            <h3 className="font-medium text-sm text-zinc-600 dark:text-zinc-400">
               {current.ueberschrift}
             </h3>
           )}
@@ -160,7 +160,7 @@ export default function Flashcards() {
                   Lösung anzeigen
                 </button>
               </div>
-              <div className="flip-face flip-back border-t border-gray-200 dark:border-gray-800 pt-3 space-y-2">
+              <div className="flip-face flip-back border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-2">
                 <h4 className="font-semibold text-sm">Lösung</h4>
                 {current.hat_antwort ? (
                   <>
@@ -168,7 +168,7 @@ export default function Flashcards() {
                     <HerkunftBadge obj={current} />
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic">Keine Lösung verfügbar.</p>
+                  <p className="text-sm text-zinc-500 italic">Keine Lösung verfügbar.</p>
                 )}
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function Flashcards() {
               </button>
             </div>
           </div>
-          <p className="text-[11px] text-gray-400 text-center pt-2">
+          <p className="text-[11px] text-zinc-400 text-center pt-2">
             Tipp: ← / → blättern · Leertaste aufdecken · 1 = üben · 2 = gelernt
           </p>
         </div>

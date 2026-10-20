@@ -208,7 +208,7 @@ export default function Wiederholen() {
       ) : finished ? (
         <div className="card p-6 text-center space-y-3">
           <p className="text-lg font-semibold">Sitzung abgeschlossen 🎉</p>
-          <p className="text-sm text-gray-500">{done} Objekte bewertet.</p>
+          <p className="text-sm text-zinc-500">{done} Objekte bewertet.</p>
           <button
             onClick={restart}
             className="btn-primary px-4 py-2"
@@ -219,7 +219,7 @@ export default function Wiederholen() {
       ) : (
         current && (
           <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm text-gray-500">
+            <div className="flex items-center justify-between text-sm text-zinc-500">
               <span>
                 {index + 1} von {session.length}
               </span>
@@ -232,7 +232,7 @@ export default function Wiederholen() {
             </div>
 
             <div className="card p-4 space-y-4">
-              <div className="text-xs text-gray-500 flex flex-wrap gap-2">
+              <div className="text-xs text-zinc-500 flex flex-wrap gap-2">
                 <span className="chip">
                   {current.pruefungsteil}
                 </span>
@@ -257,7 +257,7 @@ export default function Wiederholen() {
                 </button>
               ) : (
                 <>
-                  <div className="border-t border-gray-200 dark:border-gray-800 pt-3 space-y-2">
+                  <div className="border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-2">
                     {current.back ? (
                       <>
                         <MarkdownContent>{current.back}</MarkdownContent>
@@ -268,7 +268,7 @@ export default function Wiederholen() {
                         )}
                       </>
                     ) : (
-                      <p className="text-sm text-gray-500 italic">
+                      <p className="text-sm text-zinc-500 italic">
                         Keine Lösung hinterlegt – selbst einschätzen.
                       </p>
                     )}
@@ -290,7 +290,7 @@ export default function Wiederholen() {
                   </div>
                 </>
               )}
-              <p className="text-[11px] text-gray-400 text-center pt-1">
+              <p className="text-[11px] text-zinc-400 text-center pt-1">
                 Leertaste deckt auf · 1 Nochmal · 2 Schwer · 3 Gut · 4 Leicht · „T" = nächstes Intervall
               </p>
             </div>

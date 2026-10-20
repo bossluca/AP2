@@ -51,9 +51,9 @@ export default function DatenSicherung() {
   };
 
   return (
-    <div className="border-t border-gray-200 dark:border-[#1d271a] pt-4 space-y-2">
+    <div className="border-t border-zinc-200 dark:border-border pt-4 space-y-2">
       <h2 className="text-sm font-semibold">Fortschritt sichern &amp; übertragen</h2>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-zinc-500">
         Lädt deinen kompletten Lernstand (Fortschritt, XP, Streak) als JSON-Datei herunter –
         als Backup oder für den Umzug auf ein anderes Gerät. Der Import ergänzt den
         vorhandenen Stand, ohne Neueres zu überschreiben.

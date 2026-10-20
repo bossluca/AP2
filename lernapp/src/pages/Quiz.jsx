@@ -98,7 +98,7 @@ export default function Quiz() {
     return (
       <div className="space-y-4">
         <h1 className="text-xl font-bold">📝 Quiz</h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-zinc-500">
           Beantworte die Fragen selbst, schätze danach ein, ob deine Antwort richtig, teilweise
           richtig oder falsch war. Am Ende gibt es eine Auswertung mit Score und Themenübersicht.
         </p>
@@ -112,7 +112,7 @@ export default function Quiz() {
 
         {showFilters && <FilterBar filters={filters} onChange={setFilters} />}
 
-        <p className="text-sm text-gray-500">{filtered.length} Fragen für diese Filter verfügbar.</p>
+        <p className="text-sm text-zinc-500">{filtered.length} Fragen für diese Filter verfügbar.</p>
 
         <button
           onClick={startQuiz}
@@ -133,7 +133,7 @@ export default function Quiz() {
 
         <div className="card p-4 text-center">
           <div className="text-3xl font-bold text-accent">{percent}%</div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-zinc-500">
             {totalScore} von {maxScore} Punkten (richtig = 1, teilweise = 0,5, falsch = 0)
           </div>
         </div>
@@ -144,13 +144,13 @@ export default function Quiz() {
             {tagStats.map((t) => (
               <div key={t.tag} className="flex items-center gap-2 text-sm">
                 <span className="w-32 sm:w-48 truncate">{t.tag}</span>
-                <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden">
+                <div className="flex-1 h-2 bg-zinc-200 dark:bg-zinc-800 rounded overflow-hidden">
                   <div
                     className={`h-full ${t.percent < 50 ? 'bg-red-500' : t.percent < 80 ? 'bg-amber-500' : 'bg-green-500'}`}
                     style={{ width: `${t.percent}%` }}
                   />
                 </div>
-                <span className="w-12 text-right text-gray-500">{t.percent}%</span>
+                <span className="w-12 text-right text-zinc-500">{t.percent}%</span>
               </div>
             ))}
           </div>
@@ -171,14 +171,14 @@ export default function Quiz() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">📝 Quiz</h1>
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-zinc-500">
           Frage {index + 1} von {questions.length}
         </span>
       </div>
 
       {current && (
         <div className="card p-4 space-y-4">
-          <div className="text-xs text-gray-500 flex flex-wrap gap-2">
+          <div className="text-xs text-zinc-500 flex flex-wrap gap-2">
             <span>
               {current.saison} {current.jahr} – Aufgabe {current.aufgabe_nr}
               {current.teilfrage ? ` ${current.teilfrage})` : ''}
@@ -195,7 +195,7 @@ export default function Quiz() {
             <h2 className="font-semibold text-base">{current.aufgabe_titel}</h2>
           )}
           {current.ueberschrift && (
-            <h3 className="font-medium text-sm text-gray-600 dark:text-gray-400">
+            <h3 className="font-medium text-sm text-zinc-600 dark:text-zinc-400">
               {current.ueberschrift}
             </h3>
           )}
@@ -210,7 +210,7 @@ export default function Quiz() {
               Lösung anzeigen & bewerten
             </button>
           ) : (
-            <div className="border-t border-gray-200 dark:border-gray-800 pt-3 space-y-3">
+            <div className="border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-3">
               <h4 className="font-semibold text-sm">Lösung</h4>
               {current.hat_antwort ? (
                 <>
@@ -218,7 +218,7 @@ export default function Quiz() {
                   <HerkunftBadge obj={current} />
                 </>
               ) : (
-                <p className="text-sm text-gray-500 italic">Keine Lösung verfügbar.</p>
+                <p className="text-sm text-zinc-500 italic">Keine Lösung verfügbar.</p>
               )}
               <NachlesenLinks frage={current} />
 
