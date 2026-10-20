@@ -7,7 +7,7 @@ import { berechneStatistik } from '../lib/statistik';
 import { berechneReife } from '../lib/reife';
 import { MAX_BOX } from '../lib/fsrs';
 import { baueHeatmap } from '../lib/aktivitaet';
-import { bewerteErfolge } from '../lib/erfolge';
+import { useErfolge } from '../hooks/useErfolge';
 import Heatmap from '../components/Heatmap';
 import ProgressRing from '../components/ProgressRing';
 
@@ -40,18 +40,7 @@ export default function Statistik() {
   const maxBox = Math.max(1, s.boxen.neu, ...Array.from({ length: MAX_BOX }, (_, i) => s.boxen[i + 1]));
 
   const heatmap = useMemo(() => baueHeatmap(gami.activity), [gami.activity]);
-  const erfolge = useMemo(
-    () =>
-      bewerteErfolge({
-        gelernt: s.status.gelernt,
-        prozentGelernt: pct(s.status.gelernt),
-        streak: gami.streak,
-        aktiveTage: gami.aktiveTage,
-        klausurBesteProzent: gami.klausurBest,
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [s, gami]
-  );
+  const erfolge = useErfolge();
   const erfolgeOffen = erfolge.filter((e) => e.freigeschaltet).length;
 
   return (
