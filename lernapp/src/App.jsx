@@ -26,6 +26,7 @@ const Konto = lazy(() => import('./pages/Konto'));
 import { useTheme } from './context/ThemeContext';
 import { useGamification } from './context/GamificationContext';
 import ErfolgWatcher from './components/ErfolgWatcher';
+import KontoDatenSync from './components/KontoDatenSync';
 import CommandPalette from './components/CommandPalette';
 import FehlerGrenze from './components/FehlerGrenze';
 const Info_Seite = lazy(() => import('./pages/Info'));
@@ -285,6 +286,7 @@ export default function App() {
           onToggle={() => setPaletteOffen((o) => !o)}
         />
         <ErfolgWatcher />
+        <KontoDatenSync />
       </div>
     </HashRouter>
   );

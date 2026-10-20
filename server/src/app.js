@@ -8,6 +8,7 @@ import { progressRoutes } from './progress.js';
 import { gamificationRoutes } from './gamification.js';
 import { ranglisteRoutes } from './rangliste.js';
 import { adminRoutes } from './admin.js';
+import { datenRoutes } from './daten.js';
 import { registrierungsModus, adminEmails } from './lib/einladung.js';
 import { erstelleRateLimiter } from './lib/rateLimit.js';
 
@@ -77,6 +78,7 @@ export async function buildApp(opts = {}) {
   await app.register(gamificationRoutes);
   await app.register(ranglisteRoutes);
   await app.register(adminRoutes);
+  await app.register(datenRoutes);
 
   return app;
 }

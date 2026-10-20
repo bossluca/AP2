@@ -105,6 +105,17 @@ export function openDb(path) {
     db.exec('ALTER TABLE users ADD COLUMN gesperrt INTEGER NOT NULL DEFAULT 0;');
   }
 
+  // Zusätzliche Konto-Daten (Lernplan, eigene Karten) als JSON je Schlüssel.
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS user_daten (
+      user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      schluessel TEXT NOT NULL,
+      wert       TEXT NOT NULL,
+      updated_at TEXT NOT NULL,
+      PRIMARY KEY (user_id, schluessel)
+    );
+  `);
+
   // Einladungs-Codes für REGISTRATION=invite. Gespeichert wird nur der
   // SHA-256-Hash; der Klartext wird dem Admin einmal angezeigt. `hinweis` = die
   // ersten Zeichen zum Wiedererkennen in der Liste.

@@ -2,6 +2,7 @@ import { AP2_THEMEN, einheitenImThema, themaPerId } from './themen';
 import { baueGlossarCloze } from './glossar';
 import { baueMcFragen } from './mcDrill';
 import { shuffle } from './shuffle';
+import { meldeKontoDatenAenderung } from './kontoDaten';
 
 /**
  * Einstufungstest + individueller Lernplan. Ein kurzer Multiple-Choice-Test je
@@ -189,13 +190,14 @@ export function ladeEinstufung() {
 }
 
 /** Speichert das Ergebnis (mit Zeitstempel = Planstart). */
-export function speichereEinstufung(auswertung, jetzt = new Date()) {
+export function speichereEinstufung(auswertung, jetzt = new Date(), { melden = true } = {}) {
   const wert = { datum: jetzt.toISOString(), auswertung };
   try {
     localStorage.setItem(SPEICHER_KEY, JSON.stringify(wert));
   } catch {
     /* Storage voll/gesperrt: Plan gilt nur für diese Sitzung */
   }
+  if (melden) meldeKontoDatenAenderung('einstufung');
   return wert;
 }
 
@@ -206,6 +208,7 @@ export function loescheEinstufung() {
   } catch {
     /* ignorieren */
   }
+  meldeKontoDatenAenderung('einstufung');
 }
 
 /**

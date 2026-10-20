@@ -65,3 +65,8 @@ export const adminApi = {
     request('/admin/invites', { method: 'POST', body: { maxUses, gueltigTage, notiz } }),
   einladungLoeschen: (id) => request(`/admin/invites/${id}`, { method: 'DELETE' }),
 };
+
+export const datenApi = {
+  get: () => request('/daten'),
+  put: (schluessel, wert) => request(`/daten/${schluessel}`, { method: 'PUT', body: { wert } }),
+};

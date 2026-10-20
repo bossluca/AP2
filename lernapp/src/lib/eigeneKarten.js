@@ -5,6 +5,8 @@
  * `eigen_`. Reine Zustands-Funktionen + robuste Persistenz.
  */
 
+import { meldeKontoDatenAenderung } from './kontoDaten';
+
 const KEY = 'ap2_lernapp_eigene_karten_v1';
 
 /** @typedef {{id:string, front:string, back:string}} EigeneKarte */
@@ -54,10 +56,16 @@ export function ladeStapel() {
   }
 }
 
-/** Stapel speichern. @returns {boolean} false, wenn der Speicher voll/gesperrt ist. */
-export function speichereStapel(stapel) {
+/**
+ * Stapel speichern und (für den Konto-Sync) die Änderung melden.
+ * @param {Stapel[]} stapel
+ * @param {{melden?:boolean}} [opt]  `melden:false` beim Übernehmen des Server-Stands.
+ * @returns {boolean} false, wenn der Speicher voll/gesperrt ist.
+ */
+export function speichereStapel(stapel, { melden = true } = {}) {
   try {
     localStorage.setItem(KEY, JSON.stringify(stapel || []));
+    if (melden) meldeKontoDatenAenderung('eigeneKarten');
     return true;
   } catch {
     return false;

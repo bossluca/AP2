@@ -48,6 +48,7 @@ export default function Info() {
               Klartext kennt es niemand, auch der Server nicht,
             </li>
             <li>dein <strong>Lernfortschritt</strong>, XP/Level und Streak,</li>
+            <li>dein <strong>Lernplan</strong> (Einstufungsergebnis) und deine <strong>eigenen Kartenstapel</strong> (nur der Text der Karten, nie die PDF-Datei),</li>
             <li>
               nur bei <strong>freiwilliger Teilnahme an der Rangliste</strong>: ein selbst gewählter
               Anzeigename. Andere Angemeldete sehen dann Name, Wochenpunkte und XP – nie die E-Mail.
