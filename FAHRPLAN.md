@@ -58,7 +58,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 | 3.2 | ✅ **Wochen-Challenges** (z. B. „50 Subnetting-Aufgaben"), abgeleitet aus Tags, mit Badge | M | thematischer Fokus |
 | 3.3 | **Ligen** (Bronze/Silber/Gold) wochenweise aus Rangliste – Auf-/Abstieg | M | Duolingo-Effekt |
 | 3.4 | Erinnerungen per **Web-Push** (opt-in, nur mit Backend; VAPID) | M | Streak-Schutz |
-| 3.5 | Mehr Badges: erste Klausur, 7 Tage Quests komplett, alle Lernpfade eines Themas | S | mehr Meilensteine |
+| 3.5 | ✅ Mehr Badges (Einstufung, eigener Stapel, Wochensieger, Level 5/10, 5000 XP) | S | mehr Meilensteine |
 | 3.6 | XP-Boost für Schwächen-Training und fällige Wiederholungen (statt nur Masse) | S | belohnt sinnvolles Lernen |
 | 3.7 | Profil-Seite: Level, Badges, Heatmap, Prüfungsreife auf einen Blick | S | Fortschritt sichtbar |
 
@@ -80,7 +80,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
 | 5.1 | ✅ **Playwright-E2E** für Kernflows (Einstufung, Heute lernen, Rechnen, eigene Karten; Desktop + Mobil) in CI – offen: Login/Rangliste mit Backend | M | Browser-Regressionen fallen auf |
-| 5.2 | `exam_data` aus dem PWA-Precache lösen (Runtime-Caching), Daten lazy laden | M | kleinerer Erst-Download |
+| 5.2 | ✅ Teil 1: Bundle entschlackt (Lucide-Namespace-Importe raus: vendor 1,18 MB → 427 KB, Precache 2,17 → 1,43 MiB). Offen: `exam_data` aus dem PWA-Precache lösen (Runtime-Caching), Daten lazy laden | M | kleinerer Erst-Download |
 | 5.3 | A11y-Pass (Fokus, Kontrast in beiden Themes, Screenreader-Labels) | S | barrierearm |
 | 5.4 | Echte shadcn-Komponenten (Radix-basiert) für Dialoge/Selects/Toasts, wo heute Eigenbau | M | konsistente Interaktion |
 
@@ -93,7 +93,8 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 5. ~~4.7 Lernplan + eigene Karten pro Konto syncen~~ ✅
 6. ~~5.1 E2E-Tests~~ ✅ (Frontend; Backend-Flows folgen)
 7. ~~3.2 Wochen-Challenges~~ ✅
-8. **Als Nächstes:** 3.5 neue Badges (Motivation),
+8. ~~3.5 neue Badges~~ ✅ · ~~5.2 Bundle~~ ✅ (Teil 1)
+9. **Als Nächstes:**
    4.1 weitere AP2-Übungssets für dünne Themen, 5.2 Daten aus dem Precache lösen,
    5.3 A11y-Pass.
 

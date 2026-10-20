@@ -1,6 +1,36 @@
 import { useMemo, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import * as Icons from 'lucide-react';
+import {
+  BookOpen,
+  Cpu,
+  AppWindow,
+  Settings,
+  FileBadge,
+  LineChart,
+  ClipboardList,
+  Code2,
+  LifeBuoy,
+  BadgeCheck,
+  ShieldCheck,
+  GraduationCap,
+} from 'lucide-react';
+
+// Explizite Map der Pfad-Icons (s. PFAD_ICONS in lib/lernpfade) statt
+// `import * as Icons` – das zog das komplette Lucide-Set ins Bundle.
+const ICONS = {
+  BookOpen,
+  Cpu,
+  AppWindow,
+  Settings,
+  FileBadge,
+  LineChart,
+  ClipboardList,
+  Code2,
+  LifeBuoy,
+  BadgeCheck,
+  ShieldCheck,
+  GraduationCap,
+};
 import { ArrowLeft, CheckCircle2, Play } from 'lucide-react';
 import { getLerneinheiten } from '../data/useExamData';
 import { useProgress } from '../context/ProgressContext';
@@ -10,7 +40,7 @@ import MarkdownContent from '../components/MarkdownContent';
 
 /** Lucide-Icon per Name (aus dem lernpfade-Modul), mit Fallback. */
 function PfadIcon({ name, ...props }) {
-  const Cmp = Icons[name] || Icons.GraduationCap;
+  const Cmp = ICONS[name] || GraduationCap;
   return <Cmp {...props} />;
 }
 

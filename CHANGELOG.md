@@ -8,6 +8,8 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Hinzugefügt
 
+- 2026-10-20: **Sechs neue Erfolge** (Einstufung, eigener Stapel, Wochensieger,
+  Level 5/10, 5000 XP); Statistik und ErfolgWatcher teilen `hooks/useErfolge`.
 - 2026-10-20: **Wochen-Challenges** auf der Startseite: an 5 Tagen lernen,
   100 Objekte bewerten, 15 Wiederholungen im wöchentlich rotierenden
   Fokus-Thema (`lib/challenges.js`, rein/getestet, aus vorhandenen Signalen).
@@ -71,6 +73,10 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Geändert
 
+- 2026-10-20: **Bundle-Chunk vendor −64 %**: `import * as Icons from 'lucide-react'` (Lernpfade,
+  Command-Palette) zog alle Icons mit; jetzt explizite Icon-Maps. vendor-Chunk
+  1,18 MB → 427 KB (gzip 263 → 131 KB), PWA-Precache 2,17 → 1,43 MiB.
+  Wächter-Test `src/bundle.test.js` verhindert Rückfall.
 - 2026-10-20: Neue, noch nie gelernte Inhalte zählen nicht mehr als „fällig“
   (Startseite zeigte Neulingen „543 fällig“); die Statistik führt sie als `neu`.
 - 2026-10-20: Design-Feinschliff: einheitliche Seitentitel (ohne Emoji,

@@ -1,14 +1,25 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as Icons from 'lucide-react';
+import { Play, RotateCcw, GraduationCap, Sun, Moon, ChevronRight } from 'lucide-react';
 import { NAV, NAV_SEKUNDAER } from '../navigation';
 import { useTheme } from '../context/ThemeContext';
 import { useProgress } from '../context/ProgressContext';
 import { baueBefehle, filterBefehle } from '../lib/befehle';
 
 /** Lucide-Icon per Name, mit neutralem Fallback. */
+// Explizite Icon-Map statt `import * as Icons` – sonst landet das komplette
+// Lucide-Set (~1 MB) im vendor-Chunk. Nav-Icons kommen aus navigation.js.
+const ICONS = {
+  Play,
+  RotateCcw,
+  GraduationCap,
+  Sun,
+  Moon,
+  ...Object.fromEntries([...NAV, ...NAV_SEKUNDAER].map((n) => [n.iconName, n.icon])),
+};
+
 function CmdIcon({ name, ...props }) {
-  const Cmp = Icons[name] || Icons.ChevronRight;
+  const Cmp = ICONS[name] || ChevronRight;
   return <Cmp {...props} />;
 }
 
