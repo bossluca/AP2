@@ -8,6 +8,19 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Hinzugefügt
 
+- 2026-10-20: **Rechen-Trainer** (`/rechnen`): unbegrenzt generierte Aufgaben
+  (Hosts pro Netz, Netz-/Broadcastadresse mit Oktett-Kurzweg, Teilnetze, IPv6
+  kürzen nach RFC 5952, RAID-Kapazität, Übertragungszeit, Stromkosten,
+  USV-Laufzeit, Verfügbarkeit, Zahlensysteme) mit Lösungsweg und toleranter
+  Prüfung (Komma/Punkt, Einheiten). `lib/rechentrainer.js` rein/getestet.
+- 2026-10-20: **Einladungs-Codes + Admin-Bereich** für Self-Hosting:
+  `REGISTRATION=open|invite|closed`, `ADMIN_EMAILS`; Admin-Seite `/admin`
+  (Konten sperren/löschen, Einladungen mit Link `#/konto?einladung=…`).
+  Codes nur als SHA-256-Hash gespeichert, atomar eingelöst; gesperrte Konten
+  verlieren sofort alle Sitzungen. Additive DB-Migration.
+- 2026-10-20: Backup enthält jetzt auch **eigene Kartenstapel und den Lernplan**
+  (optionale Felder, ältere Backups bleiben gültig).
+
 - 2026-10-20: **Einstufungstest + individueller Lernplan** (`/einstufung`):
   kurzer MC-Test über 16 AP2-Themen (Fragen aus den Lernzetteln, „Weiß ich
   nicht" statt Raten), Themenprofil und Wochenplan bis zum Prüfungstermin
@@ -44,6 +57,8 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Geändert
 
+- 2026-10-20: Neue, noch nie gelernte Inhalte zählen nicht mehr als „fällig“
+  (Startseite zeigte Neulingen „543 fällig“); die Statistik führt sie als `neu`.
 - 2026-10-20: Design-Feinschliff: einheitliche Seitentitel (ohne Emoji,
   `tracking-tight`), Lernmodi-Kacheln mit Lucide-Icons im 3-Spalten-Raster,
   dezentes Punktraster im Hero, aktive Bottom-Nav als Pill, Grautöne auf

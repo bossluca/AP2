@@ -2,7 +2,15 @@ import { useRef, useState } from 'react';
 import { Download, Upload } from 'lucide-react';
 import { useProgress } from '../context/ProgressContext';
 import { useGamification } from '../context/GamificationContext';
-import { baueExport, parseImport, exportDateiname } from '../lib/datensicherung';
+import {
+  baueExport,
+  parseImport,
+  exportDateiname,
+  mergeStapel,
+  neuereEinstufung,
+} from '../lib/datensicherung';
+import { ladeStapel, speichereStapel } from '../lib/eigeneKarten';
+import { ladeEinstufung, speichereEinstufung } from '../lib/einstufung';
 
 /**
  * Fortschritt sichern & wiederherstellen (JSON-Datei) – die Versicherung für
@@ -17,7 +25,10 @@ export default function DatenSicherung() {
   const [meldung, setMeldung] = useState(null); // {typ:'ok'|'fehler', text}
 
   const exportieren = () => {
-    const daten = baueExport(getProgressRoh(), getGamificationRoh());
+    const daten = baueExport(getProgressRoh(), getGamificationRoh(), new Date(), {
+      eigeneKarten: ladeStapel(),
+      einstufung: ladeEinstufung(),
+    });
     const blob = new Blob([JSON.stringify(daten, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -41,6 +52,10 @@ export default function DatenSicherung() {
       }
       importProgress(r.progress);
       importGamification(r.gamification);
+      speichereStapel(mergeStapel(ladeStapel(), r.eigeneKarten));
+      const lokal = ladeEinstufung();
+      const gewinner = neuereEinstufung(lokal, r.einstufung);
+      if (gewinner && gewinner !== lokal) speichereEinstufung(gewinner.auswertung, new Date(gewinner.datum));
       setMeldung({
         typ: 'ok',
         text: `Backup übernommen (${r.anzahl} Einträge, nicht-destruktiv gemergt).`,
@@ -54,7 +69,7 @@ export default function DatenSicherung() {
     <div className="border-t border-border pt-4 space-y-2">
       <h2 className="text-sm font-semibold">Fortschritt sichern &amp; übertragen</h2>
       <p className="text-xs text-muted-foreground">
-        Lädt deinen kompletten Lernstand (Fortschritt, XP, Streak) als JSON-Datei herunter –
+        Lädt deinen kompletten Lernstand (Fortschritt, XP, Streak, Lernplan, eigene Karten) als JSON-Datei herunter –
         als Backup oder für den Umzug auf ein anderes Gerät. Der Import ergänzt den
         vorhandenen Stand, ohne Neueres zu überschreiben.
       </p>

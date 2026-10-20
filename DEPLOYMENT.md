@@ -50,6 +50,22 @@ docker compose up --build
    holen, **„Force SSL" + HSTS aktivieren** (die Security-Header der App selbst
    setzt der web-Container, HSTS gehört an den TLS-Terminator).
 
+### Konten & Admin (Einladungen)
+
+In der `.env` neben `docker-compose.yml`:
+
+```bash
+ADMIN_EMAILS=du@example.de        # Komma-Liste; diese Konten sehen /#/admin
+REGISTRATION=open                 # open | invite | closed
+```
+
+Empfohlener Ablauf für eine private Instanz:
+1. Mit `REGISTRATION=open` starten und das eigene Konto (E-Mail aus `ADMIN_EMAILS`) anlegen.
+2. Auf `REGISTRATION=invite` umstellen, `docker compose up -d` (Backend startet neu).
+3. Unter **Konto → Admin-Bereich** Einladungen erzeugen (Nutzungen, Gültigkeit, Notiz) und den
+   Link `…/#/konto?einladung=CODE` weitergeben. Gespeichert wird nur der Hash des Codes.
+4. Konten lassen sich dort **sperren** (beendet alle Sitzungen sofort) oder **löschen**.
+
 Der Fortschritt der Nutzer liegt in der SQLite-Datei im Volume `db_data`
 (`/app/data/lernapp.sqlite` im Backend-Container).
 

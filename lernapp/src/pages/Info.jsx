@@ -33,8 +33,9 @@ export default function Info() {
         <div className="text-sm text-muted-foreground space-y-2">
           <p>
             <strong>Ohne Konto</strong> bleibt alles <strong>lokal in deinem Browser</strong>{' '}
-            (localStorage): Lernfortschritt, Streak/XP, Theme- und Komfort-Einstellungen. Diese
-            Daten verlassen dein Gerät nicht und werden nicht an einen Server übertragen.
+            (localStorage): Lernfortschritt, Streak/XP, Lernplan, eigene Kartenstapel, Theme- und
+            Komfort-Einstellungen. Diese Daten verlassen dein Gerät nicht und werden nicht an einen
+            Server übertragen. Hochgeladene PDFs werden nur im Browser gelesen, nie hochgeladen.
           </p>
           <p>
             <strong>Mit Konto</strong> (optional) werden zusätzlich gespeichert, damit dein

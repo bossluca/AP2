@@ -4,7 +4,10 @@
  * (Download, FileReader) liegt in der UI-Komponente.
  *
  * Format: { format: 'fisidev-backup', version: 1, exportiertAm,
- *           progress: ProgressMap, gamification: {activity,xp,klausurBest} }
+ *           progress: ProgressMap, gamification: {activity,xp,klausurBest},
+ *           eigeneKarten?: Stapel[], einstufung?: {datum, auswertung} }
+ * Die beiden letzten Felder sind optional (additiv in v1 – ältere Backups
+ * ohne sie bleiben gültig).
  */
 
 export const BACKUP_FORMAT = 'fisidev-backup';
@@ -16,14 +19,39 @@ export const BACKUP_VERSION = 1;
  * @param {Object} gamification  Roher Gamification-Stand.
  * @param {Date}   [jetzt]       Injizierbar für Tests.
  */
-export function baueExport(progress, gamification, jetzt = new Date()) {
+export function baueExport(progress, gamification, jetzt = new Date(), extras = {}) {
+  const { eigeneKarten = [], einstufung = null } = extras;
   return {
     format: BACKUP_FORMAT,
     version: BACKUP_VERSION,
     exportiertAm: jetzt.toISOString(),
     progress: progress && typeof progress === 'object' ? progress : {},
     gamification: gamification && typeof gamification === 'object' ? gamification : {},
+    eigeneKarten: Array.isArray(eigeneKarten) ? eigeneKarten : [],
+    einstufung: einstufung && einstufung.datum ? einstufung : null,
   };
+}
+
+/**
+ * Eigene Kartenstapel zusammenführen: importierte Stapel mit neuer ID kommen
+ * hinzu, vorhandene (gleiche ID) bleiben unverändert.
+ * @param {Object[]} lokal
+ * @param {Object[]} importiert
+ */
+export function mergeStapel(lokal, importiert) {
+  const basis = Array.isArray(lokal) ? lokal : [];
+  const ids = new Set(basis.map((s) => s.id));
+  const neu = (Array.isArray(importiert) ? importiert : []).filter(
+    (s) => s && s.id && Array.isArray(s.karten) && !ids.has(s.id)
+  );
+  return [...basis, ...neu];
+}
+
+/** Von zwei Einstufungen die jüngere (nach `datum`), null-sicher. */
+export function neuereEinstufung(a, b) {
+  if (!a?.datum) return b?.datum ? b : null;
+  if (!b?.datum) return a;
+  return new Date(b.datum) > new Date(a.datum) ? b : a;
 }
 
 /**
@@ -67,5 +95,15 @@ export function parseImport(text) {
   }
   const gamification =
     daten.gamification && typeof daten.gamification === 'object' ? daten.gamification : {};
-  return { ok: true, progress: sauber, gamification, anzahl: Object.keys(sauber).length };
+  const eigeneKarten = Array.isArray(daten.eigeneKarten) ? daten.eigeneKarten : [];
+  const einstufung =
+    daten.einstufung && daten.einstufung.datum && daten.einstufung.auswertung ? daten.einstufung : null;
+  return {
+    ok: true,
+    progress: sauber,
+    gamification,
+    eigeneKarten,
+    einstufung,
+    anzahl: Object.keys(sauber).length,
+  };
 }

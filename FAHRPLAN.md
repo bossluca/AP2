@@ -16,7 +16,8 @@ parallel immer Inhalte.** Jede Stufe ist einzeln auslieferbar.
 - Lernmodi: Heute lernen, Schwächen, Lernpfade, Karteikarten, FSRS-Wiederholen,
   Quiz, Lückentext, Drill, **neu: Zuordnen**, Klausur-Simulation.
 - Design: **shadcn/ui-Stil** (Tokens, zinc + grüner Primary, Geist-Fonts).
-- **Neu:** Einstufungstest + Lernplan bis zur Prüfung, eigene Karten aus PDF/Text.
+- **Neu:** Einstufungstest + Lernplan bis zur Prüfung, eigene Karten aus PDF/Text,
+  Rechen-Trainer, Einladungs-Codes + Admin-Bereich (Stand 2026-10-20).
 
 ## Stufe 1 – Self-Hosting produktionsreif (P1)
 
@@ -38,8 +39,8 @@ Ziel: Mehrere Lernende nutzen eine Instanz, jeder mit eigenem Stand, ohne Admin-
 
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
-| 2.1 | **Einladungs-Codes** für die Registrierung (Env `REGISTRATION=invite|open|closed`) | M | keine Fremd-Registrierungen |
-| 2.2 | **Admin-Rolle** + schlichte Admin-Seite: Konten listen/sperren/löschen, Einladungen erzeugen | M | Instanz verwaltbar ohne SQL |
+| 2.1 | ✅ **Einladungs-Codes** für die Registrierung (Env `REGISTRATION=invite|open|closed`) | M | keine Fremd-Registrierungen |
+| 2.2 | ✅ **Admin-Rolle** + schlichte Admin-Seite: Konten listen/sperren/löschen, Einladungen erzeugen | M | Instanz verwaltbar ohne SQL |
 | 2.3 | Sitzungen verwalten: „auf allen Geräten abmelden", Liste aktiver Geräte | S | Kontrolle bei Geräteverlust |
 | 2.4 | Passwort ändern (angemeldet) + optional TOTP-2FA | M | Konten sicherer |
 | 2.5 | Server-seitiger **Export** (DSGVO-Auskunft als JSON, gleiches Format wie lokales Backup) | S | Auskunftsrecht erfüllt |
@@ -65,12 +66,12 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
 | 4.1 | Weitere AP2-Übungssets entlang `lernapp/docs/AP2_THEMENMATRIX.md` (Lücken zuerst) | M je Set | breitere Abdeckung |
-| 4.2 | **Rechen-Trainer** mit generierten Aufgaben: Subnetting, IPv6-Kürzung, RAID-Kapazität, USV/Stromkosten, Übertragungszeit | M | unendlich Übung für Punktebringer |
+| 4.2 | ✅ **Rechen-Trainer** mit generierten Aufgaben: Subnetting, IPv6-Kürzung, RAID-Kapazität, USV/Stromkosten, Übertragungszeit | M | unendlich Übung für Punktebringer |
 | 4.3 | **Reihenfolge-Format** (OSI, Incident-Ablauf, Subnetting-Schritte) | M | letztes offenes Abfrageformat |
 | 4.4 | Fallstudien-Modus: ein Szenario, mehrere verknüpfte Teilaufgaben wie in der echten AP2 | L | prüfungsnah |
 | 4.5 | Optional **KI-Bewertung** von Freitext-Antworten (eigener API-Key, nur Backend, opt-in) zusätzlich zur Schlagwortprüfung | M | feineres Feedback |
 | 4.7 | Lernplan pro Konto syncen (heute gerätelokal) + Re-Test nach jeder Planphase, Fortschritt je Thema im Plan anzeigen | M | Plan wandert mit, misst Lernerfolg |
-| 4.8 | Eigene Karten: Stapel ins Backup/Konto-Sync aufnehmen, Teilen per Datei, optional OCR (tesseract.js) für Scans | M | eigene Inhalte gehen nicht verloren |
+| 4.8 | Eigene Karten: ✅ Backup; offen: Konto-Sync, Teilen per Datei, optional OCR (tesseract.js) für Scans | M | eigene Inhalte gehen nicht verloren |
 | 4.6 | Fachliche Stichproben-Reviews der KI-generierten Fragen, Melde-Button „Frage fehlerhaft" | S | Vertrauen in Inhalte |
 
 ## Stufe 5 – Technik & Qualität (P2–P3)
@@ -85,10 +86,11 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 ## Empfohlene Reihenfolge
 
 1. Stufe 1 komplett (1.1–1.5) – Voraussetzung für alles mit mehreren Nutzern.
-2. 2.1 Einladungs-Codes + 2.2 Admin-Seite – dann kann die Instanz geteilt werden.
-3. 4.2 Rechen-Trainer – größter Lernnutzen für die AP2.
-4. 3.1 Lerngruppen – macht die neue Rangliste im Klassenkontext richtig wertvoll.
-5. 5.1 E2E-Tests, bevor die Nutzerzahl wächst.
+2. ~~2.1 Einladungs-Codes + 2.2 Admin-Seite~~ ✅ – Instanz kann geteilt werden.
+3. ~~4.2 Rechen-Trainer~~ ✅
+4. 3.1 Lerngruppen – macht die Rangliste im Klassenkontext richtig wertvoll.
+5. 4.7 Lernplan + eigene Karten pro Konto syncen.
+6. 5.1 E2E-Tests, bevor die Nutzerzahl wächst.
 
 ## Einschätzung: Karten aus hochgeladenen PDFs
 

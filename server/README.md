@@ -68,6 +68,20 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 Punkte = bewertete Lernobjekte der letzten 7 Tage aus dem Aktivitäts-Log des
 Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
 
+### Admin (`/api/admin`) — nur Konten aus `ADMIN_EMAILS`
+
+| Methode | Pfad | Beschreibung |
+|---|---|---|
+| `GET` | `/api/admin/uebersicht` | Registrierungsmodus, Konten (E-Mail, seit, gesperrt, XP, Einträge), Einladungen (ohne Klartext-Code) |
+| `PATCH` | `/api/admin/users/:id` | `{ gesperrt: boolean }` – Sperren beendet alle Sitzungen; nicht für das eigene Konto |
+| `DELETE` | `/api/admin/users/:id` | Konto samt Daten löschen (nicht das eigene) |
+| `POST` | `/api/admin/invites` | `{ maxUses 1–100, gueltigTage 0–365, notiz }` → Code (nur einmal im Klartext) |
+| `DELETE` | `/api/admin/invites/:id` | Einladung widerrufen |
+
+Registrierung: `GET /api/auth/config` liefert `{ registrierung }` (Env `REGISTRATION` =
+`open`/`invite`/`closed`); bei `invite` braucht `POST /api/auth/register` ein `inviteCode`
+(atomar eingelöst). Gesperrte Konten können sich nicht anmelden/zurücksetzen.
+
 ### Sonstiges
 
 | Methode | Pfad | Beschreibung |
@@ -78,7 +92,10 @@ Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
 
 - **`users`** — `id`, `email` (unique), `password_hash` (argon2id), `created_at`,
   `recovery_hash` (argon2 des Recovery-Codes; additive Migration),
-  `anzeigename` + `rangliste_optin` (Rangliste, Default aus; additive Migration)
+  `anzeigename` + `rangliste_optin` (Rangliste, Default aus; additive Migration),
+  `gesperrt` (Admin-Sperre; additive Migration)
+- **`invites`** — `code_hash` (SHA-256), `hinweis` (erste 4 Zeichen), `notiz`, `max_uses`,
+  `uses`, `created_by`, `created_at`, `expires_at`
 - **`sessions`** — `token` (PK), `user_id`, `created_at`, `expires_at` (30 Tage)
 - **`progress`** — PK `(user_id, item_id)`; Felder `status`, `box`, `due`,
   `last_seen`, `last_result`, `history` (JSON), FSRS-Felder
@@ -92,8 +109,8 @@ Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
 - `src/app.js` — testbare Fastify-Factory (`buildApp`, via `app.inject` ohne Netzwerk testbar)
 - `src/index.js` — Entrypoint (liest `.env`, startet den Server)
 - `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen
-- `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` — Routen ·
+- `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` · `src/admin.js` — Routen ·
   `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` ·
-  `test/rangliste.test.js` — Tests
+  `test/rangliste.test.js` · `test/admin.test.js` — Tests
 
 Architektur-Begründungen (Backend-/Auth-Wahl): siehe [`../DECISIONS.md`](../DECISIONS.md).
