@@ -78,6 +78,11 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Geändert
 
+- 2026-10-20: **Barrierefreiheit:** axe-Check (WCAG 2.1 A/AA) für 7 Hauptseiten
+  in hellem und dunklem Theme als Teil der Playwright-Suite (`e2e/a11y.spec.js`).
+  Behoben: Primary im Hellmodus auf green-700 (Kontrast weißer Text/grüner Text
+  ≥ 4,5:1), gesperrte Badges ohne halbtransparenten Text (+ „gesperrt“ für
+  Screenreader).
 - 2026-10-20: **Bundle-Chunk vendor −64 %**: `import * as Icons from 'lucide-react'` (Lernpfade,
   Command-Palette) zog alle Icons mit; jetzt explizite Icon-Maps. vendor-Chunk
   1,18 MB → 427 KB (gzip 263 → 131 KB), PWA-Precache 2,17 → 1,43 MiB.

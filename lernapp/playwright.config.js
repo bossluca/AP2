@@ -26,6 +26,8 @@ export default defineConfig({
     command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
+    // vite preview proxyt /api ohne Backend → ECONNREFUSED-Rauschen ausblenden.
+    stderr: 'ignore',
     timeout: 120_000,
   },
 });

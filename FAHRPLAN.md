@@ -81,7 +81,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 |---|---|---|---|
 | 5.1 | ✅ **Playwright-E2E** für Kernflows (Einstufung, Heute lernen, Rechnen, eigene Karten; Desktop + Mobil) in CI – offen: Login/Rangliste mit Backend | M | Browser-Regressionen fallen auf |
 | 5.2 | ✅ Teil 1: Bundle entschlackt (Lucide-Namespace-Importe raus: vendor 1,18 MB → 427 KB, Precache 2,17 → 1,43 MiB). Offen: `exam_data` aus dem PWA-Precache lösen (Runtime-Caching), Daten lazy laden | M | kleinerer Erst-Download |
-| 5.3 | A11y-Pass (Fokus, Kontrast in beiden Themes, Screenreader-Labels) | S | barrierearm |
+| 5.3 | ✅ Automatischer A11y-Check (axe, WCAG 2.1 AA, 7 Seiten × hell/dunkel) in der E2E-Suite; Kontrast behoben. Offen: manueller (Fokus, Kontrast in beiden Themes, Screenreader-Labels) | S | barrierearm |
 | 5.4 | Echte shadcn-Komponenten (Radix-basiert) für Dialoge/Selects/Toasts, wo heute Eigenbau | M | konsistente Interaktion |
 
 ## Empfohlene Reihenfolge
@@ -95,7 +95,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 7. ~~3.2 Wochen-Challenges~~ ✅
 8. ~~3.5 neue Badges~~ ✅ · ~~5.2 Bundle~~ ✅ (Teil 1)
 9. **Als Nächstes:**
-   ~~4.1 Set 5~~ ✅ – alle 16 Themen „Gut“; offen: 5.2 Daten aus dem Precache lösen,
+   ~~4.1 Set 5~~ ✅ – alle 16 Themen „Gut“; ~~5.3 A11y (automatisch)~~ ✅; offen: 5.2 Daten aus dem Precache lösen,
    5.3 A11y-Pass.
 
 ## Einschätzung: Karten aus hochgeladenen PDFs

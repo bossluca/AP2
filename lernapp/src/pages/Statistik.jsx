@@ -179,14 +179,18 @@ export default function Statistik() {
               key={e.id}
               title={e.beschreibung}
               className={`card p-3 flex items-center gap-2 transition ${
-                e.freigeschaltet ? '' : 'opacity-50 grayscale'
+                e.freigeschaltet ? '' : 'border-dashed bg-muted/40'
               }`}
             >
-              <span className="text-2xl" aria-hidden="true">
+              {/* Gesperrt: nur das Icon ausgegraut – Text bleibt kontrastreich (WCAG AA). */}
+              <span className={`text-2xl ${e.freigeschaltet ? '' : 'opacity-40 grayscale'}`} aria-hidden="true">
                 {e.icon}
               </span>
               <div className="leading-tight min-w-0">
-                <div className="text-sm font-medium truncate">{e.titel}</div>
+                <div className={`text-sm font-medium truncate ${e.freigeschaltet ? '' : 'text-muted-foreground'}`}>
+                  {e.titel}
+                  {!e.freigeschaltet && <span className="sr-only"> (gesperrt)</span>}
+                </div>
                 <div className="text-[11px] text-muted-foreground">
                   {e.freigeschaltet ? '✓ freigeschaltet' : e.beschreibung}
                 </div>

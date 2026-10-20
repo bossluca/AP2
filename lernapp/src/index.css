@@ -34,13 +34,13 @@
   --secondary-foreground: #18181b;
   --border: #e4e4e7; /* zinc-200 */
   --input: #e4e4e7;
-  --primary: #16a34a; /* green-600 */
+  --primary: #15803d; /* green-700 – WCAG-AA-Kontrast für Text auf Weiß und weißen Text */
   --primary-foreground: #f0fdf4;
   --ring: #16a34a;
   --destructive: #dc2626;
 
   --accent: var(--primary);
-  --accent-strong: #15803d; /* green-700 */
+  --accent-strong: #166534; /* green-800 */
   --accent-contrast: var(--primary-foreground);
   --selection: rgba(34, 197, 94, 0.22);
   --line-rest: var(--border); /* ungelaufener Teil der Pfad-Linie */
