@@ -90,6 +90,15 @@ test('Admin erzeugt Einladung; Registrierung nur mit gültigem Code, Code wird v
   assert.deepEqual(ueb.konten.map((k) => k.email).sort(), ['admin@fisi.dev', 'mit@b.de']);
 });
 
+test('invite: Admin-E-Mail registriert sich ohne Code, andere nicht', async () => {
+  app = await buildApp({ registrierung: 'invite', adminEmails: 'admin@fisi.dev' });
+  const admin = await registriere('Admin@Fisi.dev');
+  assert.equal(admin.res.statusCode, 201);
+  assert.equal(admin.res.json().user.admin, true);
+  const fremd = await registriere('fremd@b.de');
+  assert.equal(fremd.res.statusCode, 403);
+});
+
 test('Nicht-Admins kommen nicht in den Admin-Bereich', async () => {
   app = await buildApp({ adminEmails: 'admin@fisi.dev' });
   const { cookie } = await registriere('normal@b.de');

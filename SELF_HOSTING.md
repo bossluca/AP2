@@ -256,7 +256,7 @@ Backend starten → warten bis `healthy` → Smoke-Test. Downtime: wenige Sekund
 - [ ] `./scripts/deploy.sh` → beide Container `healthy`
 - [ ] NPM-Proxy-Host mit Let's Encrypt, Force SSL, HTTP/2, HSTS, Block Common Exploits
 - [ ] Firewall: nur 443 (+80) → NPM, GeoIP, IPS, DoS-Schutz; DMZ → LAN gesperrt
-- [ ] Eigenes Admin-Konto anlegen → `REGISTRATION=invite` → `docker compose up -d`
+- [ ] `REGISTRATION=invite` + `ADMIN_EMAILS` setzen → eigenes Admin-Konto anlegen (ohne Code)
 - [ ] Backup-Cron + Proxmox-Backup + Außer-Haus-Kopie eingerichtet
 - [ ] **Restore einmal getestet**
 - [ ] Uptime-Monitoring auf `/api/health`

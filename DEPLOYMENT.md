@@ -60,8 +60,9 @@ REGISTRATION=open                 # open | invite | closed
 ```
 
 Empfohlener Ablauf für eine private Instanz:
-1. Mit `REGISTRATION=open` starten und das eigene Konto (E-Mail aus `ADMIN_EMAILS`) anlegen.
-2. Auf `REGISTRATION=invite` umstellen, `docker compose up -d` (Backend startet neu).
+1. Gleich mit `REGISTRATION=invite` starten. Konten aus `ADMIN_EMAILS` registrieren sich ohne
+   Code (Feld leer lassen) – so gibt es kein offenes Zeitfenster für fremde Registrierungen.
+2. Das eigene Konto (E-Mail aus `ADMIN_EMAILS`) anlegen.
 3. Unter **Konto → Admin-Bereich** Einladungen erzeugen (Nutzungen, Gültigkeit, Notiz) und den
    Link `…/#/konto?einladung=CODE` weitergeben. Gespeichert wird nur der Hash des Codes.
 4. Konten lassen sich dort **sperren** (beendet alle Sitzungen sofort) oder **löschen**.
