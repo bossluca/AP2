@@ -2,6 +2,7 @@ import { randomBytes } from 'node:crypto';
 import { hash, verify } from '@node-rs/argon2';
 import { createSession, deleteSession } from './session.js';
 import { erstelleRateLimiter } from './lib/rateLimit.js';
+import { hashEinladung, einladungGueltig } from './lib/einladung.js';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORT = 8;
@@ -57,8 +58,15 @@ export async function authRoutes(app) {
   // damit Tests/Mehrfach-Apps sich nicht denselben Zähler teilen.
   const loginLimiter = app.loginLimiter || erstelleRateLimiter({ maxVersuche: 8, fensterMs: 15 * 60 * 1000 });
 
+  // Öffentliche Konfiguration fürs Frontend (welches Registrierungsformular?).
+  app.get('/api/auth/config', async () => ({ registrierung: app.config.registrierung }));
+
   app.post('/api/auth/register', async (req, reply) => {
-    const { email, password } = req.body || {};
+    const { email, password, inviteCode } = req.body || {};
+    const modus = app.config.registrierung;
+    if (modus === 'closed') {
+      return reply.code(403).send({ error: 'Registrierung ist auf dieser Instanz geschlossen.' });
+    }
     if (typeof email !== 'string' || !EMAIL_RE.test(email)) {
       return reply.code(400).send({ error: 'Ungültige E-Mail-Adresse.' });
     }
@@ -69,19 +77,53 @@ export async function authRoutes(app) {
     const exists = db.prepare('SELECT id FROM users WHERE email = ?').get(normEmail);
     if (exists) return reply.code(409).send({ error: 'E-Mail ist bereits registriert.' });
 
+    // Einladung prüfen (vor dem teuren Hashing) – eingelöst wird erst unten,
+    // atomar zusammen mit dem Anlegen des Kontos.
+    let einladung = null;
+    if (modus === 'invite') {
+      einladung = db.prepare('SELECT * FROM invites WHERE code_hash = ?').get(hashEinladung(inviteCode));
+      if (!einladungGueltig(einladung)) {
+        return reply.code(403).send({ error: 'Einladungscode ungültig, abgelaufen oder aufgebraucht.' });
+      }
+    }
+
     const passwordHash = await hash(password);
     // Recovery-Code für den Passwort-Reset ohne Mail-Server: dem Nutzer einmal
     // zeigen, serverseitig nur den Hash speichern.
     const recoveryCode = erzeugeRecoveryCode();
     const recoveryHash = await hash(normalisiereCode(recoveryCode));
-    const info = db
-      .prepare('INSERT INTO users (email, password_hash, created_at, recovery_hash) VALUES (?, ?, ?, ?)')
-      .run(normEmail, passwordHash, new Date().toISOString(), recoveryHash);
-    const userId = Number(info.lastInsertRowid);
+    let userId;
+    db.exec('BEGIN');
+    try {
+      if (einladung) {
+        // Bedingtes Hochzählen: schlägt fehl, wenn parallel aufgebraucht.
+        const upd = db
+          .prepare('UPDATE invites SET uses = uses + 1 WHERE id = ? AND uses < max_uses')
+          .run(einladung.id);
+        if (Number(upd.changes) !== 1) throw Object.assign(new Error('aufgebraucht'), { einladung: true });
+      }
+      const info = db
+        .prepare('INSERT INTO users (email, password_hash, created_at, recovery_hash) VALUES (?, ?, ?, ?)')
+        .run(normEmail, passwordHash, new Date().toISOString(), recoveryHash);
+      userId = Number(info.lastInsertRowid);
+      db.exec('COMMIT');
+    } catch (err) {
+      db.exec('ROLLBACK');
+      if (err.einladung) {
+        return reply.code(403).send({ error: 'Einladungscode ungültig, abgelaufen oder aufgebraucht.' });
+      }
+      if (String(err.message).includes('UNIQUE')) {
+        return reply.code(409).send({ error: 'E-Mail ist bereits registriert.' });
+      }
+      throw err;
+    }
 
     const { token, expires } = createSession(db, userId);
     setSessionCookie(reply, token, expires);
-    return reply.code(201).send({ user: { id: userId, email: normEmail }, recoveryCode });
+    return reply.code(201).send({
+      user: { id: userId, email: normEmail, admin: app.config.adminEmails.has(normEmail) },
+      recoveryCode,
+    });
   });
 
   app.post('/api/auth/login', async (req, reply) => {
@@ -96,16 +138,23 @@ export async function authRoutes(app) {
       return reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
     }
     const normEmail = email.trim().toLowerCase();
-    const user = db.prepare('SELECT id, email, password_hash FROM users WHERE email = ?').get(normEmail);
+    const user = db
+      .prepare('SELECT id, email, password_hash, gesperrt FROM users WHERE email = ?')
+      .get(normEmail);
     // Konstante-Zeit-ähnliches Verhalten: bei unbekannter E-Mail trotzdem antworten.
     const ok = user ? await verify(user.password_hash, password).catch(() => false) : false;
     if (!user || !ok) {
       return reply.code(401).send({ error: 'E-Mail oder Passwort falsch.' });
     }
     loginLimiter.erfolg(schluessel); // gültiger Login → Zähler leeren
+    if (user.gesperrt) {
+      return reply.code(403).send({ error: 'Dieses Konto ist gesperrt. Bitte wende dich an den Betreiber.' });
+    }
     const { token, expires } = createSession(db, user.id);
     setSessionCookie(reply, token, expires);
-    return reply.send({ user: { id: user.id, email: user.email } });
+    return reply.send({
+      user: { id: user.id, email: user.email, admin: app.config.adminEmails.has(user.email) },
+    });
   });
 
   // Passwort-Reset per Recovery-Code (kein Mail-Server nötig). Gleiche
@@ -128,7 +177,7 @@ export async function authRoutes(app) {
     }
     const normEmail = email.trim().toLowerCase();
     const user = db
-      .prepare('SELECT id, email, recovery_hash FROM users WHERE email = ?')
+      .prepare('SELECT id, email, recovery_hash, gesperrt FROM users WHERE email = ?')
       .get(normEmail);
     const ok =
       user && user.recovery_hash
@@ -138,6 +187,9 @@ export async function authRoutes(app) {
       return reply.code(401).send({ error: 'E-Mail oder Recovery-Code falsch.' });
     }
     loginLimiter.erfolg(schluessel);
+    if (user.gesperrt) {
+      return reply.code(403).send({ error: 'Dieses Konto ist gesperrt. Bitte wende dich an den Betreiber.' });
+    }
 
     const neuerCode = erzeugeRecoveryCode();
     db.prepare('UPDATE users SET password_hash = ?, recovery_hash = ? WHERE id = ?').run(

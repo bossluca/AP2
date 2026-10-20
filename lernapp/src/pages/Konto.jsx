@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { KeyRound, ShieldCheck } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { KeyRound, ShieldCheck, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../lib/api';
 import { useProgress } from '../context/ProgressContext';
@@ -17,7 +17,24 @@ import DatenSicherung from '../components/DatenSicherung';
 export default function Konto() {
   const { user, login, register, recover, logout, deleteAccount } = useAuth();
   const { resetProgress } = useProgress();
-  const [modus, setModus] = useState('login'); // 'login' | 'register' | 'recover'
+  const [searchParams] = useSearchParams();
+  // Einladungslink `#/konto?einladung=CODE` öffnet direkt die Registrierung.
+  const [einladung, setEinladung] = useState(() => searchParams.get('einladung') || '');
+  // 'login' | 'register' | 'recover'
+  const [modus, setModus] = useState(() => (searchParams.get('einladung') ? 'register' : 'login'));
+  // Registrierungsmodus der Instanz (open | invite | closed); ohne Backend „open".
+  const [regModus, setRegModus] = useState('open');
+  useEffect(() => {
+    let aktiv = true;
+    // In der Kette, damit auch ein synchroner Fehler (Client ohne config) nur „open" bedeutet.
+    Promise.resolve()
+      .then(() => authApi.config())
+      .then((c) => aktiv && c?.registrierung && setRegModus(c.registrierung))
+      .catch(() => {});
+    return () => {
+      aktiv = false;
+    };
+  }, []);
   const [email, setEmail] = useState('');
   const [passwort, setPasswort] = useState('');
   const [passwort2, setPasswort2] = useState('');
@@ -45,7 +62,7 @@ export default function Konto() {
     setBusy(true);
     try {
       if (modus === 'register') {
-        const d = await register(email, passwort);
+        const d = await register(email, passwort, regModus === 'invite' ? einladung : undefined);
         if (d?.recoveryCode) setNeuerCode(d.recoveryCode);
       } else if (modus === 'recover') {
         const d = await recover(email, recoveryEingabe, passwort);
@@ -129,6 +146,13 @@ export default function Konto() {
 
         {recoveryHinweis}
         {fehler && <p className="text-sm text-red-600">{fehler}</p>}
+
+        {user.admin && (
+          <Link to="/admin" className="card-interactive p-3 flex items-center gap-2 text-sm font-medium">
+            <Shield size={16} className="text-accent" aria-hidden="true" /> Admin-Bereich: Konten &amp;
+            Einladungen
+          </Link>
+        )}
 
         <div className="flex flex-wrap gap-2">
           <button onClick={() => logout()} className="btn-ghost px-4 py-2">
@@ -219,20 +243,27 @@ export default function Konto() {
         >
           Anmelden
         </button>
-        <button
-          onClick={() => {
-            setModus('register');
-            setFehler(null);
-          }}
-          className={`px-3 py-1.5 rounded-md border ${
-            modus === 'register'
-              ? 'bg-accent text-[var(--accent-contrast)] border-accent'
-              : 'border-zinc-300 dark:border-zinc-600'
-          }`}
-        >
-          Registrieren
-        </button>
+        {regModus !== 'closed' && (
+          <button
+            onClick={() => {
+              setModus('register');
+              setFehler(null);
+            }}
+            className={`px-3 py-1.5 rounded-md border ${
+              modus === 'register'
+                ? 'bg-accent text-[var(--accent-contrast)] border-accent'
+                : 'border-zinc-300 dark:border-zinc-600'
+            }`}
+          >
+            Registrieren
+          </button>
+        )}
       </div>
+      {regModus === 'closed' && (
+        <p className="text-xs text-muted-foreground">
+          Neue Konten sind auf dieser Instanz derzeit nicht möglich.
+        </p>
+      )}
 
       {modus === 'recover' && (
         <p className="text-xs text-muted-foreground">
@@ -293,6 +324,23 @@ export default function Konto() {
 
         {modus === 'register' && (
           <>
+            {regModus === 'invite' && (
+              <div>
+                <label className="block text-xs text-muted-foreground mb-1" htmlFor="einladung">
+                  Einladungscode
+                </label>
+                <input
+                  id="einladung"
+                  type="text"
+                  required
+                  autoComplete="off"
+                  placeholder="XXXX-XXXX-XXXX"
+                  value={einladung}
+                  onChange={(e) => setEinladung(e.target.value)}
+                  className="w-full input font-mono"
+                />
+              </div>
+            )}
             <div>
               <label className="block text-xs text-muted-foreground mb-1" htmlFor="passwort2">
                 Passwort bestätigen

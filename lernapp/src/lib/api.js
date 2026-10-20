@@ -25,8 +25,9 @@ async function request(path, { method = 'GET', body } = {}) {
 }
 
 export const authApi = {
-  register: (email, password) =>
-    request('/auth/register', { method: 'POST', body: { email, password } }),
+  register: (email, password, inviteCode) =>
+    request('/auth/register', { method: 'POST', body: { email, password, inviteCode } }),
+  config: () => request('/auth/config'),
   login: (email, password) =>
     request('/auth/login', { method: 'POST', body: { email, password } }),
   logout: () => request('/auth/logout', { method: 'POST' }),
@@ -54,4 +55,13 @@ export const ranglisteApi = {
   get: () => request('/rangliste'),
   setProfil: (optIn, anzeigename) =>
     request('/rangliste/profil', { method: 'PUT', body: { optIn, anzeigename } }),
+};
+
+export const adminApi = {
+  uebersicht: () => request('/admin/uebersicht'),
+  sperren: (id, gesperrt) => request(`/admin/users/${id}`, { method: 'PATCH', body: { gesperrt } }),
+  loeschen: (id) => request(`/admin/users/${id}`, { method: 'DELETE' }),
+  einladen: (maxUses, gueltigTage, notiz) =>
+    request('/admin/invites', { method: 'POST', body: { maxUses, gueltigTage, notiz } }),
+  einladungLoeschen: (id) => request(`/admin/invites/${id}`, { method: 'DELETE' }),
 };

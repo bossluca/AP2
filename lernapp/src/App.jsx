@@ -16,6 +16,7 @@ const Rangliste = lazy(() => import('./pages/Rangliste'));
 const Einstufung = lazy(() => import('./pages/Einstufung'));
 const EigeneKarten = lazy(() => import('./pages/EigeneKarten'));
 const Rechnen = lazy(() => import('./pages/Rechnen'));
+const Admin = lazy(() => import('./pages/Admin'));
 const Klausur = lazy(() => import('./pages/Klausur'));
 const Lernzettel = lazy(() => import('./pages/Lernzettel'));
 const Wiederholen = lazy(() => import('./pages/Wiederholen'));
@@ -232,6 +233,7 @@ function AnimatedMain() {
           <Route path="/einstufung" element={<Einstufung />} />
           <Route path="/eigene-karten" element={<EigeneKarten />} />
           <Route path="/rechnen" element={<Rechnen />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/klausur" element={<Klausur />} />
           <Route path="/statistik" element={<Statistik />} />
           <Route path="/suche" element={<Suche />} />

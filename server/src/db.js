@@ -100,5 +100,26 @@ export function openDb(path) {
   if (!userSpalten.has('rangliste_optin')) {
     db.exec('ALTER TABLE users ADD COLUMN rangliste_optin INTEGER NOT NULL DEFAULT 0;');
   }
+  // Idempotente Migration: Admin kann Konten sperren (Login + Sitzungen aus).
+  if (!userSpalten.has('gesperrt')) {
+    db.exec('ALTER TABLE users ADD COLUMN gesperrt INTEGER NOT NULL DEFAULT 0;');
+  }
+
+  // Einladungs-Codes für REGISTRATION=invite. Gespeichert wird nur der
+  // SHA-256-Hash; der Klartext wird dem Admin einmal angezeigt. `hinweis` = die
+  // ersten Zeichen zum Wiedererkennen in der Liste.
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS invites (
+      id         INTEGER PRIMARY KEY,
+      code_hash  TEXT UNIQUE NOT NULL,
+      hinweis    TEXT NOT NULL,
+      notiz      TEXT,
+      max_uses   INTEGER NOT NULL DEFAULT 1,
+      uses       INTEGER NOT NULL DEFAULT 0,
+      created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      created_at TEXT NOT NULL,
+      expires_at TEXT
+    );
+  `);
   return db;
 }
