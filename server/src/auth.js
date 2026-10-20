@@ -79,10 +79,11 @@ export async function authRoutes(app) {
 
     // Einladung prüfen (vor dem teuren Hashing) – eingelöst wird erst unten,
     // atomar zusammen mit dem Anlegen des Kontos.
-    // Konten aus ADMIN_EMAILS brauchen keinen Code – sonst könnte sich der
-    // Betreiber auf einer frischen invite-Instanz nie selbst anlegen.
+    // Auch Konten aus ADMIN_EMAILS brauchen einen Code: Die E-Mail wird nicht
+    // verifiziert, sonst könnte sich jeder vorab als Admin registrieren. Den
+    // ersten Code erzeugt der Betreiber per CLI (src/einladung-cli.js).
     let einladung = null;
-    if (modus === 'invite' && !app.config.adminEmails.has(normEmail)) {
+    if (modus === 'invite') {
       einladung = db.prepare('SELECT * FROM invites WHERE code_hash = ?').get(hashEinladung(inviteCode));
       if (!einladungGueltig(einladung)) {
         return reply.code(403).send({ error: 'Einladungscode ungültig, abgelaufen oder aufgebraucht.' });

@@ -60,9 +60,15 @@ REGISTRATION=open                 # open | invite | closed
 ```
 
 Empfohlener Ablauf für eine private Instanz:
-1. Gleich mit `REGISTRATION=invite` starten. Konten aus `ADMIN_EMAILS` registrieren sich ohne
-   Code (Feld leer lassen) – so gibt es kein offenes Zeitfenster für fremde Registrierungen.
-2. Das eigene Konto (E-Mail aus `ADMIN_EMAILS`) anlegen.
+1. Gleich mit `REGISTRATION=invite` starten – es gibt kein offenes Zeitfenster für fremde
+   Registrierungen.
+2. Ersten Einladungscode auf dem Server erzeugen (1x nutzbar, 1 Tag gültig) und damit das eigene
+   Konto (E-Mail aus `ADMIN_EMAILS`) anlegen:
+   ```bash
+   docker compose exec backend node src/einladung-cli.js "Admin-Konto"
+   ```
+   Die E-Mail wird nicht verifiziert – deshalb öffnet `ADMIN_EMAILS` allein **keine**
+   Registrierung, sondern vergibt nur Rechte. Den Nachweis liefert der Serverzugriff.
 3. Unter **Konto → Admin-Bereich** Einladungen erzeugen (Nutzungen, Gültigkeit, Notiz) und den
    Link `…/#/konto?einladung=CODE` weitergeben. Gespeichert wird nur der Hash des Codes.
 4. Konten lassen sich dort **sperren** (beendet alle Sitzungen sofort) oder **löschen**.
@@ -79,6 +85,8 @@ Vollständige Vor-/Nachkontrolle und Rollback-Auslöser:
 docker compose ps
 docker compose logs --tail=100 backend web
 ./scripts/smoke-test.sh
+# Sicherheits-Check von außen (nur lesend, s. SECURITY.md)
+./scripts/security-check.sh https://<domain> --direkt <VM-IP>:<WEB_PORT>
 ```
 
 Die Logdateien werden durch Compose auf drei Dateien mit jeweils maximal 10 MB

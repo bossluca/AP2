@@ -332,6 +332,7 @@ export default function Konto() {
                 <input
                   id="einladung"
                   type="text"
+                  required
                   autoComplete="off"
                   placeholder="XXXX-XXXX-XXXX"
                   value={einladung}
