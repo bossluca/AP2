@@ -11,7 +11,7 @@ Lernprojekt für die Abschlussprüfung Teil 2 (AP2), Fachinformatiker Systeminte
   - `AP2/Lernzettel/{DOCX,PDF}` — AP2-Lernzettel (28 Themen; native DOCX = Importquelle)
 - `Pruefungen_Aufbereitet/` — Aufbereitete Prüfungen als Markdown (`INDEX.md` als Übersicht)
 - `AP2_Lernmaterial_Uebersicht.md` — Übersicht über vorhandenes Lernmaterial (AP1 + Zwischenprüfungen)
-- `docker-compose.yml` · `DEPLOYMENT.md` · `PROXMOX_SETUP.md` — Containerisierung + Hosting
+- `docker-compose.yml` · `DEPLOYMENT.md` · `PROXMOX_SETUP.md` · **`SELF_HOSTING.md`** (Leitfaden Home-Server: Firewall, DDoS, Backups, Restore) — Containerisierung + Hosting · `scripts/{deploy,smoke-test,backup,restore}.sh`
 - `ROADMAP.md` (Phasen 0–5, erledigt) · `DECISIONS.md` (ADR) · `IMPROVEMENTS.md` (lebendes Backlog) · **`FAHRPLAN.md`** (priorisierter Ausblick: Self-Hosting, Konten, Gamification, Inhalte)
 
 ## lernapp/ – Architektur
@@ -80,6 +80,7 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
   `src/lib/rateLimit.js` (Zeit injizierbar, pro App-Instanz via `app.loginLimiter` dekoriert) –
   8 Fehlversuche je IP+E-Mail / 15 min → HTTP 429 + `Retry-After`; erfolgreicher Login resettet
   den Zähler. `trustProxy` (Env `TRUST_PROXY`, Default an) liefert hinter Nginx die echte Client-IP
+- **Backup:** `src/backup.js` (`VACUUM INTO` + `PRAGMA integrity_check`; CLI `node src/backup.js <ziel>` bzw. `--pruefe <datei>`), aufgerufen von `scripts/backup.sh`/`restore.sh` im laufenden Container. Nie die .sqlite-Datei roh kopieren (WAL)
 - Testbare App-Factory (`src/app.js`, `app.inject`); Tests via `npm test` (node:test)
 - Konfiguration über `.env` (siehe `server/.env.example`); DB-Pfad als Volume in Docker
 - **Wichtig:** Das Frontend funktioniert auch **ohne** Backend voll (rein lokal,
@@ -88,7 +89,7 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
 ### Deployment
 - **Mit Backend (Docker):** `docker compose up -d --build` startet Backend + Nginx
   (Frontend statisch + Reverse-Proxy `/api`; **gehärtet**: Backend non-root ohne
-  Außenport, Healthchecks, `no-new-privileges`, Memory-Limits, Security-Header/CSP,
+  Außenport, Healthchecks, `no-new-privileges`, Memory-Limits, Security-Header/CSP (als Include `nginx-security-headers.conf` in **jedem** location-Block, sonst verwirft nginx sie), Rate-Limits/Timeouts/gzip in `lernapp/nginx.conf`,
   Body-Limit 1 MiB, Session-Aufräumjob). TLS/HTTPS + HSTS terminiert der vorgelagerte
   **Nginx Proxy Manager**. Sicherheits-Checkliste in `DEPLOYMENT.md`.
 - **Nur Frontend (statisch):** HashRouter, kein Server-Routing nötig.

@@ -128,9 +128,9 @@ Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
 
 - `src/app.js` — testbare Fastify-Factory (`buildApp`, via `app.inject` ohne Netzwerk testbar)
 - `src/index.js` — Entrypoint (liest `.env`, startet den Server)
-- `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen
+- `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen · `src/backup.js` — Online-Backup (`VACUUM INTO`) + Integritätsprüfung (CLI für `scripts/backup.sh`/`restore.sh`)
 - `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` · `src/admin.js` · `src/daten.js` · `src/gruppen.js` — Routen ·
   `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` ·
-  `test/rangliste.test.js` · `test/admin.test.js` · `test/daten.test.js` · `test/gruppen.test.js` — Tests
+  `test/rangliste.test.js` · `test/admin.test.js` · `test/daten.test.js` · `test/gruppen.test.js` · `test/backup.test.js` — Tests
 
 Architektur-Begründungen (Backend-/Auth-Wahl): siehe [`../DECISIONS.md`](../DECISIONS.md).

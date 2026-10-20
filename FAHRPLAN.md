@@ -27,8 +27,8 @@ sind gesichert, Updates sind risikoarm.
 
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
-| 1.1 | `docker compose build` + Deploy auf dem Zielhost real verifizieren (`DEPLOY_CHECKLIST.md`) | S | belastbarer Erst-Deploy |
-| 1.2 | Automatisches SQLite-Backup (`sqlite3 .backup` per Cron/Sidecar) + **Restore-Probe** dokumentieren | S | Datenverlust ausgeschlossen |
+| 1.1 | ✅ Sandbox-Verifikation (Build, healthy, Login, Backup/Restore, Neustart). Offen: einmal auf dem Zielhost nach `DEPLOY_CHECKLIST.md` | S | belastbarer Erst-Deploy |
+| 1.2 | ✅ `scripts/backup.sh` + `restore.sh` (Online-Backup, Rotation, Integritätsprüfung), Restore-Probe in `SELF_HOSTING.md` | S | Datenverlust ausgeschlossen |
 | 1.3 | Update-Ablauf: Image-Tag je Release, Rollback per Tag, Healthcheck-Gate | S | sichere Updates |
 | 1.4 | Monitoring: Uptime-Kuma o. ä. auf `/api/health`, Log-Rotation, Disk-Alarm | S | Ausfälle fallen auf |
 | 1.5 | Impressum/Datenschutz der `/info`-Vorlage final ausfüllen | S | rechtlich sauber |

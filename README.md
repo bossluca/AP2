@@ -66,6 +66,8 @@ Details: [`lernapp/README.md`](lernapp/README.md) · [`server/README.md`](server
 
 ## Deployment
 
+➡️ **Selbst hosten (Home-Server, Firewall, Backups, Restore):** [`SELF_HOSTING.md`](SELF_HOSTING.md)
+
 Containerisiert (Backend non-root + Nginx mit Security-Headern; TLS/HTTPS über den
 vorgelagerten Nginx Proxy Manager) – läuft auf Proxmox-LXC und auf einem VPS:
 

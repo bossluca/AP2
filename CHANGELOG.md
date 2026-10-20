@@ -8,6 +8,13 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Hinzugefügt
 
+- 2026-10-20: **Self-Hosting-Leitfaden** `SELF_HOSTING.md` (Voraussetzungen mit
+  Messwerten, Zugriffsvarianten VPN/öffentlich/CDN, Sophos/OPNsense-Einstellungen,
+  DDoS-Schichten, Performance, Datenhaltung, 3-2-1-Backups, Restore-Probe, Checkliste).
+- 2026-10-20: **Konsistente Backups + Restore:** `server/src/backup.js`
+  (`VACUUM INTO` + `integrity_check`, getestet), `scripts/backup.sh` (Rotation
+  14 Tage/12 Monate, gzip, Exit-Code für Cron) und `scripts/restore.sh` (prüft,
+  sichert vorher, spielt ein, Smoke-Test). End-to-end im Docker-Stack getestet.
 - 2026-10-20: **AP2-Übungsklausur 5** (KI-generiert, 11 Aufgaben / 22 Fragen /
   87 Punkte) für die bisher dünnen Themen: IPsec-VPN, Remote-Zugriff,
   Monitoring-Schwellwerte, Protokollierung & DSGVO, AGDLP, Cluster/Load
@@ -78,6 +85,11 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Geändert
 
+- 2026-10-20: **Sicherheitsfix nginx:** CSP/X-Frame-Options & Co. fehlten an
+  `index.html`, `sw.js` und den Assets (eigenes `add_header` im location-Block
+  verwarf die geerbten). Header jetzt als Include in jedem Block. Dazu
+  **Rate-Limits** (`/api` 20 r/s, `/api/auth` 30/min, 60 Verbindungen je IP),
+  Slowloris-Timeouts, echte Client-IP hinter NPM und **gzip**.
 - 2026-10-20: **Barrierefreiheit:** axe-Check (WCAG 2.1 A/AA) für 7 Hauptseiten
   in hellem und dunklem Theme als Teil der Playwright-Suite (`e2e/a11y.spec.js`).
   Behoben: Primary im Hellmodus auf green-700 (Kontrast weißer Text/grüner Text
