@@ -61,7 +61,7 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
   Einladungen) – Env **`REGISTRATION`** (`open`/`invite`/`closed`) + **`ADMIN_EMAILS`**
   (Admin-Flag in `req.user.admin`); Einladungen in Tabelle `invites` (nur SHA-256-Hash,
   atomar eingelöst), Sperre `users.gesperrt` (beendet Sitzungen; `userFromToken`
-  ignoriert gesperrte Konten). Reine Helfer `src/lib/einladung.js
+  ignoriert gesperrte Konten). Reine Helfer `src/lib/einladung.js`
 - **Passwort-Reset ohne Mail-Server** (s. ADR-008): Registrierung liefert einen
   **Recovery-Code** (`XXXX-XXXX-XXXX-XXXX`, ~80 Bit, Einmal-Anzeige; serverseitig nur
   argon2-Hash in `users.recovery_hash`, additive Migration). `POST /api/auth/recover`
