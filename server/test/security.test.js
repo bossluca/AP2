@@ -128,3 +128,30 @@ test('SQL-Sonderzeichen in Eingaben richten keinen Schaden an', async () => {
   await app.inject({ method: 'POST', url: '/api/auth/login', payload: { email: boese, password: 'egal123456' } });
   assert.ok(app.db.prepare('SELECT COUNT(*) AS n FROM users').get().n >= 0, 'Tabelle users existiert noch');
 });
+
+test('invite-Modus: ohne Code verrät die Registrierung nicht, ob eine E-Mail existiert', async () => {
+  app = await buildApp({ registrierung: 'invite' });
+  const { erstelleEinladung } = await import('../src/einladung-cli.js');
+  const { code } = erstelleEinladung(app.db);
+  assert.equal((await registriere('da@b.de', { inviteCode: code })).res.statusCode, 201);
+  const vorhanden = await registriere('da@b.de');
+  const neu = await registriere('neu@b.de');
+  assert.equal(vorhanden.res.statusCode, 403);
+  assert.deepEqual(vorhanden.res.json(), neu.res.json());
+});
+
+test('Login: unbekannte E-Mail kostet ähnlich viel Zeit wie ein falsches Passwort', async () => {
+  app = await buildApp();
+  await registriere('da@b.de');
+  const login = (email) =>
+    app.inject({ method: 'POST', url: '/api/auth/login', payload: { email, password: 'falsch12345' } });
+  await login('warmup@b.de');
+  const messe = async (email) => {
+    const t = process.hrtime.bigint();
+    for (let i = 0; i < 3; i += 1) await login(email);
+    return Number(process.hrtime.bigint() - t) / 3e6;
+  };
+  const bekannt = await messe('da@b.de');
+  const unbekannt = await messe('weg@b.de');
+  assert.ok(unbekannt > bekannt * 0.4, `unbekannt ${unbekannt.toFixed(1)} ms vs. bekannt ${bekannt.toFixed(1)} ms`);
+});

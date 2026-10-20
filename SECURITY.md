@@ -1,6 +1,6 @@
 # Sicherheit – Checks & Plan (FiSi.dev)
 
-Stand: 2026-10-20 · Instanz: `https://lernen.it-boss.eu` (Home-Server, VM 106 hinter
+Stand: 2026-10-20 · Go-Live-Checkliste: `GO_LIVE_CHECKLISTE.md` · Instanz: `https://lernen.it-boss.eu` (Home-Server, VM 106 hinter
 Sophos → Nginx Proxy Manager). Dieses Dokument sagt, **was geschützt wird**, **wie es
 automatisch geprüft wird**, **was offen ist** und **in welcher Reihenfolge** es
 abgearbeitet wird.
@@ -32,7 +32,7 @@ zählen Segmentierung und aktuelle Abhängigkeiten mehr als jede App-Funktion.
 | Session-Cookie `HttpOnly`, `SameSite=Lax`, `Secure` im Produktivbetrieb | Cookie-Attribute nach Registrierung |
 | Passwörter nur als argon2id-Hash | DB-Inhalt |
 | Keine Hashes/Tokens in API-Antworten (`register`, `login`, `me`, Admin-Übersicht) | Antworttexte |
-| Login verrät nicht, ob ein Konto existiert | gleiche Antwort für „falsches Passwort“ und „unbekannte E-Mail“ |
+| Login verrät nicht, ob ein Konto existiert | gleiche Antwort **und Rechenzeit** für „falsches Passwort“ und „unbekannte E-Mail“; Registrierung ohne Code verrät keine E-Mails |
 | Jede Admin-Route: anonym 401, Nicht-Admin 403 | alle 5 Routen |
 | Admin-Rechte nicht per Request erschleichbar | `admin:true` im Body wird ignoriert |
 | `invite`-Modus: **ohne gültigen Code kein Konto – auch nicht mit Admin-E-Mail** | inkl. Objekt-Injection im Code-Feld |
@@ -86,6 +86,7 @@ Exit-Code ≠ 0 bei einem Fehler → als Cron mit Log oder als Kuma-„Push“-M
 | S11 | Test-Werkzeuge (vitest/tinypool) mit bekannten Lücken | niedrig (nicht ausgeliefert) | offen → vitest-Major-Update |
 | S12 | Rate-Limits im Speicher → Neustart setzt Zähler zurück | niedrig | akzeptiert |
 | S13 | Einladungscode-Versuche nur über nginx gebremst (30/min), nicht in der App | niedrig (Codes ~60 Bit) | akzeptiert |
+| S15 | Konto-Erkennung: Login antwortete bei unbekannter E-Mail messbar schneller (1 ms statt ~40 ms); im `invite`-Modus verriet die Registrierung ohne Code „bereits registriert“ | mittel | **behoben im Code** (Dummy-Hash, Code-Prüfung zuerst), Rollout mit 8.1 |
 | S14 | Root-Dateisystem VM 106 zu 90 % voll (`containerd.alt`) → volle Platte = Ausfall | niedrig | offen → Aufräum-Ticket |
 
 Erledigt am 2026-10-20: Security-Header wieder aktiv, Registrierung auf `invite`,

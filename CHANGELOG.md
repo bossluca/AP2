@@ -13,6 +13,9 @@ verständliche Ergebnis inklusive Verifikation.
   E-Mail nicht verifiziert wird, hätte jeder mit Kenntnis der Adresse das Admin-Konto
   vorab anlegen können. Den ersten Code erzeugt der Betreiber jetzt auf dem Server
   (`docker compose exec backend node src/einladung-cli.js`).
+- 2026-10-20: **Keine Konto-Erkennung mehr:** Login prüft bei unbekannter E-Mail gegen
+  einen Dummy-Hash (gleiche Antwortzeit), Recovery ebenso; im `invite`-Modus wird der
+  Code vor der Existenz der E-Mail geprüft. `GO_LIVE_CHECKLISTE.md` ergänzt.
 - 2026-10-20: **Abhängigkeiten aktualisiert:** fastify 5.12.7 (u. a. `X-Forwarded-*`-
   Spoofing, Auth-Bypass), fast-uri, find-my-way, react-router 7.18.4.
 - 2026-10-20: **Security-Checks:** `server/test/security.test.js` (10 Invarianten),
