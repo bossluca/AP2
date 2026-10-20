@@ -8,6 +8,11 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Hinzugefügt
 
+- 2026-10-20: **AP2-Übungsklausur 5** (KI-generiert, 11 Aufgaben / 22 Fragen /
+  87 Punkte) für die bisher dünnen Themen: IPsec-VPN, Remote-Zugriff,
+  Monitoring-Schwellwerte, Protokollierung & DSGVO, AGDLP, Cluster/Load
+  Balancer, Verfügbarkeits- und Leasing-Rechnung, ACID/SQL, Linux-Rechte/cron,
+  ITIL. Keyword-Selbsttest 22/22; laut Themenmatrix jetzt alle 16 Themen „Gut“.
 - 2026-10-20: **Sechs neue Erfolge** (Einstufung, eigener Stapel, Wochensieger,
   Level 5/10, 5000 XP); Statistik und ErfolgWatcher teilen `hooks/useErfolge`.
 - 2026-10-20: **Wochen-Challenges** auf der Startseite: an 5 Tagen lernen,

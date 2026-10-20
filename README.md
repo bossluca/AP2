@@ -36,7 +36,7 @@ Spaced Repetition, optionales Konto für geräteübergreifenden Fortschritt.
 - 🏆 **Wochen-Rangliste + Lerngruppen** (opt-in, Anzeigename statt E-Mail)
 - 🛡️ **Self-Hosting-Admin** – Einladungs-Codes (`REGISTRATION=invite`), Konten sperren/löschen
 
-**Datenstand:** 265 lernbare Prüfungsfragen (6 paraphrasierte AP1-Prüfungen + 4
+**Datenstand:** 287 lernbare Prüfungsfragen (6 paraphrasierte AP1-Prüfungen + 5
 KI-generierte AP2-Übungsklausuren) + 278 Lernzettel-Einheiten (111 AP1 + 167 AP2).
 
 ## Aufbau des Repos

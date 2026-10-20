@@ -66,7 +66,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
-| 4.1 | Weitere AP2-Übungssets entlang `lernapp/docs/AP2_THEMENMATRIX.md` (Lücken zuerst) | M je Set | breitere Abdeckung |
+| 4.1 | ✅ Set 5 (dünne Themen) · weiter: Weitere AP2-Übungssets entlang `lernapp/docs/AP2_THEMENMATRIX.md` (Lücken zuerst) | M je Set | breitere Abdeckung |
 | 4.2 | ✅ **Rechen-Trainer** mit generierten Aufgaben: Subnetting, IPv6-Kürzung, RAID-Kapazität, USV/Stromkosten, Übertragungszeit | M | unendlich Übung für Punktebringer |
 | 4.3 | **Reihenfolge-Format** (OSI, Incident-Ablauf, Subnetting-Schritte) | M | letztes offenes Abfrageformat |
 | 4.4 | Fallstudien-Modus: ein Szenario, mehrere verknüpfte Teilaufgaben wie in der echten AP2 | L | prüfungsnah |
@@ -95,7 +95,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 7. ~~3.2 Wochen-Challenges~~ ✅
 8. ~~3.5 neue Badges~~ ✅ · ~~5.2 Bundle~~ ✅ (Teil 1)
 9. **Als Nächstes:**
-   4.1 weitere AP2-Übungssets für dünne Themen, 5.2 Daten aus dem Precache lösen,
+   ~~4.1 Set 5~~ ✅ – alle 16 Themen „Gut“; offen: 5.2 Daten aus dem Precache lösen,
    5.3 A11y-Pass.
 
 ## Einschätzung: Karten aus hochgeladenen PDFs
