@@ -13,6 +13,8 @@ const app = await buildApp({
   corsOrigin: process.env.CORS_ORIGIN || undefined,
   cookieName: process.env.SESSION_COOKIE_NAME || 'ap_session',
   secureCookie: process.env.NODE_ENV === 'production',
+  registrierung: process.env.REGISTRATION,
+  adminEmails: process.env.ADMIN_EMAILS,
   // Hinter dem Reverse-Proxy (Standard-Deployment) X-Forwarded-For vertrauen,
   // damit das Login-Rate-Limit pro echter Client-IP greift. Per TRUST_PROXY=0
   // abschaltbar (z. B. direkter Betrieb ohne Proxy).

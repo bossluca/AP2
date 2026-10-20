@@ -342,7 +342,9 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       „X Wiederholungen + Y neue", sondern priorisiert die schwächsten heute
       bearbeitbaren Themen und bietet den Direkteinstieg in eine vorgefilterte
       Session. ✅ 2026-07-11
-- [ ] **P2 · M** **Matching-Spiel + Reihenfolge-Format** (Sprint-2-Rest): Begriff ↔
+- [~] **P2 · M** **Matching-Spiel + Reihenfolge-Format** – ✅ **Matching erledigt
+      2026-10-20** (`/matching`, `lib/matching.js`, FSRS je Quell-Einheit). **Offen:**
+      Reihenfolge-Format. Ursprüngliche Idee: Begriff ↔
       Definition-Paare aus dem Glossar (Quizlet-„Match", mobil stark) und
       Sortier-Aufgaben für Prozesse (DORA, OSI-Schichten, Subnetting-Schritte) –
       beides speist wie der Drill das FSRS.
@@ -354,8 +356,11 @@ bleiben als Verlauf stehen. Ergänzt die abgeschlossene Phasen-`ROADMAP.md`.
       Terminal-Optik (`>_`-Prompt). ✅ 2026-06-28
 - [ ] **P2 · S** **Motivierende Microcopy & Leerzustände** mit kleinen Illustrationen/
       Maskottchen statt nüchterner Texte; situative Tipps („Noch 3 bis zum Tagesziel!").
+- [x] **P2 · M** ~~**Einstufungstest + Lernplan**~~ ✅ 2026-10-20 (`/einstufung`, `lib/einstufung.js`, `lib/themen.js`).
+- [x] **P2 · M** ~~**Eigene Karten aus PDF/Text**~~ ✅ 2026-10-20 (`/eigene-karten`, `lib/kartenGenerator.js`). Offen: Backup/Sync der Stapel, OCR.
 - [ ] **P3 · M** **Onboarding-Tour** beim ersten Start (3–4 Schritte, was die App kann).
-- [ ] **P3 · M** **Social/Bestenliste** (nur mit Backend/Konto): optionaler, anonymer
+- [x] **P3 · M** ~~**Social/Bestenliste**~~ ✅ 2026-10-20 – `/rangliste`, opt-in mit
+      Anzeigename, Wochenpunkte aus dem Aktivitäts-Log, nie E-Mail. Ursprünglich: optionaler, anonymer
       Wochen-Vergleich – stark motivierend, aber Datenschutz bewusst gestalten (opt-in).
 - [ ] **P3 · S** **Sound-/Haptik-Feedback** (dezent, standardmäßig aus) für richtig/falsch.
 

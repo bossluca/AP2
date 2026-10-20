@@ -4,10 +4,10 @@ import { authApi } from '../lib/api';
 
 /**
  * @typedef {Object} AuthContextValue
- * @property {{id:number, email:string}|null} user  Angemeldeter Nutzer oder null.
+ * @property {{id:number, email:string, admin?:boolean}|null} user  Angemeldeter Nutzer oder null.
  * @property {boolean} ready   true, sobald der initiale me()-Check durch ist.
  * @property {(email:string, password:string)=>Promise<void>} login
- * @property {(email:string, password:string)=>Promise<{recoveryCode?:string}>} register
+ * @property {(email:string, password:string, inviteCode?:string)=>Promise<{recoveryCode?:string}>} register
  *           Liefert den einmalig anzuzeigenden Recovery-Code mit.
  * @property {(email:string, code:string, newPassword:string)=>Promise<{recoveryCode?:string}>} recover
  *           Passwort-Reset per Recovery-Code; liefert den neuen Code mit.
@@ -52,8 +52,8 @@ export function AuthProvider({ children }) {
     setUser(d.user);
   }, []);
 
-  const register = useCallback(async (email, password) => {
-    const d = await authApi.register(email, password);
+  const register = useCallback(async (email, password, inviteCode) => {
+    const d = await authApi.register(email, password, inviteCode);
     setUser(d.user);
     return d; // enthält den einmalig anzuzeigenden recoveryCode
   }, []);

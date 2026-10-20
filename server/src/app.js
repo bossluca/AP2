@@ -6,6 +6,11 @@ import { userFromToken } from './session.js';
 import { authRoutes } from './auth.js';
 import { progressRoutes } from './progress.js';
 import { gamificationRoutes } from './gamification.js';
+import { ranglisteRoutes } from './rangliste.js';
+import { adminRoutes } from './admin.js';
+import { datenRoutes } from './daten.js';
+import { gruppenRoutes } from './gruppen.js';
+import { registrierungsModus, adminEmails } from './lib/einladung.js';
 import { erstelleRateLimiter } from './lib/rateLimit.js';
 
 /**
@@ -19,6 +24,8 @@ import { erstelleRateLimiter } from './lib/rateLimit.js';
  * @param {boolean} [opts.secureCookie]
  * @param {boolean} [opts.logger]
  * @param {object}  [opts.loginLimiter] Rate-Limiter für /api/auth/login (Test-Injektion).
+ * @param {'open'|'invite'|'closed'} [opts.registrierung]  Wer darf Konten anlegen (Default open).
+ * @param {string}  [opts.adminEmails]   Komma-Liste der Admin-E-Mails (Admin-Bereich).
  * @param {boolean} [opts.trustProxy]    Hinter Reverse-Proxy `X-Forwarded-For` vertrauen
  *                                        (damit `req.ip` die echte Client-IP ist).
  * @returns {Promise<import('fastify').FastifyInstance>}
@@ -43,6 +50,8 @@ export async function buildApp(opts = {}) {
   app.decorate('config', {
     cookieName: opts.cookieName || 'ap_session',
     secureCookie: opts.secureCookie ?? false,
+    registrierung: registrierungsModus(opts.registrierung),
+    adminEmails: adminEmails(opts.adminEmails),
   });
 
   const db = openDb(opts.dbPath || ':memory:');
@@ -58,7 +67,9 @@ export async function buildApp(opts = {}) {
   app.decorateRequest('user', null);
   app.addHook('preHandler', async (req) => {
     const token = req.cookies?.[app.config.cookieName];
-    req.user = userFromToken(db, token);
+    const user = userFromToken(db, token);
+    // Admin-Rolle über ADMIN_EMAILS (keine Rechte-Eskalation per API möglich).
+    req.user = user ? { ...user, admin: app.config.adminEmails.has(user.email) } : null;
   });
 
   app.get('/api/health', async () => ({ status: 'ok' }));
@@ -66,6 +77,10 @@ export async function buildApp(opts = {}) {
   await app.register(authRoutes);
   await app.register(progressRoutes);
   await app.register(gamificationRoutes);
+  await app.register(ranglisteRoutes);
+  await app.register(adminRoutes);
+  await app.register(datenRoutes);
+  await app.register(gruppenRoutes);
 
   return app;
 }

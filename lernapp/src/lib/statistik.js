@@ -39,7 +39,10 @@ export function berechneStatistik(objekte, progress, now = new Date()) {
   const proTeil = {};
   const schwachByTag = new Map();
   const verlaufMap = new Map();
+  // `faellig` = schon gelernte Objekte, deren Wiederholung ansteht; `neu` = noch
+  // nie bewertet. Getrennt, damit Neulinge nicht „543 fällig" sehen.
   let faellig = 0;
+  let neu = 0;
 
   for (const o of objekte) {
     const e = progress[o.id];
@@ -55,15 +58,17 @@ export function berechneStatistik(objekte, progress, now = new Date()) {
     if (e?.box != null) boxen[Math.min(e.box, MAX_BOX)] += 1;
     else boxen.neu += 1;
 
-    // Fälligkeit
-    if (istFaellig(e, now)) faellig += 1;
+    // Fälligkeit (nur Wiederholungen) vs. neu
+    const istNeu = !e?.due;
+    if (istNeu) neu += 1;
+    else if (istFaellig(e, now)) faellig += 1;
 
     // pro Prüfungsteil
     const teil = o.pruefungsteil || 'AP1';
     if (!proTeil[teil]) proTeil[teil] = { total: 0, gelernt: 0, ueben: 0, offen: 0, faellig: 0 };
     proTeil[teil].total += 1;
     proTeil[teil][s === 'gelernt' ? 'gelernt' : s === 'ueben' ? 'ueben' : 'offen'] += 1;
-    if (istFaellig(e, now)) proTeil[teil].faellig += 1;
+    if (!istNeu && istFaellig(e, now)) proTeil[teil].faellig += 1;
 
     // Schwachstellen nach Tag
     if (istSchwach(e)) {
@@ -100,6 +105,7 @@ export function berechneStatistik(objekte, progress, now = new Date()) {
     art,
     boxen,
     faellig,
+    neu,
     proTeil,
     schwachstellen,
     verlauf,

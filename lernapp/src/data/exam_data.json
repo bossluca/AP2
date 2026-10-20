@@ -14582,6 +14582,662 @@
           "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
         }
       ]
+    },
+    {
+      "meta": {
+        "jahr": 2026,
+        "saison": "Übungsklausur 5",
+        "fachrichtung": "Fachinformatiker/in für Systemintegration",
+        "teil": "AP2 – Ganzheitliche Aufgabe (Übung)",
+        "titel": "AP2 Übungsklausur 5 (KI-generiert)",
+        "datum": null,
+        "dauer": "90 Minuten",
+        "punkte_gesamt": 87,
+        "status": "KI-generiert – an AP2-Prüfungsthemen angelehnt, nicht offiziell",
+        "quelle_dateiname": "ki_ap2_uebung5_2026",
+        "pruefungsteil": "AP2"
+      },
+      "fragen": [
+        {
+          "id": "ap2ki5_1a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 1,
+          "aufgabe_titel": "Site-to-Site-VPN mit IPsec",
+          "teilfrage": "1a",
+          "ueberschrift": "",
+          "frage_text": "Zwei Standorte sollen über das Internet per IPsec verbunden werden. Beschreiben Sie die beiden Phasen des Verbindungsaufbaus mit IKE.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "In **Phase 1** handeln die Gateways per IKE einen geschützten Verwaltungskanal aus (**IKE-SA**) und authentifizieren sich, z. B. per Pre-Shared Key oder **Zertifikat**. In **Phase 2** werden darüber die eigentlichen **IPsec-SAs** für die Nutzdaten (ESP) mit Verschlüsselung und Integritätsschutz vereinbart.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/VPN"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Phase 1",
+            "IKE-SA",
+            "Zertifikat",
+            "Phase 2",
+            "IPsec-SAs"
+          ],
+          "mindest_treffer": 4,
+          "kategorie": "Site-to-Site-VPN mit IPsec",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_1b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 1,
+          "aufgabe_titel": "Site-to-Site-VPN mit IPsec",
+          "teilfrage": "1b",
+          "ueberschrift": "",
+          "frage_text": "Erläutern Sie den Unterschied zwischen Tunnel- und Transportmodus und begründen Sie, welcher Modus für Site-to-Site geeignet ist.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Im **Tunnelmodus** wird das komplette ursprüngliche IP-Paket verschlüsselt und mit einem **neuen IP-Header** versehen. Im **Transportmodus** wird nur die **Nutzlast** geschützt, der Original-Header bleibt. Für Site-to-Site zwischen Gateways ist der **Tunnelmodus** geeignet, weil ganze Netze hinter den Gateways verbunden werden.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/VPN"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Tunnelmodus",
+            "neuen IP-Header",
+            "Transportmodus",
+            "Nutzlast"
+          ],
+          "kategorie": "Site-to-Site-VPN mit IPsec",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_2a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 2,
+          "aufgabe_titel": "Remote-Zugriff für Mitarbeitende",
+          "teilfrage": "2a",
+          "ueberschrift": "",
+          "frage_text": "Ein Unternehmen überlegt zwischen Full-Tunnel und Split-Tunnel für das Client-VPN. Stellen Sie je einen Vor- und Nachteil gegenüber.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Beim **Full-Tunnel** läuft der gesamte Verkehr über das Firmennetz: zentrale **Kontrolle** und Filterung, aber hohe **Last** auf der Firmenleitung. Beim **Split-Tunnel** geht nur Firmenverkehr durch das VPN: **entlastet** die Leitung, aber Internetverkehr umgeht die Sicherheitsrichtlinien des Unternehmens.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/VPN"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Full-Tunnel",
+            "Kontrolle",
+            "Last",
+            "Split-Tunnel",
+            "entlastet"
+          ],
+          "mindest_treffer": 4,
+          "kategorie": "Remote-Zugriff für Mitarbeitende",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_2b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 2,
+          "aufgabe_titel": "Remote-Zugriff für Mitarbeitende",
+          "teilfrage": "2b",
+          "ueberschrift": "",
+          "frage_text": "Nennen Sie drei Maßnahmen, um den VPN-Zugang gegen gestohlene Zugangsdaten abzusichern.",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "Sinnvoll sind **MFA** beim Login, **Zertifikate** auf verwalteten Geräten, eine **Geräteprüfung** (Patchstand, Virenschutz) vor dem Zugriff sowie Kontosperrung und Protokollierung fehlgeschlagener Anmeldungen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Netzwerk/VPN"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "MFA",
+            "Zertifikate",
+            "Geräteprüfung",
+            "Protokollierung"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Remote-Zugriff für Mitarbeitende",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_3a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 3,
+          "aufgabe_titel": "Kennzahlen & Schwellwerte im Monitoring",
+          "teilfrage": "3a",
+          "ueberschrift": "",
+          "frage_text": "Für einen Fileserver sollen Warn- und Kritisch-Schwellwerte definiert werden. Nennen Sie vier sinnvolle Messgrößen und erklären Sie den Zweck zweistufiger Schwellwerte.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Messgrößen sind z. B. **CPU-Last**, **Arbeitsspeicher**, **Festplattenbelegung** und Erreichbarkeit/Antwortzeit der Freigaben. Zwei Stufen trennen **Warnung** (frühzeitig reagieren, geplant handeln) von **kritisch** (sofortiges Eingreifen, Alarmierung der Bereitschaft).",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Monitoring/IT-Betrieb"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "CPU-Last",
+            "Arbeitsspeicher",
+            "Festplattenbelegung",
+            "Warnung",
+            "kritisch"
+          ],
+          "mindest_treffer": 4,
+          "kategorie": "Kennzahlen & Schwellwerte im Monitoring",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_3b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 3,
+          "aufgabe_titel": "Kennzahlen & Schwellwerte im Monitoring",
+          "teilfrage": "3b",
+          "ueberschrift": "",
+          "frage_text": "Das Monitoring meldet nachts dutzende Alarme, die sich morgens als harmlos erweisen. Nennen Sie zwei Ursachen und zwei Gegenmaßnahmen dieser Alarmmüdigkeit.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Ursachen sind zu **niedrige Schwellwerte** und fehlende Abhängigkeiten, sodass ein Ausfall viele **Folgealarme** auslöst. Gegenmaßnahmen: Schwellwerte mit **Hysterese** bzw. Mindestdauer anpassen und **Abhängigkeiten** modellieren, damit nur die Ursache alarmiert.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Monitoring/IT-Betrieb"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "niedrige Schwellwerte",
+            "Folgealarme",
+            "Hysterese",
+            "Abhängigkeiten"
+          ],
+          "mindest_treffer": 3,
+          "kategorie": "Kennzahlen & Schwellwerte im Monitoring",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_4a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 4,
+          "aufgabe_titel": "Protokollierung & Datenschutz",
+          "teilfrage": "4a",
+          "ueberschrift": "",
+          "frage_text": "Ein Webserver protokolliert IP-Adressen der Besucher. Erklären Sie, warum das datenschutzrelevant ist und wie die Speicherung DSGVO-konform gestaltet werden kann.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "IP-Adressen sind **personenbezogene Daten**, weil sie einer Person zugeordnet werden können. Konform wird die Speicherung durch einen klaren **Zweck** (z. B. Angriffserkennung), eine kurze **Speicherdauer** mit automatischer Löschung und **Kürzung** bzw. Pseudonymisierung der Adressen.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "personenbezogene Daten",
+            "Zweck",
+            "Speicherdauer",
+            "Kürzung"
+          ],
+          "kategorie": "Protokollierung & Datenschutz",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_4b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 4,
+          "aufgabe_titel": "Protokollierung & Datenschutz",
+          "teilfrage": "4b",
+          "ueberschrift": "",
+          "frage_text": "Warum müssen Server für aussagekräftige Logs eine synchrone Uhrzeit haben, und wie wird das umgesetzt?",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "Ohne gleiche Zeitbasis lassen sich Ereignisse mehrerer Systeme nicht **korrelieren** und Abläufe nicht rekonstruieren. Umgesetzt wird das mit **NTP**, das alle Systeme gegen einen gemeinsamen **Zeitserver** synchronisiert.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenschutz/IT-Sicherheit"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "korrelieren",
+            "NTP",
+            "Zeitserver"
+          ],
+          "kategorie": "Protokollierung & Datenschutz",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_5a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 5,
+          "aufgabe_titel": "Berechtigungen im Active Directory",
+          "teilfrage": "5a",
+          "ueberschrift": "",
+          "frage_text": "Erläutern Sie das AGDLP-Prinzip für die Vergabe von Dateirechten an einer Freigabe.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "**Accounts** (Benutzerkonten) werden **globalen Gruppen** nach Abteilung/Rolle zugeordnet. Diese werden Mitglied **domänenlokaler Gruppen**, die für eine Ressource stehen. Nur die domänenlokale Gruppe erhält die **Permissions** auf der Freigabe – Rechte bleiben übersichtlich und leicht änderbar.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Betriebssysteme/Verzeichnisdienst"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Accounts",
+            "globalen Gruppen",
+            "domänenlokaler Gruppen",
+            "Permissions"
+          ],
+          "kategorie": "Berechtigungen im Active Directory",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_5b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 5,
+          "aufgabe_titel": "Berechtigungen im Active Directory",
+          "teilfrage": "5b",
+          "ueberschrift": "",
+          "frage_text": "Ein Benutzer hat auf eine Freigabe die Freigabeberechtigung „Lesen“ und die NTFS-Berechtigung „Ändern“. Welche Rechte hat er beim Zugriff über das Netzwerk? Begründen Sie.",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "Er darf nur **lesen**. Beim Netzwerkzugriff gilt die **restriktivere** der beiden Berechtigungen; Freigabe- und **NTFS-Rechte** werden kombiniert und das Minimum zählt.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Betriebssysteme/Verzeichnisdienst"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "lesen",
+            "restriktivere",
+            "NTFS-Rechte"
+          ],
+          "kategorie": "Berechtigungen im Active Directory",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_6a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 6,
+          "aufgabe_titel": "Hochverfügbarkeit & Lastverteilung",
+          "teilfrage": "6a",
+          "ueberschrift": "",
+          "frage_text": "Vergleichen Sie einen Active-Passive- mit einem Active-Active-Cluster für einen Webdienst.",
+          "punkte": 5,
+          "schwierigkeit": 3,
+          "loesung_text": "Bei **Active-Passive** arbeitet ein Knoten, der zweite übernimmt erst beim Ausfall (**Failover**); Ressourcen bleiben im Normalbetrieb ungenutzt. Bei **Active-Active** bedienen alle Knoten gleichzeitig Anfragen, meist hinter einem **Load Balancer**; das erhöht Leistung und Auslastung, erfordert aber synchronisierte Daten.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Server/Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Active-Passive",
+            "Failover",
+            "Active-Active",
+            "Load Balancer"
+          ],
+          "kategorie": "Hochverfügbarkeit & Lastverteilung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_6b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 6,
+          "aufgabe_titel": "Hochverfügbarkeit & Lastverteilung",
+          "teilfrage": "6b",
+          "ueberschrift": "",
+          "frage_text": "Wozu dient ein Health Check beim Load Balancer, und was passiert bei einem fehlgeschlagenen Check?",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "Der **Health Check** prüft regelmäßig, ob ein Backend-Server antwortet (z. B. HTTP-Status 200). Schlägt er fehl, nimmt der Load Balancer den Server **aus dem Pool** und verteilt Anfragen nur noch an **gesunde** Server, bis der Check wieder erfolgreich ist.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Server/Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Health Check",
+            "aus dem Pool",
+            "gesunde"
+          ],
+          "kategorie": "Hochverfügbarkeit & Lastverteilung",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_7a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 7,
+          "aufgabe_titel": "Verfügbarkeit berechnen",
+          "teilfrage": "7a",
+          "ueberschrift": "",
+          "frage_text": "Zwei Komponenten mit je 99 % Verfügbarkeit sind in Reihe geschaltet (beide müssen laufen). Berechnen Sie die Gesamtverfügbarkeit.",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "Bei **Reihenschaltung** werden die Verfügbarkeiten multipliziert: 0,99 × 0,99 = **0,9801**, also **98,01 %**. Die Gesamtverfügbarkeit ist damit geringer als die jeder einzelnen Komponente.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Server/Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Reihenschaltung",
+            "0,9801",
+            "98,01"
+          ],
+          "kategorie": "Verfügbarkeit berechnen",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_7b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 7,
+          "aufgabe_titel": "Verfügbarkeit berechnen",
+          "teilfrage": "7b",
+          "ueberschrift": "",
+          "frage_text": "Die beiden Komponenten werden redundant parallel betrieben (eine genügt). Berechnen Sie die Gesamtverfügbarkeit und die maximale jährliche Ausfallzeit in Stunden (365 Tage).",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Bei **Parallelschaltung** gilt 1 − (0,01 × 0,01) = **0,9999**, also **99,99 %**. Ausfallzeit pro Jahr: 8760 h × 0,0001 = **0,876 h** (rund 53 Minuten).",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Server/Virtualisierung"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Parallelschaltung",
+            "0,9999",
+            "99,99",
+            "0,876"
+          ],
+          "kategorie": "Verfügbarkeit berechnen",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_8a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 8,
+          "aufgabe_titel": "Leasing oder Kauf",
+          "teilfrage": "8a",
+          "ueberschrift": "",
+          "frage_text": "Ein Server kostet 9.000 € in der Anschaffung, Nutzungsdauer 3 Jahre. Alternativ kostet Leasing 280 € pro Monat. Berechnen Sie die Gesamtkosten beider Varianten über 3 Jahre.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Kauf: **9.000 €**. Leasing: 280 € × 36 Monate = **10.080 €**. Über drei Jahre ist der Kauf damit um **1.080 €** günstiger.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Kostenrechnung/Wirtschaft"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "9.000",
+            "10.080",
+            "1.080"
+          ],
+          "kategorie": "Leasing oder Kauf",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_8b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 8,
+          "aufgabe_titel": "Leasing oder Kauf",
+          "teilfrage": "8b",
+          "ueberschrift": "",
+          "frage_text": "Nennen Sie zwei Gründe, warum ein Unternehmen trotz höherer Gesamtkosten leasen könnte.",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "Leasing schont die **Liquidität**, weil keine hohe Einmalzahlung anfällt, die Raten sind gut **planbar** und als Betriebsausgaben absetzbar. Außerdem erleichtert es den regelmäßigen **Technologiewechsel** nach Laufzeitende.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Kostenrechnung/Wirtschaft"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Liquidität",
+            "planbar",
+            "Technologiewechsel"
+          ],
+          "mindest_treffer": 2,
+          "kategorie": "Leasing oder Kauf",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_9a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 9,
+          "aufgabe_titel": "Transaktionen in Datenbanken",
+          "teilfrage": "9a",
+          "ueberschrift": "",
+          "frage_text": "Erklären Sie die ACID-Eigenschaften einer Datenbanktransaktion am Beispiel einer Überweisung.",
+          "punkte": 6,
+          "schwierigkeit": 3,
+          "loesung_text": "**Atomarität**: Abbuchung und Gutschrift erfolgen ganz oder gar nicht. **Konsistenz**: Nach der Transaktion gelten alle Regeln (z. B. Summe bleibt gleich). **Isolation**: Parallele Transaktionen beeinflussen sich nicht sichtbar. **Dauerhaftigkeit**: Nach dem Commit bleibt die Änderung auch bei Absturz erhalten.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenbank/SQL/ER-Modell"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Atomarität",
+            "Konsistenz",
+            "Isolation",
+            "Dauerhaftigkeit"
+          ],
+          "kategorie": "Transaktionen in Datenbanken",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_9b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 9,
+          "aufgabe_titel": "Transaktionen in Datenbanken",
+          "teilfrage": "9b",
+          "ueberschrift": "",
+          "frage_text": "Schreiben Sie eine SQL-Anweisung, die alle Kunden aus der Tabelle `kunde` mit dem Ort „Köln“ alphabetisch nach Nachname ausgibt.",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "SELECT * FROM kunde WHERE ort = 'Köln' ORDER BY nachname; – **SELECT** wählt die Spalten, **WHERE** filtert den Ort, **ORDER BY** sortiert aufsteigend nach Nachname.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Datenbank/SQL/ER-Modell"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "SELECT",
+            "WHERE",
+            "ORDER BY"
+          ],
+          "kategorie": "Transaktionen in Datenbanken",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_10a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 10,
+          "aufgabe_titel": "Linux-Administration",
+          "teilfrage": "10a",
+          "ueberschrift": "",
+          "frage_text": "Ein Skript `/opt/backup.sh` soll vom Besitzer ausgeführt und bearbeitet, von der Gruppe nur gelesen und von anderen gar nicht genutzt werden. Geben Sie den chmod-Befehl in Oktalschreibweise an und erläutern Sie ihn.",
+          "punkte": 3,
+          "schwierigkeit": 2,
+          "loesung_text": "chmod **740** /opt/backup.sh – **7** = rwx für den Besitzer, **4** = r für die Gruppe, **0** = keine Rechte für andere.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Betriebssysteme/Linux"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "740",
+            "rwx",
+            "Gruppe"
+          ],
+          "kategorie": "Linux-Administration",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_10b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 10,
+          "aufgabe_titel": "Linux-Administration",
+          "teilfrage": "10b",
+          "ueberschrift": "",
+          "frage_text": "Das Skript soll jede Nacht um 2:30 Uhr laufen. Geben Sie den passenden crontab-Eintrag an und erklären Sie die Felder.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "`30 2 * * * /opt/backup.sh` – die Felder sind **Minute** (30), **Stunde** (2), Tag des Monats, Monat und **Wochentag**; `*` steht für „jeder“.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Betriebssysteme/Linux"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Minute",
+            "Stunde",
+            "Wochentag"
+          ],
+          "kategorie": "Linux-Administration",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_11a",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 11,
+          "aufgabe_titel": "Incident, Problem & Change",
+          "teilfrage": "11a",
+          "ueberschrift": "",
+          "frage_text": "Grenzen Sie nach ITIL Incident Management und Problem Management voneinander ab.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "**Incident Management** stellt den gestörten Dienst so **schnell** wie möglich wieder her, notfalls per Workaround. **Problem Management** sucht die **Ursache** wiederkehrender Störungen und beseitigt sie dauerhaft, z. B. über einen Known Error und einen Change.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Projektmanagement"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Incident Management",
+            "schnell",
+            "Problem Management",
+            "Ursache"
+          ],
+          "kategorie": "Incident, Problem & Change",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        },
+        {
+          "id": "ap2ki5_11b",
+          "jahr": 2026,
+          "saison": "Übungsklausur 5",
+          "fachrichtung": "Fachinformatiker/in für Systemintegration",
+          "aufgabe_nr": 11,
+          "aufgabe_titel": "Incident, Problem & Change",
+          "teilfrage": "11b",
+          "ueberschrift": "",
+          "frage_text": "Ein Firmware-Update der Firewall steht an. Nennen Sie vier Inhalte eines Change-Antrags.",
+          "punkte": 4,
+          "schwierigkeit": 2,
+          "loesung_text": "Ein Change-Antrag enthält **Beschreibung** und Begründung, eine **Risikobewertung**, den geplanten **Zeitraum** (Wartungsfenster) und einen **Rückfallplan** (Rollback) sowie betroffene Dienste und die Freigabe durch das CAB.",
+          "hat_offizielle_loesung": false,
+          "unverifiziert_markiert": false,
+          "thema_tags": [
+            "Projektmanagement"
+          ],
+          "ist_kontext_block": false,
+          "hat_antwort": true,
+          "schluesselwoerter": [
+            "Beschreibung",
+            "Risikobewertung",
+            "Zeitraum",
+            "Rückfallplan"
+          ],
+          "mindest_treffer": 4,
+          "kategorie": "Incident, Problem & Change",
+          "quelle": "KI-generiert (an AP2-Prüfungsthemen angelehnt, nicht offiziell)"
+        }
+      ]
     }
   ],
   "lerneinheiten": [

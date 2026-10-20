@@ -7,30 +7,15 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { AP2_THEMEN } from '../src/lib/themen.js';
 
 const hier = dirname(fileURLToPath(import.meta.url));
 const root = join(hier, '..');
 const dataFile = join(root, 'src', 'data', 'exam_data.json');
 const outputFile = join(root, 'docs', 'AP2_THEMENMATRIX.md');
 
-const THEMEN = [
-  ['IPv4, IPv6 & Subnetting', ['subnet', 'ipv4', 'ipv6', 'ip-adress']],
-  ['DNS, DHCP & Verzeichnisdienste', ['dns', 'dhcp', 'active directory', 'verzeichnisdienst']],
-  ['Routing, NAT, VLAN & Segmentierung', ['routing', 'router', 'nat', 'pat', 'vlan', 'segment']],
-  ['WLAN & Funkplanung', ['wlan', 'wi-fi', 'wifi', 'funk', 'ausleuchtung']],
-  ['VPN & sicherer Fernzugriff', ['vpn', 'ipsec', 'wireguard', 'fernzugriff']],
-  ['Firewall, Zero Trust & IT-Sicherheit', ['firewall', 'zero trust', 'dmz', 'nac', 'ransomware', 'pki', 'tls']],
-  ['Identitäten, Kerberos & SSO', ['kerberos', 'single sign-on', 'sso', 'active directory', 'ldap', 'domäne']],
-  ['Monitoring, SNMP & Logging', ['monitoring', 'snmp', 'syslog', 'logging', 'protokollier']],
-  ['Backup, RAID & Storage', ['backup', 'datensicherung', 'raid', 'storage', 'nas', 'san', 'gfs']],
-  ['Virtualisierung, Container & Cloud', ['virtualisierung', 'virtuell', 'container', 'docker', 'cloud']],
-  ['Datenbanken & SQL', ['datenbank', 'sql', 'join', 'normalform', 'er-modell']],
-  ['Linux, Skripte & Automatisierung', ['linux', 'berechtigung', 'pseudocode', 'skript', 'automatis']],
-  ['Projekt- & IT-Service-Management', ['projektmanagement', 'itil', 'service-management', 'incident']],
-  ['Hardware, USV & Energie', ['hardware', 'usv', 'strom', 'energie', 'speicher-berechnung']],
-  ['Wirtschaftlichkeit & Beschaffung', ['wirtschaft', 'kosten', 'tco', 'nutzwert', 'lizenz']],
-  ['Hochverfügbarkeit & Lastverteilung', ['hochverfüg', 'verfügbarkeit', 'load balanc', 'cluster', 'failover']],
-];
+// Themenkatalog zentral in src/lib/themen.js (auch Einstufungstest/Lernplan).
+const THEMEN = AP2_THEMEN.map((t) => [t.titel, t.muster]);
 
 const norm = (wert) =>
   String(wert || '')

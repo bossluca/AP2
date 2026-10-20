@@ -10,6 +10,7 @@ import {
   SESSION_UMFAENGE,
 } from '../lib/lernsession';
 import { berechneStatistik } from '../lib/statistik';
+import { objekteImThema, themaPerId } from '../lib/themen';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import { noteAusConfidence, istFehlSicherheit } from '../lib/confidence';
@@ -45,8 +46,10 @@ export default function Lernen() {
   // Modus: 'heute' (Smart-Session) | 'schwaechen' (gezielt) | 'frei' (lockere Runde).
   const [modus, setModus] = useState(() => {
     const wert = searchParams.get('modus');
-    return ['schwaechen', 'plan', 'frei'].includes(wert) ? wert : 'heute';
+    return ['schwaechen', 'plan', 'frei', 'thema'].includes(wert) ? wert : 'heute';
   });
+  // Themen-Modus (aus dem Lernplan): nur Objekte eines AP2-Themas.
+  const thema = themaPerId(searchParams.get('thema') || '');
   const planTags = useMemo(
     () => (searchParams.get('themen') || '').split('|').map((t) => t.trim()).filter(Boolean),
     [searchParams]
@@ -71,6 +74,10 @@ export default function Lernen() {
   const session = useMemo(() => {
     const helfer = { getStatus, isDue, getEntry };
     if (modus === 'frei') return shuffle(objekte).slice(0, umfang);
+    if (modus === 'thema' && thema) {
+      const imThema = objekteImThema(objekte, thema.id);
+      return baueLernsession(imThema.length ? imThema : objekte, helfer, { umfang });
+    }
     if (modus === 'schwaechen' || modus === 'plan') {
       return baueSchwaechenSession(objekte, helfer, {
         schwachTags: modus === 'plan' && planTags.length ? planTags : schwachTags,
@@ -79,7 +86,7 @@ export default function Lernen() {
     }
     return baueLernsession(objekte, helfer, { umfang });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [objekte, sessionKey, modus, umfang, planTags]);
+  }, [objekte, sessionKey, modus, umfang, planTags, thema]);
 
   const current = index < session.length ? session[index] : null;
   const fertig = session.length > 0 && index >= session.length;
@@ -110,7 +117,9 @@ export default function Lernen() {
         ? '🧭 Dein Tagesplan'
         : modus === 'frei'
           ? '🎲 Lockere Runde'
-          : '📚 Heute lernen';
+          : modus === 'thema' && thema
+            ? `🗺️ ${thema.titel}`
+            : '📚 Heute lernen';
 
   // Resume-Ziel je Modus (für „Weiterlernen" auf der Startseite).
   const resumeZiel = () => {
@@ -121,7 +130,9 @@ export default function Lernen() {
           ? `?modus=plan&themen=${encodeURIComponent(planTags.join('|'))}`
           : modus === 'frei'
             ? '?modus=frei'
-            : '';
+            : modus === 'thema' && thema
+              ? `?modus=thema&thema=${thema.id}`
+              : '';
     return { to: `/lernen${q}`, titel, modus };
   };
 
@@ -163,8 +174,8 @@ export default function Lernen() {
     return (
       <div className="max-w-md mx-auto text-center space-y-4 py-8">
         <div className="text-5xl">🎉</div>
-        <h1 className="text-xl font-bold">Alles erledigt für heute!</h1>
-        <p className="text-sm text-gray-500">
+        <h1 className="text-2xl font-semibold tracking-tight">Alles erledigt für heute!</h1>
+        <p className="text-sm text-muted-foreground">
           Nichts Fälliges offen – stark. Wenn du magst, leg eine lockere Übungsrunde ein.
         </p>
         <div className="flex gap-2 justify-center flex-wrap">
@@ -192,18 +203,18 @@ export default function Lernen() {
     return (
       <div className="max-w-md mx-auto text-center space-y-4 py-6">
         <div className="text-5xl">{quote >= 80 ? '🌟' : quote >= 50 ? '💪' : '🌱'}</div>
-        <h1 className="text-xl font-bold">Geschafft!</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Geschafft!</h1>
         <div className="card p-5 space-y-1">
           <div className="text-3xl font-bold text-accent">
             {gewusstAnzahl} / {verlauf.length}
           </div>
-          <div className="text-sm text-gray-500">gewusst ({quote}%)</div>
+          <div className="text-sm text-muted-foreground">gewusst ({quote}%)</div>
           <div className="text-sm font-medium text-accent pt-1">+{xpGesammelt} XP</div>
-          <div className="text-xs text-gray-400">
+          <div className="text-xs text-muted-foreground">
             🔥 {gami.streak} Tage Streak · Level {gami.level.level}
           </div>
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           {quote >= 80
             ? 'Klasse Lauf – so bleibt es leicht und es sitzt.'
             : 'Dranbleiben lohnt sich – jede Runde festigt mehr.'}
@@ -231,7 +242,7 @@ export default function Lernen() {
   return (
     <div className="max-w-xl mx-auto space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-lg font-bold">{titel}</h1>
+        <h1 className="text-lg font-semibold tracking-tight">{titel}</h1>
         <div className="flex items-center gap-2">
           <label className="sr-only" htmlFor="session-umfang">
             Sessionlänge
@@ -249,7 +260,7 @@ export default function Lernen() {
               </option>
             ))}
           </select>
-          <span className="text-sm text-gray-500 whitespace-nowrap" aria-live="polite">
+          <span className="text-sm text-muted-foreground whitespace-nowrap" aria-live="polite">
             {index + 1} / {session.length}
           </span>
         </div>
@@ -272,14 +283,14 @@ export default function Lernen() {
                 : 'bg-amber-500'
               : i === index
                 ? 'bg-accent'
-                : 'bg-gray-200 dark:bg-[#2a3326]';
+                : 'bg-zinc-200 dark:bg-zinc-700';
           return <div key={i} className={`h-1.5 flex-1 rounded-full ${cls}`} />;
         })}
       </div>
 
       {current && (
         <div className="card p-5 space-y-4">
-          <div className="text-xs text-gray-500 flex flex-wrap gap-2">
+          <div className="text-xs text-muted-foreground flex flex-wrap gap-2">
             <span className="chip">{current.art === 'frage' ? '📄 Frage' : '📝 Lernzettel'}</span>
             <span className="chip">{current.pruefungsteil}</span>
             <span className="chip">{current.kategorie}</span>
@@ -291,7 +302,7 @@ export default function Lernen() {
               <div className="flip-face space-y-4">
                 <MarkdownContent>{current.front}</MarkdownContent>
               </div>
-              <div className="flip-face flip-back border-t border-gray-200 dark:border-gray-800 pt-3 space-y-2">
+              <div className="flip-face flip-back border-t border-border pt-3 space-y-2">
                 {current.back ? (
                   <>
                     <MarkdownContent>{current.back}</MarkdownContent>
@@ -302,7 +313,7 @@ export default function Lernen() {
                     )}
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic">
+                  <p className="text-sm text-muted-foreground italic">
                     Keine Lösung hinterlegt – selbst einschätzen.
                   </p>
                 )}
@@ -336,7 +347,7 @@ export default function Lernen() {
           {revealed && (
             <div className="space-y-2">
               {sicherheit === true && (
-                <p className="text-[11px] text-gray-400 text-center">
+                <p className="text-[11px] text-muted-foreground text-center">
                   Du warst sicher – sei ehrlich, hat es wirklich gesessen?
                 </p>
               )}
@@ -351,7 +362,7 @@ export default function Lernen() {
             </div>
           )}
 
-          <p className="hidden sm:block text-[11px] text-gray-400 text-center">
+          <p className="hidden sm:block text-[11px] text-muted-foreground text-center">
             Tipp: Leertaste aufdecken · 1 = nicht gewusst · 2 = gewusst
           </p>
         </div>

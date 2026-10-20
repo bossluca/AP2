@@ -17,5 +17,7 @@ RUN npm run build
 # --- Stage 2: Serve ---------------------------------------------------------
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx-security-headers.conf /etc/nginx/security-headers.conf
+COPY nginx-proxy-backend.conf /etc/nginx/proxy-backend.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 8080

@@ -169,19 +169,19 @@ export default function Klausur() {
     const hatAP2 = klausuren.some((k) => k.pruefungsteil === 'AP2');
     return (
       <div className="space-y-4">
-        <h1 className="text-xl font-bold">🎓 Klausur-Simulation</h1>
-        <p className="text-sm text-gray-500">
+        <h1 className="text-2xl font-semibold tracking-tight">Klausur-Simulation</h1>
+        <p className="text-sm text-muted-foreground">
           Übe wie in der echten Prüfung: ganze Klausur, Fragen im Freitext beantworten,
           danach selbst einschätzen. Wo Schlagwörter hinterlegt sind, prüft die App deine
           Antwort automatisch mit – auch abweichende Formulierungen zählen.
         </p>
 
         {klausuren.length === 0 ? (
-          <p className="text-sm text-gray-500">Noch keine Prüfungen mit Fragen vorhanden.</p>
+          <p className="text-sm text-muted-foreground">Noch keine Prüfungen mit Fragen vorhanden.</p>
         ) : (
           <>
             <div className="space-y-2">
-              <label className="block text-xs text-gray-500" htmlFor="klausur-select">
+              <label className="block text-xs text-muted-foreground" htmlFor="klausur-select">
                 Prüfung wählen
               </label>
               <select
@@ -233,13 +233,13 @@ export default function Klausur() {
     const note = prozent >= 92 ? 1 : prozent >= 81 ? 2 : prozent >= 67 ? 3 : prozent >= 50 ? 4 : prozent >= 30 ? 5 : 6;
     return (
       <div className="space-y-4">
-        <h1 className="text-xl font-bold">Auswertung</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Auswertung</h1>
         <div className="card p-4 text-center space-y-1 animate-in">
           <div className="text-3xl font-bold text-accent tabular-nums">{animProzent}%</div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-muted-foreground">
             {animPunkte.toLocaleString('de')} von {punkteMax} Punkten · Tendenz Note {note}
           </div>
-          <div className="text-xs text-gray-400">
+          <div className="text-xs text-muted-foreground">
             (richtig = voll, teilweise = halb, falsch/nicht eingeschätzt = 0)
           </div>
         </div>
@@ -250,20 +250,20 @@ export default function Klausur() {
             {tagStats.map((t) => (
               <div key={t.tag} className="flex items-center gap-2 text-sm">
                 <span className="w-32 sm:w-48 truncate">{t.tag}</span>
-                <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden">
+                <div className="flex-1 h-2 bg-zinc-200 dark:bg-zinc-800 rounded overflow-hidden">
                   <div
                     className={`h-full ${t.percent < 50 ? 'bg-red-500' : t.percent < 80 ? 'bg-amber-500' : 'bg-green-500'}`}
                     style={{ width: `${t.percent}%` }}
                   />
                 </div>
-                <span className="w-12 text-right text-gray-500">{t.percent}%</span>
+                <span className="w-12 text-right text-muted-foreground">{t.percent}%</span>
               </div>
             ))}
           </div>
         )}
 
         {uebernehmen && (
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted-foreground">
             ✓ Ergebnisse wurden in deinen Lernfortschritt übernommen.
           </p>
         )}
@@ -307,23 +307,23 @@ export default function Klausur() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h1 className="text-xl font-bold">
+        <h1 className="text-2xl font-semibold tracking-tight">
           🎓 {klausur.meta.saison} {klausur.meta.jahr}
         </h1>
         <div className="flex items-center gap-3 text-sm">
           {restSek != null && (
-            <span className={`font-mono font-medium ${restSek < 300 ? 'text-red-600' : 'text-gray-500'}`}>
+            <span className={`font-mono font-medium ${restSek < 300 ? 'text-red-600' : 'text-muted-foreground'}`}>
               ⏱ {formatZeit(restSek)}
             </span>
           )}
-          <span className="text-gray-500">
+          <span className="text-muted-foreground">
             {index + 1} / {fragen.length}
           </span>
         </div>
       </div>
 
       {/* Fortschrittsbalken */}
-      <div className="h-1.5 bg-gray-200 dark:bg-[#1d271a] rounded overflow-hidden">
+      <div className="h-1.5 bg-muted rounded overflow-hidden">
         <div
           className="h-full bg-accent transition-all"
           style={{ width: `${(beantwortet / fragen.length) * 100}%` }}
@@ -332,7 +332,7 @@ export default function Klausur() {
 
       {frage && (
         <div className="card p-4 space-y-4">
-          <div className="text-xs text-gray-500 flex flex-wrap gap-2">
+          <div className="text-xs text-muted-foreground flex flex-wrap gap-2">
             <span>
               Aufgabe {frage.aufgabe_nr}
               {frage.teilfrage ? ` ${frage.teilfrage})` : ''}
@@ -346,8 +346,8 @@ export default function Klausur() {
           </div>
 
           {frage.kontextText && (
-            <details className="rounded-lg bg-gray-50 dark:bg-gray-800/50 p-3 text-sm">
-              <summary className="text-xs text-gray-500 font-medium">Situation / Kontext</summary>
+            <details className="rounded-lg bg-zinc-50 dark:bg-zinc-800/50 p-3 text-sm">
+              <summary className="text-xs text-muted-foreground font-medium">Situation / Kontext</summary>
               <div className="mt-2">
                 <MarkdownContent>{frage.kontextText}</MarkdownContent>
               </div>
@@ -356,7 +356,7 @@ export default function Klausur() {
 
           {frage.aufgabe_titel && <h2 className="font-semibold text-base">{frage.aufgabe_titel}</h2>}
           {frage.ueberschrift && (
-            <h3 className="font-medium text-sm text-gray-600 dark:text-gray-400">
+            <h3 className="font-medium text-sm text-muted-foreground">
               {frage.ueberschrift}
             </h3>
           )}
@@ -378,7 +378,7 @@ export default function Klausur() {
               Antwort prüfen & Lösung zeigen
             </button>
           ) : (
-            <div className="border-t border-gray-200 dark:border-gray-800 pt-3 space-y-3">
+            <div className="border-t border-border pt-3 space-y-3">
               {/* Schlagwort-Feedback (nur wenn Schlagwörter hinterlegt) */}
               {pruefung.hatSchluesselwoerter && (
                 <div className="space-y-2">
@@ -387,11 +387,11 @@ export default function Klausur() {
                       ? `Schlagwörter erkannt: ${pruefung.anzahl} (mind. ${pruefung.erforderlich} nötig)`
                       : `Schlagwörter erkannt: ${pruefung.anzahl}/${pruefung.gesamt}`}
                     {pruefung.bewertung && (
-                      <span className="text-gray-500 font-normal"> · Vorschlag: {pruefung.bewertung}</span>
+                      <span className="text-muted-foreground font-normal"> · Vorschlag: {pruefung.bewertung}</span>
                     )}
                   </p>
                   {pruefung.erforderlich != null ? (
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-muted-foreground">
                       ○ = weitere gültige Stichwörter – nicht alle nötig.
                     </p>
                   ) : (
@@ -414,7 +414,7 @@ export default function Klausur() {
                           ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300'
                           : verfehlt
                             ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300'
-                            : 'bg-gray-100 dark:bg-gray-800 text-gray-500';
+                            : 'bg-zinc-100 dark:bg-zinc-800 text-muted-foreground';
                       return (
                         <span
                           key={i}
@@ -438,7 +438,7 @@ export default function Klausur() {
                     <HerkunftBadge obj={frage} />
                   </>
                 ) : (
-                  <p className="text-sm text-gray-500 italic">Keine Musterlösung hinterlegt.</p>
+                  <p className="text-sm text-muted-foreground italic">Keine Musterlösung hinterlegt.</p>
                 )}
                 <NachlesenLinks frage={frage} />
               </div>
@@ -476,7 +476,7 @@ export default function Klausur() {
         >
           ← Zurück
         </button>
-        <span className="text-xs text-gray-400">{beantwortet} eingeschätzt</span>
+        <span className="text-xs text-muted-foreground">{beantwortet} eingeschätzt</span>
         {index + 1 < fragen.length ? (
           <button onClick={() => setIndex((i) => i + 1)} className="btn-ghost px-3 py-2">
             Weiter →
@@ -488,7 +488,7 @@ export default function Klausur() {
         )}
       </div>
 
-      <button onClick={zurueckZumStart} className="text-xs text-gray-400 hover:underline">
+      <button onClick={zurueckZumStart} className="text-xs text-muted-foreground hover:underline">
         Abbrechen
       </button>
     </div>

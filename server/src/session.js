@@ -29,6 +29,7 @@ export function createSession(db, userId) {
 /**
  * Liefert den zu einem Token gehörenden Nutzer, sofern die Sitzung gültig ist.
  * Abgelaufene Sitzungen werden entfernt.
+ * Gesperrte Konten liefern null.
  * @returns {{id:number, email:string}|null}
  */
 export function userFromToken(db, token) {
@@ -39,7 +40,10 @@ export function userFromToken(db, token) {
     db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
     return null;
   }
-  return db.prepare('SELECT id, email FROM users WHERE id = ?').get(session.user_id) || null;
+  // Gesperrte Konten verlieren sofort den Zugriff (auch mit gültigem Token).
+  return (
+    db.prepare('SELECT id, email FROM users WHERE id = ? AND gesperrt = 0').get(session.user_id) || null
+  );
 }
 
 /** Löscht eine Sitzung (Logout). */

@@ -17,7 +17,7 @@ export default function NachlesenLinks({ frage }) {
   const treffer = useMemo(() => findeLernzettel(einheiten, frage), [einheiten, frage]);
   if (treffer.length === 0) return null;
   return (
-    <p className="text-xs text-gray-500 flex items-center flex-wrap gap-1">
+    <p className="text-xs text-muted-foreground flex items-center flex-wrap gap-1">
       <BookOpen size={13} className="text-accent shrink-0" aria-hidden="true" />
       Zum Nachlesen:{' '}
       {treffer.map((l, i) => (

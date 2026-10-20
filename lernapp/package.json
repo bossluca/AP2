@@ -12,11 +12,13 @@
     "validate-data": "node scripts/backup-data.mjs --check",
     "analyse-ap2": "node scripts/analyse-ap2-themenmatrix.mjs",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^0.469.0",
+    "pdfjs-dist": "4.10.38",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-markdown": "^10.1.0",
@@ -24,7 +26,9 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "1.56.1",
     "@tailwindcss/vite": "^4.3.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",

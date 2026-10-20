@@ -27,8 +27,8 @@ export default function LernpfadNode({ modul, offen, onToggle }) {
           istFertig
             ? 'w-9 h-9 bg-accent text-[var(--accent-contrast)]'
             : istAktiv
-              ? 'w-10 h-10 border-2 border-accent text-accent bg-white dark:bg-[#0B0F0C] node-pulse'
-              : 'w-9 h-9 border border-gray-300 dark:border-[#2a3326] text-gray-400 dark:text-[#6B7A66] bg-gray-50 dark:bg-[#11160F]',
+              ? 'w-10 h-10 border-2 border-accent text-accent bg-white dark:bg-background node-pulse'
+              : 'w-9 h-9 border border-zinc-300 dark:border-input text-muted-foreground bg-zinc-50 dark:bg-card',
         ].join(' ')}
         aria-hidden="true"
       >
@@ -42,19 +42,19 @@ export default function LernpfadNode({ modul, offen, onToggle }) {
         className={[
           'flex-1 min-w-0 text-left rounded-xl border px-3.5 py-2.5 transition-colors',
           istAktiv
-            ? 'border-accent bg-green-50/60 dark:bg-[#12180f]'
+            ? 'border-accent bg-green-50/60 dark:bg-muted'
             : istFertig
               ? 'card-interactive'
-              : 'border-dashed border-gray-300 dark:border-[#2a3326] bg-gray-50/60 dark:bg-[#0d120b] opacity-80 hover:opacity-100',
+              : 'border-dashed border-zinc-300 dark:border-input bg-zinc-50/60 dark:bg-background opacity-80 hover:opacity-100',
         ].join(' ')}
       >
         <div className="flex items-center gap-2">
           <span className="font-medium truncate flex-1">{titel}</span>
-          <span className="font-mono text-xs text-gray-400 dark:text-[#6B7A66] shrink-0">
+          <span className="font-mono text-xs text-muted-foreground shrink-0">
             {offen ? '▾' : '▸'}
           </span>
         </div>
-        <div className="text-[11px] text-gray-500 dark:text-[#6B7A66] mt-0.5">
+        <div className="text-[11px] text-muted-foreground mt-0.5">
           {istFertig
             ? 'abgeschlossen'
             : istAktiv

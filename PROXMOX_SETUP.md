@@ -6,12 +6,10 @@ betreiben. Eine Debian-VM ist für Docker am unkompliziertesten.
 SSL/HTTPS übernimmt der vorgelagerte **Nginx Proxy Manager (NPM)**.
 Allgemeiner Überblick: siehe [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
-> **Status Container-Build:** Die Images wurden bisher **nicht** mit Docker gebaut
-> (in der Entwicklungsumgebung war kein Docker verfügbar). Verifiziert sind:
-> Frontend-Build (`npm run build`), Backend-Start, API end-to-end,
-> 275 Frontend- und 31 Backendtests.
-> Der erste `docker compose build` findet also auf dem Proxmox-Host statt – unten
-> steht, worauf zu achten ist.
+> **Status Container-Build (2026-10-20):** Images in einer Sandbox gebaut und der
+> Stack getestet (beide Container `healthy`, Login/Sync, Backup → Restore,
+> Neustart-Persistenz). Gemessen: Backend 43–63 MB RAM, nginx ~6 MB, Images ~385 MB.
+> Gesamtleitfaden inkl. Firewall, DDoS und Backups: [`SELF_HOSTING.md`](SELF_HOSTING.md).
 
 ## 1. Ressourcen-Empfehlung
 

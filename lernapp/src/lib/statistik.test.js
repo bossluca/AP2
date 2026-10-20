@@ -22,7 +22,7 @@ describe('berechneStatistik', () => {
     expect(s.art).toEqual({ frage: 2, lernzettel: 2 });
   });
 
-  it('verteilt Boxen und zählt Fälligkeit (neu = fällig)', () => {
+  it('verteilt Boxen und zählt Fälligkeit getrennt von neuen Objekten', () => {
     const progress = {
       q1: { box: 3, due: '2999-01-01T00:00:00' }, // nicht fällig
       q2: { box: 1, due: '2000-01-01T00:00:00' }, // fällig
@@ -31,7 +31,8 @@ describe('berechneStatistik', () => {
     expect(s.boxen.neu).toBe(2); // l1, l2 ohne Box
     expect(s.boxen[3]).toBe(1);
     expect(s.boxen[1]).toBe(1);
-    expect(s.faellig).toBe(3); // q2 + 2 neue
+    expect(s.faellig).toBe(1); // nur q2 – neue zählen nicht als „fällig"
+    expect(s.neu).toBe(2); // l1, l2
   });
 
   it('aggregiert Schwachstellen nach Tag', () => {

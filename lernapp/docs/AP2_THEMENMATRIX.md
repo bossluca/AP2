@@ -1,27 +1,27 @@
 # AP2-Themenmatrix
 
-Automatisch erzeugt am 2026-07-11 mit `npm run analyse-ap2`.
+Automatisch erzeugt am 2026-10-20 mit `npm run analyse-ap2`.
 
-Datenbasis: 4 AP2-Übungsklausuren, 87 Fragen und 167 AP2-Lernzettel-Einheiten.
+Datenbasis: 5 AP2-Übungsklausuren, 109 Fragen und 167 AP2-Lernzettel-Einheiten.
 
 | Thema | Lernzettel | Fragen | Punkte | Schwierigkeit | Status |
 |---|---:|---:|---:|---|---|
-| IPv4, IPv6 & Subnetting | 59 | 12 | 54 | 2, 3 | Gut |
-| DNS, DHCP & Verzeichnisdienste | 8 | 6 | 28 | 2, 3 | Gut |
-| Routing, NAT, VLAN & Segmentierung | 18 | 22 | 96 | 2, 3 | Gut |
+| IPv4, IPv6 & Subnetting | 59 | 13 | 59 | 2, 3 | Gut |
+| DNS, DHCP & Verzeichnisdienste | 8 | 8 | 36 | 2, 3 | Gut |
+| Routing, NAT, VLAN & Segmentierung | 18 | 25 | 107 | 2, 3 | Gut |
 | WLAN & Funkplanung | 11 | 9 | 40 | 2, 3 | Gut |
-| VPN & sicherer Fernzugriff | 8 | 3 | 12 | 2 | Dünn |
-| Firewall, Zero Trust & IT-Sicherheit | 22 | 33 | 152 | 2, 3 | Gut |
-| Identitäten, Kerberos & SSO | 0 | 7 | 32 | 2, 3 | Gut |
-| Monitoring, SNMP & Logging | 2 | 5 | 22 | 2, 3 | Gut |
-| Backup, RAID & Storage | 10 | 9 | 40 | 2, 3 | Gut |
-| Virtualisierung, Container & Cloud | 6 | 10 | 46 | 2, 3 | Gut |
-| Datenbanken & SQL | 15 | 7 | 33 | 2, 3 | Gut |
-| Linux, Skripte & Automatisierung | 11 | 12 | 55 | 2, 3 | Gut |
-| Projekt- & IT-Service-Management | 5 | 8 | 34 | 2, 3 | Gut |
+| VPN & sicherer Fernzugriff | 8 | 7 | 28 | 2, 3 | Gut |
+| Firewall, Zero Trust & IT-Sicherheit | 22 | 42 | 189 | 2, 3 | Gut |
+| Identitäten, Kerberos & SSO | 0 | 10 | 45 | 2, 3 | Gut |
+| Monitoring, SNMP & Logging | 2 | 10 | 42 | 2, 3 | Gut |
+| Backup, RAID & Storage | 10 | 11 | 47 | 2, 3 | Gut |
+| Virtualisierung, Container & Cloud | 6 | 14 | 61 | 2, 3 | Gut |
+| Datenbanken & SQL | 15 | 9 | 42 | 2, 3 | Gut |
+| Linux, Skripte & Automatisierung | 11 | 17 | 75 | 2, 3 | Gut |
+| Projekt- & IT-Service-Management | 5 | 10 | 42 | 2, 3 | Gut |
 | Hardware, USV & Energie | 18 | 9 | 40 | 2, 3 | Gut |
-| Wirtschaftlichkeit & Beschaffung | 2 | 14 | 61 | 2, 3 | Gut |
-| Hochverfügbarkeit & Lastverteilung | 2 | 12 | 48 | 2, 3 | Gut |
+| Wirtschaftlichkeit & Beschaffung | 2 | 16 | 68 | 2, 3 | Gut |
+| Hochverfügbarkeit & Lastverteilung | 2 | 16 | 63 | 2, 3 | Gut |
 
 ## Interpretation
 

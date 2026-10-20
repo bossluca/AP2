@@ -1,9 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useProgress } from '../context/ProgressContext';
-import { useGamification } from '../context/GamificationContext';
-import { getLernobjekte } from '../data/lernobjekte';
-import { berechneStatistik } from '../lib/statistik';
-import { bewerteErfolge } from '../lib/erfolge';
+import { useEffect, useRef, useState } from 'react';
+import { useErfolge } from '../hooks/useErfolge';
 import { feiern } from '../lib/konfetti';
 
 /**
@@ -15,22 +11,7 @@ import { feiern } from '../lib/konfetti';
  * gekapselt hier drin. Datenbasis identisch zur Statistik-Seite.
  */
 export default function ErfolgWatcher() {
-  const { progress } = useProgress();
-  const { gami } = useGamification();
-  const objekte = useMemo(() => getLernobjekte(), []);
-  const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
-
-  const erfolge = useMemo(
-    () =>
-      bewerteErfolge({
-        gelernt: s.status.gelernt,
-        prozentGelernt: s.total > 0 ? Math.round((s.status.gelernt / s.total) * 100) : 0,
-        streak: gami.streak,
-        aktiveTage: gami.aktiveTage,
-        klausurBesteProzent: gami.klausurBest,
-      }),
-    [s, gami]
-  );
+  const erfolge = useErfolge();
 
   const signatur = erfolge
     .filter((e) => e.freigeschaltet)
@@ -69,7 +50,7 @@ export default function ErfolgWatcher() {
   return (
     <div
       role="status"
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 animate-in flex items-center gap-3 rounded-xl border border-green-200 dark:border-green-800 bg-white dark:bg-[#11160F] shadow-lg shadow-green-500/20 px-4 py-3"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 animate-in flex items-center gap-3 rounded-xl border bg-popover text-popover-foreground shadow-lg px-4 py-3"
     >
       <span className="text-3xl" aria-hidden="true">
         {toast.icon}

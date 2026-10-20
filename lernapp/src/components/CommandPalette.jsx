@@ -1,14 +1,25 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as Icons from 'lucide-react';
+import { Play, RotateCcw, GraduationCap, Sun, Moon, ChevronRight } from 'lucide-react';
 import { NAV, NAV_SEKUNDAER } from '../navigation';
 import { useTheme } from '../context/ThemeContext';
 import { useProgress } from '../context/ProgressContext';
 import { baueBefehle, filterBefehle } from '../lib/befehle';
 
 /** Lucide-Icon per Name, mit neutralem Fallback. */
+// Explizite Icon-Map statt `import * as Icons` – sonst landet das komplette
+// Lucide-Set (~1 MB) im vendor-Chunk. Nav-Icons kommen aus navigation.js.
+const ICONS = {
+  Play,
+  RotateCcw,
+  GraduationCap,
+  Sun,
+  Moon,
+  ...Object.fromEntries([...NAV, ...NAV_SEKUNDAER].map((n) => [n.iconName, n.icon])),
+};
+
 function CmdIcon({ name, ...props }) {
-  const Cmp = Icons[name] || Icons.ChevronRight;
+  const Cmp = ICONS[name] || ChevronRight;
   return <Cmp {...props} />;
 }
 
@@ -102,7 +113,7 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={schliessen} />
       <div className="absolute left-1/2 top-[12vh] -translate-x-1/2 w-[min(92vw,40rem)] card shadow-2xl overflow-hidden animate-in">
         {/* Eingabezeile mit Terminal-Prompt */}
-        <div className="flex items-center gap-2 px-3 py-2.5 border-b border-gray-200/70 dark:border-[#1d271a]">
+        <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border">
           <span className="font-mono text-accent shrink-0" aria-hidden="true">
             &gt;_
           </span>
@@ -115,10 +126,10 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
             }}
             onKeyDown={onListKey}
             placeholder="Suchen oder springen … (Befehl, Bereich)"
-            className="flex-1 bg-transparent outline-none text-sm font-mono placeholder:text-gray-400"
+            className="flex-1 bg-transparent outline-none text-sm font-mono placeholder:text-muted-foreground"
             aria-label="Befehl suchen"
           />
-          <kbd className="hidden sm:block text-[10px] text-gray-400 border border-gray-300 dark:border-[#2a3326] rounded px-1.5 py-0.5">
+          <kbd className="hidden sm:block text-[10px] text-muted-foreground border border-zinc-300 dark:border-input rounded px-1.5 py-0.5">
             ESC
           </kbd>
         </div>
@@ -126,7 +137,7 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
         {/* Trefferliste */}
         <ul ref={listRef} className="max-h-[55vh] overflow-y-auto py-1">
           {treffer.length === 0 ? (
-            <li className="px-4 py-6 text-center text-sm text-gray-500">
+            <li className="px-4 py-6 text-center text-sm text-muted-foreground">
               Keine Treffer für „{query}".
             </li>
           ) : (
@@ -139,15 +150,15 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
                   className={`w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm transition-colors ${
                     i === aktiv
                       ? 'bg-green-100 dark:bg-green-900/30 text-accent'
-                      : 'text-gray-700 dark:text-gray-300'
+                      : 'text-zinc-700 dark:text-zinc-300'
                   }`}
                 >
                   <CmdIcon name={b.icon} size={16} aria-hidden="true" className="shrink-0" />
                   <span className="flex-1 min-w-0 truncate">{b.label}</span>
                   {b.hinweis && (
-                    <span className="text-xs text-gray-400 truncate hidden sm:block">{b.hinweis}</span>
+                    <span className="text-xs text-muted-foreground truncate hidden sm:block">{b.hinweis}</span>
                   )}
-                  <span className="text-[10px] font-mono text-gray-400 uppercase shrink-0">
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase shrink-0">
                     {b.gruppe === 'Aktion' ? 'run' : 'go'}
                   </span>
                 </button>

@@ -11,6 +11,7 @@ vi.mock('../lib/api', () => ({
     register: vi.fn().mockResolvedValue({ user: { id: 2, email: 'neu@b.de' } }),
     logout: vi.fn().mockResolvedValue({ ok: true }),
     deleteAccount: vi.fn().mockResolvedValue({ ok: true }),
+    config: vi.fn().mockResolvedValue({ registrierung: 'open' }),
   },
   progressApi: {
     getAll: vi.fn().mockResolvedValue({ progress: {} }),
@@ -29,9 +30,9 @@ import { AuthProvider } from '../context/AuthContext';
 import { ProgressProvider } from '../context/ProgressContext';
 import Konto from './Konto';
 
-function renderKonto() {
+function renderKonto(pfad = '/konto') {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[pfad]}>
       <AuthProvider>
         <ProgressProvider>
           <Konto />
@@ -72,5 +73,34 @@ describe('Konto-Seite + Login-Sync', () => {
     // ProgressContext synchronisiert: erst Merge (Migration), dann Laden.
     await waitFor(() => expect(progressApi.merge).toHaveBeenCalled());
     await waitFor(() => expect(progressApi.getAll).toHaveBeenCalled());
+  });
+
+  it('Einladungslink öffnet die Registrierung mit vorausgefülltem Code (invite-Modus)', async () => {
+    authApi.config.mockResolvedValueOnce({ registrierung: 'invite' });
+    authApi.register.mockResolvedValueOnce({ user: { id: 3, email: 'x@b.de' } });
+    const user = userEvent.setup();
+    renderKonto('/konto?einladung=ABCD-EFGH-JKLM');
+    expect(await screen.findByLabelText('Einladungscode')).toHaveValue('ABCD-EFGH-JKLM');
+    await user.type(screen.getByLabelText('E-Mail'), 'x@b.de');
+    await user.type(screen.getByLabelText(/^Passwort \(mind/), 'geheim1234');
+    await user.type(screen.getByLabelText('Passwort bestätigen'), 'geheim1234');
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(screen.getByRole('button', { name: 'Konto erstellen' }));
+    await waitFor(() =>
+      expect(authApi.register).toHaveBeenCalledWith('x@b.de', 'geheim1234', 'ABCD-EFGH-JKLM')
+    );
+  });
+
+  it('blendet die Registrierung aus, wenn sie geschlossen ist', async () => {
+    authApi.config.mockResolvedValueOnce({ registrierung: 'closed' });
+    renderKonto();
+    expect(await screen.findByText(/derzeit nicht möglich/)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Registrieren' })).not.toBeInTheDocument();
+  });
+
+  it('zeigt Admins den Link zum Admin-Bereich', async () => {
+    authApi.me.mockResolvedValueOnce({ user: { id: 1, email: 'admin@b.de', admin: true } });
+    renderKonto();
+    expect(await screen.findByRole('link', { name: /Admin-Bereich/ })).toHaveAttribute('href', '/admin');
   });
 });

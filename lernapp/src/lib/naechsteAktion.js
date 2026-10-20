@@ -6,6 +6,7 @@
  *
  * Priorität (oben gewinnt):
  *   1. resume      – eine angefangene Session fortsetzen (geringste Reibung)
+ *   1b. einstufung – ganz neue Nutzer: erst Einstufungstest → individueller Lernplan
  *   2. faellig      – fällige Wiederholungen (SRS first – das hält Wissen)
  *   3. schwaechen   – gezielt an schwachen Themen üben (wenn welche da sind)
  *   4. lernen       – Standard-Smart-Session „Heute lernen" (immer möglich)
@@ -16,7 +17,8 @@
  * @param {{tag:string}[]} [eingabe.schwachstellen]
  * @param {number} [eingabe.heuteAktivitaet]
  * @param {number} [eingabe.tagesziel]
- * @returns {{art:'resume'|'faellig'|'schwaechen'|'lernen', titel:string, text:string, cta:string, to:string, icon:string}}
+ * @param {boolean} [eingabe.einstufungOffen]  Noch kein Test und noch nichts gelernt.
+ * @returns {{art:'resume'|'einstufung'|'faellig'|'schwaechen'|'lernen', titel:string, text:string, cta:string, to:string, icon:string}}
  */
 export function naechsteAktion({
   resume = null,
@@ -24,6 +26,7 @@ export function naechsteAktion({
   schwachstellen = [],
   heuteAktivitaet = 0,
   tagesziel = 0,
+  einstufungOffen = false,
 } = {}) {
   if (resume && typeof resume.to === 'string') {
     return {
@@ -33,6 +36,17 @@ export function naechsteAktion({
       cta: 'Fortsetzen',
       to: resume.to,
       icon: 'Play',
+    };
+  }
+
+  if (einstufungOffen) {
+    return {
+      art: 'einstufung',
+      titel: 'Einstufungstest',
+      text: 'Finde in ca. 5 Minuten heraus, wo du stehst – danach gibt es deinen Lernplan.',
+      cta: 'Test starten',
+      to: '/einstufung',
+      icon: 'ClipboardCheck',
     };
   }
 

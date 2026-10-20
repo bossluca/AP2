@@ -110,14 +110,14 @@ export default function Lernzettel() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h1 className="text-xl font-bold">📝 Lernzettel</h1>
-        <span className="text-sm text-gray-500">
+        <h1 className="text-2xl font-semibold tracking-tight">Lernzettel</h1>
+        <span className="text-sm text-muted-foreground">
           {filtered.length} von {einheiten.length}
         </span>
       </div>
 
       {einheiten.length === 0 ? (
-        <p className="text-sm text-gray-500">Noch keine Lernzettel importiert.</p>
+        <p className="text-sm text-muted-foreground">Noch keine Lernzettel importiert.</p>
       ) : (
         <>
           <div className="flex flex-wrap gap-2">
@@ -207,15 +207,15 @@ export default function Lernzettel() {
                       aria-expanded={isOpen}
                       className="w-full text-left px-4 py-3 flex items-center gap-2 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors"
                     >
-                      <span className="text-gray-400 text-xs w-3">{isOpen ? '▾' : '▸'}</span>
+                      <span className="text-muted-foreground text-xs w-3">{isOpen ? '▾' : '▸'}</span>
                       <span className="font-medium flex-1">{e.titel}</span>
                       <StatusBadge status={status} />
-                      <span className="text-xs text-gray-400 hidden sm:inline">{e.kategorie}</span>
+                      <span className="text-xs text-muted-foreground hidden sm:inline">{e.kategorie}</span>
                     </button>
 
                     {isOpen && (
-                      <div className="px-4 pb-4 space-y-3 border-t border-gray-200 dark:border-gray-800">
-                        <div className="text-xs text-gray-500 flex flex-wrap gap-2 pt-3">
+                      <div className="px-4 pb-4 space-y-3 border-t border-border">
+                        <div className="text-xs text-muted-foreground flex flex-wrap gap-2 pt-3">
                           <span className="chip">
                             {e.kategorie}
                           </span>
@@ -233,7 +233,7 @@ export default function Lernzettel() {
 
                         <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
                           {e.quelle && (
-                            <span className="text-xs text-gray-400">Quelle: {e.quelle}</span>
+                            <span className="text-xs text-muted-foreground">Quelle: {e.quelle}</span>
                           )}
                           <div className="flex gap-2 ml-auto">
                             <button

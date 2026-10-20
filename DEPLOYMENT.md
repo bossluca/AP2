@@ -50,6 +50,23 @@ docker compose up --build
    holen, **„Force SSL" + HSTS aktivieren** (die Security-Header der App selbst
    setzt der web-Container, HSTS gehört an den TLS-Terminator).
 
+### Konten & Admin (Einladungen)
+
+In der `.env` neben `docker-compose.yml`:
+
+```bash
+ADMIN_EMAILS=du@example.de        # Komma-Liste; diese Konten sehen /#/admin
+REGISTRATION=open                 # open | invite | closed
+```
+
+Empfohlener Ablauf für eine private Instanz:
+1. Gleich mit `REGISTRATION=invite` starten. Konten aus `ADMIN_EMAILS` registrieren sich ohne
+   Code (Feld leer lassen) – so gibt es kein offenes Zeitfenster für fremde Registrierungen.
+2. Das eigene Konto (E-Mail aus `ADMIN_EMAILS`) anlegen.
+3. Unter **Konto → Admin-Bereich** Einladungen erzeugen (Nutzungen, Gültigkeit, Notiz) und den
+   Link `…/#/konto?einladung=CODE` weitergeben. Gespeichert wird nur der Hash des Codes.
+4. Konten lassen sich dort **sperren** (beendet alle Sitzungen sofort) oder **löschen**.
+
 Der Fortschritt der Nutzer liegt in der SQLite-Datei im Volume `db_data`
 (`/app/data/lernapp.sqlite` im Backend-Container).
 
@@ -71,21 +88,22 @@ beschreibbar.
 
 ### Backup / Restore
 
-```bash
-# Backup der Datenbank
-docker compose cp backend:/app/data/lernapp.sqlite ./lernapp-backup.sqlite
-
-# Restore (Stack vorher stoppen)
-docker compose cp ./lernapp-backup.sqlite backend:/app/data/lernapp.sqlite
-```
-
-Automatisieren (Cron auf dem Host, täglich 03:00, 14 Tage Aufbewahrung):
+Ausführlich (inkl. 3-2-1-Strategie, Restore-Probe, Notfälle): [`SELF_HOSTING.md`](SELF_HOSTING.md).
 
 ```bash
-0 3 * * * cd /pfad/zum/repo && docker compose cp backend:/app/data/lernapp.sqlite \
-  /var/backups/lernapp/lernapp-$(date +\%F).sqlite && \
-  find /var/backups/lernapp -name 'lernapp-*.sqlite' -mtime +14 -delete
+./scripts/backup.sh                       # Online-Schnappschuss + Integritätsprüfung → /var/backups/fisidev
+./scripts/restore.sh <backup.sqlite.gz>   # prüft, sichert aktuellen Stand, spielt ein, Smoke-Test
 ```
+
+Cron (täglich 03:15, Rotation 14 Tage + 12 Monats-Backups):
+
+```bash
+15 3 * * * cd /opt/fisidev && ./scripts/backup.sh >> /var/log/fisidev-backup.log 2>&1
+```
+
+> Nicht mehr empfohlen: die `.sqlite`-Datei per `docker compose cp` kopieren – im
+> WAL-Modus kann die Kopie unvollständig sein. `backup.sh` nutzt `VACUUM INTO`.
+> **Nie `docker compose down -v`** – das löscht das Volume mit allen Konten.
 
 ### Sicherheits-Checkliste Self-Hosting
 
@@ -96,9 +114,13 @@ Was der Stack **bereits mitbringt** (Stand 2026-07-04):
   **nicht** nach außen exponiert (nur `web` erreicht ihn).
 - ✅ **Healthchecks:** `docker compose ps` zeigt den echten Zustand; `web`
   startet erst, wenn das Backend gesund ist. `restart: unless-stopped`.
-- ✅ **Security-Header** (nginx im web-Container): CSP (nur eigene Ressourcen +
-  Google Fonts), `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
-  `Permissions-Policy`, `server_tokens off`.
+- ✅ **Security-Header** (nginx im web-Container, `nginx-security-headers.conf`,
+  in **jedem** location-Block – seit 2026-10-20 auch an `index.html`): CSP (nur
+  eigene Ressourcen + Google Fonts), `X-Content-Type-Options`, `X-Frame-Options`,
+  `Referrer-Policy`, `Permissions-Policy`, `server_tokens off`.
+- ✅ **Rate-Limits & Timeouts** (nginx): 20 req/s je IP auf `/api` (Burst 80),
+  30/min auf `/api/auth/*`, 60 Verbindungen je IP, Slowloris-Timeouts 10 s;
+  echte Client-IP aus `X-Forwarded-For` privater Proxys. gzip für JS/CSS/JSON.
 - ✅ **Auth-Härtung:** argon2id-Hashes, httpOnly-Session-Cookies (`Secure` in
   Produktion), Brute-Force-Rate-Limit auf Login **und** Recovery,
   Passwort-Reset nur per Recovery-Code (kein Mail-Reset-Angriffsweg),

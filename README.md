@@ -28,9 +28,15 @@ Spaced Repetition, optionales Konto für geräteübergreifenden Fortschritt.
   Code-Splitting (Start-Chunk ~32 kB)
 - 👤 **Konto (optional)** – Fortschritt + Streak/XP geräteübergreifend, Passwort-Reset
   per **Recovery-Code**, DSGVO-Konto-Löschung; ohne Konto läuft alles lokal
-- 💾 **Backup** – Fortschritt als JSON exportieren/importieren (nicht-destruktives Merge)
+- 💾 **Backup** – Fortschritt, Lernplan und eigene Karten als JSON exportieren/importieren
+  (nicht-destruktives Merge)
+- 🗺️ **Einstufungstest + Lernplan** – Stand über 16 AP2-Themen messen, Wochenplan bis zur Prüfung
+- 🧮 **Rechen-Trainer** – unbegrenzt Subnetting, IPv6, RAID, Strom, USV, Verfügbarkeit … mit Lösungsweg
+- 🧩 **Zuordnen** + 📄 **Eigene Karten** aus PDF/Text (im Browser, nichts wird hochgeladen)
+- 🏆 **Wochen-Rangliste + Lerngruppen** (opt-in, Anzeigename statt E-Mail)
+- 🛡️ **Self-Hosting-Admin** – Einladungs-Codes (`REGISTRATION=invite`), Konten sperren/löschen
 
-**Datenstand:** 265 lernbare Prüfungsfragen (6 paraphrasierte AP1-Prüfungen + 4
+**Datenstand:** 287 lernbare Prüfungsfragen (6 paraphrasierte AP1-Prüfungen + 5
 KI-generierte AP2-Übungsklausuren) + 278 Lernzettel-Einheiten (111 AP1 + 167 AP2).
 
 ## Aufbau des Repos
@@ -60,6 +66,8 @@ Details: [`lernapp/README.md`](lernapp/README.md) · [`server/README.md`](server
 
 ## Deployment
 
+➡️ **Selbst hosten (Home-Server, Firewall, Backups, Restore):** [`SELF_HOSTING.md`](SELF_HOSTING.md)
+
 Containerisiert (Backend non-root + Nginx mit Security-Headern; TLS/HTTPS über den
 vorgelagerten Nginx Proxy Manager) – läuft auf Proxmox-LXC und auf einem VPS:
 
@@ -74,5 +82,6 @@ Schritt-für-Schritt: [`DEPLOYMENT.md`](DEPLOYMENT.md) und [`PROXMOX_SETUP.md`](
 
 ```bash
 cd lernapp && npm test     # Frontend (Vitest)
+cd lernapp && npm run e2e  # Browser-E2E (Playwright; einmalig: npx playwright install chromium)
 cd server  && npm test     # Backend (node:test)
 ```

@@ -12,14 +12,14 @@ function plain(text) {
 function Snippet({ text, query }) {
   const clean = plain(text);
   const idx = clean.toLowerCase().indexOf(query.toLowerCase());
-  if (idx === -1) return <span className="text-gray-500">{clean.slice(0, 140)}…</span>;
+  if (idx === -1) return <span className="text-muted-foreground">{clean.slice(0, 140)}…</span>;
   const start = Math.max(0, idx - 60);
   const end = Math.min(clean.length, idx + query.length + 80);
   return (
-    <span className="text-gray-600 dark:text-gray-400">
+    <span className="text-muted-foreground">
       {start > 0 && '…'}
       {clean.slice(start, idx)}
-      <mark className="bg-yellow-200 dark:bg-yellow-700/60 dark:text-gray-100 rounded px-0.5">
+      <mark className="bg-yellow-200 dark:bg-yellow-700/60 dark:text-zinc-100 rounded px-0.5">
         {clean.slice(idx, idx + query.length)}
       </mark>
       {clean.slice(idx + query.length, end)}
@@ -57,7 +57,7 @@ export default function Suche() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold">🔍 Suche</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Suche</h1>
 
       <div className="flex flex-wrap gap-2">
         <input
@@ -81,9 +81,9 @@ export default function Suche() {
       </div>
 
       {trimmed.length < 2 ? (
-        <p className="text-sm text-gray-500">Mindestens 2 Zeichen eingeben.</p>
+        <p className="text-sm text-muted-foreground">Mindestens 2 Zeichen eingeben.</p>
       ) : (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           {results.length} Treffer für „{trimmed}"
         </p>
       )}
@@ -109,17 +109,17 @@ export default function Suche() {
                     {o.pruefungsteil}
                   </span>
                   <span className="font-medium flex-1">{o.titel}</span>
-                  <span className="text-xs text-gray-400 hidden sm:inline">{o.kategorie}</span>
+                  <span className="text-xs text-muted-foreground hidden sm:inline">{o.kategorie}</span>
                 </div>
                 <div className="text-xs">
                   <Snippet text={hay} query={trimmed} />
                 </div>
               </button>
               {isOpen && (
-                <div className="px-4 pb-4 pt-1 border-t border-gray-200 dark:border-gray-800 space-y-3">
+                <div className="px-4 pb-4 pt-1 border-t border-border space-y-3">
                   <MarkdownContent>{o.front}</MarkdownContent>
                   {o.back && (
-                    <div className="border-t border-gray-200 dark:border-gray-800 pt-2">
+                    <div className="border-t border-border pt-2">
                       <MarkdownContent>{o.back}</MarkdownContent>
                     </div>
                   )}
@@ -130,7 +130,7 @@ export default function Suche() {
         })}
       </ul>
       {results.length > 60 && (
-        <p className="text-xs text-gray-500">… nur die ersten 60 Treffer werden angezeigt.</p>
+        <p className="text-xs text-muted-foreground">… nur die ersten 60 Treffer werden angezeigt.</p>
       )}
     </div>
   );
