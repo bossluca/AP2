@@ -17,7 +17,8 @@ parallel immer Inhalte.** Jede Stufe ist einzeln auslieferbar.
   Quiz, Lückentext, Drill, **neu: Zuordnen**, Klausur-Simulation.
 - Design: **shadcn/ui-Stil** (Tokens, zinc + grüner Primary, Geist-Fonts).
 - **Neu:** Einstufungstest + Lernplan bis zur Prüfung, eigene Karten aus PDF/Text,
-  Rechen-Trainer, Einladungs-Codes + Admin-Bereich (Stand 2026-10-20).
+  Rechen-Trainer, Einladungs-Codes + Admin-Bereich, Lerngruppen, Konto-Sync für
+  Lernplan/eigene Karten, Playwright-E2E in CI (Stand 2026-10-20).
 
 ## Stufe 1 – Self-Hosting produktionsreif (P1)
 
@@ -53,7 +54,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
-| 3.1 | **Lerngruppen**: Gruppe per Code beitreten, Rangliste nur innerhalb der Gruppe (Klasse/Betrieb) | M | sozialer Ansporn im kleinen Kreis |
+| 3.1 | ✅ **Lerngruppen**: Gruppe per Code beitreten, Rangliste nur innerhalb der Gruppe (Klasse/Betrieb) | M | sozialer Ansporn im kleinen Kreis |
 | 3.2 | **Wochen-Challenges** (z. B. „50 Subnetting-Aufgaben"), abgeleitet aus Tags, mit Badge | M | thematischer Fokus |
 | 3.3 | **Ligen** (Bronze/Silber/Gold) wochenweise aus Rangliste – Auf-/Abstieg | M | Duolingo-Effekt |
 | 3.4 | Erinnerungen per **Web-Push** (opt-in, nur mit Backend; VAPID) | M | Streak-Schutz |
@@ -70,15 +71,15 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 | 4.3 | **Reihenfolge-Format** (OSI, Incident-Ablauf, Subnetting-Schritte) | M | letztes offenes Abfrageformat |
 | 4.4 | Fallstudien-Modus: ein Szenario, mehrere verknüpfte Teilaufgaben wie in der echten AP2 | L | prüfungsnah |
 | 4.5 | Optional **KI-Bewertung** von Freitext-Antworten (eigener API-Key, nur Backend, opt-in) zusätzlich zur Schlagwortprüfung | M | feineres Feedback |
-| 4.7 | Lernplan pro Konto syncen (heute gerätelokal) + Re-Test nach jeder Planphase, Fortschritt je Thema im Plan anzeigen | M | Plan wandert mit, misst Lernerfolg |
-| 4.8 | Eigene Karten: ✅ Backup; offen: Konto-Sync, Teilen per Datei, optional OCR (tesseract.js) für Scans | M | eigene Inhalte gehen nicht verloren |
+| 4.7 | ✅ Lernplan pro Konto syncen; offen: Re-Test nach jeder Planphase, Fortschritt je Thema im Plan anzeigen | M | Plan wandert mit, misst Lernerfolg |
+| 4.8 | Eigene Karten: ✅ Backup, ✅ Konto-Sync; offen: Teilen per Datei, optional OCR (tesseract.js) für Scans | M | eigene Inhalte gehen nicht verloren |
 | 4.6 | Fachliche Stichproben-Reviews der KI-generierten Fragen, Melde-Button „Frage fehlerhaft" | S | Vertrauen in Inhalte |
 
 ## Stufe 5 – Technik & Qualität (P2–P3)
 
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
-| 5.1 | **Playwright-E2E** für Kernflows (Heute lernen, Klausur, Login, Rangliste) in CI | M | Browser-Regressionen fallen auf |
+| 5.1 | ✅ **Playwright-E2E** für Kernflows (Einstufung, Heute lernen, Rechnen, eigene Karten; Desktop + Mobil) in CI – offen: Login/Rangliste mit Backend | M | Browser-Regressionen fallen auf |
 | 5.2 | `exam_data` aus dem PWA-Precache lösen (Runtime-Caching), Daten lazy laden | M | kleinerer Erst-Download |
 | 5.3 | A11y-Pass (Fokus, Kontrast in beiden Themes, Screenreader-Labels) | S | barrierearm |
 | 5.4 | Echte shadcn-Komponenten (Radix-basiert) für Dialoge/Selects/Toasts, wo heute Eigenbau | M | konsistente Interaktion |
@@ -88,9 +89,12 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 1. Stufe 1 komplett (1.1–1.5) – Voraussetzung für alles mit mehreren Nutzern.
 2. ~~2.1 Einladungs-Codes + 2.2 Admin-Seite~~ ✅ – Instanz kann geteilt werden.
 3. ~~4.2 Rechen-Trainer~~ ✅
-4. 3.1 Lerngruppen – macht die Rangliste im Klassenkontext richtig wertvoll.
-5. 4.7 Lernplan + eigene Karten pro Konto syncen.
-6. 5.1 E2E-Tests, bevor die Nutzerzahl wächst.
+4. ~~3.1 Lerngruppen~~ ✅
+5. ~~4.7 Lernplan + eigene Karten pro Konto syncen~~ ✅
+6. ~~5.1 E2E-Tests~~ ✅ (Frontend; Backend-Flows folgen)
+7. **Als Nächstes:** 3.2 Wochen-Challenges + 3.5 neue Badges (Motivation),
+   4.1 weitere AP2-Übungssets für dünne Themen, 5.2 Daten aus dem Precache lösen,
+   5.3 A11y-Pass.
 
 ## Einschätzung: Karten aus hochgeladenen PDFs
 

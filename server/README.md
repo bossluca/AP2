@@ -68,6 +68,24 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 Punkte = bewertete Lernobjekte der letzten 7 Tage aus dem Aktivitäts-Log des
 Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
 
+### Konto-Daten (`/api/daten`) — erfordert Login
+
+| Methode | Pfad | Beschreibung |
+|---|---|---|
+| `GET` | `/api/daten` | `{ daten: { einstufung?: {wert, updatedAt}, eigeneKarten?: {wert, updatedAt} } }` |
+| `PUT` | `/api/daten/:schluessel` | `{ wert }` speichern; nur `einstufung` (max. 64 KiB) und `eigeneKarten` (max. 512 KiB); `null` = gelöscht |
+
+### Lerngruppen (`/api/gruppen`) — erfordert Login + Anzeigename
+
+| Methode | Pfad | Beschreibung |
+|---|---|---|
+| `GET` | `/api/gruppen` | eigene Gruppen `{ id, name, code, mitglieder, erstellt }` |
+| `POST` | `/api/gruppen` | `{ name }` (3–40 Zeichen) → Gruppe + Code `XXXX-XXXX`; max. 10 eigene |
+| `POST` | `/api/gruppen/beitreten` | `{ code }` (Groß/klein, Bindestrich egal); Rate-Limit wie Login |
+| `DELETE` | `/api/gruppen/:id/mitgliedschaft` | verlassen; leere Gruppen werden gelöscht |
+
+`GET /api/rangliste?gruppe=<id>` liefert die Wochen-Rangliste nur der Mitglieder (403 für Nicht-Mitglieder).
+
 ### Admin (`/api/admin`) — nur Konten aus `ADMIN_EMAILS`
 
 | Methode | Pfad | Beschreibung |
@@ -94,6 +112,8 @@ Registrierung: `GET /api/auth/config` liefert `{ registrierung }` (Env `REGISTRA
   `recovery_hash` (argon2 des Recovery-Codes; additive Migration),
   `anzeigename` + `rangliste_optin` (Rangliste, Default aus; additive Migration),
   `gesperrt` (Admin-Sperre; additive Migration)
+- **`user_daten`** — PK `(user_id, schluessel)`, `wert` (JSON), `updated_at`
+- **`gruppen`** (`name`, `code`, `created_by`) + **`gruppen_mitglieder`** (PK `(gruppe_id, user_id)`)
 - **`invites`** — `code_hash` (SHA-256), `hinweis` (erste 4 Zeichen), `notiz`, `max_uses`,
   `uses`, `created_by`, `created_at`, `expires_at`
 - **`sessions`** — `token` (PK), `user_id`, `created_at`, `expires_at` (30 Tage)
@@ -109,8 +129,8 @@ Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
 - `src/app.js` — testbare Fastify-Factory (`buildApp`, via `app.inject` ohne Netzwerk testbar)
 - `src/index.js` — Entrypoint (liest `.env`, startet den Server)
 - `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen
-- `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` · `src/admin.js` — Routen ·
+- `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` · `src/admin.js` · `src/daten.js` · `src/gruppen.js` — Routen ·
   `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` ·
-  `test/rangliste.test.js` · `test/admin.test.js` — Tests
+  `test/rangliste.test.js` · `test/admin.test.js` · `test/daten.test.js` · `test/gruppen.test.js` — Tests
 
 Architektur-Begründungen (Backend-/Auth-Wahl): siehe [`../DECISIONS.md`](../DECISIONS.md).

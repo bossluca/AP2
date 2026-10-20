@@ -50,9 +50,9 @@ export default function Info() {
             <li>dein <strong>Lernfortschritt</strong>, XP/Level und Streak,</li>
             <li>dein <strong>Lernplan</strong> (Einstufungsergebnis) und deine <strong>eigenen Kartenstapel</strong> (nur der Text der Karten, nie die PDF-Datei),</li>
             <li>
-              nur bei <strong>freiwilliger Teilnahme an der Rangliste</strong>: ein selbst gewählter
-              Anzeigename. Andere Angemeldete sehen dann Name, Wochenpunkte und XP – nie die E-Mail.
-              Abmelden von der Rangliste ist jederzeit möglich.
+              nur bei <strong>freiwilliger Teilnahme an der Rangliste oder an Lerngruppen</strong>: ein
+              selbst gewählter Anzeigename. Öffentlich bzw. für die Gruppenmitglieder sichtbar sind
+              dann Name, Wochenpunkte und XP – nie die E-Mail. Austritt jederzeit möglich.
             </li>
           </ul>
           <p>

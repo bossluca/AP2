@@ -8,6 +8,17 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Hinzugefügt
 
+- 2026-10-20: **Lerngruppen** (Rangliste-Seite): Gruppe anlegen, per Code
+  `XXXX-XXXX` beitreten (Rate-Limit gegen Durchprobieren), verlassen; eigene
+  Wochen-Rangliste je Gruppe (`/api/rangliste?gruppe=<id>`), unabhängig vom
+  globalen Opt-in. Anzeigename lässt sich ohne öffentliche Teilnahme speichern.
+- 2026-10-20: **Konto-Sync für Lernplan + eigene Karten** (`/api/daten`,
+  Tabelle `user_daten`): Merge beim Login (jüngere Einstufung, Vereinigung der
+  Stapel), danach Durchschreiben jeder Änderung (`components/KontoDatenSync`).
+- 2026-10-20: **Playwright-E2E** (`npm run e2e`, `lernapp/e2e/`): Startseite,
+  Einstufung bis Lernplan, Rechen-Trainer, Heute lernen, eigene Karten – Desktop
+  und Mobil gegen den Produktions-Build; neuer CI-Job.
+
 - 2026-10-20: **Rechen-Trainer** (`/rechnen`): unbegrenzt generierte Aufgaben
   (Hosts pro Netz, Netz-/Broadcastadresse mit Oktett-Kurzweg, Teilnetze, IPv6
   kürzen nach RFC 5952, RAID-Kapazität, Übertragungszeit, Stromkosten,
