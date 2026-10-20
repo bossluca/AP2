@@ -24,6 +24,7 @@ const KACHELN = [
   { to: '/quiz', titel: '🎯 Quiz', text: 'Fragenrunde mit Selbsteinschätzung und Auswertung.' },
   { to: '/luecken', titel: '✍️ Lückentext', text: 'Begriffe aktiv abrufen – automatisch aus den Lernzetteln, sofort geprüft.' },
   { to: '/drill', titel: '⚡ Drill', text: 'Schnelle Multiple-Choice-Runde – objektiv bewertet, perfekt für zwischendurch.' },
+  { to: '/matching', titel: '🧩 Zuordnen', text: 'Begriffe den passenden Definitionen zuordnen – automatisch aus den Lernzetteln.' },
   { to: '/klausur', titel: '🎓 Klausur', text: 'Ganze Prüfung simulieren – Freitext + Schlagwort-Check, optional mit Timer.' },
 ];
 
@@ -86,15 +87,14 @@ export default function Home() {
   return (
     <div className="space-y-6">
       <section className="card relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 via-green-500/10 to-teal-400/10" />
         <div className="relative p-5 sm:p-6 flex items-center justify-between gap-5 flex-wrap">
           <div className="space-y-2 flex-1 min-w-[13rem]">
-            <div className="font-mono text-xs text-accent">// Fachinformatiker Systemintegration</div>
-            <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-2">
+            <div className="chip w-fit">Fachinformatiker Systemintegration · AP2</div>
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight flex items-center gap-2">
               <span className="font-mono text-accent" aria-hidden="true">&gt;_</span>
               <span className="text-gradient">FiSi.dev</span>
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+            <p className="text-sm text-zinc-600 dark:text-zinc-300">
               Deine AP2-Vorbereitung – {s.art.frage} Prüfungsfragen aus {exams.length} Terminen +{' '}
               {s.art.lernzettel} Lernzettel.
             </p>
@@ -106,12 +106,12 @@ export default function Home() {
                 <AktionIcon size={18} aria-hidden="true" />
                 {aktion.cta}
               </Link>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5">{aktion.text}</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1.5">{aktion.text}</p>
             </div>
           </div>
           <ProgressRing value={pctGelernt} size={120}>
             <div className="text-2xl font-bold">{pctGelernt}%</div>
-            <div className="text-[11px] uppercase tracking-wide text-gray-500">gelernt</div>
+            <div className="text-[11px] uppercase tracking-wide text-zinc-500">gelernt</div>
           </ProgressRing>
         </div>
       </section>
@@ -124,7 +124,7 @@ export default function Home() {
           </span>
           <div className="leading-tight">
             <div className="text-xl font-bold">{gami.streak}</div>
-            <div className="text-xs text-gray-500">Tage&nbsp;Streak</div>
+            <div className="text-xs text-zinc-500">Tage&nbsp;Streak</div>
             <div className="text-[11px] font-medium text-accent mt-0.5">
               ⭐ Level {gami.level.level}
             </div>
@@ -140,13 +140,13 @@ export default function Home() {
           </div>
         </div>
         <div className="flex-1 min-w-[12rem]">
-          <div className="flex justify-between text-xs text-gray-500 mb-1">
+          <div className="flex justify-between text-xs text-zinc-500 mb-1">
             <span>Tagesziel</span>
             <span>
               {Math.min(gami.heuteAktivitaet, gami.tagesziel)} / {gami.tagesziel}
             </span>
           </div>
-          <div className="h-2.5 rounded-full bg-gray-200 dark:bg-[#1d271a] overflow-hidden">
+          <div className="h-2.5 rounded-full bg-zinc-200 dark:bg-muted overflow-hidden">
             <div
               className="h-full rounded-full bg-accent transition-all duration-500"
               style={{
@@ -157,7 +157,7 @@ export default function Home() {
           {gami.heuteAktivitaet >= gami.tagesziel ? (
             <p className="text-xs text-green-600 mt-1">Tagesziel erreicht! 🎉</p>
           ) : (
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-zinc-400 mt-1">
               Noch {gami.tagesziel - gami.heuteAktivitaet} bis zum Tagesziel.
             </p>
           )}
@@ -178,14 +178,14 @@ export default function Home() {
                     ? '🎯 Heute ist Prüfungstag – viel Erfolg!'
                     : '🎯 Prüfung vorbei'}
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-zinc-500">
                 Prüfungsreife {reife.prognoseProzent}%
                 {plan &&
                   ` · heute: ${plan.wiederholungenHeute} Wiederholungen + ${Math.min(plan.neu, plan.neuProTag)} neue`}
               </div>
               {plan && (
                 <div className="space-y-1 mt-0.5">
-                  <div className="text-xs text-gray-400">
+                  <div className="text-xs text-zinc-400">
                     {plan.einschaetzung === 'locker' && 'Entspanntes Pensum – du bist gut in der Zeit. 🌱'}
                     {plan.einschaetzung === 'gut' && 'Machbares Pensum – dranbleiben. 💪'}
                     {plan.einschaetzung === 'sportlich' &&
@@ -227,7 +227,7 @@ export default function Home() {
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <div className="text-sm font-medium">🎯 Prüfungstermin setzen</div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-zinc-500">
                 Countdown + Tagesziel bis zur AP2 (Reife aktuell {reife.prognoseProzent}%).
               </div>
             </div>
@@ -242,7 +242,7 @@ export default function Home() {
 
         {/* Kompakte Schnell-Hinweise (nur wenn relevant; Haupteinstieg ist der Hero-CTA). */}
         {(s.faellig > 0 || s.schwachstellen.length > 0) && (
-          <div className="flex flex-wrap gap-2 pt-1 border-t border-gray-100 dark:border-[#1d271a]">
+          <div className="flex flex-wrap gap-2 pt-1 border-t border-zinc-100 dark:border-border">
             {s.faellig > 0 && (
               <Link
                 to="/wiederholen"
@@ -266,10 +266,10 @@ export default function Home() {
         )}
 
         {/* Tages-Quests – aufklappbar, damit sie die Sektion nicht dominieren. */}
-        <details className="group pt-1 border-t border-gray-100 dark:border-[#1d271a]">
+        <details className="group pt-1 border-t border-zinc-100 dark:border-border">
           <summary className="flex items-center justify-between cursor-pointer select-none text-sm font-medium list-none">
             <span>🗒️ Tages-Quests</span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-zinc-500">
               {questFortschritt(quests).erfuellt}/{quests.length}
               {questFortschritt(quests).alleErfuellt && ' 🎉'}
             </span>
@@ -277,14 +277,14 @@ export default function Home() {
           <ul className="space-y-1.5 pt-2">
             {quests.map((q) => (
               <li key={q.id} className="flex items-center gap-2 text-sm">
-                <span aria-hidden="true" className={q.erfuellt ? 'text-green-600' : 'text-gray-400'}>
+                <span aria-hidden="true" className={q.erfuellt ? 'text-green-600' : 'text-zinc-400'}>
                   {q.erfuellt ? '✓' : '○'}
                 </span>
-                <span className={`flex-1 min-w-0 ${q.erfuellt ? 'text-gray-400 line-through' : ''}`}>
+                <span className={`flex-1 min-w-0 ${q.erfuellt ? 'text-zinc-400 line-through' : ''}`}>
                   {q.label}
                 </span>
                 {q.ziel > 1 && (
-                  <span className="text-xs text-gray-400 tabular-nums">
+                  <span className="text-xs text-zinc-400 tabular-nums">
                     {q.wert}/{q.ziel}
                   </span>
                 )}
@@ -299,17 +299,17 @@ export default function Home() {
         <div className="card p-3 relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-1 bg-green-500" />
           <div className="text-2xl font-bold text-green-600">{s.status.gelernt}</div>
-          <div className="text-xs text-gray-500">Gelernt</div>
+          <div className="text-xs text-zinc-500">Gelernt</div>
         </div>
         <div className="card p-3 relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-1 bg-amber-500" />
           <div className="text-2xl font-bold text-amber-600">{s.status.ueben}</div>
-          <div className="text-xs text-gray-500">Muss ich üben</div>
+          <div className="text-xs text-zinc-500">Muss ich üben</div>
         </div>
         <div className="card p-3 relative overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-1 bg-gray-300 dark:bg-gray-600" />
-          <div className="text-2xl font-bold text-gray-500">{s.status.offen}</div>
-          <div className="text-xs text-gray-500">Noch offen</div>
+          <div className="absolute inset-x-0 top-0 h-1 bg-zinc-300 dark:bg-zinc-600" />
+          <div className="text-2xl font-bold text-zinc-500">{s.status.offen}</div>
+          <div className="text-xs text-zinc-500">Noch offen</div>
         </div>
       </div>
       <Link to="/statistik" className="text-sm text-accent hover:underline">
@@ -318,7 +318,7 @@ export default function Home() {
 
       {/* Einstiegskacheln – sekundär: alle Lernmodi zum Stöbern. */}
       <section className="space-y-3">
-        <h2 className="font-mono text-xs uppercase tracking-wide text-gray-400 dark:text-[#6B7A66]">
+        <h2 className="font-mono text-xs uppercase tracking-wide text-zinc-400 dark:text-muted-foreground">
           // alle Lernmodi
         </h2>
         <div className="grid sm:grid-cols-2 gap-3">
@@ -330,13 +330,13 @@ export default function Home() {
                   →
                 </span>
               </div>
-              <p className="text-sm text-gray-500">{k.text}</p>
+              <p className="text-sm text-zinc-500">{k.text}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <div className="text-xs text-gray-500 border-t border-gray-200 dark:border-gray-800 pt-3 space-y-3">
+      <div className="text-xs text-zinc-500 border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-3">
         <p>
           Hinweis: Nicht für alle Prüfungsfragen liegen offizielle Lösungen vor (besonders 2023 und
           2024 Frühjahr). Diese sind als „unverifiziert" markiert oder haben keine Lösung.
@@ -347,7 +347,7 @@ export default function Home() {
             className={`px-2 py-1 rounded-md border text-xs transition-colors ${
               confirmReset
                 ? 'bg-red-600 text-white border-red-600'
-                : 'border-gray-300 dark:border-gray-600 hover:border-red-400'
+                : 'border-zinc-300 dark:border-zinc-600 hover:border-red-400'
             }`}
           >
             {confirmReset ? 'Wirklich? Alles löschen' : 'Fortschritt zurücksetzen'}
@@ -355,7 +355,7 @@ export default function Home() {
           {confirmReset && (
             <button
               onClick={() => setConfirmReset(false)}
-              className="px-2 py-1 rounded-md border border-gray-300 dark:border-gray-600 text-xs"
+              className="px-2 py-1 rounded-md border border-zinc-300 dark:border-zinc-600 text-xs"
             >
               Abbrechen
             </button>

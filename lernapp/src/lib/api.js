@@ -49,3 +49,9 @@ export const gamificationApi = {
   get: () => request('/gamification'),
   put: (gamification) => request('/gamification', { method: 'PUT', body: gamification }),
 };
+
+export const ranglisteApi = {
+  get: () => request('/rangliste'),
+  setProfil: (optIn, anzeigename) =>
+    request('/rangliste/profil', { method: 'PUT', body: { optIn, anzeigename } }),
+};

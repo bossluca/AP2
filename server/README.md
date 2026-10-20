@@ -58,6 +58,16 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 | `POST` | `/merge` | `{ progress }` **nicht-destruktiv** zusammenführen (Migration des lokalen Stands beim ersten Login – nur fehlende Einträge werden übernommen) |
 | `DELETE` | `/` | gesamten Fortschritt löschen |
 
+### Rangliste (`/api/rangliste`) — erfordert Login, opt-in
+
+| Methode | Pfad | Beschreibung |
+|---|---|---|
+| `GET` | `/api/rangliste` | eigenes Profil `{ optIn, anzeigename }`, Top 20 der Woche (`rang`, `anzeigename`, `punkte`, `xp`, `istIch`) + eigener Platz. Nur Konten mit Opt-in, nie E-Mail |
+| `PUT` | `/api/rangliste/profil` | `{ optIn: boolean, anzeigename }` – Teilnahme an/aus; Name 3–20 Zeichen, eindeutig (409 bei Dublette) |
+
+Punkte = bewertete Lernobjekte der letzten 7 Tage aus dem Aktivitäts-Log des
+Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
+
 ### Sonstiges
 
 | Methode | Pfad | Beschreibung |
@@ -67,7 +77,8 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 ## Datenmodell (SQLite)
 
 - **`users`** — `id`, `email` (unique), `password_hash` (argon2id), `created_at`,
-  `recovery_hash` (argon2 des Recovery-Codes; additive Migration)
+  `recovery_hash` (argon2 des Recovery-Codes; additive Migration),
+  `anzeigename` + `rangliste_optin` (Rangliste, Default aus; additive Migration)
 - **`sessions`** — `token` (PK), `user_id`, `created_at`, `expires_at` (30 Tage)
 - **`progress`** — PK `(user_id, item_id)`; Felder `status`, `box`, `due`,
   `last_seen`, `last_result`, `history` (JSON), FSRS-Felder
@@ -81,7 +92,8 @@ Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
 - `src/app.js` — testbare Fastify-Factory (`buildApp`, via `app.inject` ohne Netzwerk testbar)
 - `src/index.js` — Entrypoint (liest `.env`, startet den Server)
 - `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen
-- `src/auth.js` · `src/progress.js` · `src/gamification.js` — Routen ·
-  `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` — Tests
+- `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` — Routen ·
+  `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` ·
+  `test/rangliste.test.js` — Tests
 
 Architektur-Begründungen (Backend-/Auth-Wahl): siehe [`../DECISIONS.md`](../DECISIONS.md).

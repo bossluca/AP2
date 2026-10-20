@@ -92,5 +92,13 @@ export function openDb(path) {
   if (!userSpalten.has('recovery_hash')) {
     db.exec('ALTER TABLE users ADD COLUMN recovery_hash TEXT;');
   }
+  // Idempotente Migration: opt-in Wochen-Rangliste (öffentlicher Anzeigename
+  // statt E-Mail; Default = nicht sichtbar).
+  if (!userSpalten.has('anzeigename')) {
+    db.exec('ALTER TABLE users ADD COLUMN anzeigename TEXT;');
+  }
+  if (!userSpalten.has('rangliste_optin')) {
+    db.exec('ALTER TABLE users ADD COLUMN rangliste_optin INTEGER NOT NULL DEFAULT 0;');
+  }
   return db;
 }

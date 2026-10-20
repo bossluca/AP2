@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import { Search, User, Moon, Sun, Flame, Menu, X } from 'lucide-react';
-import { NAV, NAV_SEKUNDAER, BOTTOM_ROUTES } from './navigation';
+import { NAV, NAV_SEKUNDAER, BOTTOM_ROUTES, DESKTOP_ROUTES } from './navigation';
 import Home from './pages/Home';
 // Übrige Seiten lazy laden – schlankerer Start-Chunk, Seite kommt bei Bedarf.
 const Lernen = lazy(() => import('./pages/Lernen'));
@@ -11,6 +11,8 @@ const Flashcards = lazy(() => import('./pages/Flashcards'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const Luecken = lazy(() => import('./pages/Luecken'));
 const Drill = lazy(() => import('./pages/Drill'));
+const Matching = lazy(() => import('./pages/Matching'));
+const Rangliste = lazy(() => import('./pages/Rangliste'));
 const Klausur = lazy(() => import('./pages/Klausur'));
 const Lernzettel = lazy(() => import('./pages/Lernzettel'));
 const Wiederholen = lazy(() => import('./pages/Wiederholen'));
@@ -25,17 +27,17 @@ import FehlerGrenze from './components/FehlerGrenze';
 const Info_Seite = lazy(() => import('./pages/Info'));
 
 const linkClass = ({ isActive }) =>
-  `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+  `px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
     isActive
-      ? 'bg-accent text-[var(--accent-contrast)] shadow-sm'
-      : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30'
+      ? 'bg-muted text-foreground'
+      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
   }`;
 
 const iconClass = ({ isActive }) =>
   `grid place-items-center w-9 h-9 rounded-lg transition-colors ${
     isActive
-      ? 'bg-accent text-[var(--accent-contrast)] shadow-sm'
-      : 'text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30'
+      ? 'bg-muted text-foreground'
+      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
   }`;
 
 /** Hell-/Dunkel-Umschalter (zeigt das Symbol des anwählbaren Modus). */
@@ -47,7 +49,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={dark ? 'Hellmodus aktivieren' : 'Dunkelmodus aktivieren'}
       title={dark ? 'Hellmodus' : 'Dunkelmodus'}
-      className="grid place-items-center w-9 h-9 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors"
+      className="grid place-items-center w-9 h-9 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
     >
       {dark ? <Sun size={18} /> : <Moon size={18} />}
     </button>
@@ -70,9 +72,9 @@ function StreakBadge() {
 }
 
 /** Obere Leiste: Marke, Desktop-Linkleiste (ab lg), rechte Icon-Gruppe. */
-function TopBar({ onPalette }) {
+function TopBar({ onPalette, onMehr }) {
   return (
-    <nav className="border-b border-gray-200/70 dark:border-[#1d271a] sticky top-0 bg-white/80 dark:bg-[#0B0F0C]/80 backdrop-blur z-20">
+    <nav className="border-b sticky top-0 bg-background/80 backdrop-blur z-20">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex items-center gap-1 sm:gap-2">
         <NavLink
           to="/"
@@ -87,11 +89,17 @@ function TopBar({ onPalette }) {
 
         {/* Desktop (ab lg): volle Linkleiste */}
         <div className="hidden lg:flex items-center gap-1">
-          {NAV.map((l) => (
+          {NAV.filter((l) => DESKTOP_ROUTES.includes(l.to)).map((l) => (
             <NavLink key={l.to} to={l.to} end={l.end} className={linkClass}>
               {l.label}
             </NavLink>
           ))}
+          <button
+            onClick={onMehr}
+            className="px-3 py-1.5 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors inline-flex items-center gap-1"
+          >
+            Mehr <Menu size={14} aria-hidden="true" />
+          </button>
         </div>
 
         {/* Rechte Icon-Gruppe (immer sichtbar) */}
@@ -99,7 +107,7 @@ function TopBar({ onPalette }) {
           <StreakBadge />
           <button
             onClick={onPalette}
-            className="grid place-items-center w-9 h-9 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors"
+            className="grid place-items-center w-9 h-9 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             aria-label="Befehle & Suche (Strg/Cmd + K)"
             title="Befehle & Suche (Strg/Cmd + K)"
           >
@@ -117,14 +125,14 @@ function TopBar({ onPalette }) {
 
 const bottomItemClass = ({ isActive }) =>
   `flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium transition-colors ${
-    isActive ? 'text-accent' : 'text-gray-500 dark:text-gray-400'
+    isActive ? 'text-foreground' : 'text-muted-foreground'
   }`;
 
 /** Mobile/Tablet (bis lg): fixe Tab-Leiste unten + „Mehr"-Button. */
 function BottomNav({ onMehr }) {
   const items = BOTTOM_ROUTES.map((to) => NAV.find((n) => n.to === to));
   return (
-    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 border-t border-gray-200/70 dark:border-[#1d271a] bg-white/90 dark:bg-[#0A0E0A]/90 backdrop-blur pb-[env(safe-area-inset-bottom)]">
+    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 border-t bg-background/90 backdrop-blur pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-4xl mx-auto grid grid-cols-5">
         {items.map((it) => (
           <NavLink key={it.to} to={it.to} end={it.end} className={bottomItemClass}>
@@ -132,7 +140,7 @@ function BottomNav({ onMehr }) {
             <span>{it.label}</span>
           </NavLink>
         ))}
-        <button onClick={onMehr} className="flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-gray-500 dark:text-gray-400">
+        <button onClick={onMehr} className="flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-muted-foreground">
           <Menu size={20} aria-hidden="true" />
           <span>Mehr</span>
         </button>
@@ -144,16 +152,16 @@ function BottomNav({ onMehr }) {
 /** „Mehr"-Sheet: alle Bereiche als Kachelraster (mobil). */
 function MehrSheet({ onClose }) {
   return (
-    <div className="lg:hidden fixed inset-0 z-30" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-30" role="dialog" aria-modal="true" aria-label="Alle Bereiche">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
-      <div className="absolute bottom-0 inset-x-0 bg-white dark:bg-[#0A0E0A] rounded-t-2xl p-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl animate-in">
+      <div className="absolute bottom-0 inset-x-0 lg:bottom-auto lg:top-16 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-[36rem] lg:rounded-xl lg:border bg-popover text-popover-foreground border-t rounded-t-2xl p-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl animate-in">
         <div className="flex items-center justify-between mb-3">
           <span className="font-semibold">Alle Bereiche</span>
-          <button onClick={onClose} aria-label="Schließen" className="grid place-items-center w-8 h-8 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+          <button onClick={onClose} aria-label="Schließen" className="grid place-items-center w-8 h-8 rounded-lg hover:bg-muted">
             <X size={18} />
           </button>
         </div>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
           {[...NAV, ...NAV_SEKUNDAER].map((it) => (
             <NavLink
               key={it.to}
@@ -163,8 +171,8 @@ function MehrSheet({ onClose }) {
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3 text-xs font-medium transition-colors ${
                   isActive
-                    ? 'border-accent text-accent bg-green-50 dark:bg-green-900/20'
-                    : 'border-gray-200 dark:border-[#1d271a] text-gray-700 dark:text-gray-300 hover:border-accent'
+                    ? 'border-accent text-accent bg-muted'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 }`
               }
             >
@@ -206,6 +214,8 @@ function AnimatedMain() {
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/luecken" element={<Luecken />} />
           <Route path="/drill" element={<Drill />} />
+          <Route path="/matching" element={<Matching />} />
+          <Route path="/rangliste" element={<Rangliste />} />
           <Route path="/klausur" element={<Klausur />} />
           <Route path="/statistik" element={<Statistik />} />
           <Route path="/suche" element={<Suche />} />
@@ -222,7 +232,7 @@ function AnimatedMain() {
 function AppFooter() {
   return (
     <footer className="max-w-4xl mx-auto px-4 pb-28 lg:pb-10 pt-2">
-      <div className="border-t border-gray-200/70 dark:border-[#1d271a] pt-4 flex items-center justify-between flex-wrap gap-2 text-xs text-gray-400 dark:text-[#6B7A66]">
+      <div className="border-t pt-4 flex items-center justify-between flex-wrap gap-2 text-xs text-muted-foreground">
         <span className="font-mono">
           <span className="text-accent">&gt;_</span> FiSi.dev
         </span>
@@ -243,10 +253,9 @@ export default function App() {
   const [paletteOffen, setPaletteOffen] = useState(false);
   return (
     <HashRouter>
-      <div className="relative isolate min-h-screen bg-gray-50 text-gray-900 dark:bg-[#0B0F0C] dark:text-[#D8E6D4]">
-        <div className="aurora" aria-hidden="true" />
+      <div className="relative isolate min-h-screen bg-background text-foreground">
         <div className="relative z-10">
-          <TopBar onPalette={() => setPaletteOffen(true)} />
+          <TopBar onPalette={() => setPaletteOffen(true)} onMehr={() => setMehrOffen(true)} />
           <AnimatedMain />
           <AppFooter />
         </div>

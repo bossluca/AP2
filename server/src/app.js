@@ -6,6 +6,7 @@ import { userFromToken } from './session.js';
 import { authRoutes } from './auth.js';
 import { progressRoutes } from './progress.js';
 import { gamificationRoutes } from './gamification.js';
+import { ranglisteRoutes } from './rangliste.js';
 import { erstelleRateLimiter } from './lib/rateLimit.js';
 
 /**
@@ -66,6 +67,7 @@ export async function buildApp(opts = {}) {
   await app.register(authRoutes);
   await app.register(progressRoutes);
   await app.register(gamificationRoutes);
+  await app.register(ranglisteRoutes);
 
   return app;
 }
