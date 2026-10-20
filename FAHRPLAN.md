@@ -55,7 +55,7 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 | # | Aufgabe | Aufwand | Ergebnis |
 |---|---|---|---|
 | 3.1 | ✅ **Lerngruppen**: Gruppe per Code beitreten, Rangliste nur innerhalb der Gruppe (Klasse/Betrieb) | M | sozialer Ansporn im kleinen Kreis |
-| 3.2 | **Wochen-Challenges** (z. B. „50 Subnetting-Aufgaben"), abgeleitet aus Tags, mit Badge | M | thematischer Fokus |
+| 3.2 | ✅ **Wochen-Challenges** (z. B. „50 Subnetting-Aufgaben"), abgeleitet aus Tags, mit Badge | M | thematischer Fokus |
 | 3.3 | **Ligen** (Bronze/Silber/Gold) wochenweise aus Rangliste – Auf-/Abstieg | M | Duolingo-Effekt |
 | 3.4 | Erinnerungen per **Web-Push** (opt-in, nur mit Backend; VAPID) | M | Streak-Schutz |
 | 3.5 | Mehr Badges: erste Klausur, 7 Tage Quests komplett, alle Lernpfade eines Themas | S | mehr Meilensteine |
@@ -92,7 +92,8 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 4. ~~3.1 Lerngruppen~~ ✅
 5. ~~4.7 Lernplan + eigene Karten pro Konto syncen~~ ✅
 6. ~~5.1 E2E-Tests~~ ✅ (Frontend; Backend-Flows folgen)
-7. **Als Nächstes:** 3.2 Wochen-Challenges + 3.5 neue Badges (Motivation),
+7. ~~3.2 Wochen-Challenges~~ ✅
+8. **Als Nächstes:** 3.5 neue Badges (Motivation),
    4.1 weitere AP2-Übungssets für dünne Themen, 5.2 Daten aus dem Precache lösen,
    5.3 A11y-Pass.
 

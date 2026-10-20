@@ -8,6 +8,9 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Hinzugefügt
 
+- 2026-10-20: **Wochen-Challenges** auf der Startseite: an 5 Tagen lernen,
+  100 Objekte bewerten, 15 Wiederholungen im wöchentlich rotierenden
+  Fokus-Thema (`lib/challenges.js`, rein/getestet, aus vorhandenen Signalen).
 - 2026-10-20: **Lerngruppen** (Rangliste-Seite): Gruppe anlegen, per Code
   `XXXX-XXXX` beitreten (Rate-Limit gegen Durchprobieren), verlassen; eigene
   Wochen-Rangliste je Gruppe (`/api/rangliste?gruppe=<id>`), unabhängig vom

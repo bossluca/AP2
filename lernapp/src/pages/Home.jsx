@@ -27,6 +27,7 @@ import { naechsteAktion } from '../lib/naechsteAktion';
 import { ladePruefungstermin, setzePruefungstermin, tageBisTermin } from '../lib/pruefungstermin';
 import { baueTagesplan } from '../lib/tagesplan';
 import { baueTagesquests, questFortschritt } from '../lib/quests';
+import { baueWochenChallenges } from '../lib/challenges';
 import ProgressRing from '../components/ProgressRing';
 import { ladeEinstufung, planAusErgebnis, aktuelleWoche } from '../lib/einstufung';
 import { themaPerId } from '../lib/themen';
@@ -93,6 +94,10 @@ export default function Home() {
   const quests = useMemo(
     () => baueTagesquests({ heute: gami.heuteAktivitaet, tagesziel: gami.tagesziel, faellig: s.faellig }),
     [gami.heuteAktivitaet, gami.tagesziel, s.faellig]
+  );
+  const challenges = useMemo(
+    () => baueWochenChallenges({ activity: gami.activity, progress, objekte }),
+    [gami.activity, progress, objekte]
   );
 
   const handleReset = () => {
@@ -316,6 +321,40 @@ export default function Home() {
                     {q.wert}/{q.ziel}
                   </span>
                 )}
+              </li>
+            ))}
+          </ul>
+        </details>
+
+        {/* Wochen-Challenges – größere Ziele, Fokus-Thema rotiert wöchentlich. */}
+        <details className="group pt-1 border-t border-border">
+          <summary className="flex items-center justify-between cursor-pointer select-none text-sm font-medium list-none">
+            <span>🏁 Wochen-Challenges</span>
+            <span className="text-xs text-muted-foreground">
+              {challenges.filter((c) => c.erfuellt).length}/{challenges.length}
+            </span>
+          </summary>
+          <ul className="space-y-2.5 pt-2">
+            {challenges.map((c) => (
+              <li key={c.id} className="space-y-1">
+                <div className="flex items-center justify-between gap-2 text-sm">
+                  {c.themaId ? (
+                    <Link to={`/lernen?modus=thema&thema=${c.themaId}`} className="min-w-0 truncate hover:underline">
+                      {c.label}
+                    </Link>
+                  ) : (
+                    <span className="min-w-0 truncate">{c.label}</span>
+                  )}
+                  <span className="text-xs text-muted-foreground tabular-nums shrink-0">
+                    {c.erfuellt ? '✓' : `${c.wert}/${c.ziel}`}
+                  </span>
+                </div>
+                <div className="h-1.5 rounded-full bg-muted overflow-hidden" aria-hidden="true">
+                  <div
+                    className={`h-full rounded-full ${c.erfuellt ? 'bg-green-500' : 'bg-primary'}`}
+                    style={{ width: `${Math.round((c.wert / c.ziel) * 100)}%` }}
+                  />
+                </div>
               </li>
             ))}
           </ul>
