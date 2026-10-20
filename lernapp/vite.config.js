@@ -44,6 +44,9 @@ export default defineConfig({
         // Alle Build-Assets (inkl. examdata- und vendor-Chunk) precachen → voll
         // offline nutzbar. Für SPA auf index.html zurückfallen.
         globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+        // pdf.js (+ Worker, zusammen > 1 MB) nicht vorab cachen – nur wer PDFs
+        // importiert, lädt es nach.
+        globIgnores: ['**/pdfjs-*.js', '**/pdf.worker*'],
         navigateFallback: 'index.html',
       },
       devOptions: { enabled: false },
@@ -73,6 +76,8 @@ export default defineConfig({
         //   ladbar und über Releases hinweg cachebar.
         manualChunks(id) {
           if (id.includes('exam_data.json')) return 'examdata';
+          // pdf.js nur für „Eigene Karten" – eigener, lazy geladener Chunk.
+          if (id.includes('node_modules/pdfjs-dist')) return 'pdfjs';
           if (id.includes('node_modules')) return 'vendor';
           return undefined;
         },

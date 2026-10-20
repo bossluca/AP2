@@ -13,6 +13,8 @@ import {
   Info,
   Puzzle,
   Trophy,
+  ClipboardCheck,
+  FileUp,
 } from 'lucide-react';
 
 /**
@@ -38,6 +40,8 @@ export const NAV = [
 
 /** Sekundäre Ziele: nicht in der Hauptleiste, aber im „Mehr"-Sheet + Palette. */
 export const NAV_SEKUNDAER = [
+  { to: '/einstufung', label: 'Lernplan', icon: ClipboardCheck, iconName: 'ClipboardCheck' },
+  { to: '/eigene-karten', label: 'Eigene Karten', icon: FileUp, iconName: 'FileUp' },
   { to: '/rangliste', label: 'Rangliste', icon: Trophy, iconName: 'Trophy' },
   { to: '/info', label: 'Über & Datenschutz', icon: Info, iconName: 'Info' },
 ];
