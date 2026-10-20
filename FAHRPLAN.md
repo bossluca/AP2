@@ -94,9 +94,10 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 6. ~~5.1 E2E-Tests~~ ✅ (Frontend; Backend-Flows folgen)
 7. ~~3.2 Wochen-Challenges~~ ✅
 8. ~~3.5 neue Badges~~ ✅ · ~~5.2 Bundle~~ ✅ (Teil 1)
-9. **Als Nächstes:**
-   ~~4.1 Set 5~~ ✅ – alle 16 Themen „Gut“; ~~5.3 A11y (automatisch)~~ ✅; offen: 5.2 Daten aus dem Precache lösen,
-   5.3 A11y-Pass.
+9. ~~4.1 Set 5~~ ✅ (alle 16 Themen „Gut“) · ~~5.3 A11y automatisch~~ ✅
+10. **Als Nächstes:** Stufe 1 auf dem Zielhost (Docker-Deploy, Backup/Restore-Probe,
+    Monitoring) · 3.3 Ligen · 3.4 Web-Push-Erinnerungen · 4.4 Fallstudien-Modus ·
+    5.1 E2E für Login/Rangliste mit Backend · 5.2 `exam_data` aus dem Precache.
 
 ## Einschätzung: Karten aus hochgeladenen PDFs
 
