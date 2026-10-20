@@ -13,12 +13,12 @@ export default function Info() {
   return (
     <div className="space-y-6 max-w-2xl">
       <header className="space-y-1">
-        <div className="font-mono text-xs text-zinc-500 dark:text-muted-foreground">// über &amp; datenschutz</div>
-        <h1 className="text-xl font-bold flex items-center gap-2">
+        <div className="font-mono text-xs text-muted-foreground">// über &amp; datenschutz</div>
+        <h1 className="text-2xl font-semibold tracking-tight flex items-center gap-2">
           <InfoIcon size={20} className="text-accent" aria-hidden="true" />
           Über FiSi.dev
         </h1>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-muted-foreground">
           Lern-Web-App zur Vorbereitung auf die Abschlussprüfung Teil 2 (AP2),
           Fachinformatiker/in für Systemintegration.
         </p>
@@ -30,7 +30,7 @@ export default function Info() {
           <Database size={18} className="text-accent" aria-hidden="true" />
           Welche Daten werden gespeichert?
         </h2>
-        <div className="text-sm text-zinc-600 dark:text-zinc-300 space-y-2">
+        <div className="text-sm text-muted-foreground space-y-2">
           <p>
             <strong>Ohne Konto</strong> bleibt alles <strong>lokal in deinem Browser</strong>{' '}
             (localStorage): Lernfortschritt, Streak/XP, Theme- und Komfort-Einstellungen. Diese
@@ -69,7 +69,7 @@ export default function Info() {
             unwiderruflich löschen.
           </p>
         </div>
-        <p className="text-xs text-zinc-400 border-t border-zinc-100 dark:border-border pt-2">
+        <p className="text-xs text-muted-foreground border-t border-zinc-100 dark:border-border pt-2">
           Hinweis: Diese Übersicht ist eine Information, kein vollständiger Rechtstext. Für den
           öffentlichen Betrieb ergänzt der Betreiber Impressum und verantwortliche Stelle.
         </p>
@@ -81,7 +81,7 @@ export default function Info() {
           <BookOpenCheck size={18} className="text-accent" aria-hidden="true" />
           Woher kommen die Inhalte?
         </h2>
-        <div className="text-sm text-zinc-600 dark:text-zinc-300 space-y-2">
+        <div className="text-sm text-muted-foreground space-y-2">
           <p>
             <strong>AP1-Übungsprüfungen</strong> sind <strong>KI-überarbeitet (paraphrasiert)</strong>:
             an die ursprünglichen Kompetenzen und Themen angelehnt, aber mit{' '}
@@ -103,7 +103,7 @@ export default function Info() {
             Musterlösungen sind urheberrechtlich geschützt und werden hier{' '}
             <strong>nicht 1:1 verbreitet</strong>. Inhalte wurden eigenständig umformuliert.
           </p>
-          <p className="text-xs text-zinc-400 border-t border-zinc-100 dark:border-border pt-2">
+          <p className="text-xs text-muted-foreground border-t border-zinc-100 dark:border-border pt-2">
             <ShieldCheck size={13} className="inline mr-1 -mt-0.5" aria-hidden="true" />
             Keine Gewähr: Diese App ist eine Lernhilfe. Für Richtigkeit, Vollständigkeit und
             Prüfungsrelevanz der Inhalte wird keine Garantie übernommen.

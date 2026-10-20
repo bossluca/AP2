@@ -210,6 +210,18 @@ details > summary {
   }
 }
 
+/* --- Hero-Hintergrund: dezentes Punktraster, nach unten/links ausgeblendet
+   (typischer shadcn-Landing-Look, kein Farbverlauf). */
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 16px 16px;
+  mask-image: radial-gradient(ellipse at top right, black 10%, transparent 65%);
+  -webkit-mask-image: radial-gradient(ellipse at top right, black 10%, transparent 65%);
+}
+
 /* --- 3D-Karten-Flip (Karteikarten) -------------------------------------- */
 /* Beide Seiten liegen via Grid übereinander (Höhe = höhere Seite, kein
    Layout-Sprung). `backface-visibility` blendet die abgewandte Seite aus. */

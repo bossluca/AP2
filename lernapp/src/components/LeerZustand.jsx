@@ -18,7 +18,7 @@ export default function LeerZustand({ emoji = '🗂️', titel, text, cta }) {
         {emoji}
       </div>
       <h2 className="font-semibold">{titel}</h2>
-      {text && <p className="text-sm text-zinc-500">{text}</p>}
+      {text && <p className="text-sm text-muted-foreground">{text}</p>}
       {cta &&
         (cta.to ? (
           <Link to={cta.to} className="btn-primary px-4 py-2 inline-flex">

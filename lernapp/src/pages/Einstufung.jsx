@@ -169,7 +169,7 @@ export default function Einstufung() {
               <ClipboardCheck size={20} aria-hidden="true" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold tracking-tight">Wo stehst du?</h1>
+              <h1 className="text-2xl font-semibold tracking-tight">Wo stehst du?</h1>
               <p className="text-sm text-muted-foreground">Einstufungstest über alle 16 AP2-Themen</p>
             </div>
           </div>
@@ -204,7 +204,7 @@ export default function Einstufung() {
     <div className="space-y-5">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight">Dein Lernplan</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Dein Lernplan</h1>
           <p className="text-sm text-muted-foreground">
             Einstufung vom {new Date(gespeichert.datum).toLocaleDateString('de-DE')} ·{' '}
             {auswertung.richtig}/{auswertung.gesamt} richtig ({Math.round(auswertung.quote * 100)} %)

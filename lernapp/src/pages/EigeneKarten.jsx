@@ -36,7 +36,7 @@ export default function EigeneKarten() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-xl font-semibold tracking-tight">Eigene Karten</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Eigene Karten</h1>
         <p className="text-sm text-muted-foreground">
           Lade deine Unterlagen als PDF hoch oder füge Text ein – daraus entstehen Lernkarten.
           Die Datei bleibt auf deinem Gerät.

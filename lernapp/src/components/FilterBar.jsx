@@ -108,7 +108,7 @@ export default function FilterBar({ filters, onChange }) {
       {hasActiveFilters(filters) && (
         <button
           onClick={clearAll}
-          className="text-xs underline text-zinc-500 hover:text-accent"
+          className="text-xs underline text-muted-foreground hover:text-accent"
         >
           Filter zurücksetzen
         </button>

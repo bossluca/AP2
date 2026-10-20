@@ -102,7 +102,7 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={schliessen} />
       <div className="absolute left-1/2 top-[12vh] -translate-x-1/2 w-[min(92vw,40rem)] card shadow-2xl overflow-hidden animate-in">
         {/* Eingabezeile mit Terminal-Prompt */}
-        <div className="flex items-center gap-2 px-3 py-2.5 border-b border-zinc-200/70 dark:border-border">
+        <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border">
           <span className="font-mono text-accent shrink-0" aria-hidden="true">
             &gt;_
           </span>
@@ -115,10 +115,10 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
             }}
             onKeyDown={onListKey}
             placeholder="Suchen oder springen … (Befehl, Bereich)"
-            className="flex-1 bg-transparent outline-none text-sm font-mono placeholder:text-zinc-400"
+            className="flex-1 bg-transparent outline-none text-sm font-mono placeholder:text-muted-foreground"
             aria-label="Befehl suchen"
           />
-          <kbd className="hidden sm:block text-[10px] text-zinc-400 border border-zinc-300 dark:border-input rounded px-1.5 py-0.5">
+          <kbd className="hidden sm:block text-[10px] text-muted-foreground border border-zinc-300 dark:border-input rounded px-1.5 py-0.5">
             ESC
           </kbd>
         </div>
@@ -126,7 +126,7 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
         {/* Trefferliste */}
         <ul ref={listRef} className="max-h-[55vh] overflow-y-auto py-1">
           {treffer.length === 0 ? (
-            <li className="px-4 py-6 text-center text-sm text-zinc-500">
+            <li className="px-4 py-6 text-center text-sm text-muted-foreground">
               Keine Treffer für „{query}".
             </li>
           ) : (
@@ -145,9 +145,9 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
                   <CmdIcon name={b.icon} size={16} aria-hidden="true" className="shrink-0" />
                   <span className="flex-1 min-w-0 truncate">{b.label}</span>
                   {b.hinweis && (
-                    <span className="text-xs text-zinc-400 truncate hidden sm:block">{b.hinweis}</span>
+                    <span className="text-xs text-muted-foreground truncate hidden sm:block">{b.hinweis}</span>
                   )}
-                  <span className="text-[10px] font-mono text-zinc-400 uppercase shrink-0">
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase shrink-0">
                     {b.gruppe === 'Aktion' ? 'run' : 'go'}
                   </span>
                 </button>

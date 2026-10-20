@@ -121,7 +121,7 @@ export default function Matching() {
     return (
       <div className="max-w-md mx-auto text-center space-y-4 py-6">
         <div className="text-5xl">{auswertung.quote >= 80 ? '🧩' : auswertung.quote >= 50 ? '💪' : '🌱'}</div>
-        <h1 className="text-xl font-semibold tracking-tight">Alle Paare gefunden!</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Alle Paare gefunden!</h1>
         <div className="card p-5 space-y-1">
           <div className="text-3xl font-bold text-accent">
             {auswertung.richtigBeimErsten} / {auswertung.gesamt}
@@ -157,7 +157,7 @@ export default function Matching() {
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
-          <h1 className="text-lg font-semibold tracking-tight">🧩 Zuordnen</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Zuordnen</h1>
           <p className="text-sm text-muted-foreground">
             Tippe einen Begriff und dann die passende Definition.
           </p>

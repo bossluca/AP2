@@ -1,6 +1,21 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, RotateCcw, Target, ClipboardCheck, ArrowRight } from 'lucide-react';
+import {
+  Play,
+  RotateCcw,
+  Target,
+  ClipboardCheck,
+  ArrowRight,
+  Route as RouteIcon,
+  Layers,
+  FileText,
+  HelpCircle,
+  PencilLine,
+  Zap,
+  Puzzle,
+  GraduationCap,
+  FileUp,
+} from 'lucide-react';
 import { getAllExams } from '../data/useExamData';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
@@ -19,15 +34,16 @@ import { themaPerId } from '../lib/themen';
 const CTA_ICONS = { Play, RotateCcw, Target, ClipboardCheck };
 
 const KACHELN = [
-  { to: '/lernpfade', titel: '🧭 Lernpfade', text: 'Geführter Lernweg je Thema – Modul-Training mit Karten, Lücken & Fragen.' },
-  { to: '/karteikarten', titel: '📇 Karteikarten', text: 'Durch Prüfungsfragen blättern, Lösung aufdecken, markieren.' },
-  { to: '/lernzettel', titel: '📝 Lernzettel', text: 'Themen-Spickzettel (AP1 + AP2) lesen, suchen, filtern.' },
-  { to: '/wiederholen', titel: '🔁 Wiederholen', text: 'Spaced-Repetition-Sitzung über fällige Fragen & Lernzettel.' },
-  { to: '/quiz', titel: '🎯 Quiz', text: 'Fragenrunde mit Selbsteinschätzung und Auswertung.' },
-  { to: '/luecken', titel: '✍️ Lückentext', text: 'Begriffe aktiv abrufen – automatisch aus den Lernzetteln, sofort geprüft.' },
-  { to: '/drill', titel: '⚡ Drill', text: 'Schnelle Multiple-Choice-Runde – objektiv bewertet, perfekt für zwischendurch.' },
-  { to: '/matching', titel: '🧩 Zuordnen', text: 'Begriffe den passenden Definitionen zuordnen – automatisch aus den Lernzetteln.' },
-  { to: '/klausur', titel: '🎓 Klausur', text: 'Ganze Prüfung simulieren – Freitext + Schlagwort-Check, optional mit Timer.' },
+  { to: '/lernpfade', icon: RouteIcon, titel: 'Lernpfade', text: 'Geführter Lernweg je Thema – Modul-Training mit Karten, Lücken & Fragen.' },
+  { to: '/karteikarten', icon: Layers, titel: 'Karteikarten', text: 'Durch Prüfungsfragen blättern, Lösung aufdecken, markieren.' },
+  { to: '/lernzettel', icon: FileText, titel: 'Lernzettel', text: 'Themen-Spickzettel (AP1 + AP2) lesen, suchen, filtern.' },
+  { to: '/wiederholen', icon: RotateCcw, titel: 'Wiederholen', text: 'Spaced-Repetition-Sitzung über fällige Fragen & Lernzettel.' },
+  { to: '/quiz', icon: HelpCircle, titel: 'Quiz', text: 'Fragenrunde mit Selbsteinschätzung und Auswertung.' },
+  { to: '/luecken', icon: PencilLine, titel: 'Lückentext', text: 'Begriffe aktiv abrufen – automatisch aus den Lernzetteln, sofort geprüft.' },
+  { to: '/drill', icon: Zap, titel: 'Drill', text: 'Schnelle Multiple-Choice-Runde – objektiv bewertet, perfekt für zwischendurch.' },
+  { to: '/matching', icon: Puzzle, titel: 'Zuordnen', text: 'Begriffe den passenden Definitionen zuordnen – automatisch aus den Lernzetteln.' },
+  { to: '/klausur', icon: GraduationCap, titel: 'Klausur', text: 'Ganze Prüfung simulieren – Freitext + Schlagwort-Check, optional mit Timer.' },
+  { to: '/eigene-karten', icon: FileUp, titel: 'Eigene Karten', text: 'Eigene Unterlagen als PDF hochladen und daraus Lernkarten erzeugen.' },
 ];
 
 /**
@@ -91,6 +107,7 @@ export default function Home() {
   return (
     <div className="space-y-6">
       <section className="card relative overflow-hidden">
+        <div className="hero-pattern" aria-hidden="true" />
         <div className="relative p-5 sm:p-6 flex items-center justify-between gap-5 flex-wrap">
           <div className="space-y-2 flex-1 min-w-[13rem]">
             <div className="chip w-fit">Fachinformatiker Systemintegration · AP2</div>
@@ -98,7 +115,7 @@ export default function Home() {
               <span className="font-mono text-accent" aria-hidden="true">&gt;_</span>
               <span className="text-gradient">FiSi.dev</span>
             </h1>
-            <p className="text-sm text-zinc-600 dark:text-zinc-300">
+            <p className="text-sm text-muted-foreground">
               Deine AP2-Vorbereitung – {s.art.frage} Prüfungsfragen aus {exams.length} Terminen +{' '}
               {s.art.lernzettel} Lernzettel.
             </p>
@@ -110,13 +127,16 @@ export default function Home() {
                 <AktionIcon size={18} aria-hidden="true" />
                 {aktion.cta}
               </Link>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1.5">{aktion.text}</p>
+              <p className="text-xs text-muted-foreground mt-1.5">{aktion.text}</p>
             </div>
           </div>
-          <ProgressRing value={pctGelernt} size={120}>
-            <div className="text-2xl font-bold">{pctGelernt}%</div>
-            <div className="text-[11px] uppercase tracking-wide text-zinc-500">gelernt</div>
-          </ProgressRing>
+          {/* Ring nur ab sm – mobil zeigen die Kennzahl-Karten den Stand. */}
+          <div className="hidden sm:block">
+            <ProgressRing value={pctGelernt} size={120}>
+              <div className="text-2xl font-bold">{pctGelernt}%</div>
+              <div className="text-[11px] uppercase tracking-wide text-muted-foreground">gelernt</div>
+            </ProgressRing>
+          </div>
         </div>
       </section>
 
@@ -128,7 +148,7 @@ export default function Home() {
           </span>
           <div className="leading-tight">
             <div className="text-xl font-bold">{gami.streak}</div>
-            <div className="text-xs text-zinc-500">Tage&nbsp;Streak</div>
+            <div className="text-xs text-muted-foreground">Tage&nbsp;Streak</div>
             <div className="text-[11px] font-medium text-accent mt-0.5">
               ⭐ Level {gami.level.level}
             </div>
@@ -144,13 +164,13 @@ export default function Home() {
           </div>
         </div>
         <div className="flex-1 min-w-[12rem]">
-          <div className="flex justify-between text-xs text-zinc-500 mb-1">
+          <div className="flex justify-between text-xs text-muted-foreground mb-1">
             <span>Tagesziel</span>
             <span>
               {Math.min(gami.heuteAktivitaet, gami.tagesziel)} / {gami.tagesziel}
             </span>
           </div>
-          <div className="h-2.5 rounded-full bg-zinc-200 dark:bg-muted overflow-hidden">
+          <div className="h-2.5 rounded-full bg-muted overflow-hidden">
             <div
               className="h-full rounded-full bg-accent transition-all duration-500"
               style={{
@@ -161,7 +181,7 @@ export default function Home() {
           {gami.heuteAktivitaet >= gami.tagesziel ? (
             <p className="text-xs text-green-600 mt-1">Tagesziel erreicht! 🎉</p>
           ) : (
-            <p className="text-xs text-zinc-400 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               Noch {gami.tagesziel - gami.heuteAktivitaet} bis zum Tagesziel.
             </p>
           )}
@@ -184,14 +204,14 @@ export default function Home() {
                     ? '🎯 Heute ist Prüfungstag – viel Erfolg!'
                     : '🎯 Prüfung vorbei'}
               </div>
-              <div className="text-sm text-zinc-500">
+              <div className="text-sm text-muted-foreground">
                 Prüfungsreife {reife.prognoseProzent}%
                 {plan &&
                   ` · heute: ${plan.wiederholungenHeute} Wiederholungen + ${Math.min(plan.neu, plan.neuProTag)} neue`}
               </div>
               {plan && (
                 <div className="space-y-1 mt-0.5">
-                  <div className="text-xs text-zinc-400">
+                  <div className="text-xs text-muted-foreground">
                     {plan.einschaetzung === 'locker' && 'Entspanntes Pensum – du bist gut in der Zeit. 🌱'}
                     {plan.einschaetzung === 'gut' && 'Machbares Pensum – dranbleiben. 💪'}
                     {plan.einschaetzung === 'sportlich' &&
@@ -233,7 +253,7 @@ export default function Home() {
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <div className="text-sm font-medium">🎯 Prüfungstermin setzen</div>
-              <div className="text-xs text-zinc-500">
+              <div className="text-xs text-muted-foreground">
                 Countdown + Tagesziel bis zur AP2 (Reife aktuell {reife.prognoseProzent}%).
               </div>
             </div>
@@ -275,7 +295,7 @@ export default function Home() {
         <details className="group pt-1 border-t border-zinc-100 dark:border-border">
           <summary className="flex items-center justify-between cursor-pointer select-none text-sm font-medium list-none">
             <span>🗒️ Tages-Quests</span>
-            <span className="text-xs text-zinc-500">
+            <span className="text-xs text-muted-foreground">
               {questFortschritt(quests).erfuellt}/{quests.length}
               {questFortschritt(quests).alleErfuellt && ' 🎉'}
             </span>
@@ -283,14 +303,14 @@ export default function Home() {
           <ul className="space-y-1.5 pt-2">
             {quests.map((q) => (
               <li key={q.id} className="flex items-center gap-2 text-sm">
-                <span aria-hidden="true" className={q.erfuellt ? 'text-green-600' : 'text-zinc-400'}>
+                <span aria-hidden="true" className={q.erfuellt ? 'text-green-600' : 'text-muted-foreground'}>
                   {q.erfuellt ? '✓' : '○'}
                 </span>
-                <span className={`flex-1 min-w-0 ${q.erfuellt ? 'text-zinc-400 line-through' : ''}`}>
+                <span className={`flex-1 min-w-0 ${q.erfuellt ? 'text-muted-foreground line-through' : ''}`}>
                   {q.label}
                 </span>
                 {q.ziel > 1 && (
-                  <span className="text-xs text-zinc-400 tabular-nums">
+                  <span className="text-xs text-muted-foreground tabular-nums">
                     {q.wert}/{q.ziel}
                   </span>
                 )}
@@ -305,17 +325,17 @@ export default function Home() {
         <div className="card p-3 relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-1 bg-green-500" />
           <div className="text-2xl font-bold text-green-600">{s.status.gelernt}</div>
-          <div className="text-xs text-zinc-500">Gelernt</div>
+          <div className="text-xs text-muted-foreground">Gelernt</div>
         </div>
         <div className="card p-3 relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-1 bg-amber-500" />
           <div className="text-2xl font-bold text-amber-600">{s.status.ueben}</div>
-          <div className="text-xs text-zinc-500">Muss ich üben</div>
+          <div className="text-xs text-muted-foreground">Muss ich üben</div>
         </div>
         <div className="card p-3 relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-1 bg-zinc-300 dark:bg-zinc-600" />
-          <div className="text-2xl font-bold text-zinc-500">{s.status.offen}</div>
-          <div className="text-xs text-zinc-500">Noch offen</div>
+          <div className="text-2xl font-bold text-muted-foreground">{s.status.offen}</div>
+          <div className="text-xs text-muted-foreground">Noch offen</div>
         </div>
       </div>
       <Link to="/statistik" className="text-sm text-accent hover:underline">
@@ -324,25 +344,33 @@ export default function Home() {
 
       {/* Einstiegskacheln – sekundär: alle Lernmodi zum Stöbern. */}
       <section className="space-y-3">
-        <h2 className="font-mono text-xs uppercase tracking-wide text-zinc-400 dark:text-muted-foreground">
-          // alle Lernmodi
-        </h2>
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div>
+          <h2 className="text-lg font-semibold tracking-tight">Alle Lernmodi</h2>
+          <p className="text-sm text-muted-foreground">Zum Stöbern – oder gezielt ein Format üben.</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {KACHELN.map((k) => (
-            <Link key={k.to} to={k.to} className="card-interactive group block p-4">
-              <div className="flex items-start justify-between gap-2">
-                <h3 className="text-base font-semibold mb-1">{k.titel}</h3>
-                <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">
-                  →
-                </span>
+            <Link key={k.to} to={k.to} className="card-interactive group flex gap-3 p-4">
+              <div className="grid place-items-center size-9 shrink-0 rounded-lg border bg-muted/50 text-accent">
+                <k.icon size={18} aria-hidden="true" />
               </div>
-              <p className="text-sm text-zinc-500">{k.text}</p>
+              <div className="min-w-0">
+                <h3 className="font-medium flex items-center gap-1">
+                  {k.titel}
+                  <ArrowRight
+                    size={14}
+                    aria-hidden="true"
+                    className="text-muted-foreground opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                  />
+                </h3>
+                <p className="text-sm text-muted-foreground">{k.text}</p>
+              </div>
             </Link>
           ))}
         </div>
       </section>
 
-      <div className="text-xs text-zinc-500 border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-3">
+      <div className="text-xs text-muted-foreground border-t border-border pt-3 space-y-3">
         <p>
           Hinweis: Nicht für alle Prüfungsfragen liegen offizielle Lösungen vor (besonders 2023 und
           2024 Frühjahr). Diese sind als „unverifiziert" markiert oder haben keine Lösung.

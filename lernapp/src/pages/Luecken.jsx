@@ -64,13 +64,13 @@ export default function Luecken() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h1 className="text-xl font-bold">✍️ Lückentext</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Lückentext</h1>
         <button onClick={neu} className="btn-ghost px-2 py-1">
           Neu mischen
         </button>
       </div>
 
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-muted-foreground">
         Fülle die Lücken – Begriffe aus den Lernzetteln, automatisch erzeugt. Umlaute und
         Groß-/Kleinschreibung sind egal.
       </p>
@@ -86,7 +86,7 @@ export default function Luecken() {
           <option value="AP1">AP1</option>
           <option value="AP2">AP2</option>
         </select>
-        <span className="text-sm text-zinc-500 self-center">{pool.length} Begriffe verfügbar</span>
+        <span className="text-sm text-muted-foreground self-center">{pool.length} Begriffe verfügbar</span>
       </div>
 
       {session.length === 0 ? (
@@ -99,7 +99,7 @@ export default function Luecken() {
       ) : finished ? (
         <div className="card p-6 text-center space-y-3">
           <p className="text-lg font-semibold">Sitzung abgeschlossen 🎉</p>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-muted-foreground">
             {richtig} richtig · {teilweise} teilweise · {ergebnisse.length - richtig - teilweise}{' '}
             offen von {ergebnisse.length}.
           </p>
@@ -110,7 +110,7 @@ export default function Luecken() {
       ) : (
         current && (
           <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm text-zinc-500">
+            <div className="flex items-center justify-between text-sm text-muted-foreground">
               <span>
                 {index + 1} von {session.length}
               </span>
@@ -126,7 +126,7 @@ export default function Luecken() {
             <div className="card p-4 space-y-4">
               <ClozeFrage key={current.id} text={current.text} onErgebnis={onErgebnis} />
               {current.quelle && (
-                <p className="text-[11px] text-zinc-400">Quelle: {current.quelle}</p>
+                <p className="text-[11px] text-muted-foreground">Quelle: {current.quelle}</p>
               )}
               {beantwortet && (
                 <button

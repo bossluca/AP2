@@ -91,7 +91,7 @@ export default function Konto() {
         <KeyRound size={15} className="text-amber-500" aria-hidden="true" /> Dein Recovery-Code
       </div>
       <p className="font-mono text-lg tracking-wider select-all">{neuerCode}</p>
-      <p className="text-xs text-zinc-500">
+      <p className="text-xs text-muted-foreground">
         Notiere diesen Code sicher (Passwort-Manager, Zettel). Er wird <strong>nur jetzt</strong>{' '}
         angezeigt und ist der einzige Weg, ein vergessenes Passwort zurückzusetzen – es gibt
         keine E-Mail-Wiederherstellung.
@@ -118,11 +118,11 @@ export default function Konto() {
   if (user) {
     return (
       <div className="space-y-4 max-w-md">
-        <h1 className="text-xl font-bold">👤 Konto</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Konto</h1>
         <p className="text-sm">
           Angemeldet als <span className="font-medium">{user.email}</span>.
         </p>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-muted-foreground">
           Dein Fortschritt – Lernstand, XP/Level und Streak – wird mit diesem Konto synchronisiert
           und ist auf anderen Geräten verfügbar. Jedes Konto hat seinen eigenen Fortschritt.
         </p>
@@ -138,7 +138,7 @@ export default function Konto() {
             Neuen Recovery-Code erzeugen
           </button>
         </div>
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-muted-foreground">
           Mit dem Recovery-Code kannst du dein Passwort zurücksetzen, falls du es vergisst
           (es gibt keine E-Mail-Wiederherstellung). Alter Code wird dabei ungültig.
         </p>
@@ -146,9 +146,9 @@ export default function Konto() {
         <DatenSicherung />
 
         {/* Konto löschen (DSGVO „Recht auf Löschung") */}
-        <div className="border-t border-zinc-200 dark:border-border pt-4 space-y-2">
+        <div className="border-t border-border pt-4 space-y-2">
           <h2 className="text-sm font-semibold">Konto löschen</h2>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-muted-foreground">
             Entfernt dein Konto und alle serverseitig gespeicherten Daten (E-Mail, Fortschritt,
             XP/Streak) unwiderruflich. Der lokale Stand in diesem Browser wird ebenfalls geleert.
           </p>
@@ -178,7 +178,7 @@ export default function Konto() {
           )}
         </div>
 
-        <Link to="/info" className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-accent">
+        <Link to="/info" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-accent">
           <ShieldCheck size={13} aria-hidden="true" /> Was wird gespeichert? – Über &amp; Datenschutz
         </Link>
       </div>
@@ -187,14 +187,14 @@ export default function Konto() {
 
   return (
     <div className="space-y-4 max-w-md">
-      <h1 className="text-xl font-bold">👤 Konto</h1>
-      <p className="text-sm text-zinc-500">
+      <h1 className="text-2xl font-semibold tracking-tight">Konto</h1>
+      <p className="text-sm text-muted-foreground">
         Optional: Mit einem Konto wird dein Fortschritt geräteübergreifend gespeichert. Ohne Konto
         läuft alles lokal im Browser.
       </p>
 
       {/* Speicher-Transparenz */}
-      <div className="card p-3 text-xs text-zinc-500 space-y-1">
+      <div className="card p-3 text-xs text-muted-foreground space-y-1">
         <p>
           <ShieldCheck size={13} className="inline mr-1 -mt-0.5 text-accent" aria-hidden="true" />
           Gespeichert werden deine <strong>E-Mail</strong>, ein <strong>Passwort-Hash</strong>{' '}
@@ -235,7 +235,7 @@ export default function Konto() {
       </div>
 
       {modus === 'recover' && (
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-muted-foreground">
           Passwort vergessen? Setze es mit deinem <strong>Recovery-Code</strong> zurück (wurde
           dir bei der Registrierung angezeigt). Ohne Code kann das Passwort nicht
           wiederhergestellt werden.
@@ -244,7 +244,7 @@ export default function Konto() {
 
       <form onSubmit={submit} className="space-y-3">
         <div>
-          <label className="block text-xs text-zinc-500 mb-1" htmlFor="email">
+          <label className="block text-xs text-muted-foreground mb-1" htmlFor="email">
             E-Mail
           </label>
           <input
@@ -259,7 +259,7 @@ export default function Konto() {
         </div>
         {modus === 'recover' && (
           <div>
-            <label className="block text-xs text-zinc-500 mb-1" htmlFor="recovery">
+            <label className="block text-xs text-muted-foreground mb-1" htmlFor="recovery">
               Recovery-Code
             </label>
             <input
@@ -275,7 +275,7 @@ export default function Konto() {
           </div>
         )}
         <div>
-          <label className="block text-xs text-zinc-500 mb-1" htmlFor="passwort">
+          <label className="block text-xs text-muted-foreground mb-1" htmlFor="passwort">
             {modus === 'recover' ? 'Neues Passwort (mind. 8 Zeichen)' : 'Passwort'}
             {modus === 'register' && ' (mind. 8 Zeichen)'}
           </label>
@@ -294,7 +294,7 @@ export default function Konto() {
         {modus === 'register' && (
           <>
             <div>
-              <label className="block text-xs text-zinc-500 mb-1" htmlFor="passwort2">
+              <label className="block text-xs text-muted-foreground mb-1" htmlFor="passwort2">
                 Passwort bestätigen
               </label>
               <input
@@ -308,7 +308,7 @@ export default function Konto() {
                 className="w-full input"
               />
             </div>
-            <label className="flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-300">
+            <label className="flex items-start gap-2 text-xs text-muted-foreground">
               <input
                 type="checkbox"
                 checked={einwilligung}
@@ -345,7 +345,7 @@ export default function Konto() {
               setModus('recover');
               setFehler(null);
             }}
-            className="block text-xs text-zinc-500 hover:text-accent"
+            className="block text-xs text-muted-foreground hover:text-accent"
           >
             Passwort vergessen? Mit Recovery-Code zurücksetzen →
           </button>
@@ -357,7 +357,7 @@ export default function Konto() {
               setModus('login');
               setFehler(null);
             }}
-            className="block text-xs text-zinc-500 hover:text-accent"
+            className="block text-xs text-muted-foreground hover:text-accent"
           >
             ← Zurück zur Anmeldung
           </button>

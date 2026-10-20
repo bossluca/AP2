@@ -138,8 +138,18 @@ function BottomNav({ onMehr }) {
       <div className="max-w-4xl mx-auto grid grid-cols-5">
         {items.map((it) => (
           <NavLink key={it.to} to={it.to} end={it.end} className={bottomItemClass}>
-            <it.icon size={20} aria-hidden="true" />
-            <span>{it.label}</span>
+            {({ isActive }) => (
+              <>
+                <span
+                  className={`grid place-items-center h-7 w-12 rounded-full transition-colors ${
+                    isActive ? 'bg-muted text-accent' : ''
+                  }`}
+                >
+                  <it.icon size={20} aria-hidden="true" />
+                </span>
+                <span>{it.label}</span>
+              </>
+            )}
           </NavLink>
         ))}
         <button onClick={onMehr} className="flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-muted-foreground">

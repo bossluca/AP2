@@ -21,7 +21,7 @@ function SchrittKopf({ typ }) {
   };
   const { Icon, label } = map[typ] || map.frage;
   return (
-    <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wide text-zinc-400 dark:text-muted-foreground">
+    <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
       <Icon size={13} aria-hidden="true" />
       {label}
     </div>
@@ -42,7 +42,7 @@ function LernzettelSchritt({ schritt, onErgebnis }) {
         </button>
       ) : (
         <>
-          <div className="border-t border-zinc-200 dark:border-border pt-3">
+          <div className="border-t border-border pt-3">
             <MarkdownContent>{schritt.back}</MarkdownContent>
           </div>
           <div className="flex gap-2">
@@ -71,7 +71,7 @@ function ClozeSchritt({ schritt, onErgebnis }) {
     <div className="space-y-3">
       <ClozeFrage key={schritt.id} text={schritt.text} onErgebnis={handle} />
       {fertig && schritt.quelle && (
-        <p className="text-[11px] text-zinc-400">Quelle: {schritt.quelle}</p>
+        <p className="text-[11px] text-muted-foreground">Quelle: {schritt.quelle}</p>
       )}
     </div>
   );
@@ -83,7 +83,7 @@ function FrageSchritt({ schritt, onErgebnis }) {
   const f = schritt.frage;
   return (
     <div className="space-y-4">
-      <div className="text-xs text-zinc-500 flex flex-wrap gap-2">
+      <div className="text-xs text-muted-foreground flex flex-wrap gap-2">
         <span>
           {f.saison} {f.jahr} – Aufgabe {f.aufgabe_nr}
           {f.teilfrage ? ` ${f.teilfrage})` : ''}
@@ -91,7 +91,7 @@ function FrageSchritt({ schritt, onErgebnis }) {
         {f.punkte != null && <span>· {f.punkte} Punkte</span>}
       </div>
       {f.ueberschrift && (
-        <h3 className="font-medium text-sm text-zinc-600 dark:text-zinc-400">{f.ueberschrift}</h3>
+        <h3 className="font-medium text-sm text-muted-foreground">{f.ueberschrift}</h3>
       )}
       <MarkdownContent>{f.frage_text}</MarkdownContent>
 
@@ -100,7 +100,7 @@ function FrageSchritt({ schritt, onErgebnis }) {
           Lösung anzeigen & bewerten
         </button>
       ) : (
-        <div className="border-t border-zinc-200 dark:border-border pt-3 space-y-3">
+        <div className="border-t border-border pt-3 space-y-3">
           <h4 className="font-semibold text-sm">Lösung</h4>
           <MarkdownContent>{f.loesung_text}</MarkdownContent>
           <HerkunftBadge obj={f} />
@@ -172,7 +172,7 @@ export default function ModulTraining() {
   if (!pfad || !modul || !lerneinheit) {
     return (
       <div className="space-y-3">
-        <p className="text-sm text-zinc-500">Dieses Modul existiert nicht.</p>
+        <p className="text-sm text-muted-foreground">Dieses Modul existiert nicht.</p>
         <button onClick={() => navigate('/lernpfade')} className="btn-ghost px-3 py-2">
           Zur Übersicht
         </button>
@@ -229,7 +229,7 @@ export default function ModulTraining() {
     return (
       <div className="max-w-md mx-auto text-center space-y-4 py-6">
         <div className="text-5xl">{aus.bestanden ? '🌟' : '💪'}</div>
-        <h1 className="text-xl font-bold">
+        <h1 className="text-2xl font-semibold tracking-tight">
           {nurLesen
             ? 'Durchgearbeitet!'
             : aus.bestanden
@@ -242,15 +242,15 @@ export default function ModulTraining() {
           ) : (
             <>
               <div className="text-3xl font-bold text-accent">{aus.prozent}%</div>
-              <div className="text-sm text-zinc-500">
+              <div className="text-sm text-muted-foreground">
                 {aus.richtig} richtig · {aus.teilweise} teilweise · {aus.falsch} offen von{' '}
                 {aus.anzahl}
               </div>
             </>
           )}
-          <div className="text-xs text-zinc-400 pt-1">{lerneinheit.titel}</div>
+          <div className="text-xs text-muted-foreground pt-1">{lerneinheit.titel}</div>
         </div>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-muted-foreground">
           {nurLesen
             ? 'Dieses Modul ist kurz – durchgelesen reicht. Weiter im Pfad!'
             : aus.bestanden
@@ -286,15 +286,15 @@ export default function ModulTraining() {
       <div>
         <Link
           to={zurueckZumPfad}
-          className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-accent"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-accent"
         >
           <ArrowLeft size={15} /> {pfad.titel}
         </Link>
       </div>
 
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-bold truncate">{lerneinheit.titel}</h1>
-        <span className="text-sm text-zinc-500 shrink-0">
+        <h1 className="text-lg font-semibold tracking-tight truncate">{lerneinheit.titel}</h1>
+        <span className="text-sm text-muted-foreground shrink-0">
           {Math.min(index + 1, session.length)} / {session.length}
         </span>
       </div>

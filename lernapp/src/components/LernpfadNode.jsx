@@ -28,7 +28,7 @@ export default function LernpfadNode({ modul, offen, onToggle }) {
             ? 'w-9 h-9 bg-accent text-[var(--accent-contrast)]'
             : istAktiv
               ? 'w-10 h-10 border-2 border-accent text-accent bg-white dark:bg-background node-pulse'
-              : 'w-9 h-9 border border-zinc-300 dark:border-input text-zinc-400 dark:text-muted-foreground bg-zinc-50 dark:bg-card',
+              : 'w-9 h-9 border border-zinc-300 dark:border-input text-muted-foreground bg-zinc-50 dark:bg-card',
         ].join(' ')}
         aria-hidden="true"
       >
@@ -50,11 +50,11 @@ export default function LernpfadNode({ modul, offen, onToggle }) {
       >
         <div className="flex items-center gap-2">
           <span className="font-medium truncate flex-1">{titel}</span>
-          <span className="font-mono text-xs text-zinc-400 dark:text-muted-foreground shrink-0">
+          <span className="font-mono text-xs text-muted-foreground shrink-0">
             {offen ? '▾' : '▸'}
           </span>
         </div>
-        <div className="text-[11px] text-zinc-500 dark:text-muted-foreground mt-0.5">
+        <div className="text-[11px] text-muted-foreground mt-0.5">
           {istFertig
             ? 'abgeschlossen'
             : istAktiv
