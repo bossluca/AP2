@@ -15,6 +15,7 @@ import {
   Trophy,
   ClipboardCheck,
   FileUp,
+  Calculator,
 } from 'lucide-react';
 
 /**
@@ -34,6 +35,7 @@ export const NAV = [
   { to: '/luecken', label: 'Lückentext', icon: PencilLine, iconName: 'PencilLine' },
   { to: '/drill', label: 'Drill', icon: Zap, iconName: 'Zap' },
   { to: '/matching', label: 'Zuordnen', icon: Puzzle, iconName: 'Puzzle' },
+  { to: '/rechnen', label: 'Rechnen', icon: Calculator, iconName: 'Calculator' },
   { to: '/klausur', label: 'Klausur', icon: GraduationCap, iconName: 'GraduationCap' },
   { to: '/statistik', label: 'Statistik', icon: BarChart3, iconName: 'BarChart3' },
 ];

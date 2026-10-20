@@ -15,6 +15,7 @@ import {
   Puzzle,
   GraduationCap,
   FileUp,
+  Calculator,
 } from 'lucide-react';
 import { getAllExams } from '../data/useExamData';
 import { getLernobjekte } from '../data/lernobjekte';
@@ -42,6 +43,7 @@ const KACHELN = [
   { to: '/luecken', icon: PencilLine, titel: 'Lückentext', text: 'Begriffe aktiv abrufen – automatisch aus den Lernzetteln, sofort geprüft.' },
   { to: '/drill', icon: Zap, titel: 'Drill', text: 'Schnelle Multiple-Choice-Runde – objektiv bewertet, perfekt für zwischendurch.' },
   { to: '/matching', icon: Puzzle, titel: 'Zuordnen', text: 'Begriffe den passenden Definitionen zuordnen – automatisch aus den Lernzetteln.' },
+  { to: '/rechnen', icon: Calculator, titel: 'Rechen-Trainer', text: 'Subnetting, IPv6, RAID, Stromkosten & Co. – unbegrenzt neue Aufgaben mit Lösungsweg.' },
   { to: '/klausur', icon: GraduationCap, titel: 'Klausur', text: 'Ganze Prüfung simulieren – Freitext + Schlagwort-Check, optional mit Timer.' },
   { to: '/eigene-karten', icon: FileUp, titel: 'Eigene Karten', text: 'Eigene Unterlagen als PDF hochladen und daraus Lernkarten erzeugen.' },
 ];
