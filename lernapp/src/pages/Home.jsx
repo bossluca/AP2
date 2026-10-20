@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, RotateCcw, Target } from 'lucide-react';
+import { Play, RotateCcw, Target, ClipboardCheck, ArrowRight } from 'lucide-react';
 import { getAllExams } from '../data/useExamData';
 import { getLernobjekte } from '../data/lernobjekte';
 import { useProgress } from '../context/ProgressContext';
@@ -12,9 +12,11 @@ import { ladePruefungstermin, setzePruefungstermin, tageBisTermin } from '../lib
 import { baueTagesplan } from '../lib/tagesplan';
 import { baueTagesquests, questFortschritt } from '../lib/quests';
 import ProgressRing from '../components/ProgressRing';
+import { ladeEinstufung, planAusErgebnis, aktuelleWoche } from '../lib/einstufung';
+import { themaPerId } from '../lib/themen';
 
 /** Icon-Auflösung für den Primär-CTA (aus `naechsteAktion`). */
-const CTA_ICONS = { Play, RotateCcw, Target };
+const CTA_ICONS = { Play, RotateCcw, Target, ClipboardCheck };
 
 const KACHELN = [
   { to: '/lernpfade', titel: '🧭 Lernpfade', text: 'Geführter Lernweg je Thema – Modul-Training mit Karten, Lücken & Fragen.' },
@@ -40,6 +42,7 @@ export default function Home() {
   const s = useMemo(() => berechneStatistik(objekte, progress), [objekte, progress]);
   const reife = useMemo(() => berechneReife(objekte, progress), [objekte, progress]);
   // „Was jetzt dran ist" – ein klarer Primär-CTA statt mehrerer gleichrangiger.
+  const [einstufung] = useState(() => ladeEinstufung());
   const aktion = useMemo(
     () =>
       naechsteAktion({
@@ -48,8 +51,9 @@ export default function Home() {
         schwachstellen: s.schwachstellen,
         heuteAktivitaet: gami.heuteAktivitaet,
         tagesziel: gami.tagesziel,
+        einstufungOffen: !einstufung && gami.xp === 0,
       }),
-    [resume, s.faellig, s.schwachstellen, gami.heuteAktivitaet, gami.tagesziel]
+    [resume, s.faellig, s.schwachstellen, gami.heuteAktivitaet, gami.tagesziel, einstufung, gami.xp]
   );
   const AktionIcon = CTA_ICONS[aktion.icon] || Play;
   const [confirmReset, setConfirmReset] = useState(false);
@@ -163,6 +167,8 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      <LernplanKarte einstufung={einstufung} termin={termin} />
 
       {/* „Dein Tag": Countdown/Reife + (bei Bedarf) Fällig & Schwächen + Quests –
           gebündelt in einer ruhigen Sektion statt mehrerer gleichrangiger Karten. */}
@@ -363,5 +369,61 @@ export default function Home() {
         </div>
       </div>
     </div>
+  );
+}
+
+/** Lernplan aus dem Einstufungstest: Fokus der laufenden Woche – oder Einladung zum Test. */
+function LernplanKarte({ einstufung, termin }) {
+  const plan = useMemo(() => planAusErgebnis(einstufung, termin), [einstufung, termin]);
+  if (!einstufung) {
+    return (
+      <Link to="/einstufung" className="card-interactive p-4 flex items-center gap-3">
+        <div className="grid place-items-center size-10 rounded-lg bg-muted text-accent shrink-0">
+          <ClipboardCheck size={20} aria-hidden="true" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="font-medium">Einstufungstest machen</div>
+          <div className="text-sm text-muted-foreground">
+            5 Minuten, 16 Themen – danach bekommst du deinen persönlichen Lernplan.
+          </div>
+        </div>
+        <ArrowRight size={18} className="text-muted-foreground shrink-0" aria-hidden="true" />
+      </Link>
+    );
+  }
+  const woche = aktuelleWoche(plan);
+  const fokus = woche?.fokus || [];
+  return (
+    <section className="card p-4 space-y-3">
+      <div className="flex items-center justify-between gap-2">
+        <div className="font-medium flex items-center gap-2">
+          <ClipboardCheck size={18} className="text-accent" aria-hidden="true" /> Dein Lernplan
+        </div>
+        <Link to="/einstufung" className="text-sm text-muted-foreground hover:text-foreground">
+          {woche ? `Woche ${woche.nr} von ${plan.wochen.length}` : 'Plan ansehen'} →
+        </Link>
+      </div>
+      {woche?.art === 'simulation' ? (
+        <Link to="/klausur" className="btn-primary w-full sm:w-auto">
+          Endspurt: Prüfungssimulation
+        </Link>
+      ) : fokus.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {fokus.map((id, i) => (
+            <Link
+              key={id}
+              to={`/lernen?modus=thema&thema=${id}`}
+              className={i === 0 ? 'btn-primary' : 'btn-ghost'}
+            >
+              {themaPerId(id)?.titel}
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-muted-foreground">
+          Der Plan ist durch – mach einen neuen Einstufungstest für den nächsten Durchgang.
+        </p>
+      )}
+    </section>
   );
 }

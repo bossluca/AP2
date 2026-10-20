@@ -66,3 +66,15 @@ describe('naechsteAktion', () => {
     }
   });
 });
+
+describe('naechsteAktion – Einstufung', () => {
+  it('schlägt neuen Nutzern zuerst den Einstufungstest vor', () => {
+    const a = naechsteAktion({ faellig: 500, einstufungOffen: true });
+    expect(a).toMatchObject({ art: 'einstufung', to: '/einstufung' });
+  });
+
+  it('Resume hat trotzdem Vorrang', () => {
+    const a = naechsteAktion({ resume: { to: '/lernen', titel: 'x' }, einstufungOffen: true });
+    expect(a.art).toBe('resume');
+  });
+});

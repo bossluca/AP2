@@ -10,6 +10,7 @@ import {
   SESSION_UMFAENGE,
 } from '../lib/lernsession';
 import { berechneStatistik } from '../lib/statistik';
+import { objekteImThema, themaPerId } from '../lib/themen';
 import { shuffle } from '../lib/shuffle';
 import { xpFuerErgebnis } from '../lib/level';
 import { noteAusConfidence, istFehlSicherheit } from '../lib/confidence';
@@ -45,8 +46,10 @@ export default function Lernen() {
   // Modus: 'heute' (Smart-Session) | 'schwaechen' (gezielt) | 'frei' (lockere Runde).
   const [modus, setModus] = useState(() => {
     const wert = searchParams.get('modus');
-    return ['schwaechen', 'plan', 'frei'].includes(wert) ? wert : 'heute';
+    return ['schwaechen', 'plan', 'frei', 'thema'].includes(wert) ? wert : 'heute';
   });
+  // Themen-Modus (aus dem Lernplan): nur Objekte eines AP2-Themas.
+  const thema = themaPerId(searchParams.get('thema') || '');
   const planTags = useMemo(
     () => (searchParams.get('themen') || '').split('|').map((t) => t.trim()).filter(Boolean),
     [searchParams]
@@ -71,6 +74,10 @@ export default function Lernen() {
   const session = useMemo(() => {
     const helfer = { getStatus, isDue, getEntry };
     if (modus === 'frei') return shuffle(objekte).slice(0, umfang);
+    if (modus === 'thema' && thema) {
+      const imThema = objekteImThema(objekte, thema.id);
+      return baueLernsession(imThema.length ? imThema : objekte, helfer, { umfang });
+    }
     if (modus === 'schwaechen' || modus === 'plan') {
       return baueSchwaechenSession(objekte, helfer, {
         schwachTags: modus === 'plan' && planTags.length ? planTags : schwachTags,
@@ -79,7 +86,7 @@ export default function Lernen() {
     }
     return baueLernsession(objekte, helfer, { umfang });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [objekte, sessionKey, modus, umfang, planTags]);
+  }, [objekte, sessionKey, modus, umfang, planTags, thema]);
 
   const current = index < session.length ? session[index] : null;
   const fertig = session.length > 0 && index >= session.length;
@@ -110,7 +117,9 @@ export default function Lernen() {
         ? '🧭 Dein Tagesplan'
         : modus === 'frei'
           ? '🎲 Lockere Runde'
-          : '📚 Heute lernen';
+          : modus === 'thema' && thema
+            ? `🗺️ ${thema.titel}`
+            : '📚 Heute lernen';
 
   // Resume-Ziel je Modus (für „Weiterlernen" auf der Startseite).
   const resumeZiel = () => {
@@ -121,7 +130,9 @@ export default function Lernen() {
           ? `?modus=plan&themen=${encodeURIComponent(planTags.join('|'))}`
           : modus === 'frei'
             ? '?modus=frei'
-            : '';
+            : modus === 'thema' && thema
+              ? `?modus=thema&thema=${thema.id}`
+              : '';
     return { to: `/lernen${q}`, titel, modus };
   };
 
