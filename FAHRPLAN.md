@@ -16,6 +16,7 @@ parallel immer Inhalte.** Jede Stufe ist einzeln auslieferbar.
 - Lernmodi: Heute lernen, Schwächen, Lernpfade, Karteikarten, FSRS-Wiederholen,
   Quiz, Lückentext, Drill, **neu: Zuordnen**, Klausur-Simulation.
 - Design: **shadcn/ui-Stil** (Tokens, zinc + grüner Primary, Geist-Fonts).
+- **Neu:** Einstufungstest + Lernplan bis zur Prüfung, eigene Karten aus PDF/Text.
 
 ## Stufe 1 – Self-Hosting produktionsreif (P1)
 
@@ -68,6 +69,8 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 | 4.3 | **Reihenfolge-Format** (OSI, Incident-Ablauf, Subnetting-Schritte) | M | letztes offenes Abfrageformat |
 | 4.4 | Fallstudien-Modus: ein Szenario, mehrere verknüpfte Teilaufgaben wie in der echten AP2 | L | prüfungsnah |
 | 4.5 | Optional **KI-Bewertung** von Freitext-Antworten (eigener API-Key, nur Backend, opt-in) zusätzlich zur Schlagwortprüfung | M | feineres Feedback |
+| 4.7 | Lernplan pro Konto syncen (heute gerätelokal) + Re-Test nach jeder Planphase, Fortschritt je Thema im Plan anzeigen | M | Plan wandert mit, misst Lernerfolg |
+| 4.8 | Eigene Karten: Stapel ins Backup/Konto-Sync aufnehmen, Teilen per Datei, optional OCR (tesseract.js) für Scans | M | eigene Inhalte gehen nicht verloren |
 | 4.6 | Fachliche Stichproben-Reviews der KI-generierten Fragen, Melde-Button „Frage fehlerhaft" | S | Vertrauen in Inhalte |
 
 ## Stufe 5 – Technik & Qualität (P2–P3)
@@ -86,3 +89,21 @@ Ziel: Dranbleiben bis zur Prüfung, ohne Druck oder Datenschutz-Probleme.
 3. 4.2 Rechen-Trainer – größter Lernnutzen für die AP2.
 4. 3.1 Lerngruppen – macht die neue Rangliste im Klassenkontext richtig wertvoll.
 5. 5.1 E2E-Tests, bevor die Nutzerzahl wächst.
+
+## Einschätzung: Karten aus hochgeladenen PDFs
+
+Umgesetzt als **regelbasierter Generator im Browser** (Aufwand: M, ca. 1 Tag).
+Funktioniert gut bei strukturierten Lernzetteln (Glossarzeilen, Fragen,
+Aufzählungen, Abkürzungen). Grenzen: Fließtext ohne Struktur liefert wenige
+Karten, gescannte PDFs brauchen OCR. Darum gibt es die **Prüf-/Bearbeiten-
+Ansicht vor dem Speichern**.
+
+| Variante | Qualität | Aufwand | Datenschutz/Kosten |
+|---|---|---|---|
+| Regelbasiert im Browser (**jetzt umgesetzt**) | gut bei Struktur | M | nichts verlässt das Gerät, kostenlos |
+| KI-Generierung über das Backend (Claude-API, eigener Key) | sehr gut, auch Fließtext | M–L | Inhalte gehen an die API, Kosten pro Seite, Missbrauchsschutz nötig |
+| **Material bereitstellen → Import-Skript → feste Inhalte** | am besten (geprüft) | je Quelle S–M | wie bisher, rechtlich prüfen (ADR-007) |
+
+Empfehlung: für **gemeinsame, geprüfte Inhalte** weiter den Import-Weg nutzen
+(Unterlagen bereitstellen, aufbereiten, als Lerneinheiten/Fragen einspielen).
+Der PDF-Import ist für **persönliche** Unterlagen (Berufsschule, Betrieb) gedacht.

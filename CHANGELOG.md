@@ -8,6 +8,19 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Hinzugefügt
 
+- 2026-10-20: **Einstufungstest + individueller Lernplan** (`/einstufung`):
+  kurzer MC-Test über 16 AP2-Themen (Fragen aus den Lernzetteln, „Weiß ich
+  nicht" statt Raten), Themenprofil und Wochenplan bis zum Prüfungstermin
+  (schwache, prüfungsrelevante Themen zuerst, Endspurt = Prüfungssimulation).
+  Antworten fließen als FSRS-Signal in den Lernstand. Neuer Lernmodus
+  `/lernen?modus=thema&thema=<id>`, Lernplan-Karte auf der Startseite, neue
+  Nutzer bekommen den Test als Primär-Aktion. Themenkatalog zentral in
+  `lib/themen.js` (auch von `analyse-ap2` genutzt).
+- 2026-10-20: **Eigene Karten** (`/eigene-karten`): PDF hochladen oder Text
+  einfügen → Kartenvorschläge (Glossar, „Begriff – Erklärung", Abkürzungen,
+  Frage/Antwort, Überschrift + Aufzählung) → prüfen/bearbeiten → als Stapel
+  speichern und mit FSRS lernen. PDF wird per pdf.js **im Browser** gelesen
+  (eigener Lazy-Chunk, nicht im PWA-Precache); nichts wird hochgeladen.
 - 2026-10-20: **Zuordnen-Spiel** (`/matching`): Begriffe den Definitionen
   zuordnen, Paare automatisch aus den Lernzetteln (`lib/matching.js`, rein/getestet).
   Fehlerfreie Paare zählen als FSRS-Review „Gut“, sonst „Nochmal“; XP + Aktivität.
@@ -31,6 +44,11 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Geändert
 
+- 2026-10-20: Design-Feinschliff: einheitliche Seitentitel (ohne Emoji,
+  `tracking-tight`), Lernmodi-Kacheln mit Lucide-Icons im 3-Spalten-Raster,
+  dezentes Punktraster im Hero, aktive Bottom-Nav als Pill, Grautöne auf
+  `muted-foreground`-Token vereinheitlicht, Fortschrittsring mobil ausgeblendet.
+- 2026-10-20: nginx liefert `.mjs` (pdf.js-Worker) mit JavaScript-MIME aus.
 - 2026-10-20: **Design auf shadcn/ui-Stil umgestellt**: semantische Tokens
   (`background`/`card`/`muted`/`border`/`primary` …, Basis zinc, Primary grün)
   via `@theme inline`, neutrales Dark-Theme statt grün getöntem Terminal-Schwarz,
