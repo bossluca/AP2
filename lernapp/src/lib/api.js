@@ -52,7 +52,7 @@ export const gamificationApi = {
 };
 
 export const ranglisteApi = {
-  get: () => request('/rangliste'),
+  get: (gruppeId) => request(gruppeId ? `/rangliste?gruppe=${gruppeId}` : '/rangliste'),
   setProfil: (optIn, anzeigename) =>
     request('/rangliste/profil', { method: 'PUT', body: { optIn, anzeigename } }),
 };
@@ -69,4 +69,11 @@ export const adminApi = {
 export const datenApi = {
   get: () => request('/daten'),
   put: (schluessel, wert) => request(`/daten/${schluessel}`, { method: 'PUT', body: { wert } }),
+};
+
+export const gruppenApi = {
+  liste: () => request('/gruppen'),
+  anlegen: (name) => request('/gruppen', { method: 'POST', body: { name } }),
+  beitreten: (code) => request('/gruppen/beitreten', { method: 'POST', body: { code } }),
+  verlassen: (id) => request(`/gruppen/${id}/mitgliedschaft`, { method: 'DELETE' }),
 };

@@ -18,17 +18,37 @@ export async function ranglisteRoutes(app) {
     if (!req.user) return reply.code(401).send({ error: 'Nicht angemeldet.' });
   });
 
-  app.get('/api/rangliste', async (req) => {
+  // `?gruppe=<id>`: nur Mitglieder dieser Lerngruppe (wer beitritt, ist für die
+  // Gruppe sichtbar – unabhängig vom globalen Opt-in). Ohne: globale Liste.
+  app.get('/api/rangliste', async (req, reply) => {
     const ich = db
       .prepare('SELECT anzeigename, rangliste_optin FROM users WHERE id = ?')
       .get(req.user.id);
-    const rows = db
-      .prepare(
-        `SELECT u.id, u.anzeigename, g.activity, g.xp
-           FROM users u LEFT JOIN gamification g ON g.user_id = u.id
-          WHERE u.rangliste_optin = 1 AND u.anzeigename IS NOT NULL`
-      )
-      .all();
+    const gruppeId = req.query?.gruppe ? Number(req.query.gruppe) : null;
+    let rows;
+    if (gruppeId) {
+      const mitglied = db
+        .prepare('SELECT 1 FROM gruppen_mitglieder WHERE gruppe_id = ? AND user_id = ?')
+        .get(gruppeId, req.user.id);
+      if (!mitglied) return reply.code(403).send({ error: 'Du bist nicht in dieser Gruppe.' });
+      rows = db
+        .prepare(
+          `SELECT u.id, u.anzeigename, g.activity, g.xp
+             FROM gruppen_mitglieder m
+             JOIN users u ON u.id = m.user_id
+             LEFT JOIN gamification g ON g.user_id = u.id
+            WHERE m.gruppe_id = ? AND u.anzeigename IS NOT NULL AND u.gesperrt = 0`
+        )
+        .all(gruppeId);
+    } else {
+      rows = db
+        .prepare(
+          `SELECT u.id, u.anzeigename, g.activity, g.xp
+             FROM users u LEFT JOIN gamification g ON g.user_id = u.id
+            WHERE u.rangliste_optin = 1 AND u.anzeigename IS NOT NULL AND u.gesperrt = 0`
+        )
+        .all();
+    }
     const jetzt = new Date();
     const alle = rangiere(
       rows.map((r) => {
@@ -63,7 +83,10 @@ export async function ranglisteRoutes(app) {
     if (typeof optIn !== 'boolean') {
       return reply.code(400).send({ error: 'optIn muss true oder false sein.' });
     }
-    if (!optIn) {
+    // Ohne Opt-in darf ein (gültiger) Name trotzdem gespeichert werden – er wird
+    // für Lerngruppen gebraucht. Kein/leerer Name beim Opt-out = Name bleibt.
+    const nameGegeben = typeof anzeigename === 'string' && anzeigename.trim() !== '';
+    if (!optIn && !nameGegeben) {
       db.prepare('UPDATE users SET rangliste_optin = 0 WHERE id = ?').run(req.user.id);
       const row = db.prepare('SELECT anzeigename FROM users WHERE id = ?').get(req.user.id);
       return { profil: { optIn: false, anzeigename: row?.anzeigename || '' } };
@@ -78,7 +101,11 @@ export async function ranglisteRoutes(app) {
       .prepare('SELECT id FROM users WHERE lower(anzeigename) = lower(?) AND id != ?')
       .get(name, req.user.id);
     if (vergeben) return reply.code(409).send({ error: 'Dieser Anzeigename ist schon vergeben.' });
-    db.prepare('UPDATE users SET anzeigename = ?, rangliste_optin = 1 WHERE id = ?').run(name, req.user.id);
-    return { profil: { optIn: true, anzeigename: name } };
+    db.prepare('UPDATE users SET anzeigename = ?, rangliste_optin = ? WHERE id = ?').run(
+      name,
+      optIn ? 1 : 0,
+      req.user.id
+    );
+    return { profil: { optIn, anzeigename: name } };
   });
 }

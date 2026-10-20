@@ -116,6 +116,24 @@ export function openDb(path) {
     );
   `);
 
+  // Lerngruppen (Klasse/Betrieb): Beitritt per Code, eigene Rangliste.
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS gruppen (
+      id         INTEGER PRIMARY KEY,
+      name       TEXT NOT NULL,
+      code       TEXT UNIQUE NOT NULL,
+      created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      created_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS gruppen_mitglieder (
+      gruppe_id INTEGER NOT NULL REFERENCES gruppen(id) ON DELETE CASCADE,
+      user_id   INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      joined_at TEXT NOT NULL,
+      PRIMARY KEY (gruppe_id, user_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_gruppen_mitglieder_user ON gruppen_mitglieder(user_id);
+  `);
+
   // Einladungs-Codes für REGISTRATION=invite. Gespeichert wird nur der
   // SHA-256-Hash; der Klartext wird dem Admin einmal angezeigt. `hinweis` = die
   // ersten Zeichen zum Wiedererkennen in der Liste.

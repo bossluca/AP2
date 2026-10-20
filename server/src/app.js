@@ -9,6 +9,7 @@ import { gamificationRoutes } from './gamification.js';
 import { ranglisteRoutes } from './rangliste.js';
 import { adminRoutes } from './admin.js';
 import { datenRoutes } from './daten.js';
+import { gruppenRoutes } from './gruppen.js';
 import { registrierungsModus, adminEmails } from './lib/einladung.js';
 import { erstelleRateLimiter } from './lib/rateLimit.js';
 
@@ -79,6 +80,7 @@ export async function buildApp(opts = {}) {
   await app.register(ranglisteRoutes);
   await app.register(adminRoutes);
   await app.register(datenRoutes);
+  await app.register(gruppenRoutes);
 
   return app;
 }
