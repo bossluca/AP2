@@ -67,8 +67,9 @@ export default function Info() {
           </p>
           <p>
             <strong>Zweck &amp; Sparsamkeit:</strong> Daten werden ausschließlich zum Bereitstellen
-            und Synchronisieren deines Lernstands verarbeitet. Das Konto ist freiwillig – die App
-            funktioniert vollständig auch ohne.
+            und Synchronisieren deines Lernstands verarbeitet. Je nach Instanz ist das Konto
+            freiwillig (dann funktioniert die App vollständig auch ohne) oder – bei Instanzen mit
+            Login-Pflicht – Voraussetzung für die Nutzung (Zugang per Einladung).
           </p>
           <p>
             <strong>Löschung:</strong> Du kannst deinen Fortschritt jederzeit auf der Startseite

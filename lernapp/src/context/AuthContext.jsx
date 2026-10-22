@@ -10,6 +10,8 @@ import {
   setzeBesitzer,
 } from '../lib/besitzer';
 import { flusheOutbox, ladeOutbox, speichereOutbox } from '../lib/outbox';
+import { loescheExamdatenCache } from '../lib/examdatenCache';
+import { bestimmeZugang, ladeLoginPflichtBekannt, merkeLoginPflicht } from '../lib/zugang';
 
 /**
  * @typedef {Object} AuthContextValue
@@ -20,6 +22,12 @@ import { flusheOutbox, ladeOutbox, speichereOutbox } from '../lib/outbox';
  * @property {{user:Object}|null} uebernahmeFrage  Offene Rückfrage „Lokalen
  *           Fortschritt übernehmen?“ (anonyme Daten beim ersten Login).
  * @property {(ja:boolean)=>void} beantworteUebernahme
+ * @property {undefined|null|{registrierung:string, loginPflicht:boolean}} konfig
+ *           Server-Konfiguration (`/api/auth/config`): `undefined` = lädt,
+ *           `null` = Server nicht erreichbar (rein lokal/offline).
+ * @property {string|null} neuerRecoveryCode  Einmal anzuzeigender Recovery-Code
+ *           (liegt im Context, damit er den Wechsel Gate → App übersteht).
+ * @property {(code:string|null)=>void} setNeuerRecoveryCode
  * @property {(email:string, password:string)=>Promise<void>} login
  * @property {(email:string, password:string, inviteCode?:string)=>Promise<{recoveryCode?:string}>} register
  *           Liefert den einmalig anzuzeigenden Recovery-Code mit.
@@ -38,6 +46,9 @@ const AuthContext = createContext(
     syncModus: null,
     uebernahmeFrage: null,
     beantworteUebernahme: () => {},
+    konfig: null,
+    neuerRecoveryCode: null,
+    setNeuerRecoveryCode: () => {},
     login: async () => {},
     register: async () => ({}),
     recover: async () => ({}),
@@ -55,6 +66,9 @@ export function AuthProvider({ children }) {
   const [syncModus, setSyncModus] = useState(null);
   // Offene Rückfrage „Lokalen Fortschritt übernehmen?“ → { user } oder null.
   const [uebernahmeFrage, setUebernahmeFrage] = useState(null);
+  // C9: Server-Konfiguration (undefined = lädt, null = nicht erreichbar).
+  const [konfig, setKonfig] = useState(undefined);
+  const [neuerRecoveryCode, setNeuerRecoveryCode] = useState(null);
 
   const userRef = useRef(user);
   useEffect(() => {
@@ -82,6 +96,7 @@ export function AuthProvider({ children }) {
         aktiviere(neuerUser, 'mergen');
       } else if (entscheidung === 'verwerfen') {
         loescheLokaleNutzerdaten();
+        loescheExamdatenCache(); // C9: Kontowechsel → Inhalte-Cache neu aufbauen
         aktiviere(neuerUser, 'laden');
       } else if (hatLokaleNutzerdaten()) {
         setUebernahmeFrage({ user: neuerUser }); // UI fragt nach (UebernahmeDialog)
@@ -106,6 +121,28 @@ export function AuthProvider({ children }) {
     },
     [uebernahmeFrage, aktiviere]
   );
+
+  // Server-Konfiguration laden (Registrierungsmodus, Login-Pflicht). Nicht
+  // erreichbar → null (rein lokal bzw. offline). Login-Pflicht wird als
+  // Geräte-Merker behalten, damit auch offline abgemeldet das Gate greift.
+  useEffect(() => {
+    let aktiv = true;
+    Promise.resolve()
+      .then(() => authApi.config())
+      .then((c) => {
+        if (!aktiv) return;
+        if (c && typeof c === 'object' && typeof c.registrierung === 'string') {
+          merkeLoginPflicht(c.loginPflicht === true);
+          setKonfig(c);
+        } else {
+          setKonfig(null);
+        }
+      })
+      .catch(() => aktiv && setKonfig(null));
+    return () => {
+      aktiv = false;
+    };
+  }, []);
 
   // Bestehende Sitzung beim Start prüfen. Schlägt fehl (kein Backend / nicht
   // angemeldet), bleibt user = null und die App läuft rein lokal weiter.
@@ -150,6 +187,7 @@ export function AuthProvider({ children }) {
   const register = useCallback(
     async (email, password, inviteCode) => {
       const d = await authApi.register(email, password, inviteCode);
+      if (d?.recoveryCode) setNeuerRecoveryCode(d.recoveryCode);
       uebernehmeSitzung(d.user);
       return d; // enthält den einmalig anzuzeigenden recoveryCode
     },
@@ -160,6 +198,7 @@ export function AuthProvider({ children }) {
   const recover = useCallback(
     async (email, code, newPassword) => {
       const d = await authApi.recover(email, code, newPassword);
+      if (d?.recoveryCode) setNeuerRecoveryCode(d.recoveryCode);
       uebernehmeSitzung(d.user);
       return d; // enthält den rotierten recoveryCode
     },
@@ -171,7 +210,9 @@ export function AuthProvider({ children }) {
     setUser(null);
     setSyncModus(null);
     setUebernahmeFrage(null);
+    setNeuerRecoveryCode(null);
     loescheLokaleNutzerdaten();
+    loescheExamdatenCache(); // C9: Prüfungsinhalte nicht ohne Sitzung im Cache lassen
   }, []);
 
   // Logout: zuerst liegengebliebene Writes dieses Kontos senden (best-effort),
@@ -214,6 +255,9 @@ export function AuthProvider({ children }) {
         recover,
         logout,
         deleteAccount,
+        konfig,
+        neuerRecoveryCode,
+        setNeuerRecoveryCode,
       }}
     >
       {children}
@@ -223,4 +267,19 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   return useContext(AuthContext);
+}
+
+/**
+ * Zugang zur App (C9): `'laedt'` | `'gate'` (nur Konto-Seite) | `'app'`.
+ * Siehe `lib/zugang.js` für die Regeln.
+ */
+export function useZugang() {
+  const { ready, konfig, user } = useAuth();
+  return bestimmeZugang({
+    bereit: ready,
+    konfig,
+    user,
+    besitzer: ladeBesitzer(),
+    loginPflichtBekannt: ladeLoginPflichtBekannt(),
+  });
 }

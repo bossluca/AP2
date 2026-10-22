@@ -36,6 +36,8 @@ zählen Segmentierung und aktuelle Abhängigkeiten mehr als jede App-Funktion.
 | Jede Admin-Route: anonym 401, Nicht-Admin 403 | alle 5 Routen |
 | Admin-Rechte nicht per Request erschleichbar | `admin:true` im Body wird ignoriert |
 | `invite`-Modus: **ohne gültigen Code kein Konto – auch nicht mit Admin-E-Mail** | inkl. Objekt-Injection im Code-Feld |
+| Einladungscodes nicht durchprobierbar (C9) | `test/loginPflicht.test.js`: 8 Fehlversuche je IP → 429, Erfolg setzt zurück |
+| Login-Pflicht wird ans Frontend gemeldet (C9) | `test/loginPflicht.test.js`: `loginPflicht` in `/api/auth/config` |
 | Logout macht die Sitzung serverseitig ungültig | altes Cookie → 401 |
 | Gefälschte Tokens / SQL-Sonderzeichen | 401 bzw. Tabelle bleibt intakt |
 
@@ -55,9 +57,12 @@ Nur lesend, legt nichts an. Prüft:
 - HTTP → HTTPS-Umleitung, Zertifikat ≥ 14 Tage gültig, TLS 1.0/1.1 abgelehnt
 - HSTS (≥ 180 Tage), CSP (ohne `unsafe-inline`/`unsafe-eval` für Skripte),
   X-Frame-Options, nosniff, Referrer-/Permissions-Policy, keine Versions-Header
-- API-Health, Registrierungsmodus nicht `open`, Registrierung ohne Code → 403,
+- API-Health, Registrierungsmodus nicht `open`, Registrierung ohne Code → 403 (oder 429 = gebremst),
   Admin-API/`me` anonym → 401, kein CORS für fremde Origins
 - Geheimnis-Pfade (`/.env`, `/.git/config`, DB, Compose-Datei) geben nichts preis
+- Login-Pflicht (C9): Startseite und Start-Skripte ohne Lerninhalte, Daten-Chunk nicht im
+  Service-Worker-Precache, `/assets/examdata-*.js` ohne Sitzung 401/403 (Name automatisch aus
+  den Start-Skripten oder per `--examdata <datei>`)
 - optional `--direkt <VM-IP>:<Port>`: App-Port am Proxy vorbei **nicht** erreichbar
 - optional `--last`: Login-Bremse liefert 429
 
@@ -85,13 +90,14 @@ Exit-Code ≠ 0 bei einem Fehler → als Cron mit Log oder als Kuma-„Push“-M
 | S10 | Basis-Images (node/nginx) und VM-Pakete werden nur bei Deploys aktualisiert | mittel | offen → Routine (Abschnitt 5) |
 | S11 | Test-Werkzeuge (vitest/tinypool) mit bekannten Lücken | niedrig (nicht ausgeliefert) | offen → vitest-Major-Update |
 | S12 | Rate-Limits im Speicher → Neustart setzt Zähler zurück | niedrig | akzeptiert |
-| S13 | Einladungscode-Versuche nur über nginx gebremst (30/min), nicht in der App | niedrig (Codes ~60 Bit) | akzeptiert |
+| S13 | Einladungscode-Versuche nur über nginx gebremst (30/min), nicht in der App | niedrig (Codes ~60 Bit) | **behoben im Code** (C9: Backend-Bremse `IP|invite` 8/15 min + nginx-Limit für `POST /api/auth/register`), Rollout offen |
 | S15 | Konto-Erkennung: Login antwortete bei unbekannter E-Mail messbar schneller (1 ms statt ~40 ms); im `invite`-Modus verriet die Registrierung ohne Code „bereits registriert“ | mittel | **behoben im Code** (Dummy-Hash, Code-Prüfung zuerst), Rollout mit 8.1 |
 | S16 | **Login-Bremse per gefälschtem `X-Forwarded-For` umgehbar:** `TRUST_PROXY=1` wurde als „alles vertrauen“ gelesen, Fastify nahm den linken (vom Angreifer setzbaren) Eintrag; nginx hängte die Client-Header nur an. Im Test blieben 15 Fehl-Logins mit wechselnden Fake-IPs ohne 429. Es griff nur noch nginx (30/min je echter IP). | hoch | **behoben im Code** (1 vertrauter Hop, nginx überschreibt den Header), Rollout mit 8.1 |
 | S17 | Frontend: lokale Daten bleiben nach Logout liegen und werden beim Login eines **anderen** Kontos ins neue Konto gemergt (Fortschritt, Outbox, Einstufung, Karten) | hoch | **behoben im Code** (C1: Besitzer-Marker, Aufräumen bei Logout/Löschen, Outbox je Konto, Rückfrage bei anonymen Daten; Integrationstests `lernapp/src/context/kontenTrennung.test.jsx`), Rollout offen |
 | S18 | `recovery-code` erzeugen und Konto löschen ohne Passwort; CSRF-Rest über Geschwister-Subdomains; Cookie ohne `__Host-`-Präfix; Admin-Rolle an unverifizierter E-Mail | mittel–hoch | offen → C2 |
 | S19 | Server prüft Fortschritts-/Gamification-Eingaben nicht (Typen, Größe, Anzahl je Konto); veralteter Client-Stand überschreibt neueren | mittel | offen → C3 |
 | S20 | Frontend validiert Backup-Import und Serverdaten nur oberflächlich (App kann dauerhaft abstürzen) | mittel | offen → C4, C5 |
+| S21 | **Lerninhalte ohne Konto abrufbar:** Die Prüfungs-/Lernzettel-Daten (urheberrechtlich heikel) steckten im statisch geladenen Chunk `examdata` und im Service-Worker-Precache – jeder, der die Startseite öffnete, lud sie herunter, auch ohne Konto. Registrierung per Compose-Default offen. | hoch | **behoben im Code** (C9: `REQUIRE_LOGIN`, Login-Gate, Daten erst nach Login per `import()`, nicht im Precache, nginx `auth_request` auf `/assets/examdata-*.js`, `REGISTRATION=invite` als Default; Prüfung in `security-check.sh`), Rollout offen – nginx-Teil lokal mit nginx:alpine + echtem Backend geprüft, im Docker-Stack beim Rollout erneut prüfen |
 | S14 | Root-Dateisystem VM 106 zu 90 % voll (`containerd.alt`) → volle Platte = Ausfall | niedrig | offen → Aufräum-Ticket |
 
 Erledigt am 2026-10-20: Security-Header wieder aktiv, Registrierung auf `invite`,

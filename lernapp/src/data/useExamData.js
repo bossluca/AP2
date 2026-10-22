@@ -1,4 +1,4 @@
-import examData from './exam_data.json';
+import { holeExamDaten } from './examDaten';
 
 /**
  * @typedef {Object} ExamMeta
@@ -53,9 +53,30 @@ import examData from './exam_data.json';
  */
 
 // --- Modul-Level-Cache -------------------------------------------------------
-// Die Quelldaten sind statisch (gebündeltes JSON), daher werden die abgeleiteten
-// Listen genau einmal berechnet und danach aus dem Cache geliefert. Das vermeidet
-// wiederholtes Flatten über alle ~200 Fragen bei jedem Render/Hook-Aufruf.
+// Die Quelldaten werden seit C9 erst nach dem Login dynamisch geladen
+// (`./examDaten.js`). Die abgeleiteten Listen werden je geladener Quelle genau
+// einmal berechnet und danach aus dem Cache geliefert. Solange nichts geladen
+// ist, liefern die Selektoren leere Listen (ohne zu cachen).
+
+/** Quelle, für die die Caches gelten. */
+let _quelle = null;
+
+/**
+ * Aktuelle Daten (leerer Stand, solange nicht geladen); setzt die Caches
+ * zurück, wenn sich die Quelle geändert hat.
+ */
+function daten() {
+  const d = holeExamDaten();
+  if (d !== _quelle) {
+    _quelle = d;
+    _allQuestions = null;
+    _allTags = null;
+    _allExams = null;
+    _allLerneinheiten = null;
+    _klausuren = null;
+  }
+  return d || { exams: [], lerneinheiten: [] };
+}
 
 /** @type {Question[]|null} */
 let _allQuestions = null;
@@ -72,6 +93,7 @@ let _allLerneinheiten = null;
  * @returns {Question[]}
  */
 export function getAllQuestions() {
+  const examData = daten();
   if (_allQuestions) return _allQuestions;
   const all = [];
   for (const exam of examData.exams) {
@@ -85,8 +107,8 @@ export function getAllQuestions() {
       });
     }
   }
-  _allQuestions = all;
-  return _allQuestions;
+  if (_quelle) _allQuestions = all;
+  return all;
 }
 
 /**
@@ -102,13 +124,15 @@ export function getLearnableQuestions() {
  * @returns {string[]}
  */
 export function getAllTags() {
+  daten();
   if (_allTags) return _allTags;
   const tags = new Set();
   for (const q of getAllQuestions()) {
     for (const t of q.thema_tags) tags.add(t);
   }
-  _allTags = Array.from(tags).sort((a, b) => a.localeCompare(b, 'de'));
-  return _allTags;
+  const liste = Array.from(tags).sort((a, b) => a.localeCompare(b, 'de'));
+  if (_quelle) _allTags = liste;
+  return liste;
 }
 
 /**
@@ -116,9 +140,11 @@ export function getAllTags() {
  * @returns {ExamMeta[]}
  */
 export function getAllExams() {
+  const examData = daten();
   if (_allExams) return _allExams;
-  _allExams = examData.exams.map((e) => e.meta);
-  return _allExams;
+  const liste = examData.exams.map((e) => e.meta);
+  if (_quelle) _allExams = liste;
+  return liste;
 }
 
 /**
@@ -126,6 +152,7 @@ export function getAllExams() {
  * @returns {string[]}
  */
 export function getAllPruefungsteile() {
+  const examData = daten();
   const teile = new Set();
   for (const e of examData.exams) teile.add(e.meta.pruefungsteil ?? 'AP1');
   for (const l of getLerneinheiten()) if (l.pruefungsteil) teile.add(l.pruefungsteil);
@@ -152,8 +179,9 @@ let _klausuren = null;
  * @returns {Klausur[]}
  */
 export function getKlausuren() {
+  const examData = daten();
   if (_klausuren) return _klausuren;
-  _klausuren = examData.exams
+  const klausuren = examData.exams
     .map((exam) => {
       // Kontextblöcke je Aufgabe sammeln, um sie als Situationstext anzuzeigen.
       const kontextNachAufgabe = new Map();
@@ -177,7 +205,8 @@ export function getKlausuren() {
       return { meta: exam.meta, pruefungsteil: teil, fragen, punkteGesamt };
     })
     .filter((k) => k.fragen.length > 0);
-  return _klausuren;
+  if (_quelle) _klausuren = klausuren;
+  return klausuren;
 }
 
 /**
@@ -186,9 +215,9 @@ export function getKlausuren() {
  * @returns {Lerneinheit[]}
  */
 export function getLerneinheiten() {
+  const examData = daten();
   if (_allLerneinheiten) return _allLerneinheiten;
-  _allLerneinheiten = Array.isArray(examData.lerneinheiten) ? examData.lerneinheiten : [];
-  return _allLerneinheiten;
+  const liste = Array.isArray(examData.lerneinheiten) ? examData.lerneinheiten : [];
+  if (_quelle) _allLerneinheiten = liste;
+  return liste;
 }
-
-export default examData;
