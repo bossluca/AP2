@@ -28,7 +28,7 @@ eigenen Sitzung abgearbeitet werden.
 | C6 | Sitzungs-Tokens hashen + Audit-Log | mittel | Backend + Frontend | Opus / mittel |
 | C7 | Docker-/Deploy-Härtung | niedrig–mittel | Compose, nginx | Sonnet / niedrig |
 | C8 | Kleinere Fehler (PDF-Import, Plan ab Termin, SW-Fallback) | niedrig | Frontend | Sonnet / niedrig |
-| C9 | Nutzung nur mit Konto (Login-Pflicht) + Schutz des Servers | hoch | Backend + Frontend + nginx | Opus / mittel |
+| C9 | Nutzung nur mit Konto (Login-Pflicht) + Schutz des Servers – **umgesetzt** (Branch `claude/c9-login-pflicht`, gestapelt auf C1) | hoch | Backend + Frontend + nginx | Opus / mittel |
 
 ---
 
@@ -313,3 +313,13 @@ Baut auf C1 auf (Besitzer-Marker).
 zeigt nur Konto, keine Daten vor Login, Cache-Löschung beim Logout), E2E mit gemocktem Backend
 (Gate) und ohne Backend (lokal), Build ohne examdata im Precache. nginx-Teile, die lokal nicht
 laufen, im PR als „beim Rollout prüfen“ markieren.
+
+**Stand:** umgesetzt. Server: `lib/konfig.js` (`schalterAusEnv`), `loginPflicht` in
+`/api/auth/config`, Einladungs-Bremse in `auth.js` (Tests `test/loginPflicht.test.js`).
+Frontend: `data/examDaten.js` (dynamischer Import), `lib/zugang.js`, `useZugang`,
+`LoginGate`/`ExamDatenGrenze` in `App.jsx`, `lib/examdatenCache.js`; Tests
+`src/loginGate.test.jsx`, `src/lib/zugang.test.js`, `src/data/examDaten.test.js`,
+`src/bundle.test.js`, E2E `e2e/login-gate.spec.js`. nginx: `nginx-auth-sitzung.conf`,
+Zone `register`. Abweichung: nginx kennt keine Stunden-Raten → Register-Limit 10 sofort, danach
+1/min je IP (das eigentliche Limit sind Einladungscodes + Backend-Bremse).
+

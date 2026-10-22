@@ -19,7 +19,8 @@ machen (GUI/Entscheidung) · 🔧 Code/Ticket. Befund-Nummern `S…` → `SECURI
 | 5 | Monitoring: Kuma-Monitor auf `/api/health` mit Alarm | ⏳ 👤 |
 | 6 | Wiederherstellung einmal geprobt | ⏳ 🔧 Ticket 8.3 |
 | 7 | Datenschutzerklärung (+ ggf. Impressum) auf `/info` fertig | ⏳ 👤 |
-| 8 | Klären, ob alle ausgelieferten Inhalte (Lernzettel!) veröffentlicht werden dürfen | ⏳ 👤 |
+| 8 | Klären, ob alle ausgelieferten Inhalte (Lernzettel!) veröffentlicht werden dürfen | ⏳ 👤 (entschärft durch C9: Inhalte nur noch für eingeladene, angemeldete Nutzer) |
+| 9 | Login-Pflicht aktiv (`REQUIRE_LOGIN=true`, `REGISTRATION=invite`), `security-check.sh` meldet „examdata ohne Sitzung gesperrt (401)“ | ✅ im Code · ⏳ Rollout C9 |
 
 Alles darunter ist entweder schon erledigt oder Härtung für danach.
 
@@ -47,7 +48,10 @@ Alles darunter ist entweder schon erledigt oder Härtung für danach.
 |---|---|---|
 | Passwort-Speicherung | argon2id (aktueller Standard), nie Klartext, nie in Antworten | ✅ Test |
 | Brute-Force | 8 Fehlversuche je IP+E-Mail / 15 min → 429; zusätzlich nginx 30/min auf `/api/auth` | ✅ Test |
-| Registrierung | `REGISTRATION=invite`; Codes nur als Hash, einmalig/ablaufend; erster Admin-Code nur per Server-CLI | ✅ läuft · ⏳ CLI mit 8.1 |
+| Registrierung | `REGISTRATION=invite` (seit C9 auch Compose-Default); Codes nur als Hash, einmalig/ablaufend; erster Admin-Code nur per Server-CLI | ✅ läuft · ⏳ CLI mit 8.1 |
+| Spam bei Registrierung | nginx: eigenes Limit `POST /api/auth/register` (10 sofort, dann 1/min je IP); Backend: falsche Einladungscodes 8/15 min je IP → 429 | ✅ im Code (C9) · ⏳ Rollout |
+| Login-Pflicht | `REQUIRE_LOGIN=true`: ohne Sitzung nur Konto-Seite; Lerninhalte (`/assets/examdata-*.js`) nur mit Sitzung (nginx `auth_request`), nicht im Precache, Cache-Löschung beim Logout | ✅ im Code (C9) · ⏳ Rollout + `security-check.sh` |
+| Geteilte Geräte | Logout/Konto löschen leeren alle lokalen Lerndaten; fremde Daten werden nie ins eigene Konto gemergt | ✅ im Code (C1) · ⏳ Rollout |
 | Passwort vergessen | Recovery-Code (~80 Bit, nur Hash gespeichert), widerruft alle Sitzungen; kein Mail-Reset-Angriffsweg | ✅ Test |
 | Sitzungen | Zufalls-Token 256 Bit, `HttpOnly`/`Secure`/`SameSite=Lax`, 30 Tage, Logout + Sperre beenden sie serverseitig | ✅ Test |
 | Sitzungen in der DB | Token liegen im Klartext → wer ein Backup liest, kann Sitzungen übernehmen | ⏳ 🔧 S7 (nur Hash speichern) |
@@ -133,7 +137,7 @@ ob der Angreifer bei einem Container bleibt oder an deine PCs, das NAS und Proxm
 | **Datenschutzerklärung** (`/info` ist nur Vorlage): wer betreibt, welche Daten (E-Mail, Lernstand, IP in Logs), Zweck, Speicherdauer inkl. Backups, Rechte (Auskunft, Löschung), Kontakt | ⏳ 👤 vor dem Einladen |
 | **Impressum:** bei rein privater Nutzung im Freundes-/Klassenkreis meist nicht nötig, sobald es öffentlich beworben oder „geschäftsmäßig“ wird, Pflicht (DDG § 5) | ⏳ 👤 entscheiden |
 | **Urheberrecht Prüfungen:** AP1-Prüfungen paraphrasiert, AP2-Sets KI-generiert, gekennzeichnet (ADR-007) | ✅ |
-| **Urheberrecht Lernzettel:** werden unverändert aus den Quelldokumenten importiert → klären, ob du sie veröffentlichen darfst (eigene? Berufsschule? Verlag?) | ⏳ 👤 |
+| **Urheberrecht Lernzettel:** werden unverändert aus den Quelldokumenten importiert → klären, ob du sie veröffentlichen darfst (eigene? Berufsschule? Verlag?). Seit C9 nur noch für angemeldete, eingeladene Nutzer abrufbar (kein öffentlicher Download mehr) – die Rechtsfrage bleibt trotzdem | ⏳ 👤 |
 | Git-Repo bleibt **privat** (enthält in der Historie wörtliche Originale) | ✅ 👤 so lassen |
 
 ## 10. Reihenfolge bis zum Einladen
