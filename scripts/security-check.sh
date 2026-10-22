@@ -4,26 +4,32 @@
 #   ./scripts/security-check.sh https://lernen.example.de
 #   ./scripts/security-check.sh https://lernen.example.de --direkt 10.10.20.50:8090
 #   ./scripts/security-check.sh https://lernen.example.de --last     # + Rate-Limit-Probe
+#   ./scripts/security-check.sh https://lernen.example.de --examdata examdata-AbC123.js
 #
 # Legt keine Konten an und ändert nichts. Die Registrierungs-Probe läuft nur,
 # wenn die Instanz NICHT offen ist (dann lehnt der Server vor dem Anlegen ab).
 # `--direkt HOST:PORT` prüft, dass der App-Port am Proxy vorbei NICHT erreichbar
 # ist. `--last` schickt ~40 Fehl-Logins für eine nicht existierende Adresse
 # (bremst danach 15 min nur diese Adresse von deiner IP).
+# Login-Pflicht (C9): Prüfungsinhalte (`/assets/examdata-*.js`) dürfen ohne Sitzung
+# nicht abrufbar sein; der Dateiname wird aus den Start-Skripten ermittelt oder per
+# `--examdata <datei>` übergeben.
 #
 # Exit-Code: 0 = alles OK/Hinweise, 1 = mindestens ein FEHLER. Für Cron/Kuma geeignet.
 set -u
 
 URL="${1:-}"
-[ -n "$URL" ] || { printf 'Aufruf: %s https://<domain> [--direkt HOST:PORT] [--last]\n' "$0" >&2; exit 2; }
+[ -n "$URL" ] || { printf 'Aufruf: %s https://<domain> [--direkt HOST:PORT] [--last] [--examdata DATEI]\n' "$0" >&2; exit 2; }
 URL="${URL%/}"
 shift
 DIREKT=""
 LAST=0
+EXAMDATA=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --direkt) DIREKT="${2:-}"; shift 2 ;;
     --last) LAST=1; shift ;;
+    --examdata) EXAMDATA="${2:-}"; shift 2 ;;
     *) printf 'Unbekannte Option: %s\n' "$1" >&2; exit 2 ;;
   esac
 done
@@ -100,7 +106,11 @@ case "$modus" in
     ok "Registrierung: $modus"
     c=$(code -X POST -H 'content-type: application/json' \
       -d '{"email":"security-check@example.invalid","password":"probe-1234567"}' "$URL/api/auth/register")
-    [ "$c" = "403" ] && ok "Registrierung ohne Code abgelehnt (403)" || fail "Registrierung ohne Code: $c (erwartet 403)"
+    case "$c" in
+      403) ok "Registrierung ohne Code abgelehnt (403)" ;;
+      429) ok "Registrierung ohne Code abgelehnt (429 – Spam-/Einladungs-Bremse aktiv)" ;;
+      *) fail "Registrierung ohne Code: $c (erwartet 403)" ;;
+    esac
     ;;
   open) warn "Registrierung ist OFFEN – jeder kann Konten anlegen (REGISTRATION=invite empfohlen)" ;;
   *) fail "Registrierungsmodus nicht lesbar" ;;
@@ -122,6 +132,44 @@ for pfad in /.env /.git/config /server/.env /data/lernapp.sqlite /docker-compose
     *) ok "$pfad gibt nichts preis" ;;
   esac
 done
+
+# --- Lerninhalte nur mit Sitzung (C9) -----------------------------------------
+printf '\nLerninhalte nur mit Sitzung\n'
+konfig=$(curl -s --max-time 10 "$URL/api/auth/config" 2>/dev/null)
+case "$konfig" in
+  *'"loginPflicht":true'*) ok "Login-Pflicht aktiv" ; pflicht=1 ;;
+  *) warn "Login-Pflicht aus (REQUIRE_LOGIN=true empfohlen)" ; pflicht=0 ;;
+esac
+# Inhalts-Merkmale: JSON-Felder der Prüfungsdaten mit Text.
+INHALT_RE='"(loesung_text|inhalt_text|frage_text)":"'
+start=$(curl -s --max-time 10 "$URL/" 2>/dev/null)
+inhalte=0
+printf '%s' "$start" | grep -qE "$INHALT_RE" && { inhalte=1; fail "Startseite enthält Lerninhalte"; }
+# Alle von der Startseite geladenen Skripte (script src + modulepreload) prüfen
+# und dabei den Namen des Daten-Chunks ermitteln (dynamischer Import).
+for s in $(printf '%s' "$start" | grep -oE '(src|href)="[^"]*\.js"' | sed -E 's/^(src|href)="//; s/"$//' | sort -u); do
+  case "$s" in http*) u="$s" ;; /*) u="$URL$s" ;; *) u="$URL/$s" ;; esac
+  koerper=$(curl -s --max-time 20 "$u" 2>/dev/null)
+  if printf '%s' "$koerper" | grep -qE "$INHALT_RE"; then inhalte=1; fail "$s enthält Lerninhalte"; fi
+  [ -n "$EXAMDATA" ] || EXAMDATA=$(printf '%s' "$koerper" | grep -oE 'examdata-[A-Za-z0-9_-]+\.js' | head -1)
+done
+[ "$inhalte" -eq 0 ] && ok "Startseite und Start-Skripte ohne Lerninhalte"
+sw=$(curl -s --max-time 10 "$URL/sw.js" 2>/dev/null)
+case "$sw" in
+  *'"assets/examdata-'*) fail "Service Worker precacht den Daten-Chunk (vor dem Login abrufbar)" ;;
+  "") warn "sw.js nicht lesbar" ;;
+  *) ok "Daten-Chunk nicht im Service-Worker-Precache" ;;
+esac
+if [ -n "$EXAMDATA" ]; then
+  c=$(code "$URL/assets/${EXAMDATA##*/}")
+  case "$c" in
+    401|403) ok "${EXAMDATA##*/} ohne Sitzung gesperrt ($c)" ;;
+    200) if [ "$pflicht" -eq 1 ]; then fail "${EXAMDATA##*/} ohne Sitzung abrufbar (200)"; else warn "${EXAMDATA##*/} ohne Sitzung abrufbar (Login-Pflicht aus)"; fi ;;
+    *) warn "${EXAMDATA##*/} ohne Sitzung: $c (Dateiname prüfen, --examdata)" ;;
+  esac
+else
+  warn "Daten-Chunk nicht gefunden – Dateinamen mit --examdata <datei> angeben"
+fi
 
 # --- Optional ----------------------------------------------------------------
 if [ -n "$DIREKT" ]; then

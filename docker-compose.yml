@@ -29,8 +29,12 @@ services:
       DB_PATH: /app/data/lernapp.sqlite
       SESSION_COOKIE_NAME: ${SESSION_COOKIE_NAME:-ap_session}
       TRUST_PROXY: "1"
-      # open | invite | closed – s. server/.env.example
-      REGISTRATION: ${REGISTRATION:-open}
+      # open | invite | closed – s. server/.env.example. Default seit C9: invite
+      # (Konten nur per Einladung).
+      REGISTRATION: ${REGISTRATION:-invite}
+      # Nutzung nur mit Konto (C9): ohne Sitzung zeigt die App nur die
+      # Konto-Seite, Prüfungsinhalte liefert nginx nur mit Sitzung aus.
+      REQUIRE_LOGIN: ${REQUIRE_LOGIN:-true}
       ADMIN_EMAILS: ${ADMIN_EMAILS:-}
     volumes:
       - db_data:/app/data
