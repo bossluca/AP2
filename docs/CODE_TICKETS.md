@@ -28,6 +28,7 @@ eigenen Sitzung abgearbeitet werden.
 | C6 | Sitzungs-Tokens hashen + Audit-Log | mittel | Backend + Frontend | Opus / mittel |
 | C7 | Docker-/Deploy-Härtung | niedrig–mittel | Compose, nginx | Sonnet / niedrig |
 | C8 | Kleinere Fehler (PDF-Import, Plan ab Termin, SW-Fallback) | niedrig | Frontend | Sonnet / niedrig |
+| C9 | Nutzung nur mit Konto (Login-Pflicht) + Schutz des Servers | hoch | Backend + Frontend + nginx | Opus / mittel |
 
 ---
 
@@ -272,3 +273,43 @@ und `lernapp/nginx.conf` beibehalten. (4) Basis-Images auf konkrete Minor-Tags p
   Browser **nicht**, weil die CSP `img-src 'self' data:` setzt. Nur bei Änderung der CSP erneut prüfen.
 
 **Akzeptanz.** Je Punkt ein Test bzw. Konfigurationsprüfung; `npm test`, Lint, Build grün.
+
+---
+
+## C9 – Nutzung nur mit Konto (Login-Pflicht) + Schutz des Servers (hoch)
+
+**Hintergrund (Wunsch des Betreibers).** Die App soll nur mit Konto nutzbar sein; Nutzer werden
+per Einladungscode eingeladen. Prüfungs- und Lernzettel-Inhalte (urheberrechtlich heikel) dürfen
+für Unangemeldete nicht abrufbar sein, der Server soll vor Fremdzugriff und Spam geschützt sein.
+Baut auf C1 auf (Besitzer-Marker).
+
+**Anforderungen.**
+1. **Server-Config:** Env `REQUIRE_LOGIN` (Default `true` in `docker-compose.yml`/`.env.example`,
+   ohne Env in `server/src/index.js` `false` → lokale Entwicklung/Tests unverändert).
+   `GET /api/auth/config` liefert zusätzlich `loginPflicht: boolean`. Doku in `DEPLOYMENT.md`,
+   `server/README.md`, `.env.example`, `CLAUDE.md`.
+2. **Frontend-Gate:** `loginPflicht` und keine Sitzung → nur die Konto-Seite (Login, Registrierung
+   mit Einladungscode, Passwort vergessen, Einladungslink `#/konto?einladung=CODE`), keine
+   Lerninhalte, keine Navigation zu Lernseiten. Backend nicht erreichbar **und** kein früherer
+   Login → bisheriges rein lokales Verhalten (statisches Deployment/Preview). Offline nach früherem
+   Login (C1-Besitzer-Marker gesetzt) → App läuft mit lokalen Daten weiter; sobald der Server
+   erreichbar ist und keine Sitzung besteht, greift das Gate. Abgemeldet = immer Gate.
+3. **Inhalte nur mit Sitzung:** (a) `exam_data.json` erst nach Login per dynamischem `import()`
+   laden (Selektoren in `useExamData.js` bleiben synchron/API-kompatibel, Tests dürfen Daten direkt
+   bereitstellen); (b) Chunk `examdata` aus dem Precache (`globIgnores`), stattdessen
+   Runtime-Caching (CacheFirst, eigener Cache), beim Logout/Kontowechsel `caches.delete`;
+   (c) nginx liefert `/assets/examdata-*.js` nur mit gültiger Sitzung (`auth_request` →
+   `GET /api/auth/me`, eigene Include-Datei, Security-Header in jedem location-Block);
+   (d) `scripts/security-check.sh`: examdata ohne Sitzung → 401/403, Startseite ohne Lerninhalte.
+4. **Spam-/Missbrauchsschutz:** (a) nginx-Rate-Limit nur für `POST /api/auth/register`
+   (10/Stunde je IP, eigene Zone, 429); (b) `REGISTRATION=invite` als Compose-Default
+   (Verhaltensänderung in `CHANGELOG.md`/`DEPLOYMENT.md`); (c) falsche Einladungscodes zählen
+   gegen `app.loginLimiter` (Schlüssel `${req.ip}|invite`, 8 Fehlversuche/15 min → 429,
+   erfolgreiche Registrierung setzt zurück); (d) Tests für alles.
+5. Doku: `docs/CODE_TICKETS.md`, `SECURITY.md` (Befund + Status), `GO_LIVE_CHECKLISTE.md`,
+   `CHANGELOG.md`, `CLAUDE.md`.
+
+**Akzeptanz.** Server-Tests (Config-Flag, Einladungs-Bremse), Frontend-Tests (Gate-Logik, Gate
+zeigt nur Konto, keine Daten vor Login, Cache-Löschung beim Logout), E2E mit gemocktem Backend
+(Gate) und ohne Backend (lokal), Build ohne examdata im Precache. nginx-Teile, die lokal nicht
+laufen, im PR als „beim Rollout prüfen“ markieren.
