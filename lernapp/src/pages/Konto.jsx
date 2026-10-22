@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { KeyRound, ShieldCheck, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../lib/api';
+import { ladeLoginPflichtBekannt } from '../lib/zugang';
 import DatenSicherung from '../components/DatenSicherung';
 
 /**
@@ -14,25 +15,26 @@ import DatenSicherung from '../components/DatenSicherung';
  * lokal; dieser Bereich ist optional.
  */
 export default function Konto() {
-  const { user, login, register, recover, logout, deleteAccount } = useAuth();
+  const {
+    user,
+    login,
+    register,
+    recover,
+    logout,
+    deleteAccount,
+    konfig,
+    neuerRecoveryCode: neuerCode,
+    setNeuerRecoveryCode: setNeuerCode,
+  } = useAuth();
   const [searchParams] = useSearchParams();
   // Einladungslink `#/konto?einladung=CODE` öffnet direkt die Registrierung.
   const [einladung, setEinladung] = useState(() => searchParams.get('einladung') || '');
   // 'login' | 'register' | 'recover'
   const [modus, setModus] = useState(() => (searchParams.get('einladung') ? 'register' : 'login'));
   // Registrierungsmodus der Instanz (open | invite | closed); ohne Backend „open".
-  const [regModus, setRegModus] = useState('open');
-  useEffect(() => {
-    let aktiv = true;
-    // In der Kette, damit auch ein synchroner Fehler (Client ohne config) nur „open" bedeutet.
-    Promise.resolve()
-      .then(() => authApi.config())
-      .then((c) => aktiv && c?.registrierung && setRegModus(c.registrierung))
-      .catch(() => {});
-    return () => {
-      aktiv = false;
-    };
-  }, []);
+  // Konfiguration lädt der AuthContext (auch für die Login-Pflicht, C9).
+  const regModus = konfig?.registrierung || 'open';
+  const loginPflicht = konfig?.loginPflicht === true;
   const [email, setEmail] = useState('');
   const [passwort, setPasswort] = useState('');
   const [passwort2, setPasswort2] = useState('');
@@ -41,8 +43,8 @@ export default function Konto() {
   const [fehler, setFehler] = useState(null);
   const [busy, setBusy] = useState(false);
   const [loeschen, setLoeschen] = useState(false);
-  // Einmalig anzuzeigender Recovery-Code (nach Registrierung/Reset/Erneuern).
-  const [neuerCode, setNeuerCode] = useState(null);
+  // Einmalig anzuzeigender Recovery-Code (nach Registrierung/Reset/Erneuern)
+  // liegt im AuthContext, damit er den Wechsel vom Login-Gate zur App übersteht.
 
   const submit = async (e) => {
     e.preventDefault();
@@ -60,11 +62,9 @@ export default function Konto() {
     setBusy(true);
     try {
       if (modus === 'register') {
-        const d = await register(email, passwort, regModus === 'invite' ? einladung : undefined);
-        if (d?.recoveryCode) setNeuerCode(d.recoveryCode);
+        await register(email, passwort, regModus === 'invite' ? einladung : undefined);
       } else if (modus === 'recover') {
-        const d = await recover(email, recoveryEingabe, passwort);
-        if (d?.recoveryCode) setNeuerCode(d.recoveryCode);
+        await recover(email, recoveryEingabe, passwort);
       } else {
         await login(email, passwort);
       }
@@ -209,10 +209,22 @@ export default function Konto() {
   return (
     <div className="space-y-4 max-w-md">
       <h1 className="text-2xl font-semibold tracking-tight">Konto</h1>
-      <p className="text-sm text-muted-foreground">
-        Optional: Mit einem Konto wird dein Fortschritt geräteübergreifend gespeichert. Ohne Konto
-        läuft alles lokal im Browser.
-      </p>
+      {loginPflicht ? (
+        <p className="text-sm text-muted-foreground">
+          FiSi.dev ist auf dieser Instanz nur mit Konto nutzbar. Neue Konten gibt es per
+          Einladung – melde dich an oder registriere dich mit deinem Einladungscode.
+        </p>
+      ) : (
+        <p className="text-sm text-muted-foreground">
+          Optional: Mit einem Konto wird dein Fortschritt geräteübergreifend gespeichert. Ohne Konto
+          läuft alles lokal im Browser.
+        </p>
+      )}
+      {konfig === null && ladeLoginPflichtBekannt() && (
+        <p className="text-xs text-muted-foreground" role="status">
+          Der Server ist gerade nicht erreichbar – Anmelden klappt erst wieder mit Verbindung.
+        </p>
+      )}
 
       {/* Speicher-Transparenz */}
       <div className="card p-3 text-xs text-muted-foreground space-y-1">
@@ -409,7 +421,8 @@ export default function Konto() {
         )}
       </form>
 
-      <DatenSicherung />
+      {/* Lokale Datensicherung nur, wenn die App auch ohne Konto nutzbar ist. */}
+      {!loginPflicht && <DatenSicherung />}
     </div>
   );
 }

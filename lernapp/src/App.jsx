@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense } from 'react';
-import { HashRouter, Routes, Route, NavLink, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom';
 import { Search, User, Moon, Sun, Flame, Menu, X } from 'lucide-react';
 import { NAV, NAV_SEKUNDAER, BOTTOM_ROUTES, DESKTOP_ROUTES } from './navigation';
 import Home from './pages/Home';
@@ -28,6 +28,8 @@ import { useGamification } from './context/GamificationContext';
 import ErfolgWatcher from './components/ErfolgWatcher';
 import KontoDatenSync from './components/KontoDatenSync';
 import UebernahmeDialog from './components/UebernahmeDialog';
+import ExamDatenGrenze from './components/ExamDatenGrenze';
+import { useZugang } from './context/AuthContext';
 import CommandPalette from './components/CommandPalette';
 import FehlerGrenze from './components/FehlerGrenze';
 const Info_Seite = lazy(() => import('./pages/Info'));
@@ -265,29 +267,85 @@ function AppFooter() {
 }
 
 /**
- * Wurzelkomponente: Router + Layout-Rahmen. State-Provider (Theme, Auth,
- * Progress) werden in main.jsx oberhalb eingehängt.
+ * Login-Gate (C9): Ist die Instanz nur mit Konto nutzbar und besteht keine
+ * Sitzung, gibt es nur die Konto-Seite (Login, Registrierung mit Einladung,
+ * Passwort vergessen, Einladungslink `#/konto?einladung=CODE`) und die
+ * Datenschutz-Seite – keine Lernseiten, keine Navigation, keine Lerninhalte.
  */
-export default function App() {
+function LoginGate() {
+  return (
+    <div className="relative z-10">
+      <nav className="border-b bg-background/80 backdrop-blur">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex items-center gap-2">
+          <span className="font-bold text-base sm:text-lg flex items-center gap-1.5">
+            <span className="font-mono text-accent" aria-hidden="true">
+              &gt;_
+            </span>
+            <span className="text-gradient">FiSi.dev</span>
+          </span>
+          <div className="ml-auto">
+            <ThemeToggle />
+          </div>
+        </div>
+      </nav>
+      <main className="max-w-4xl mx-auto p-4 sm:p-6 pb-10 animate-in">
+        <FehlerGrenze>
+          <Suspense fallback={<SeiteLaedt />}>
+            <Routes>
+              <Route path="/konto" element={<Konto />} />
+              <Route path="/info" element={<Info_Seite />} />
+              <Route path="*" element={<Navigate to="/konto" replace />} />
+            </Routes>
+          </Suspense>
+        </FehlerGrenze>
+      </main>
+      <AppFooter />
+    </div>
+  );
+}
+
+/** Volle App (angemeldet oder Instanz ohne Login-Pflicht). */
+function AppShell() {
   const [mehrOffen, setMehrOffen] = useState(false);
   const [paletteOffen, setPaletteOffen] = useState(false);
   return (
+    <>
+      <div className="relative z-10">
+        <TopBar onPalette={() => setPaletteOffen(true)} onMehr={() => setMehrOffen(true)} />
+        <AnimatedMain />
+        <AppFooter />
+      </div>
+      <BottomNav onMehr={() => setMehrOffen(true)} />
+      {mehrOffen && <MehrSheet onClose={() => setMehrOffen(false)} />}
+      <CommandPalette
+        offen={paletteOffen}
+        onClose={() => setPaletteOffen(false)}
+        onToggle={() => setPaletteOffen((o) => !o)}
+      />
+      <ErfolgWatcher />
+      <KontoDatenSync />
+    </>
+  );
+}
+
+/**
+ * Wurzelkomponente: Router + Layout-Rahmen. State-Provider (Theme, Auth,
+ * Progress) werden in main.jsx oberhalb eingehängt. Der Zugang (C9)
+ * entscheidet zwischen Lade-Anzeige, Login-Gate und voller App; die
+ * Prüfungsdaten werden erst in der vollen App geladen.
+ */
+export default function App() {
+  const zugang = useZugang();
+  return (
     <HashRouter>
       <div className="relative isolate min-h-screen bg-background text-foreground">
-        <div className="relative z-10">
-          <TopBar onPalette={() => setPaletteOffen(true)} onMehr={() => setMehrOffen(true)} />
-          <AnimatedMain />
-          <AppFooter />
-        </div>
-        <BottomNav onMehr={() => setMehrOffen(true)} />
-        {mehrOffen && <MehrSheet onClose={() => setMehrOffen(false)} />}
-        <CommandPalette
-          offen={paletteOffen}
-          onClose={() => setPaletteOffen(false)}
-          onToggle={() => setPaletteOffen((o) => !o)}
-        />
-        <ErfolgWatcher />
-        <KontoDatenSync />
+        {zugang === 'laedt' && <SeiteLaedt />}
+        {zugang === 'gate' && <LoginGate />}
+        {zugang === 'app' && (
+          <ExamDatenGrenze>
+            <AppShell />
+          </ExamDatenGrenze>
+        )}
         <UebernahmeDialog />
       </div>
     </HashRouter>
