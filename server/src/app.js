@@ -26,6 +26,8 @@ import { erstelleRateLimiter } from './lib/rateLimit.js';
  * @param {object}  [opts.loginLimiter] Rate-Limiter für /api/auth/login (Test-Injektion).
  * @param {'open'|'invite'|'closed'} [opts.registrierung]  Wer darf Konten anlegen (Default open).
  * @param {string}  [opts.adminEmails]   Komma-Liste der Admin-E-Mails (Admin-Bereich).
+ * @param {boolean} [opts.requireLogin]  Nutzung nur mit Konto (Login-Pflicht, C9). Das
+ *                                        Frontend zeigt dann ohne Sitzung nur die Konto-Seite.
  * @param {boolean} [opts.trustProxy]    Hinter Reverse-Proxy `X-Forwarded-For` vertrauen
  *                                        (damit `req.ip` die echte Client-IP ist).
  * @returns {Promise<import('fastify').FastifyInstance>}
@@ -52,6 +54,7 @@ export async function buildApp(opts = {}) {
     secureCookie: opts.secureCookie ?? false,
     registrierung: registrierungsModus(opts.registrierung),
     adminEmails: adminEmails(opts.adminEmails),
+    loginPflicht: opts.requireLogin === true,
   });
 
   const db = openDb(opts.dbPath || ':memory:');

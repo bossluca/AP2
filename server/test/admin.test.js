@@ -55,7 +55,7 @@ async function registriere(email, extra = {}) {
 
 test('config + geschlossene Registrierung', async () => {
   app = await buildApp({ registrierung: 'closed' });
-  assert.deepEqual((await app.inject({ url: '/api/auth/config' })).json(), { registrierung: 'closed' });
+  assert.deepEqual((await app.inject({ url: '/api/auth/config' })).json(), { registrierung: 'closed', loginPflicht: false });
   const { res } = await registriere('a@b.de');
   assert.equal(res.statusCode, 403);
 });

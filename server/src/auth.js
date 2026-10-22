@@ -62,8 +62,12 @@ export async function authRoutes(app) {
   // damit Tests/Mehrfach-Apps sich nicht denselben Zähler teilen.
   const loginLimiter = app.loginLimiter || erstelleRateLimiter({ maxVersuche: 8, fensterMs: 15 * 60 * 1000 });
 
-  // Öffentliche Konfiguration fürs Frontend (welches Registrierungsformular?).
-  app.get('/api/auth/config', async () => ({ registrierung: app.config.registrierung }));
+  // Öffentliche Konfiguration fürs Frontend (welches Registrierungsformular?
+  // Nur mit Konto nutzbar → Frontend zeigt ohne Sitzung nur die Konto-Seite).
+  app.get('/api/auth/config', async () => ({
+    registrierung: app.config.registrierung,
+    loginPflicht: app.config.loginPflicht === true,
+  }));
 
   app.post('/api/auth/register', async (req, reply) => {
     const { email, password, inviteCode } = req.body || {};
@@ -85,8 +89,17 @@ export async function authRoutes(app) {
     // Auch Konten aus ADMIN_EMAILS brauchen einen Code: Die E-Mail wird nicht
     // verifiziert, sonst könnte sich jeder vorab als Admin registrieren. Den
     // ersten Code erzeugt der Betreiber per CLI (src/einladung-cli.js).
+    // Einladungs-Bremse (C9): Jeder Code-Versuch zählt gegen dieselbe Bremse wie
+    // der Login (Schlüssel je IP), 8 Fehlversuche / 15 min → 429. Erfolgreiche
+    // Registrierung setzt den Zähler zurück.
     let einladung = null;
+    const inviteSchluessel = `${req.ip}|invite`;
     if (modus === 'invite') {
+      const limit = loginLimiter.pruefe(inviteSchluessel);
+      if (!limit.erlaubt) {
+        reply.header('Retry-After', String(limit.retryNachSek));
+        return reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
+      }
       einladung = db.prepare('SELECT * FROM invites WHERE code_hash = ?').get(hashEinladung(inviteCode));
       if (!einladungGueltig(einladung)) {
         return reply.code(403).send({ error: 'Einladungscode ungültig, abgelaufen oder aufgebraucht.' });
@@ -127,6 +140,7 @@ export async function authRoutes(app) {
       throw err;
     }
 
+    if (einladung) loginLimiter.erfolg(inviteSchluessel);
     const { token, expires } = createSession(db, userId);
     setSessionCookie(reply, token, expires);
     return reply.code(201).send({

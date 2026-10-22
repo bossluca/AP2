@@ -1,6 +1,7 @@
 import { buildApp } from './app.js';
 import { raeumeSessionsAuf } from './session.js';
 import { trustProxyAusEnv } from './lib/proxy.js';
+import { schalterAusEnv } from './lib/konfig.js';
 
 /**
  * Produktiv-/Dev-Entrypoint. Liest Konfiguration aus Umgebungsvariablen
@@ -16,6 +17,9 @@ const app = await buildApp({
   secureCookie: process.env.NODE_ENV === 'production',
   registrierung: process.env.REGISTRATION,
   adminEmails: process.env.ADMIN_EMAILS,
+  // Login-Pflicht (C9): ohne Env aus, damit lokale Entwicklung/Tests unverändert
+  // laufen. docker-compose.yml setzt REQUIRE_LOGIN=true als Default.
+  requireLogin: schalterAusEnv(process.env.REQUIRE_LOGIN, false),
   // Hinter dem Reverse-Proxy (Standard-Deployment) genau 1 Hop vertrauen, damit
   // das Login-Rate-Limit pro echter Client-IP greift und gefälschte
   // X-Forwarded-For-Einträge nichts bewirken. TRUST_PROXY=0 = Direktbetrieb.
