@@ -109,4 +109,5 @@ In Cloud-Sandbox-Umgebungen (bash-Mount) wurden kürzlich per Write/Edit übersc
 - Tests: `lernapp` → `npm test` (Vitest), `server` → `npm test` (node:test). Vor Commits grün halten.
 - Datenänderungen an `exam_data.json`: vorher `npm run backup`; Lernzettel nicht von Hand editieren, sondern über `scripts/import/*` neu erzeugen
 - Commits klein und beschreibend halten
+- **Modellwahl (Wunsch des Besitzers):** Hauptsitzung auf **Sonnet** (planen, Tickets/Prompts, kleine Fixes, Doku), Aufwand **mittel bis niedrig** (`/model sonnet`, `/effort medium`). **Große Aufgaben** (neue Features, größere Umbauten, tiefe Security-Analysen) per Subagent an **Opus** abgeben, ebenfalls mit mittlerem/niedrigem Aufwand; Ergebnis vor der Weitergabe prüfen (Tests, Diff). Reine Suche/Lesen an einen Explore-Subagenten. Vor einer Opus-Übergabe kurz ankündigen
 - Lernmaterial (`Pruefungen_*`) ist reine Dokumentation/Daten — keine Build-Schritte nötig
