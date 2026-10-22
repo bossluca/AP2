@@ -20,6 +20,7 @@ import { berechneLevel } from '../lib/level';
 import { useAuth } from './AuthContext';
 import { gamificationApi } from '../lib/api';
 import { mergeGamification } from '../lib/gamiMerge';
+import { NUTZERDATEN_GELOESCHT_EVENT } from '../lib/besitzer';
 
 /**
  * Lokaler Gamification-Stand (Lern-Aktivität pro Tag, XP, bestes
@@ -55,7 +56,12 @@ function loadGamification() {
 /** Persistiert den Gamification-Stand (Fehler werden geschluckt). */
 function saveGamification(g) {
   try {
-    localStorage.setItem(GAMIFICATION_KEY, JSON.stringify(g));
+    const leer =
+      !g ||
+      (!(g.xp > 0) && !(g.klausurBest > 0) && Object.keys(g.activity || {}).length === 0);
+    // Leerer Stand → Schlüssel entfernen (nach Logout bleibt nichts liegen).
+    if (leer) localStorage.removeItem(GAMIFICATION_KEY);
+    else localStorage.setItem(GAMIFICATION_KEY, JSON.stringify(g));
   } catch {
     /* ignore */
   }
@@ -86,7 +92,7 @@ const GamificationContext = createContext(null);
  */
 export function GamificationProvider({ children }) {
   const [gamification, setGamification] = useState(loadGamification);
-  const { user } = useAuth();
+  const { user, syncModus } = useAuth();
 
   // Ref auf den aktuellen Stand (für refstabilen Export-Lookup).
   const gamificationRef = useRef(gamification);
@@ -120,6 +126,17 @@ export function GamificationProvider({ children }) {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
+  // C1: Logout/Kontowechsel hat die lokalen Nutzerdaten gelöscht → leeren,
+  // ohne den leeren Stand an ein Konto zu schreiben (Sync pausiert).
+  useEffect(() => {
+    const onGeloescht = () => {
+      gamiSyncBereit.current = false;
+      setGamification(leererGamificationStand());
+    };
+    window.addEventListener(NUTZERDATEN_GELOESCHT_EVENT, onGeloescht);
+    return () => window.removeEventListener(NUTZERDATEN_GELOESCHT_EVENT, onGeloescht);
+  }, []);
+
   // Wieder online: aktuellen Stand best-effort durchschreiben (der Stand ist
   // ein Ganzes-Dokument-PUT – eine Outbox-Queue braucht es hier nicht).
   useEffect(() => {
@@ -134,6 +151,7 @@ export function GamificationProvider({ children }) {
 
   // Nach dem Login: Kontostand laden, max-basiert mit lokalem Stand mergen.
   // Der Save-Effekt schreibt den gemergten Stand anschließend zurück.
+  // C1: Im Modus 'laden' zählt nur der Kontostand (kein Merge lokaler Daten).
   useEffect(() => {
     gamiSyncBereit.current = false; // bei Nutzerwechsel/Logout Sync pausieren
     if (!user) return;
@@ -141,7 +159,11 @@ export function GamificationProvider({ children }) {
     (async () => {
       try {
         const { gamification: serverGami } = await gamificationApi.get();
-        if (aktiv) setGamification((lokal) => mergeGamification(lokal, serverGami));
+        if (aktiv) {
+          setGamification((lokal) =>
+            mergeGamification(syncModus === 'laden' ? leererGamificationStand() : lokal, serverGami)
+          );
+        }
       } catch {
         /* offline: lokalen Stand behalten */
       }
@@ -150,7 +172,7 @@ export function GamificationProvider({ children }) {
     return () => {
       aktiv = false;
     };
-  }, [user]);
+  }, [user, syncModus]);
 
   /**
    * Verbucht Lernaktivität für heute (für Streak/Tagesziel/Heatmap). Wird von

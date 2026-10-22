@@ -18,7 +18,7 @@ const LOKAL = {
  * Ohne Login/Backend passiert nichts – alles bleibt lokal.
  */
 export default function KontoDatenSync() {
-  const { user } = useAuth();
+  const { user, syncModus } = useAuth();
   const bereit = useRef(false); // erst nach dem Login-Merge durchschreiben
 
   useEffect(() => {
@@ -29,7 +29,11 @@ export default function KontoDatenSync() {
       try {
         const { daten } = await datenApi.get();
         if (!aktiv) return;
-        const lokal = { einstufung: ladeEinstufung(), eigeneKarten: ladeStapel() };
+        // C1: Im Modus 'laden' gehören lokale Reste nicht zu diesem Konto → nicht mergen.
+        const lokal =
+          syncModus === 'laden'
+            ? { einstufung: null, eigeneKarten: [] }
+            : { einstufung: ladeEinstufung(), eigeneKarten: ladeStapel() };
         const m = mergeKontoDaten(lokal, daten || {});
         if (m.aenderungLokal) {
           // Ohne Meldung speichern, sonst löst die Übernahme selbst einen PUT aus.
@@ -52,7 +56,7 @@ export default function KontoDatenSync() {
     return () => {
       aktiv = false;
     };
-  }, [user]);
+  }, [user, syncModus]);
 
   useEffect(() => {
     const onAenderung = (e) => {

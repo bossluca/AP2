@@ -3,7 +3,6 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { KeyRound, ShieldCheck, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../lib/api';
-import { useProgress } from '../context/ProgressContext';
 import DatenSicherung from '../components/DatenSicherung';
 
 /**
@@ -16,7 +15,6 @@ import DatenSicherung from '../components/DatenSicherung';
  */
 export default function Konto() {
   const { user, login, register, recover, logout, deleteAccount } = useAuth();
-  const { resetProgress } = useProgress();
   const [searchParams] = useSearchParams();
   // Einladungslink `#/konto?einladung=CODE` öffnet direkt die Registrierung.
   const [einladung, setEinladung] = useState(() => searchParams.get('einladung') || '');
@@ -91,8 +89,7 @@ export default function Konto() {
     setFehler(null);
     setBusy(true);
     try {
-      await deleteAccount();
-      resetProgress(); // lokalen Stand ebenfalls leeren
+      await deleteAccount(); // räumt auch den lokalen Stand auf (C1)
       setLoeschen(false);
     } catch (err) {
       setFehler(err.message || 'Löschen fehlgeschlagen.');
