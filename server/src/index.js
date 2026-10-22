@@ -1,5 +1,6 @@
 import { buildApp } from './app.js';
 import { raeumeSessionsAuf } from './session.js';
+import { trustProxyAusEnv } from './lib/proxy.js';
 
 /**
  * Produktiv-/Dev-Entrypoint. Liest Konfiguration aus Umgebungsvariablen
@@ -15,10 +16,10 @@ const app = await buildApp({
   secureCookie: process.env.NODE_ENV === 'production',
   registrierung: process.env.REGISTRATION,
   adminEmails: process.env.ADMIN_EMAILS,
-  // Hinter dem Reverse-Proxy (Standard-Deployment) X-Forwarded-For vertrauen,
-  // damit das Login-Rate-Limit pro echter Client-IP greift. Per TRUST_PROXY=0
-  // abschaltbar (z. B. direkter Betrieb ohne Proxy).
-  trustProxy: process.env.TRUST_PROXY !== '0',
+  // Hinter dem Reverse-Proxy (Standard-Deployment) genau 1 Hop vertrauen, damit
+  // das Login-Rate-Limit pro echter Client-IP greift und gefälschte
+  // X-Forwarded-For-Einträge nichts bewirken. TRUST_PROXY=0 = Direktbetrieb.
+  trustProxy: trustProxyAusEnv(process.env.TRUST_PROXY),
   logger: true,
 });
 

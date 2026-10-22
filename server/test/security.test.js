@@ -155,3 +155,26 @@ test('Login: unbekannte E-Mail kostet ähnlich viel Zeit wie ein falsches Passwo
   const unbekannt = await messe('weg@b.de');
   assert.ok(unbekannt > bekannt * 0.4, `unbekannt ${unbekannt.toFixed(1)} ms vs. bekannt ${bekannt.toFixed(1)} ms`);
 });
+
+test('Login-Bremse: gefälschter X-Forwarded-For umgeht sie nicht (1 vertrauter Hop)', async () => {
+  const { trustProxyAusEnv } = await import('../src/lib/proxy.js');
+  assert.equal(trustProxyAusEnv(undefined), 1);
+  assert.equal(trustProxyAusEnv('1'), 1);
+  assert.equal(trustProxyAusEnv('0'), 0);
+  assert.equal(trustProxyAusEnv('true'), 1);
+  app = await buildApp({ trustProxy: trustProxyAusEnv('1') });
+  await registriere('a@b.de');
+  const codes = [];
+  for (let i = 0; i < 12; i += 1) {
+    const r = await app.inject({
+      method: 'POST',
+      url: '/api/auth/login',
+      remoteAddress: '172.18.0.3',
+      // links: vom Angreifer gesetzt und wechselnd; rechts: vom Proxy angehängt (echte IP).
+      headers: { 'x-forwarded-for': `1.2.3.${i}, 203.0.113.9` },
+      payload: { email: 'a@b.de', password: 'falsch12345' },
+    });
+    codes.push(r.statusCode);
+  }
+  assert.ok(codes.includes(429), `429 erwartet, bekam ${codes.join(' ')}`);
+});

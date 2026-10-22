@@ -87,6 +87,7 @@ Exit-Code ≠ 0 bei einem Fehler → als Cron mit Log oder als Kuma-„Push“-M
 | S12 | Rate-Limits im Speicher → Neustart setzt Zähler zurück | niedrig | akzeptiert |
 | S13 | Einladungscode-Versuche nur über nginx gebremst (30/min), nicht in der App | niedrig (Codes ~60 Bit) | akzeptiert |
 | S15 | Konto-Erkennung: Login antwortete bei unbekannter E-Mail messbar schneller (1 ms statt ~40 ms); im `invite`-Modus verriet die Registrierung ohne Code „bereits registriert“ | mittel | **behoben im Code** (Dummy-Hash, Code-Prüfung zuerst), Rollout mit 8.1 |
+| S16 | **Login-Bremse per gefälschtem `X-Forwarded-For` umgehbar:** `TRUST_PROXY=1` wurde als „alles vertrauen“ gelesen, Fastify nahm den linken (vom Angreifer setzbaren) Eintrag; nginx hängte die Client-Header nur an. Im Test blieben 15 Fehl-Logins mit wechselnden Fake-IPs ohne 429. Es griff nur noch nginx (30/min je echter IP). | hoch | **behoben im Code** (1 vertrauter Hop, nginx überschreibt den Header), Rollout mit 8.1 |
 | S14 | Root-Dateisystem VM 106 zu 90 % voll (`containerd.alt`) → volle Platte = Ausfall | niedrig | offen → Aufräum-Ticket |
 
 Erledigt am 2026-10-20: Security-Header wieder aktiv, Registrierung auf `invite`,
