@@ -11,7 +11,11 @@
 
 const KEY = 'ap2_lernapp_outbox_v1';
 
-/** @typedef {{id:string, entry:Object}} OutboxEintrag */
+/**
+ * @typedef {{id:string, entry:Object, userId?:number|string}} OutboxEintrag
+ *          `userId` bindet den Eintrag an das Konto, unter dem er entstand (C1):
+ *          gesendet wird er nur unter genau diesem Konto.
+ */
 
 /** Lädt die Outbox defensiv aus localStorage (kaputt/leer → []). */
 export function ladeOutbox() {
@@ -44,29 +48,36 @@ export function speichereOutbox(liste) {
  * @param {OutboxEintrag[]} liste
  * @param {string} id
  * @param {Object} entry
+ * @param {number|string} [userId]  Konto, unter dem der Write entstand.
  * @returns {OutboxEintrag[]} neue Liste
  */
-export function merkeEintrag(liste, id, entry) {
-  const ohne = liste.filter((e) => e.id !== id);
-  return [...ohne, { id, entry }];
+export function merkeEintrag(liste, id, entry, userId) {
+  const ohne = liste.filter((e) => !(e.id === id && e.userId === userId));
+  return [...ohne, userId === undefined ? { id, entry } : { id, entry, userId }];
 }
 
 /**
- * Versucht, alle gepufferten Einträge zu senden. Bricht beim ersten Fehler ab
- * (Reihenfolge bleibt erhalten, kein Hämmern gegen einen toten Server).
+ * Versucht, alle gepufferten Einträge **des angegebenen Kontos** zu senden.
+ * Einträge eines anderen Kontos (oder ohne Konto-Bindung aus der Zeit vor C1)
+ * werden nie gesendet, sondern verworfen – ihr Stand gehört nicht in dieses
+ * Konto. Bricht beim ersten Fehler ab (Reihenfolge bleibt erhalten, kein
+ * Hämmern gegen einen toten Server).
  * @param {OutboxEintrag[]} liste
  * @param {(id:string, entry:Object) => Promise} sende
- * @returns {Promise<{rest:OutboxEintrag[], gesendet:number}>}
+ * @param {number|string} [userId]  aktuelles Konto
+ * @returns {Promise<{rest:OutboxEintrag[], gesendet:number, verworfen:number}>}
  */
-export async function flusheOutbox(liste, sende) {
+export async function flusheOutbox(liste, sende, userId) {
+  const eigene = liste.filter((e) => e.userId === userId);
+  const verworfen = liste.length - eigene.length;
   let gesendet = 0;
-  for (const e of liste) {
+  for (const e of eigene) {
     try {
       await sende(e.id, e.entry);
       gesendet += 1;
     } catch {
-      return { rest: liste.slice(gesendet), gesendet };
+      return { rest: eigene.slice(gesendet), gesendet, verworfen };
     }
   }
-  return { rest: [], gesendet };
+  return { rest: [], gesendet, verworfen };
 }

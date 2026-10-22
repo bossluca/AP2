@@ -16,6 +16,7 @@ import { progressApi } from '../lib/api';
 import { GamificationProvider, useGamification } from './GamificationContext';
 import { mergeProgress } from '../lib/progressMerge';
 import { ladeOutbox, speichereOutbox, merkeEintrag, flusheOutbox } from '../lib/outbox';
+import { NUTZERDATEN_GELOESCHT_EVENT } from '../lib/besitzer';
 
 /**
  * Versionierter localStorage-Schlüssel. Bei inkompatiblen Schema-Änderungen
@@ -79,7 +80,9 @@ function loadProgress() {
  */
 function saveProgress(progress) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    // Leerer Stand → Schlüssel entfernen (nach Logout bleibt nichts liegen).
+    if (!progress || Object.keys(progress).length === 0) localStorage.removeItem(STORAGE_KEY);
+    else localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
   } catch {
     /* ignore */
   }
@@ -118,7 +121,7 @@ function ProgressProviderInnen({ children }) {
   const [progress, setProgress] = useState(loadProgress);
   // „Weiterlernen": zuletzt begonnene Session (gerätelokal, best-effort).
   const [resume, setResumeState] = useState(() => ladeResume());
-  const { user } = useAuth();
+  const { user, syncModus } = useAuth();
   const { resetGamification } = useGamification();
 
   // Ref auf den jeweils aktuellen Stand, damit `getStatus` refstabil bleibt
@@ -150,16 +153,33 @@ function ProgressProviderInnen({ children }) {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
+  // C1: Logout/Kontowechsel hat die lokalen Nutzerdaten gelöscht → State leeren.
+  useEffect(() => {
+    const onGeloescht = () => {
+      progressRef.current = {};
+      setProgress({});
+      setResumeState(null);
+    };
+    window.addEventListener(NUTZERDATEN_GELOESCHT_EVENT, onGeloescht);
+    return () => window.removeEventListener(NUTZERDATEN_GELOESCHT_EVENT, onGeloescht);
+  }, []);
+
   // Outbox: fehlgeschlagene Server-Writes nachschreiben, sobald wieder Netz
   // da ist. Läuft nur angemeldet und ist selbst best-effort (Rest bleibt liegen).
+  // Gesendet werden nur Einträge des aktuellen Kontos (C1).
   const outboxFlushLaeuft = useRef(false);
   const flusheAusstehende = useCallback(async () => {
-    if (!userRef.current || outboxFlushLaeuft.current) return;
+    const aktuell = userRef.current;
+    if (!aktuell || outboxFlushLaeuft.current) return;
     const liste = ladeOutbox();
     if (liste.length === 0) return;
     outboxFlushLaeuft.current = true;
     try {
-      const { rest } = await flusheOutbox(liste, (id, entry) => progressApi.put(id, entry));
+      const { rest } = await flusheOutbox(
+        liste,
+        (id, entry) => progressApi.put(id, entry),
+        aktuell.id
+      );
       speichereOutbox(rest);
     } finally {
       outboxFlushLaeuft.current = false;
@@ -176,13 +196,14 @@ function ProgressProviderInnen({ children }) {
   // Nach dem Login: lokalen Fortschritt nicht-destruktiv ins Konto übernehmen
   // (Migration) und anschließend den Kontostand als maßgeblich laden. Offline /
   // ohne Backend schlägt das fehl und der lokale Stand bleibt erhalten.
+  // C1: Im Modus 'laden' (fremde/abgelehnte lokale Daten) wird nichts gemergt.
   useEffect(() => {
     if (!user) return;
     let aktiv = true;
     (async () => {
       try {
         await flusheAusstehende(); // liegengebliebene Writes zuerst
-        await progressApi.merge(progressRef.current);
+        if (syncModus !== 'laden') await progressApi.merge(progressRef.current);
         const { progress: server } = await progressApi.getAll();
         if (aktiv && server) setProgress(server);
       } catch {
@@ -192,7 +213,7 @@ function ProgressProviderInnen({ children }) {
     return () => {
       aktiv = false;
     };
-  }, [user, flusheAusstehende]);
+  }, [user, syncModus, flusheAusstehende]);
 
   // Schreibt einen Eintrag in den State und (falls angemeldet) best-effort
   // ans Backend. Jeder Schreibvorgang stempelt `updatedAt` (Sync/Merge-Basis).
@@ -205,7 +226,10 @@ function ProgressProviderInnen({ children }) {
       if (userRef.current) {
         progressApi.put(questionId, gestempelt).then(
           () => flusheAusstehende(),
-          () => speichereOutbox(merkeEintrag(ladeOutbox(), questionId, gestempelt))
+          () =>
+            speichereOutbox(
+              merkeEintrag(ladeOutbox(), questionId, gestempelt, userRef.current?.id)
+            )
         );
       }
     },
