@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { EXAMDATEN_CACHE } from './src/lib/examdatenCache.js';
 
 // https://vite.dev/config/
 //
@@ -41,13 +42,31 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Alle Build-Assets (inkl. examdata- und vendor-Chunk) precachen → voll
-        // offline nutzbar. Für SPA auf index.html zurückfallen.
+        // App-Shell + Bibliotheken precachen → offline nutzbar. Für SPA auf
+        // index.html zurückfallen.
         globPatterns: ['**/*.{js,css,html,svg,woff2}'],
-        // pdf.js (+ Worker, zusammen > 1 MB) nicht vorab cachen – nur wer PDFs
-        // importiert, lädt es nach.
-        globIgnores: ['**/pdfjs-*.js', '**/pdf.worker*'],
+        // Nicht vorab cachen:
+        // - pdf.js (+ Worker, zusammen > 1 MB) – nur wer PDFs importiert, lädt es nach.
+        // - examdata (C9): Prüfungsinhalte nur mit Sitzung. nginx liefert den Chunk
+        //   ohne gültiges Sitzungs-Cookie nicht aus; der Precache würde ihn sonst
+        //   schon vor dem Login (ohne Cookie) anfordern.
+        globIgnores: ['**/pdfjs-*.js', '**/pdf.worker*', '**/examdata-*.js'],
         navigateFallback: 'index.html',
+        // Prüfungsdaten nach dem Login zur Laufzeit cachen (CacheFirst: der
+        // Dateiname enthält einen Inhalts-Hash) → nach einem Login offline
+        // nutzbar. Nur 200er-Antworten (kein 401 der Sitzungsprüfung). Logout/
+        // Kontowechsel löscht den Cache (lib/examdatenCache.js).
+        runtimeCaching: [
+          {
+            urlPattern: /\/assets\/examdata-[\w-]+\.js$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: EXAMDATEN_CACHE,
+              expiration: { maxEntries: 2 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+        ],
       },
       devOptions: { enabled: false },
     }),
