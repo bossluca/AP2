@@ -7,6 +7,10 @@ import { hashEinladung, einladungGueltig } from './lib/einladung.js';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORT = 8;
 
+// Einmal erzeugter Hash eines Zufallswerts für Prüfungen ohne Konto (Timing-Schutz).
+let dummy;
+const dummyHash = () => (dummy ??= hash(randomBytes(16).toString('hex')));
+
 // Alphabet ohne verwechselbare Zeichen (kein I/O/0/1) für Recovery-Codes.
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
@@ -74,20 +78,23 @@ export async function authRoutes(app) {
       return reply.code(400).send({ error: `Passwort muss mind. ${MIN_PASSWORT} Zeichen haben.` });
     }
     const normEmail = email.trim().toLowerCase();
-    const exists = db.prepare('SELECT id FROM users WHERE email = ?').get(normEmail);
-    if (exists) return reply.code(409).send({ error: 'E-Mail ist bereits registriert.' });
 
-    // Einladung prüfen (vor dem teuren Hashing) – eingelöst wird erst unten,
-    // atomar zusammen mit dem Anlegen des Kontos.
-    // Konten aus ADMIN_EMAILS brauchen keinen Code – sonst könnte sich der
-    // Betreiber auf einer frischen invite-Instanz nie selbst anlegen.
+    // Einladung prüfen (vor dem teuren Hashing und VOR der Existenzprüfung,
+    // damit man ohne Code nicht abfragen kann, welche E-Mails registriert sind) –
+    // eingelöst wird erst unten, atomar zusammen mit dem Anlegen des Kontos.
+    // Auch Konten aus ADMIN_EMAILS brauchen einen Code: Die E-Mail wird nicht
+    // verifiziert, sonst könnte sich jeder vorab als Admin registrieren. Den
+    // ersten Code erzeugt der Betreiber per CLI (src/einladung-cli.js).
     let einladung = null;
-    if (modus === 'invite' && !app.config.adminEmails.has(normEmail)) {
+    if (modus === 'invite') {
       einladung = db.prepare('SELECT * FROM invites WHERE code_hash = ?').get(hashEinladung(inviteCode));
       if (!einladungGueltig(einladung)) {
         return reply.code(403).send({ error: 'Einladungscode ungültig, abgelaufen oder aufgebraucht.' });
       }
     }
+
+    const exists = db.prepare('SELECT id FROM users WHERE email = ?').get(normEmail);
+    if (exists) return reply.code(409).send({ error: 'E-Mail ist bereits registriert.' });
 
     const passwordHash = await hash(password);
     // Recovery-Code für den Passwort-Reset ohne Mail-Server: dem Nutzer einmal
@@ -143,8 +150,9 @@ export async function authRoutes(app) {
     const user = db
       .prepare('SELECT id, email, password_hash, gesperrt FROM users WHERE email = ?')
       .get(normEmail);
-    // Konstante-Zeit-ähnliches Verhalten: bei unbekannter E-Mail trotzdem antworten.
-    const ok = user ? await verify(user.password_hash, password).catch(() => false) : false;
+    // Bei unbekannter E-Mail gegen einen Dummy-Hash prüfen: gleiche Rechenzeit,
+    // sonst verrät die Antwortzeit, ob ein Konto existiert.
+    const ok = await verify(user?.password_hash || await dummyHash(), password).catch(() => false);
     if (!user || !ok) {
       return reply.code(401).send({ error: 'E-Mail oder Passwort falsch.' });
     }
@@ -181,10 +189,9 @@ export async function authRoutes(app) {
     const user = db
       .prepare('SELECT id, email, recovery_hash, gesperrt FROM users WHERE email = ?')
       .get(normEmail);
-    const ok =
-      user && user.recovery_hash
-        ? await verify(user.recovery_hash, normalisiereCode(recoveryCode)).catch(() => false)
-        : false;
+    const ok = await verify(user?.recovery_hash || await dummyHash(), normalisiereCode(recoveryCode)).catch(
+      () => false
+    );
     if (!ok) {
       return reply.code(401).send({ error: 'E-Mail oder Recovery-Code falsch.' });
     }

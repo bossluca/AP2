@@ -6,6 +6,26 @@ verständliche Ergebnis inklusive Verifikation.
 
 ## Unveröffentlicht
 
+### Sicherheit
+
+- 2026-10-20: **Admin-Erstregistrierung nur noch per Einladungscode.** Im Modus
+  `invite` öffnete eine E-Mail aus `ADMIN_EMAILS` die Registrierung ohne Code – da die
+  E-Mail nicht verifiziert wird, hätte jeder mit Kenntnis der Adresse das Admin-Konto
+  vorab anlegen können. Den ersten Code erzeugt der Betreiber jetzt auf dem Server
+  (`docker compose exec backend node src/einladung-cli.js`).
+- 2026-10-22: **Login-Bremse nicht mehr per `X-Forwarded-For` umgehbar:** `TRUST_PROXY`
+  zählt jetzt vertraute Hops (Default 1) statt „alles vertrauen“, nginx überschreibt
+  `X-Forwarded-For` mit der echten Client-IP. Test belegt: mit der alten Einstellung
+  blieben 12 Fehl-Logins mit wechselnden Fake-IPs ohne 429.
+- 2026-10-20: **Keine Konto-Erkennung mehr:** Login prüft bei unbekannter E-Mail gegen
+  einen Dummy-Hash (gleiche Antwortzeit), Recovery ebenso; im `invite`-Modus wird der
+  Code vor der Existenz der E-Mail geprüft. `GO_LIVE_CHECKLISTE.md` ergänzt.
+- 2026-10-20: **Abhängigkeiten aktualisiert:** fastify 5.12.7 (u. a. `X-Forwarded-*`-
+  Spoofing, Auth-Bypass), fast-uri, find-my-way, react-router 7.18.4.
+- 2026-10-20: **Security-Checks:** `server/test/security.test.js` (10 Invarianten),
+  `scripts/security-check.sh` (Black-Box-Prüfung der laufenden Instanz), `npm audit`
+  in CI inkl. wöchentlichem Lauf; Plan und Befunde in `SECURITY.md`.
+
 ### Hinzugefügt
 
 - 2026-10-20: **Self-Hosting-Leitfaden** `SELF_HOSTING.md` (Voraussetzungen mit

@@ -12,6 +12,7 @@ Lernprojekt für die Abschlussprüfung Teil 2 (AP2), Fachinformatiker Systeminte
 - `Pruefungen_Aufbereitet/` — Aufbereitete Prüfungen als Markdown (`INDEX.md` als Übersicht)
 - `AP2_Lernmaterial_Uebersicht.md` — Übersicht über vorhandenes Lernmaterial (AP1 + Zwischenprüfungen)
 - `docker-compose.yml` · `DEPLOYMENT.md` · `PROXMOX_SETUP.md` · **`SELF_HOSTING.md`** (Leitfaden Home-Server: Firewall, DDoS, Backups, Restore) — Containerisierung + Hosting · `scripts/{deploy,smoke-test,backup,restore}.sh`
+- **`SECURITY.md`** (Schutzziele, Befunde S1–S15, Plan, Routine) · **`GO_LIVE_CHECKLISTE.md`** (alles vor dem öffentlichen Betrieb: OWASP, Login, Proxy, Netz, Server, Docker, Backups, Notfall, Recht) · **`docs/CODE_TICKETS.md`** (C1–C8: Review-Tickets für die nächsten Arbeitsschritte) · `scripts/security-check.sh` (Black-Box-Check der laufenden Instanz) · `server/test/security.test.js`
 - `ROADMAP.md` (Phasen 0–5, erledigt) · `DECISIONS.md` (ADR) · `IMPROVEMENTS.md` (lebendes Backlog) · **`FAHRPLAN.md`** (priorisierter Ausblick: Self-Hosting, Konten, Gamification, Inhalte)
 
 ## lernapp/ – Architektur
@@ -61,7 +62,7 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
   `GET /api/auth/config` + **`/api/admin/*`** (Konten-Übersicht, sperren/löschen,
   Einladungen) – Env **`REGISTRATION`** (`open`/`invite`/`closed`) + **`ADMIN_EMAILS`**
   (Admin-Flag in `req.user.admin`); Einladungen in Tabelle `invites` (nur SHA-256-Hash,
-  atomar eingelöst), Sperre `users.gesperrt` (beendet Sitzungen; `userFromToken`
+  atomar eingelöst; **auch Admin-E-Mails brauchen einen Code** – den ersten erzeugt der Betreiber per `node src/einladung-cli.js` im Container), Sperre `users.gesperrt` (beendet Sitzungen; `userFromToken`
   ignoriert gesperrte Konten). Reine Helfer `src/lib/einladung.js`,
   **`/api/daten`** (GET + PUT `/:schluessel`, nur `einstufung`/`eigeneKarten`, Größenlimit;
   Tabelle `user_daten`), **`/api/gruppen`** (anlegen/`beitreten`/`:id/mitgliedschaft`
@@ -108,4 +109,5 @@ In Cloud-Sandbox-Umgebungen (bash-Mount) wurden kürzlich per Write/Edit übersc
 - Tests: `lernapp` → `npm test` (Vitest), `server` → `npm test` (node:test). Vor Commits grün halten.
 - Datenänderungen an `exam_data.json`: vorher `npm run backup`; Lernzettel nicht von Hand editieren, sondern über `scripts/import/*` neu erzeugen
 - Commits klein und beschreibend halten
+- **Modellwahl (Wunsch des Besitzers):** Hauptsitzung auf **Sonnet** (planen, Tickets/Prompts, kleine Fixes, Doku), Aufwand **mittel bis niedrig** (`/model sonnet`, `/effort medium`). **Große Aufgaben** (neue Features, größere Umbauten, tiefe Security-Analysen) per Subagent an **Opus** abgeben, ebenfalls mit mittlerem/niedrigem Aufwand; Ergebnis vor der Weitergabe prüfen (Tests, Diff). Reine Suche/Lesen an einen Explore-Subagenten. Vor einer Opus-Übergabe kurz ankündigen
 - Lernmaterial (`Pruefungen_*`) ist reine Dokumentation/Daten — keine Build-Schritte nötig

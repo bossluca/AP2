@@ -1,4 +1,5 @@
-import { erzeugeEinladungsCode, hashEinladung, einladungGueltig } from './lib/einladung.js';
+import { einladungGueltig } from './lib/einladung.js';
+import { erstelleEinladung } from './einladung-cli.js';
 
 /**
  * Admin-Bereich unter /api/admin – nur für Konten aus `ADMIN_EMAILS`.
@@ -86,19 +87,14 @@ export async function adminRoutes(app) {
 
   app.post('/api/admin/invites', async (req, reply) => {
     const { maxUses = 1, gueltigTage = 14, notiz = '' } = req.body || {};
-    const uses = Math.floor(Number(maxUses));
-    const tage = Math.floor(Number(gueltigTage));
-    if (!(uses >= 1 && uses <= 100)) return reply.code(400).send({ error: 'maxUses: 1–100.' });
-    if (!(tage >= 0 && tage <= 365)) return reply.code(400).send({ error: 'gueltigTage: 0–365 (0 = unbegrenzt).' });
-    const code = erzeugeEinladungsCode();
-    const jetzt = new Date();
-    const ablauf = tage > 0 ? new Date(jetzt.getTime() + tage * 86400000).toISOString() : null;
-    db.prepare(
-      `INSERT INTO invites (code_hash, hinweis, notiz, max_uses, created_by, created_at, expires_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(hashEinladung(code), code.slice(0, 4), String(notiz).slice(0, 80), uses, req.user.id, jetzt.toISOString(), ablauf);
-    // Klartext nur in dieser Antwort – gespeichert ist nur der Hash.
-    return reply.code(201).send({ code, maxUses: uses, laeuftAb: ablauf });
+    try {
+      // Klartext nur in dieser Antwort – gespeichert ist nur der Hash.
+      const neu = erstelleEinladung(db, { maxUses, gueltigTage, notiz, erstelltVon: req.user.id });
+      return reply.code(201).send(neu);
+    } catch (err) {
+      if (err instanceof RangeError) return reply.code(400).send({ error: err.message });
+      throw err;
+    }
   });
 
   app.delete('/api/admin/invites/:id', async (req, reply) => {

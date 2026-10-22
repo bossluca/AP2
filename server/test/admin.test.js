@@ -8,6 +8,8 @@ import {
   normalisiereEinladung,
   einladungGueltig,
 } from '../src/lib/einladung.js';
+import { erstelleEinladung } from '../src/einladung-cli.js';
+import { openDb } from '../src/db.js';
 
 // --- reine Helfer ---------------------------------------------------------
 
@@ -90,13 +92,25 @@ test('Admin erzeugt Einladung; Registrierung nur mit gültigem Code, Code wird v
   assert.deepEqual(ueb.konten.map((k) => k.email).sort(), ['admin@fisi.dev', 'mit@b.de']);
 });
 
-test('invite: Admin-E-Mail registriert sich ohne Code, andere nicht', async () => {
+test('invite: auch Admin-E-Mails brauchen einen Code; CLI-Einladung funktioniert', async () => {
   app = await buildApp({ registrierung: 'invite', adminEmails: 'admin@fisi.dev' });
-  const admin = await registriere('Admin@Fisi.dev');
-  assert.equal(admin.res.statusCode, 201);
-  assert.equal(admin.res.json().user.admin, true);
-  const fremd = await registriere('fremd@b.de');
-  assert.equal(fremd.res.statusCode, 403);
+  const ohne = await registriere('Admin@Fisi.dev');
+  assert.equal(ohne.res.statusCode, 403, 'keine Registrierung allein über die (unverifizierte) Admin-E-Mail');
+
+  const { code, laeuftAb } = erstelleEinladung(app.db, { maxUses: 1, gueltigTage: 1, notiz: 'CLI' });
+  assert.ok(laeuftAb);
+  const mit = await registriere('Admin@Fisi.dev', { inviteCode: code });
+  assert.equal(mit.res.statusCode, 201);
+  assert.equal(mit.res.json().user.admin, true);
+  const nochmal = await registriere('fremd@b.de', { inviteCode: code });
+  assert.equal(nochmal.res.statusCode, 403, 'CLI-Code ist einmalig');
+});
+
+test('erstelleEinladung prüft Grenzen', () => {
+  const db = openDb(':memory:');
+  assert.throws(() => erstelleEinladung(db, { maxUses: 0 }), RangeError);
+  assert.throws(() => erstelleEinladung(db, { gueltigTage: 400 }), RangeError);
+  db.close();
 });
 
 test('Nicht-Admins kommen nicht in den Admin-Bereich', async () => {

@@ -98,7 +98,8 @@ Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
 
 Registrierung: `GET /api/auth/config` liefert `{ registrierung }` (Env `REGISTRATION` =
 `open`/`invite`/`closed`); bei `invite` braucht `POST /api/auth/register` ein `inviteCode`
-(atomar eingelöst) – außer für E-Mails aus `ADMIN_EMAILS` (Erst-Einrichtung). Gesperrte Konten können sich nicht anmelden/zurücksetzen.
+(atomar eingelöst), auch für E-Mails aus `ADMIN_EMAILS`. Den ersten Code erzeugt der Betreiber per
+`node src/einladung-cli.js [notiz]` im Container (1x nutzbar, 1 Tag gültig). Gesperrte Konten können sich nicht anmelden/zurücksetzen.
 
 ### Sonstiges
 
