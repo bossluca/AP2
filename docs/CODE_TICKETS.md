@@ -20,7 +20,7 @@ eigenen Sitzung abgearbeitet werden.
 
 | Nr | Titel | Schwere | Bereich | Modell / Aufwand |
 |---|---|---|---|---|
-| C1 | Daten zwischen Konten trennen (Logout/Kontowechsel) | hoch | Frontend | Opus / mittel |
+| C1 | Daten zwischen Konten trennen (Logout/Kontowechsel) – **umgesetzt** (Branch `claude/c1-konten-trennung`) | hoch | Frontend | Opus / mittel |
 | C2 | Sensible Konto-Aktionen absichern (Passwort, Origin, Cookie, Admin) | hoch–mittel | Backend + Frontend | Sonnet / mittel |
 | C3 | Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig | mittel | Backend | Opus / mittel |
 | C4 | Importierte und vom Server geladene Daten validieren | mittel | Frontend | Opus / mittel |
@@ -61,6 +61,12 @@ Kontos in ein anderes Konto übernehmen.
 4. Outbox-Einträge mit `userId` markieren; fremde Einträge nie senden (`lib/outbox.js`).
 5. UI: Beim ersten Login mit lokalen anonymen Daten Rückfrage „Lokalen Fortschritt in dieses
    Konto übernehmen?“ (Ja/Nein). Bei Nein: lokale Daten verwerfen.
+
+**Stand:** umgesetzt – `lib/besitzer.js` (+ Test), `AuthContext` entscheidet nach jedem Login/`me()`
+(`syncModus` `mergen`/`laden`), `components/UebernahmeDialog.jsx`, Outbox-Einträge mit `userId`,
+Integrationstests `src/context/kontenTrennung.test.jsx` gegen ein In-Memory-Backend
+(`src/test/fakeBackend.js`). Beim Aufräumen werden **alle** `ap2_lernapp_*`-Schlüssel außer dem Theme
+entfernt (auch Prüfungstermin, Session-Umfang).
 
 **Akzeptanz.** Tests (Vitest, mit echten Providern wie `App.smoke.test.jsx`): A lernt → Logout →
 B Login: B sieht nichts von A, der Server von B bekommt keinen Merge mit As Daten, As Outbox wird
