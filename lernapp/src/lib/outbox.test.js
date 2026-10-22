@@ -54,4 +54,26 @@ describe('outbox', () => {
     localStorage.setItem('ap2_lernapp_outbox_v1', '[{"kaputt":true},{"id":"x","entry":{}}]');
     expect(ladeOutbox()).toEqual([{ id: 'x', entry: {} }]);
   });
+
+  it('C1: Einträge tragen die Konto-ID und koaleszieren nur je Konto', () => {
+    let liste = merkeEintrag([], 'a', { v: 1 }, 1);
+    liste = merkeEintrag(liste, 'a', { v: 2 }, 2);
+    liste = merkeEintrag(liste, 'a', { v: 3 }, 1);
+    expect(liste).toEqual([
+      { id: 'a', entry: { v: 2 }, userId: 2 },
+      { id: 'a', entry: { v: 3 }, userId: 1 },
+    ]);
+  });
+
+  it('C1: sendet nie Einträge eines anderen Kontos (und verwirft sie)', async () => {
+    const liste = [
+      { id: 'a', entry: { v: 1 }, userId: 1 },
+      { id: 'b', entry: { v: 2 }, userId: 2 },
+      { id: 'c', entry: { v: 3 } }, // Alt-Eintrag ohne Konto-Bindung
+    ];
+    const gesendet = [];
+    const r = await flusheOutbox(liste, async (id) => gesendet.push(id), 2);
+    expect(gesendet).toEqual(['b']);
+    expect(r).toEqual({ rest: [], gesendet: 1, verworfen: 2 });
+  });
 });
