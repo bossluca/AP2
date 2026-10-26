@@ -241,8 +241,14 @@ Backend starten → warten bis `healthy` → Smoke-Test. Downtime: wenige Sekund
 
 - **Monitoring:** Uptime Kuma (o. Ä.) prüft `https://<domain>/api/health` jede Minute
   und alarmiert per Mail/Push. Zusätzlich das Backup-Log prüfen lassen (Datei-Alter < 26 h).
-- **Updates App:** `git pull && ./scripts/deploy.sh` (baut, startet, wartet auf `healthy`, Smoke-Test).
-  Vorher `./scripts/backup.sh`.
+- **Updates App:** `./scripts/update.sh` (prüft, Backup, ff-only-Pull, Deploy, **automatischer
+  Rückweg** bei Fehler, danach optional `security-check.sh`). `./scripts/update.sh --pruefen`
+  zeigt nur, ob etwas Neues vorliegt. Konfiguration über Umgebungsvariablen
+  (`UPDATE_SPERRFENSTER=21:45-22:45`, `SECURITY_CHECK_URL`, `BACKUP_DIR`, s. Kopf des Skripts).
+  Manuell geht weiterhin `git pull && ./scripts/deploy.sh` (vorher `./scripts/backup.sh`).
+  **Kein automatisches Deployen von `main` per Cron** ohne Rückfrage: Wer `main` ändern kann,
+  könnte sonst Code auf deinem Server ausführen. Sinnvoll ist ein Cron, der nur `--pruefen`
+  aufruft und dich benachrichtigt, oder ein bewusst gestartetes `update.sh`.
 - **Basis-Images:** monatlich `docker compose build --pull && docker compose up -d`.
 - **VM:** `unattended-upgrades` aktivieren, SSH nur mit Schlüssel, kein Root-Login.
 - **Logs:** Compose begrenzt auf 3 × 10 MB je Container.
