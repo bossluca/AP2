@@ -8,6 +8,16 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Sicherheit
 
+- 2026-10-22: **Lokale Daten gehören genau einem Konto (C1, S17).** Bisher blieben
+  Lernstand, XP, Outbox, Einstufung und eigene Karten nach dem Abmelden im Browser und
+  wurden beim Login eines **anderen** Kontos in dessen Konto gemergt. Jetzt: Besitzer-Marker
+  `ap2_lernapp_owner_v1`; Abmelden und Konto löschen entfernen alle `ap2_lernapp_*`-Daten
+  (Theme bleibt), vorher wird die Outbox gesendet; Login eines anderen Kontos verwirft
+  fremde Reste und lädt nur den Kontostand; Outbox-Einträge sind an das Konto gebunden.
+  Lernstand ohne Konto wird beim ersten Login nur nach Rückfrage („Lokalen Fortschritt in
+  dieses Konto übernehmen?“) übernommen. **Verhaltensänderung:** Nach dem Abmelden ist der
+  Browser leer; wer offline abmeldet, verliert noch nicht gesendete Bewertungen.
+
 - 2026-10-20: **Admin-Erstregistrierung nur noch per Einladungscode.** Im Modus
   `invite` öffnete eine E-Mail aus `ADMIN_EMAILS` die Registrierung ohne Code – da die
   E-Mail nicht verifiziert wird, hätte jeder mit Kenntnis der Adresse das Admin-Konto

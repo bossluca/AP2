@@ -60,6 +60,12 @@ export default function Info() {
             (httpOnly, SameSite). Es gibt <strong>kein Tracking, keine Werbung, keine Analyse-Cookies</strong>.
           </p>
           <p>
+            <strong>Geteilte Geräte:</strong> Beim <strong>Abmelden</strong> und beim Löschen des
+            Kontos entfernt die App alle Lerndaten aus diesem Browser (nur die Theme-Einstellung
+            bleibt). Lokale Daten eines Kontos werden nie in ein anderes Konto übernommen; Lernstand
+            ohne Konto wird beim ersten Anmelden nur nach Rückfrage übernommen.
+          </p>
+          <p>
             <strong>Zweck &amp; Sparsamkeit:</strong> Daten werden ausschließlich zum Bereitstellen
             und Synchronisieren deines Lernstands verarbeitet. Das Konto ist freiwillig – die App
             funktioniert vollständig auch ohne.
