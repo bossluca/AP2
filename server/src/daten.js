@@ -6,6 +6,7 @@
  *
  * Alle Routen erfordern eine gültige Sitzung.
  */
+import { istObjektOderListe } from './lib/validierung.js';
 
 /** Freigegebene Schlüssel → maximale JSON-Größe in Bytes. */
 export const DATEN_SCHLUESSEL = {
@@ -41,6 +42,10 @@ export async function datenRoutes(app) {
     const json = JSON.stringify(wert);
     if (Buffer.byteLength(json) > max) {
       return reply.code(413).send({ error: `Zu groß (max. ${Math.round(max / 1024)} KiB).` });
+    }
+    // C3: nur Objekt/Liste (oder null = leeren) – keine nackten Zahlen/Texte.
+    if (!istObjektOderListe(wert)) {
+      return reply.code(400).send({ error: 'wert muss ein Objekt oder eine Liste sein.' });
     }
     const jetzt = new Date().toISOString();
     db.prepare(

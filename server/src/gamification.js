@@ -6,7 +6,12 @@
  * danach durch (PUT = Overwrite des kompletten Blobs).
  *
  * Alle Routen erfordern eine gültige Sitzung.
+ *
+ * C3: Der Stand wird über `pruefeGamification` geprüft (Tages-Schlüssel,
+ * Wertebereiche; ungültig → 400). `activity` wird auf die jüngsten 400 Tage
+ * gekürzt, damit langjährige Nutzer nicht aus dem Sync fallen.
  */
+import { pruefeGamification } from './lib/validierung.js';
 
 /** DB-Zeile → Client-Stand (oder null, wenn noch nichts gespeichert). */
 function rowToGami(row) {
@@ -32,11 +37,12 @@ export async function gamificationRoutes(app) {
     return { gamification: rowToGami(row) };
   });
 
-  app.put('/api/gamification', async (req) => {
-    const g = req.body || {};
-    const activity = g.activity && typeof g.activity === 'object' ? JSON.stringify(g.activity) : '{}';
-    const xp = Number.isFinite(g.xp) ? Math.floor(g.xp) : 0;
-    const klausurBest = Number.isFinite(g.klausurBest) ? Math.floor(g.klausurBest) : 0;
+  app.put('/api/gamification', async (req, reply) => {
+    const ergebnis = pruefeGamification(req.body ?? {});
+    if (ergebnis.fehler) return reply.code(400).send({ error: `Ungültiger Stand: ${ergebnis.fehler}` });
+    const { stand } = ergebnis;
+    const activity = JSON.stringify(stand.activity);
+    const { xp, klausurBest } = stand;
     db.prepare(
       `INSERT INTO gamification (user_id, activity, xp, klausur_best, updated_at)
        VALUES (?, ?, ?, ?, ?)

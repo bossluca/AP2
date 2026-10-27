@@ -52,6 +52,7 @@ export function openDb(path) {
       lapses      INTEGER,
       last_review TEXT,
       updated_at  TEXT NOT NULL,
+      client_updated_at TEXT,
       PRIMARY KEY (user_id, item_id)
     );
   `);
@@ -68,7 +69,7 @@ export function openDb(path) {
     );
   `);
 
-  // Idempotente Migration: FSRS-Spalten in bestehende DBs additiv ergänzen
+  // Idempotente Migration: FSRS-Spalten (und C3: client_updated_at) in bestehende DBs additiv ergänzen
   // (CREATE TABLE oben deckt nur frische DBs ab). `ALTER TABLE … ADD COLUMN`
   // ist additiv und verlustfrei.
   const vorhanden = new Set(
@@ -80,6 +81,8 @@ export function openDb(path) {
     ['reps', 'INTEGER'],
     ['lapses', 'INTEGER'],
     ['last_review', 'TEXT'],
+    // C3: Client-Zeitstempel `updatedAt` (Schutz vor veralteten Ständen).
+    ['client_updated_at', 'TEXT'],
   ];
   for (const [name, typ] of fsrsSpalten) {
     if (!vorhanden.has(name)) db.exec(`ALTER TABLE progress ADD COLUMN ${name} ${typ};`);
