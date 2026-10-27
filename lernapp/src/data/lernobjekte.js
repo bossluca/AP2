@@ -1,4 +1,5 @@
 import { getLearnableQuestions, getLerneinheiten } from './useExamData';
+import { holeExamDaten } from './examDaten';
 
 /**
  * Vereinheitlichte Sicht auf alle lernbaren Objekte: Prüfungsfragen UND
@@ -24,6 +25,8 @@ import { getLearnableQuestions, getLerneinheiten } from './useExamData';
 
 /** @type {Lernobjekt[]|null} */
 let _cache = null;
+/** Datenquelle, für die `_cache` gilt (Daten werden seit C9 nachgeladen). */
+let _cacheQuelle = null;
 
 /** Wandelt eine Prüfungsfrage in ein Lernobjekt. */
 function fromFrage(q) {
@@ -66,12 +69,16 @@ function fromLerneinheit(l) {
  * @returns {Lernobjekt[]}
  */
 export function getLernobjekte() {
-  if (_cache) return _cache;
-  _cache = [
+  const quelle = holeExamDaten();
+  if (_cache && _cacheQuelle === quelle) return _cache;
+  const liste = [
     ...getLearnableQuestions().map(fromFrage),
     ...getLerneinheiten().map(fromLerneinheit),
   ];
-  return _cache;
+  // Nur cachen, wenn Daten geladen sind (sonst bliebe die leere Liste hängen).
+  _cache = quelle ? liste : null;
+  _cacheQuelle = quelle;
+  return liste;
 }
 
 /** Standardfilter für Lernobjekte. */

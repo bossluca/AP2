@@ -40,7 +40,9 @@ jobs:
 
   e2e:
     name: E2E (Playwright)
-    runs-on: ubuntu-latest
+    # Fest auf 24.04: ubuntu-latest ist inzwischen 26.04, das Playwright 1.56 nicht
+    # unterstützt (Browser-Installation bricht ab, bevor ein Test läuft).
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: lernapp

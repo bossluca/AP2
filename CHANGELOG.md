@@ -8,6 +8,21 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Sicherheit
 
+- 2026-10-22: **Nutzung nur mit Konto (C9, S21).** Neue Env `REQUIRE_LOGIN` (Compose-Default
+  `true`, Server ohne Env `false`); `GET /api/auth/config` meldet `loginPflicht`. Ohne Sitzung
+  zeigt die App nur die Konto-Seite (Login, Registrierung mit Einladung, Passwort vergessen,
+  Einladungslink). Die Prüfungs-/Lernzettel-Daten werden erst nach dem Login per dynamischem
+  Import geladen, sind nicht mehr im Service-Worker-Precache (stattdessen Laufzeit-Cache, beim
+  Logout gelöscht) und nginx liefert `/assets/examdata-*.js` nur mit gültiger Sitzung aus
+  (`auth_request`). Offline nach einem Login bleibt die App nutzbar; ohne Backend bleibt sie
+  rein lokal. `security-check.sh` prüft das.
+- 2026-10-22: **Spam-Schutz Registrierung (C9, S13):** eigenes nginx-Limit für
+  `POST /api/auth/register`; falsche Einladungscodes zählen im Backend gegen die Login-Bremse
+  (8 je IP / 15 min → 429).
+- 2026-10-22: **Verhaltensänderung:** `docker-compose.yml` setzt ohne `.env` jetzt
+  `REGISTRATION=invite` (vorher `open`) und `REQUIRE_LOGIN=true`. Instanzen, die bewusst offen
+  oder ohne Konto nutzbar sein sollen, müssen das in der `.env` ausdrücklich setzen.
+
 - 2026-10-22: **Lokale Daten gehören genau einem Konto (C1, S17).** Bisher blieben
   Lernstand, XP, Outbox, Einstufung und eigene Karten nach dem Abmelden im Browser und
   wurden beim Login eines **anderen** Kontos in dessen Konto gemergt. Jetzt: Besitzer-Marker

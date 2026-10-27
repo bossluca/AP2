@@ -19,7 +19,11 @@ export const BESITZER_KEY = 'ap2_lernapp_owner_v1';
 export const PRAEFIX = 'ap2_lernapp_';
 
 /** Schlüssel, die **kein** Nutzerdatum sind und beim Aufräumen bleiben. */
-export const GERAETE_SCHLUESSEL = ['ap2_lernapp_theme_v1'];
+export const GERAETE_SCHLUESSEL = [
+  'ap2_lernapp_theme_v1',
+  // C9: „diese Instanz verlangt Login“ – Geräte-, kein Nutzerdatum (lib/zugang.js).
+  'ap2_lernapp_loginpflicht_v1',
+];
 
 /**
  * Bekannte Nutzerdaten-Schlüssel (dokumentarisch + für die Inhaltsprüfung).

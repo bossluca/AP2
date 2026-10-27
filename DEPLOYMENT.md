@@ -56,8 +56,40 @@ In der `.env` neben `docker-compose.yml`:
 
 ```bash
 ADMIN_EMAILS=du@example.de        # Komma-Liste; diese Konten sehen /#/admin
-REGISTRATION=open                 # open | invite | closed
+REGISTRATION=invite               # open | invite | closed (Compose-Default seit C9: invite)
+REQUIRE_LOGIN=true                # Nutzung nur mit Konto (Compose-Default: true)
 ```
+
+> **Verhaltensänderung (C9):** `docker-compose.yml` setzt ohne `.env` jetzt
+> `REGISTRATION=invite` (vorher `open`) und `REQUIRE_LOGIN=true`. Wer bewusst eine offene
+> bzw. ohne Konto nutzbare Instanz will, setzt beides ausdrücklich in der `.env`.
+
+#### Login-Pflicht (`REQUIRE_LOGIN`)
+
+Mit `REQUIRE_LOGIN=true` meldet `GET /api/auth/config` `loginPflicht: true`. Dann gilt:
+
+- **Ohne Sitzung zeigt die App nur die Konto-Seite** (Anmelden, Registrieren mit Einladungscode,
+  Passwort vergessen, Einladungslink `#/konto?einladung=CODE`) und die Datenschutz-Seite – keine
+  Lernseiten, keine Navigation.
+- **Prüfungs-/Lernzettel-Inhalte** (`/assets/examdata-*.js`) liefert nginx nur mit gültiger
+  Sitzung aus (`auth_request` → `GET /api/auth/me`, Include `nginx-auth-sitzung.conf`), sonst
+  401. Das Frontend lädt den Chunk erst nach dem Login (dynamischer Import); er ist **nicht** im
+  Service-Worker-Precache, sondern wird nach dem Laden im Cache `fisidev-examdata-v1` gehalten
+  (offline nutzbar) und beim Logout/Kontowechsel gelöscht.
+- **Offline nach einem Login** läuft die installierte App mit den lokalen Daten weiter; sobald der
+  Server erreichbar ist und keine Sitzung besteht, greift wieder das Gate.
+- Ohne Backend (rein statisches Deployment, Vercel-Preview) bleibt die App wie bisher rein lokal.
+
+Der Server selbst setzt ohne Env `REQUIRE_LOGIN=false` (lokale Entwicklung/Tests).
+`scripts/security-check.sh` prüft nach dem Deploy, dass der Daten-Chunk ohne Sitzung 401/403
+liefert und Startseite/Start-Skripte keine Lerninhalte enthalten.
+
+#### Spam-Schutz bei der Registrierung
+
+- nginx: eigenes Limit für `POST /api/auth/register` (10 Versuche je IP sofort, danach 1/min;
+  nginx kennt keine Stunden-Raten) zusätzlich zu 30/min auf `/api/auth/`, Antwort 429.
+- Backend: jeder Einladungscode-Versuch zählt gegen die Login-Bremse (`IP|invite`):
+  8 Fehlversuche je IP in 15 min → 429; erfolgreiche Registrierung setzt zurück.
 
 Empfohlener Ablauf für eine private Instanz:
 1. Gleich mit `REGISTRATION=invite` starten – es gibt kein offenes Zeitfenster für fremde
