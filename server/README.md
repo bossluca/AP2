@@ -53,10 +53,27 @@ Alle Antworten sind JSON. Authentifizierung über ein **httpOnly-Session-Cookie*
 
 | Methode | Pfad | Beschreibung |
 |---|---|---|
-| `GET` | `/` | gesamten Fortschritt als Map `{ itemId: { status, box, due, lastSeen, lastResult, history } }` |
-| `PUT` | `/:itemId` | einen Eintrag setzen/aktualisieren |
-| `POST` | `/merge` | `{ progress }` **nicht-destruktiv** zusammenführen (Migration des lokalen Stands beim ersten Login – nur fehlende Einträge werden übernommen) |
+| `GET` | `/` | gesamten Fortschritt als Map `{ itemId: { status, box, due, lastSeen, lastResult, history, stability, difficulty, reps, lapses, last_review, updatedAt } }` |
+| `PUT` | `/:itemId` | einen Eintrag setzen/aktualisieren → `{ ok, uebernommen }`. `400` bei ungültigem Eintrag, `413` wenn ein **neuer** Eintrag die Obergrenze je Konto überschreitet. Ist der gespeicherte Stand neuer (`updatedAt`), bleibt er erhalten: `200 { ok: true, uebernommen: false }` |
+| `POST` | `/merge` | `{ progress }` **nicht-destruktiv** zusammenführen (Migration des lokalen Stands beim ersten Login – nur fehlende Einträge werden übernommen) → `{ imported, skipped }` (+ `limitErreicht: true`, wenn die Obergrenze griff); ungültige Einträge werden übersprungen |
 | `DELETE` | `/` | gesamten Fortschritt löschen |
+
+**Eingabe-Regeln (C3, `src/lib/validierung.js`):** `itemId` 1–100 Zeichen aus Buchstaben
+(inkl. Umlaute), Ziffern, `_ . : -`; `status` ∈ `gelernt`/`ueben`; `box` ganzzahlig 1–5;
+`due`/`lastSeen`/`last_review`/`updatedAt` ISO-Datum; `stability` 0,01–36500; `difficulty`
+1–10; `reps`/`lapses` ganzzahlig 0–100000; `lastResult` 1–40 Zeichen; `history` ≤ 20 Einträge
+`{ ts: ISO, result: 1–40 Zeichen }`. Fehlende/`null`-Felder sind erlaubt, unbekannte Felder
+werden verworfen. **Obergrenze:** 5000 Einträge je Konto (`PROGRESS_GRENZEN` in
+`src/progress.js`). **Konflikte:** Der Client-Zeitstempel `updatedAt` wird als
+`client_updated_at` gespeichert (auf die Server-Zeit gekappt); ein PUT überschreibt nur, wenn
+er neuer oder gleich ist – ohne `updatedAt` nur neue Einträge oder Altbestand ohne Zeitstempel.
+
+### Gamification (`/api/gamification`) — erfordert Login
+
+| Methode | Pfad | Beschreibung |
+|---|---|---|
+| `GET` | `/api/gamification` | `{ gamification: { activity, xp, klausurBest } \| null }` |
+| `PUT` | `/api/gamification` | kompletten Stand überschreiben. `activity`: Schlüssel `YYYY-MM-DD`, Werte 0–100000, mehr als 400 Tage werden auf die jüngsten 400 gekürzt; `xp` 0–10 000 000; `klausurBest` 0–100000. Sonst `400` |
 
 ### Rangliste (`/api/rangliste`) — erfordert Login, opt-in
 
@@ -73,7 +90,7 @@ Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
 | Methode | Pfad | Beschreibung |
 |---|---|---|
 | `GET` | `/api/daten` | `{ daten: { einstufung?: {wert, updatedAt}, eigeneKarten?: {wert, updatedAt} } }` |
-| `PUT` | `/api/daten/:schluessel` | `{ wert }` speichern; nur `einstufung` (max. 64 KiB) und `eigeneKarten` (max. 512 KiB); `null` = gelöscht |
+| `PUT` | `/api/daten/:schluessel` | `{ wert }` speichern; nur `einstufung` (max. 64 KiB, sonst `413`) und `eigeneKarten` (max. 512 KiB); `wert` muss Objekt oder Liste sein (`400`), `null` = gelöscht |
 
 ### Lerngruppen (`/api/gruppen`) — erfordert Login + Anzeigename
 
@@ -124,7 +141,8 @@ Konto-Seite und nginx liefert die Prüfungsdaten nur mit Sitzung aus). Bei `invi
 - **`sessions`** — `token` (PK), `user_id`, `created_at`, `expires_at` (30 Tage)
 - **`progress`** — PK `(user_id, item_id)`; Felder `status`, `box`, `due`,
   `last_seen`, `last_result`, `history` (JSON), FSRS-Felder
-  (`stability`, `difficulty`, `reps`, `lapses`, `last_review`), `updated_at`
+  (`stability`, `difficulty`, `reps`, `lapses`, `last_review`), `updated_at` (Server-Zeit),
+  `client_updated_at` (Client-`updatedAt` für den Konfliktschutz; additive Migration beim Start)
 
 `item_id` ist die Frage- bzw. Lerneinheit-ID aus dem Frontend – Fragen und
 Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
@@ -136,6 +154,6 @@ Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
 - `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen · `src/backup.js` — Online-Backup (`VACUUM INTO`) + Integritätsprüfung (CLI für `scripts/backup.sh`/`restore.sh`)
 - `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` · `src/admin.js` · `src/daten.js` · `src/gruppen.js` — Routen ·
   `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` ·
-  `test/rangliste.test.js` · `test/admin.test.js` · `test/daten.test.js` · `test/gruppen.test.js` · `test/backup.test.js` — Tests
+  `test/rangliste.test.js` · `test/admin.test.js` · `test/daten.test.js` · `test/gruppen.test.js` · `test/backup.test.js` · `test/validierung.test.js` · `test/eingaben.test.js` — Tests
 
 Architektur-Begründungen (Backend-/Auth-Wahl): siehe [`../DECISIONS.md`](../DECISIONS.md).

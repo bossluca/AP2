@@ -22,7 +22,7 @@ eigenen Sitzung abgearbeitet werden.
 |---|---|---|---|---|
 | C1 | Daten zwischen Konten trennen (Logout/Kontowechsel) – **umgesetzt** (Branch `claude/c1-konten-trennung`) | hoch | Frontend | Opus / mittel |
 | C2 | Sensible Konto-Aktionen absichern (Passwort, Origin, Cookie, Admin) | hoch–mittel | Backend + Frontend | Sonnet / mittel |
-| C3 | Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig | mittel | Backend | Opus / mittel |
+| C3 | Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig – **umgesetzt** (Branch `claude/c3-server-validierung`) | mittel | Backend | Opus / mittel |
 | C4 | Importierte und vom Server geladene Daten validieren | mittel | Frontend | Opus / mittel |
 | C5 | Sync-Robustheit (Retry, Race, 401, Timeout, gelöschte Stapel) | mittel | Frontend | Opus / mittel |
 | C6 | Sitzungs-Tokens hashen + Audit-Log | mittel | Backend + Frontend | Opus / mittel |
@@ -147,6 +147,22 @@ ergänzt (S17–S20).
 **Akzeptanz.** Tests für jede Regel (gültig/ungültig/Grenzwerte), Test für Obergrenze, Test für
 LWW-Schutz; bestehende `api.test.js` bleibt grün; DB-Migration läuft idempotent auf einer
 bestehenden Datenbank (Test mit voraufgebauter DB).
+
+**Status: umgesetzt** (Branch `claude/c3-server-validierung`). Abweichungen/Entscheidungen:
+- `itemId` erlaubt Buchstaben inkl. Umlaute (`^[\p{L}\p{N}_.:-]+$`), weil echte Fragen-IDs
+  „Frühjahr“ enthalten; `\w` hätte 96 Fragen ausgesperrt (Vertragstest
+  `lernapp/src/lib/serverVertrag.test.js` prüft alle echten IDs und FSRS-Ausgaben).
+- Obergrenze überschritten → `413`; bestehende Einträge bleiben änderbar. Grenze in
+  `PROGRESS_GRENZEN.maxEintraege` (`server/src/progress.js`).
+- `activity` > 400 Tage wird auf die jüngsten 400 **gekürzt** statt abgelehnt (der Client kürzt
+  sein Log nicht – langjährige Nutzer würden sonst dauerhaft aus dem Sync fallen).
+- Veralteter PUT → `200 {ok:true, uebernommen:false}`; ein `updatedAt` aus der Zukunft wird auf
+  die Server-Zeit gekappt (falsche Geräteuhr blockiert keine anderen Geräte).
+- Merge überspringt ungültige Einträge und solche über der Grenze → `{imported, skipped}`
+  (+ `limitErreicht`).
+- Frontend: Die Outbox verwirft endgültig abgelehnte Writes (400/409/413/414/422) statt die
+  Warteschlange dauerhaft zu blockieren (`lib/outbox.js`).
+- Bestehende DB-Zeilen werden nicht nachträglich geprüft (bleiben lesbar).
 
 ---
 

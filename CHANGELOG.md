@@ -16,6 +16,17 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Sicherheit
 
+- 2026-10-27: **Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig (C3,
+  S19).** Fortschritts-Einträge werden geprüft (`server/src/lib/validierung.js`; ungültig →
+  `400` statt 500/Datenmüll), je Konto höchstens 5000 Einträge (neue darüber → `413`,
+  bestehende bleiben änderbar), Merge überspringt Ungültiges (`{imported, skipped}`).
+  Gamification: Tages-Schlüssel und Wertebereiche geprüft, `activity` auf 400 Tage gekürzt.
+  `/api/daten` nimmt nur Objekt/Liste/`null`. Neue Spalte `progress.client_updated_at`
+  (Migration automatisch beim Start): ein veralteter Outbox-Eintrag überschreibt keinen neueren
+  Stand mehr (`200 {uebernommen:false}`), `GET /api/progress` liefert `updatedAt` mit. Frontend:
+  Die Outbox verwirft vom Server endgültig abgelehnte Writes statt sich daran festzufahren.
+  Verifikation: Server-Tests (Regeln, Grenzwerte, Obergrenze, LWW, Migration auf alter DB),
+  Vertragstest mit echten FSRS-Einträgen und allen echten IDs, Integrationstest im Frontend.
 - 2026-10-22: **Nutzung nur mit Konto (C9, S21).** Neue Env `REQUIRE_LOGIN` (Compose-Default
   `true`, Server ohne Env `false`); `GET /api/auth/config` meldet `loginPflicht`. Ohne Sitzung
   zeigt die App nur die Konto-Seite (Login, Registrierung mit Einladung, Passwort vergessen,
