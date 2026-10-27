@@ -166,6 +166,13 @@ Was der Stack **bereits mitbringt** (Stand 2026-07-04):
   Passwort-Reset nur per Recovery-Code (kein Mail-Reset-Angriffsweg),
   Session-Widerruf bei Reset, periodischer Session-Aufräumjob,
   Request-Body-Limit 1 MiB (nginx deckelt zusätzlich bei 2 MB).
+- ✅ **Konto-Aktionen & CSRF (C2):** Recovery-Code erneuern und Konto löschen verlangen das
+  Passwort; schreibende Requests werden nach `Sec-Fetch-Site`/`Origin` geprüft und brauchen
+  JSON; in Produktion heißt das Cookie `__Host-<SESSION_COOKIE_NAME>` (Default
+  `__Host-ap_session`). ⚠️ **Rollout:** Beim ersten Update auf diese Version werden alle
+  Nutzer abgemeldet und müssen sich einmal neu anmelden (Daten bleiben). Der Proxy muss `Host`
+  (öffentlicher Name) und `X-Forwarded-Proto` durchreichen – die mitgelieferte Nginx-Config
+  tut das; beim Nginx Proxy Manager „Websockets/Standard-Header“ nicht entfernen.
 
 Was **du beim Aufsetzen** prüfen musst:
 

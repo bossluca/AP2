@@ -27,6 +27,16 @@ verständliche Ergebnis inklusive Verifikation.
   Die Outbox verwirft vom Server endgültig abgelehnte Writes statt sich daran festzufahren.
   Verifikation: Server-Tests (Regeln, Grenzwerte, Obergrenze, LWW, Migration auf alter DB),
   Vertragstest mit echten FSRS-Einträgen und allen echten IDs, Integrationstest im Frontend.
+- 2026-10-27: **Sensible Konto-Aktionen abgesichert (C2, S18).**
+  `POST /api/auth/recovery-code` und `DELETE /api/auth/account` verlangen das aktuelle
+  Passwort im Body (falsch/fehlend → 401; gleiche Bremse wie der Login, Schlüssel je IP+Konto,
+  8 Fehlversuche / 15 min → 429); die App fragt es in einem Dialog ab. Globaler CSRF-Hook:
+  schreibende Requests mit `Sec-Fetch-Site` `cross-site`/`same-site` → 403, ohne den Header
+  muss `Origin` zum `Host` passen; Requests mit Body brauchen `Content-Type: application/json`
+  (sonst 415). **Verhaltensänderung / Rollout:** Im Produktivbetrieb heißt das Sitzungs-Cookie
+  jetzt `__Host-ap_session` (Secure, Pfad `/`, ohne Domain) – **alle Nutzer müssen sich einmal
+  neu anmelden** (Daten bleiben erhalten). Admin-Konten (E-Mail in `ADMIN_EMAILS`) lassen sich
+  weder selbst noch im Admin-Bereich löschen (409); zuerst aus `ADMIN_EMAILS` entfernen.
 - 2026-10-22: **Nutzung nur mit Konto (C9, S21).** Neue Env `REQUIRE_LOGIN` (Compose-Default
   `true`, Server ohne Env `false`); `GET /api/auth/config` meldet `loginPflicht`. Ohne Sitzung
   zeigt die App nur die Konto-Seite (Login, Registrierung mit Einladung, Passwort vergessen,

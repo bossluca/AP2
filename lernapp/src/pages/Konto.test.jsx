@@ -11,6 +11,7 @@ vi.mock('../lib/api', () => ({
     register: vi.fn().mockResolvedValue({ user: { id: 2, email: 'neu@b.de' } }),
     logout: vi.fn().mockResolvedValue({ ok: true }),
     deleteAccount: vi.fn().mockResolvedValue({ ok: true }),
+    neuerRecoveryCode: vi.fn().mockResolvedValue({ recoveryCode: 'AAAA-BBBB-CCCC-DDDD' }),
     config: vi.fn().mockResolvedValue({ registrierung: 'open' }),
   },
   progressApi: {
@@ -102,5 +103,56 @@ describe('Konto-Seite + Login-Sync', () => {
     authApi.me.mockResolvedValueOnce({ user: { id: 1, email: 'admin@b.de', admin: true } });
     renderKonto();
     expect(await screen.findByRole('link', { name: /Admin-Bereich/ })).toHaveAttribute('href', '/admin');
+  });
+
+  describe('sensible Aktionen fragen das Passwort ab (C2)', () => {
+    const angemeldet = (admin = false) =>
+      authApi.me.mockResolvedValueOnce({ user: { id: 1, email: 'a@b.de', admin } });
+
+    it('Konto löschen: erst Dialog, dann deleteAccount mit Passwort', async () => {
+      angemeldet();
+      const user = userEvent.setup();
+      renderKonto();
+      await user.click(await screen.findByRole('button', { name: 'Konto löschen …' }));
+      const dialog = screen.getByRole('dialog', { name: 'Konto endgültig löschen?' });
+      expect(authApi.deleteAccount).not.toHaveBeenCalled();
+      await user.type(screen.getByLabelText('Aktuelles Passwort'), 'geheim1234');
+      await user.click(screen.getByRole('button', { name: 'Endgültig löschen' }));
+      await waitFor(() => expect(authApi.deleteAccount).toHaveBeenCalledWith('geheim1234'));
+      await waitFor(() => expect(dialog).not.toBeInTheDocument());
+    });
+
+    it('Konto löschen: falsches Passwort zeigt Fehler im Dialog, Konto bleibt', async () => {
+      angemeldet();
+      authApi.deleteAccount.mockRejectedValueOnce(Object.assign(new Error('Passwort falsch'), { status: 401 }));
+      const user = userEvent.setup();
+      renderKonto();
+      await user.click(await screen.findByRole('button', { name: 'Konto löschen …' }));
+      await user.type(screen.getByLabelText('Aktuelles Passwort'), 'falsch');
+      await user.click(screen.getByRole('button', { name: 'Endgültig löschen' }));
+      expect(await screen.findByRole('alert')).toHaveTextContent('Das Passwort ist falsch.');
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+      expect(screen.getByText(/Angemeldet als/)).toBeInTheDocument();
+    });
+
+    it('Neuer Recovery-Code: Dialog, Aufruf mit Passwort, Code wird einmalig angezeigt', async () => {
+      angemeldet();
+      const user = userEvent.setup();
+      renderKonto();
+      await user.click(await screen.findByRole('button', { name: 'Neuen Recovery-Code erzeugen' }));
+      expect(authApi.neuerRecoveryCode).not.toHaveBeenCalled();
+      await user.type(screen.getByLabelText('Aktuelles Passwort'), 'geheim1234');
+      await user.click(screen.getByRole('button', { name: 'Code erzeugen' }));
+      await waitFor(() => expect(authApi.neuerRecoveryCode).toHaveBeenCalledWith('geheim1234'));
+      expect(await screen.findByText('AAAA-BBBB-CCCC-DDDD')).toBeInTheDocument();
+    });
+
+    it('Admin-Konten bekommen keine Löschen-Aktion, sondern einen Hinweis', async () => {
+      angemeldet(true);
+      renderKonto();
+      expect(await screen.findByText(/Angemeldet als/)).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: 'Konto löschen …' })).not.toBeInTheDocument();
+      expect(screen.getByText(/nicht gelöscht werden/)).toBeInTheDocument();
+    });
   });
 });

@@ -55,7 +55,8 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
 (E-Mail+Passwort, argon2id, serverseitige Session-Cookies) und Fortschritts-Sync.
 
 - Routen: `/api/auth/{register,login,logout,me}` + **`DELETE /api/auth/account`** (DSGVO-Löschung:
-  entfernt Konto + per `ON DELETE CASCADE` sessions/progress/gamification), `/api/progress` (GET/PUT/DELETE),
+  entfernt Konto + per `ON DELETE CASCADE` sessions/progress/gamification; **verlangt `password` im Body**, gleiche Bremse wie Login mit Schlüssel `${ip}|konto:${userId}`; Admin-Konten → 409, ebenso `DELETE /api/admin/users/:id` auf Admins; Frontend: `components/PasswortDialog.jsx`).
+  **CSRF-Hook** (`src/lib/csrf.js`, global in `app.js`): schreibende Requests – `Sec-Fetch-Site` nur `same-origin`/`none`, sonst `Origin` ≙ `Host`; Body nur `application/json` (415). Sitzungs-Cookie bei `secureCookie` als **`__Host-<SESSION_COOKIE_NAME>`** (zentral `app.config.cookieName`), `/api/progress` (GET/PUT/DELETE),
   `/api/progress/merge` (nicht-destruktive Migration des localStorage-Stands),
   `/api/gamification` (GET/PUT – kontogebundener Streak/XP/Quests-Stand),
   `/api/rangliste` (GET) + `/api/rangliste/profil` (PUT) – **opt-in Wochen-Rangliste**
@@ -75,7 +76,7 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
   argon2-Hash in `users.recovery_hash`, additive Migration). `POST /api/auth/recover`
   (E-Mail + Code + neues Passwort; teilt die Login-Rate-Limit-Bremse, widerruft alle
   Sitzungen, rotiert den Code) + `POST /api/auth/recovery-code` (angemeldet: Code
-  erzeugen/erneuern – auch für Bestandskonten)
+  erzeugen/erneuern – auch für Bestandskonten; verlangt `password` im Body)
 - DB-Schema (`progress`) trägt neben `status/box/due/…` auch die **FSRS-Felder**
   (`stability/difficulty/reps/lapses/last_review`) und **`client_updated_at`** (C3); additive Migration in `db.js`
   (`ALTER TABLE … ADD COLUMN`). Tabelle `gamification` (user_id, activity, xp, klausur_best)

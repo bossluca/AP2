@@ -225,19 +225,22 @@ export default function Admin() {
                         >
                           {k.gesperrt ? <UserCheck size={16} aria-hidden="true" /> : <UserX size={16} aria-hidden="true" />}
                         </button>
-                        <button
-                          className="btn-ghost px-2.5"
-                          aria-label={`${k.email} löschen`}
-                          title="Löschen"
-                          onClick={() =>
-                            aktion(
-                              () => adminApi.loeschen(k.id),
-                              `Konto ${k.email} mit allen Daten endgültig löschen?`
-                            )
-                          }
-                        >
-                          <Trash2 size={16} aria-hidden="true" />
-                        </button>
+                        {/* Admin-Konten nie löschen: die Rolle hängt an der E-Mail (S18). */}
+                        {!k.admin && (
+                          <button
+                            className="btn-ghost px-2.5"
+                            aria-label={`${k.email} löschen`}
+                            title="Löschen"
+                            onClick={() =>
+                              aktion(
+                                () => adminApi.loeschen(k.id),
+                                `Konto ${k.email} mit allen Daten endgültig löschen?`
+                              )
+                            }
+                          >
+                            <Trash2 size={16} aria-hidden="true" />
+                          </button>
+                        )}
                       </div>
                     )}
                   </td>
