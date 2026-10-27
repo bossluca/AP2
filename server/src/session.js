@@ -1,4 +1,4 @@
-import { randomBytes } from 'node:crypto';
+import { randomBytes, createHash } from 'node:crypto';
 
 /** Gültigkeitsdauer einer Sitzung in Tagen. */
 const SESSION_TAGE = 30;
@@ -9,7 +9,18 @@ export function neuesToken() {
 }
 
 /**
- * Legt eine Sitzung an und gibt Token + Ablauf zurück.
+ * SHA-256-Hash eines Sitzungs-Tokens (hex). Die DB speichert nur diesen Hash
+ * (S7): Wer DB oder Backup liest, kann damit keine Sitzung übernehmen. Ein
+ * schneller Hash genügt, weil das Token 256 Bit Zufall hat (kein Wörterbuch).
+ * @param {string} token
+ */
+export function hashToken(token) {
+  return createHash('sha256').update(String(token)).digest('hex');
+}
+
+/**
+ * Legt eine Sitzung an und gibt Token + Ablauf zurück. Das Token geht nur ins
+ * Cookie; gespeichert wird `sha256(token)`.
  * @param {import('node:sqlite').DatabaseSync} db
  * @param {number} userId
  */
@@ -17,8 +28,8 @@ export function createSession(db, userId) {
   const token = neuesToken();
   const now = new Date();
   const expires = new Date(now.getTime() + SESSION_TAGE * 24 * 60 * 60 * 1000);
-  db.prepare('INSERT INTO sessions (token, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)').run(
-    token,
+  db.prepare('INSERT INTO sessions (token_hash, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)').run(
+    hashToken(token),
     userId,
     now.toISOString(),
     expires.toISOString()
@@ -33,11 +44,12 @@ export function createSession(db, userId) {
  * @returns {{id:number, email:string}|null}
  */
 export function userFromToken(db, token) {
-  if (!token) return null;
-  const session = db.prepare('SELECT user_id, expires_at FROM sessions WHERE token = ?').get(token);
+  if (!token || typeof token !== 'string') return null;
+  const tokenHash = hashToken(token);
+  const session = db.prepare('SELECT user_id, expires_at FROM sessions WHERE token_hash = ?').get(tokenHash);
   if (!session) return null;
   if (new Date(session.expires_at).getTime() < Date.now()) {
-    db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
+    db.prepare('DELETE FROM sessions WHERE token_hash = ?').run(tokenHash);
     return null;
   }
   // Gesperrte Konten verlieren sofort den Zugriff (auch mit gültigem Token).
@@ -48,7 +60,9 @@ export function userFromToken(db, token) {
 
 /** Löscht eine Sitzung (Logout). */
 export function deleteSession(db, token) {
-  if (token) db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
+  if (token && typeof token === 'string') {
+    db.prepare('DELETE FROM sessions WHERE token_hash = ?').run(hashToken(token));
+  }
 }
 
 /**
