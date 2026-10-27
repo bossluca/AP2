@@ -1,5 +1,7 @@
 import { einladungGueltig } from './lib/einladung.js';
 import { erstelleEinladung } from './einladung-cli.js';
+import { loescheKonto } from './auth.js';
+import { auditAbfrage } from './lib/audit.js';
 
 /**
  * Admin-Bereich unter /api/admin – nur für Konten aus `ADMIN_EMAILS`.
@@ -75,6 +77,11 @@ export async function adminRoutes(app) {
     db.prepare('UPDATE users SET gesperrt = ? WHERE id = ?').run(gesperrt ? 1 : 0, konto.id);
     // Sperren beendet alle Sitzungen sofort.
     if (gesperrt) db.prepare('DELETE FROM sessions WHERE user_id = ?').run(konto.id);
+    app.audit(req, {
+      ereignis: gesperrt ? 'konto_gesperrt' : 'konto_entsperrt',
+      kontoId: konto.id,
+      detail: `durch Admin #${req.user.id}`,
+    });
     return { ok: true };
   });
 
@@ -88,7 +95,8 @@ export async function adminRoutes(app) {
         error: 'Admin-Konten können nicht gelöscht werden. Entferne die E-Mail zuerst aus ADMIN_EMAILS.',
       });
     }
-    db.prepare('DELETE FROM users WHERE id = ?').run(konto.id);
+    loescheKonto(db, konto.id);
+    app.audit(req, { ereignis: 'konto_geloescht', detail: `Konto #${konto.id} durch Admin #${req.user.id}` });
     return { ok: true };
   });
 
@@ -97,6 +105,12 @@ export async function adminRoutes(app) {
     try {
       // Klartext nur in dieser Antwort – gespeichert ist nur der Hash.
       const neu = erstelleEinladung(db, { maxUses, gueltigTage, notiz, erstelltVon: req.user.id });
+      // Nur ID und Rahmen, nie der Code (auch nicht der Hinweis-Präfix).
+      app.audit(req, {
+        ereignis: 'einladung_erzeugt',
+        kontoId: req.user.id,
+        detail: `Einladung #${neu.id}, max. ${neu.maxUses} Nutzung(en), ${neu.laeuftAb ? 'befristet' : 'unbefristet'}`,
+      });
       return reply.code(201).send(neu);
     } catch (err) {
       if (err instanceof RangeError) return reply.code(400).send({ error: err.message });
@@ -107,6 +121,34 @@ export async function adminRoutes(app) {
   app.delete('/api/admin/invites/:id', async (req, reply) => {
     const info = db.prepare('DELETE FROM invites WHERE id = ?').run(Number(req.params.id));
     if (Number(info.changes) === 0) return reply.code(404).send({ error: 'Einladung nicht gefunden.' });
+    app.audit(req, { ereignis: 'einladung_geloescht', kontoId: req.user.id, detail: `Einladung #${Number(req.params.id)}` });
     return { ok: true };
+  });
+
+  // Sicherheitsprotokoll lesen (S8/C6): neueste zuerst, `limit` max 500,
+  // optional nach Ereignis gefiltert. Die E-Mail kommt per Join nur hier im
+  // Admin-Bereich dazu – gespeichert wird sie im Protokoll nie.
+  app.get('/api/admin/audit', async (req, reply) => {
+    const abfrage = auditAbfrage(req.query);
+    if (!abfrage.ok) return reply.code(400).send({ error: abfrage.fehler });
+    const eintraege = db
+      .prepare(
+        `SELECT a.id, a.zeit, a.ereignis, a.konto_id, u.email, a.ip, a.detail
+           FROM audit a LEFT JOIN users u ON u.id = a.konto_id
+          WHERE (? IS NULL OR a.ereignis = ?)
+          ORDER BY a.zeit DESC, a.id DESC
+          LIMIT ?`
+      )
+      .all(abfrage.ereignis, abfrage.ereignis, abfrage.limit)
+      .map((z) => ({
+        id: z.id,
+        zeit: z.zeit,
+        ereignis: z.ereignis,
+        kontoId: z.konto_id ?? null,
+        email: z.email ?? null,
+        ip: z.ip ?? null,
+        detail: z.detail ?? '',
+      }));
+    return { eintraege };
   });
 }

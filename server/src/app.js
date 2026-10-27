@@ -13,6 +13,7 @@ import { gruppenRoutes } from './gruppen.js';
 import { registrierungsModus, adminEmails } from './lib/einladung.js';
 import { erstelleRateLimiter } from './lib/rateLimit.js';
 import { sitzungsCookieName, pruefeAnfrageHerkunft } from './lib/csrf.js';
+import { audit } from './lib/audit.js';
 
 /**
  * Baut die Fastify-App (ohne sie zu starten) – so kann sie in Tests via
@@ -66,6 +67,11 @@ export async function buildApp(opts = {}) {
   const db = openDb(opts.dbPath || ':memory:');
   app.decorate('db', db);
   app.addHook('onClose', () => db.close());
+
+  // Sicherheitsprotokoll (S8/C6): `app.audit(req, {ereignis, kontoId, detail})`.
+  // IP nur aus `req.ip` (berücksichtigt trustProxy). Fehlertolerant – ein
+  // Audit-Fehler bricht nie eine Anfrage ab.
+  app.decorate('audit', (req, eintrag) => audit(db, { ...eintrag, ip: req?.ip ?? null }, { log: app.log }));
 
   await app.register(cookie);
 

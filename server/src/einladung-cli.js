@@ -2,13 +2,14 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openDb } from './db.js';
 import { erzeugeEinladungsCode, hashEinladung } from './lib/einladung.js';
+import { audit } from './lib/audit.js';
 
 /**
  * Legt eine Einladung an und gibt den Klartext-Code zurück (gespeichert wird
  * nur der Hash). Genutzt vom Admin-Bereich und von der Betreiber-CLI.
  * @param {import('node:sqlite').DatabaseSync} db
  * @param {{maxUses?:number, gueltigTage?:number, notiz?:string, erstelltVon?:number|null, jetzt?:Date}} [opt]
- * @returns {{code:string, maxUses:number, laeuftAb:string|null}}
+ * @returns {{id:number, code:string, maxUses:number, laeuftAb:string|null}}
  */
 export function erstelleEinladung(db, { maxUses = 1, gueltigTage = 14, notiz = '', erstelltVon = null, jetzt = new Date() } = {}) {
   const uses = Math.floor(Number(maxUses));
@@ -17,11 +18,11 @@ export function erstelleEinladung(db, { maxUses = 1, gueltigTage = 14, notiz = '
   if (!(tage >= 0 && tage <= 365)) throw new RangeError('gueltigTage: 0–365 (0 = unbegrenzt).');
   const code = erzeugeEinladungsCode();
   const ablauf = tage > 0 ? new Date(jetzt.getTime() + tage * 86400000).toISOString() : null;
-  db.prepare(
+  const info = db.prepare(
     `INSERT INTO invites (code_hash, hinweis, notiz, max_uses, created_by, created_at, expires_at)
      VALUES (?, ?, ?, ?, ?, ?, ?)`
   ).run(hashEinladung(code), code.slice(0, 4), String(notiz).slice(0, 80), uses, erstelltVon, jetzt.toISOString(), ablauf);
-  return { code, maxUses: uses, laeuftAb: ablauf };
+  return { id: Number(info.lastInsertRowid), code, maxUses: uses, laeuftAb: ablauf };
 }
 
 // CLI für den Betreiber (Erst-Einrichtung bei REGISTRATION=invite):
@@ -33,7 +34,8 @@ if (istCli) {
   const db = openDb(process.env.DB_PATH || './data/lernapp.sqlite');
   try {
     const notiz = process.argv.slice(2).join(' ') || 'Erst-Einrichtung (CLI)';
-    const { code, laeuftAb } = erstelleEinladung(db, { maxUses: 1, gueltigTage: 1, notiz });
+    const { id, code, laeuftAb } = erstelleEinladung(db, { maxUses: 1, gueltigTage: 1, notiz });
+    audit(db, { ereignis: 'einladung_erzeugt', detail: `Einladung #${id} per CLI` });
     console.log(`Einladungscode: ${code}  (1x nutzbar, gültig bis ${laeuftAb})`);
   } catch (err) {
     console.error(`Fehler: ${err.message}`);

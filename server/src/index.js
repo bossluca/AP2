@@ -1,5 +1,6 @@
 import { buildApp } from './app.js';
 import { raeumeSessionsAuf } from './session.js';
+import { raeumeAuditAuf } from './lib/audit.js';
 import { trustProxyAusEnv } from './lib/proxy.js';
 import { schalterAusEnv } from './lib/konfig.js';
 
@@ -29,13 +30,20 @@ const app = await buildApp({
 
 // Abgelaufene Sitzungen periodisch aufräumen (sonst wachsen verwaiste Zeilen
 // unbegrenzt). Beim Start einmal, danach alle 6 Stunden; unref() blockiert
-// ein sauberes Beenden nicht.
+// ein sauberes Beenden nicht. Im selben Lauf: Sicherheitsprotokoll auf
+// 90 Tage und höchstens 50 000 Zeilen begrenzen (S8/C6).
 const aufraeumen = () => {
   try {
     const n = raeumeSessionsAuf(app.db);
     if (n > 0) app.log.info(`Session-Aufräumjob: ${n} abgelaufene Sitzung(en) entfernt.`);
   } catch (err) {
     app.log.warn({ err }, 'Session-Aufräumjob fehlgeschlagen.');
+  }
+  try {
+    const n = raeumeAuditAuf(app.db);
+    if (n > 0) app.log.info(`Audit-Aufräumjob: ${n} Eintrag/Einträge entfernt (Aufbewahrung 90 Tage).`);
+  } catch (err) {
+    app.log.warn({ err }, 'Audit-Aufräumjob fehlgeschlagen.');
   }
 };
 aufraeumen();
