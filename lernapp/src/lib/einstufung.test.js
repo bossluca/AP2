@@ -146,4 +146,27 @@ describe('Persistenz', () => {
     localStorage.setItem('ap2_lernapp_einstufung_v1', '{kaputt');
     expect(ladeEinstufung()).toBeNull();
   });
+
+  it('verwirft strukturell kaputte Einstufungen (C4)', () => {
+    for (const wert of [
+      { datum: 'x', auswertung: { themen: 5 } },
+      { datum: '2026-10-20T10:00:00Z', auswertung: { themen: 5 } },
+      { datum: 'x', auswertung: { themen: [] } },
+    ]) {
+      localStorage.setItem('ap2_lernapp_einstufung_v1', JSON.stringify(wert));
+      expect(ladeEinstufung()).toBeNull();
+    }
+  });
+
+  it('klemmt Quoten beim Laden und der Plan bleibt berechenbar (C4)', () => {
+    localStorage.setItem(
+      'ap2_lernapp_einstufung_v1',
+      JSON.stringify({ datum: '2026-10-20T10:00:00Z', auswertung: { themen: [{ id: 'netze', quote: 'x' }, null], quote: 9 } })
+    );
+    const e = ladeEinstufung();
+    expect(e.auswertung.quote).toBe(1);
+    expect(e.auswertung.themen).toHaveLength(1);
+    expect(e.auswertung.themen[0].quote).toBe(0);
+    expect(() => planAusErgebnis(e, '2026-12-01')).not.toThrow();
+  });
 });

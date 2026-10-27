@@ -1,4 +1,5 @@
 import { mergeStapel, neuereEinstufung } from './datensicherung';
+import { bereinigeEinstufung, bereinigeStapelListe } from './validiere';
 
 /**
  * Konto-Sync für gerätelokale Zusatzdaten (Lernplan/Einstufung, eigene
@@ -33,8 +34,9 @@ export function meldeKontoDatenAenderung(schluessel) {
  * @returns {{einstufung:Object|null, eigeneKarten:Object[], aenderungLokal:boolean, aenderungServer:boolean}}
  */
 export function mergeKontoDaten(lokal, server = {}) {
-  const serverEinstufung = server.einstufung?.wert ?? null;
-  const serverKarten = Array.isArray(server.eigeneKarten?.wert) ? server.eigeneKarten.wert : [];
+  // C4: Serverwerte nie ungeprüft übernehmen (kaputte Karte/Einstufung legt sonst die App lahm).
+  const serverEinstufung = bereinigeEinstufung(server?.einstufung?.wert);
+  const serverKarten = bereinigeStapelListe(server?.eigeneKarten?.wert).stapel;
   const lokaleKarten = Array.isArray(lokal?.eigeneKarten) ? lokal.eigeneKarten : [];
 
   const einstufung = neuereEinstufung(lokal?.einstufung ?? null, serverEinstufung);

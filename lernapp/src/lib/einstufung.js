@@ -3,6 +3,7 @@ import { baueGlossarCloze } from './glossar';
 import { baueMcFragen } from './mcDrill';
 import { shuffle } from './shuffle';
 import { meldeKontoDatenAenderung } from './kontoDaten';
+import { bereinigeEinstufung } from './validiere';
 
 /**
  * Einstufungstest + individueller Lernplan. Ein kurzer Multiple-Choice-Test je
@@ -177,13 +178,13 @@ const SPEICHER_KEY = 'ap2_lernapp_einstufung_v1';
 
 /**
  * Gespeichertes Testergebnis `{ datum: ISO, auswertung }` oder null.
- * Robust gegen fehlenden/kaputten Storage.
+ * Robust gegen fehlenden/kaputten Storage; die Struktur wird geprüft
+ * (`datum` gültig, `auswertung.themen` Liste, `quote` in 0..1 – C4).
  */
 export function ladeEinstufung() {
   try {
     const roh = localStorage.getItem(SPEICHER_KEY);
-    const wert = roh ? JSON.parse(roh) : null;
-    return wert && wert.datum && wert.auswertung ? wert : null;
+    return roh ? bereinigeEinstufung(JSON.parse(roh)) : null;
   } catch {
     return null;
   }

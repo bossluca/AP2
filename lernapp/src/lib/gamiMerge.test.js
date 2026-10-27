@@ -26,3 +26,11 @@ describe('mergeGamification', () => {
     expect(mergeGamification(ab, a)).toEqual(ab); // idempotent
   });
 });
+
+describe('mergeGamification – Prototyp-Schlüssel (C4)', () => {
+  it('ignoriert __proto__ in activity', () => {
+    const m = mergeGamification({ activity: {} }, JSON.parse('{"activity":{"__proto__":5,"2026-01-01":1}}'));
+    expect(Object.keys(m.activity)).toEqual(['2026-01-01']);
+    expect(Object.getPrototypeOf(m.activity)).toBe(Object.prototype);
+  });
+});
