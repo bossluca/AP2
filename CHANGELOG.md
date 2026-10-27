@@ -6,6 +6,14 @@ verständliche Ergebnis inklusive Verifikation.
 
 ## Unveröffentlicht
 
+### Betrieb
+
+- 2026-10-26: **`scripts/update.sh`:** Update in einem Schritt (Vorprüfung, Backup,
+  ff-only-Pull, Deploy, automatischer Rückweg bei Fehler, optional Sicherheits-Check,
+  Sperrfenster, Sperre gegen Parallelläufe, `--pruefen`). `scripts/test-update.sh`
+  prüft Erfolg, Fehler mit Rückweg, Backup-Fehler, lokale Änderungen, Sperrfenster und
+  Nicht-Fast-Forward mit echten Git-Repos (21 Prüfungen).
+
 ### Sicherheit
 
 - 2026-10-22: **Nutzung nur mit Konto (C9, S21).** Neue Env `REQUIRE_LOGIN` (Compose-Default

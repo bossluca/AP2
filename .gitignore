@@ -36,3 +36,4 @@ lernapp/scripts/import/paraphrasen/_quelle/
 # Urheberrechtlich geschuetzte Original-/Aufbereitet-Pruefungen: nur lokale Arbeitsgrundlage
 Pruefungen_Rohdaten/
 Pruefungen_Aufbereitet/
+.update.lock/
