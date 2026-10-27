@@ -124,6 +124,12 @@ c=$(code "$URL/api/auth/me")
 cors=$(curl -sI --max-time 10 -H 'Origin: https://angreifer.example' "$URL/api/health" 2>/dev/null | tr -d '\r' | grep -i '^access-control-allow-origin:')
 [ -z "$cors" ] && ok "kein CORS für fremde Origins" || fail "CORS offen: $cors"
 
+# CSRF-Hook (C2): schreibende Requests von fremder Herkunft bzw. ohne JSON werden abgewiesen.
+c=$(code -X POST -H 'content-type: application/json' -H 'Sec-Fetch-Site: cross-site' -d '{}' "$URL/api/auth/logout")
+[ "$c" = "403" ] && ok "Cross-Site-POST abgewiesen (403)" || fail "Cross-Site-POST: $c (erwartet 403 – alter Server ohne C2?)"
+c=$(code -X POST -H 'content-type: text/plain' -d '{}' "$URL/api/auth/login")
+[ "$c" = "415" ] && ok "Body ohne JSON abgewiesen (415)" || fail "text/plain-POST: $c (erwartet 415)"
+
 # Häufig gesuchte Geheimnis-Pfade dürfen nichts preisgeben (SPA-Fallback auf index.html ist ok).
 for pfad in /.env /.git/config /server/.env /data/lernapp.sqlite /docker-compose.yml /api/../.env; do
   koerper=$(curl -s --max-time 10 "$URL$pfad" 2>/dev/null | head -c 2000)
