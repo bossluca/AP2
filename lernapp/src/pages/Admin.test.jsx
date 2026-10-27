@@ -28,6 +28,7 @@ const UEBERSICHT = {
   konten: [
     { id: 1, email: 'admin@fisi.dev', erstellt: '2026-10-01', gesperrt: false, admin: true, xp: 10, eintraege: 3 },
     { id: 2, email: 'lea@fisi.dev', erstellt: '2026-10-02', gesperrt: false, admin: false, xp: 50, eintraege: 9 },
+    { id: 3, email: 'zweiter@fisi.dev', erstellt: '2026-10-03', gesperrt: false, admin: true, xp: 0, eintraege: 0 },
   ],
   einladungen: [],
 };
@@ -63,5 +64,13 @@ describe('Admin', () => {
     expect(api.einladen).toHaveBeenCalledWith(1, 14, '');
     expect(await screen.findByText('ABCD-EFGH-JKLM')).toBeInTheDocument();
     expect(screen.getByLabelText('Einladungslink').value).toMatch(/#\/konto\?einladung=ABCD-EFGH-JKLM$/);
+  });
+
+  it('bietet für Admin-Konten keine Löschen-Aktion an (S18), für normale schon', async () => {
+    auth.user = { id: 1, email: 'admin@fisi.dev', admin: true };
+    renderPage();
+    expect(await screen.findByText('lea@fisi.dev')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'lea@fisi.dev löschen' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'zweiter@fisi.dev löschen' })).not.toBeInTheDocument();
   });
 });
