@@ -41,6 +41,7 @@ function limitSchluessel(req, email) {
 
 /** Setzt das Sitzungs-Cookie auf der Antwort. */
 function setSessionCookie(reply, token, expires) {
+  // Kein `domain` setzen (Voraussetzung für das `__Host-`-Präfix, s. app.js).
   reply.setCookie(reply.server.config.cookieName, token, {
     path: '/',
     httpOnly: true,
@@ -48,6 +49,33 @@ function setSessionCookie(reply, token, expires) {
     secure: reply.server.config.secureCookie,
     expires,
   });
+}
+
+/**
+ * Prüft das im Body gelieferte aktuelle Passwort für sensible Konto-Aktionen
+ * (Recovery-Code erneuern, Konto löschen). Gleiche Bremse wie der Login, aber mit
+ * eigenem Schlüssel je IP+Konto. Antwortet bei Fehlern selbst und liefert dann false.
+ */
+async function bestaetigePasswort(app, req, reply) {
+  const schluessel = `${req.ip}|konto:${req.user.id}`;
+  const limit = app.loginLimiter.pruefe(schluessel);
+  if (!limit.erlaubt) {
+    reply.header('Retry-After', String(limit.retryNachSek));
+    reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
+    return false;
+  }
+  const passwort = req.body?.password;
+  const row = app.db.prepare('SELECT password_hash FROM users WHERE id = ?').get(req.user.id);
+  const ok =
+    typeof passwort === 'string' && passwort.length > 0 && row
+      ? await verify(row.password_hash, passwort).catch(() => false)
+      : false;
+  if (!ok) {
+    reply.code(401).send({ error: 'Passwort falsch oder fehlend.' });
+    return false;
+  }
+  app.loginLimiter.erfolg(schluessel);
+  return true;
 }
 
 /**
@@ -232,6 +260,7 @@ export async function authRoutes(app) {
   // Feature oder wenn der notierte Code verloren ging. Rotiert den alten.
   app.post('/api/auth/recovery-code', async (req, reply) => {
     if (!req.user) return reply.code(401).send({ error: 'Nicht angemeldet.' });
+    if (!(await bestaetigePasswort(app, req, reply))) return reply;
     const recoveryCode = erzeugeRecoveryCode();
     db.prepare('UPDATE users SET recovery_hash = ? WHERE id = ?').run(
       await hash(normalisiereCode(recoveryCode)),
@@ -256,6 +285,15 @@ export async function authRoutes(app) {
   // (foreign_keys=ON) – alle zugehörigen sessions/progress/gamification-Zeilen.
   app.delete('/api/auth/account', async (req, reply) => {
     if (!req.user) return reply.code(401).send({ error: 'Nicht angemeldet.' });
+    // Admin-Rolle hängt an der (unverifizierten) E-Mail: Würde ein Admin sein Konto
+    // löschen, könnte sich jeder mit Einladungscode unter dieser E-Mail neu registrieren
+    // und wäre Admin (S18). Daher erst aus ADMIN_EMAILS entfernen.
+    if (req.user.admin) {
+      return reply.code(409).send({
+        error: 'Admin-Konten können nicht gelöscht werden. Entferne die E-Mail zuerst aus ADMIN_EMAILS.',
+      });
+    }
+    if (!(await bestaetigePasswort(app, req, reply))) return reply;
     db.prepare('DELETE FROM users WHERE id = ?').run(req.user.id);
     reply.clearCookie(app.config.cookieName, { path: '/' });
     return reply.send({ ok: true });

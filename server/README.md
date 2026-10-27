@@ -22,7 +22,7 @@ npm test                   # API-Tests (node:test, via app.inject)
 | `PORT` | `3001` | HTTP-Port |
 | `HOST` | `0.0.0.0` | Bind-Adresse |
 | `DB_PATH` | `./data/lernapp.sqlite` | SQLite-Datei (in Docker auf ein Volume legen) |
-| `SESSION_COOKIE_NAME` | `ap_session` | Name des Sitzungs-Cookies |
+| `SESSION_COOKIE_NAME` | `ap_session` | Basisname des Sitzungs-Cookies; mit `NODE_ENV=production` wird `__Host-` vorangestellt |
 | `CORS_ORIGIN` | – | Erlaubter Origin (nur nötig, wenn Frontend auf anderer Origin; im Dev übernimmt das der Vite-Proxy) |
 | `NODE_ENV` | `development` | `production` → `Secure`-Flag für Cookies (HTTPS) |
 

@@ -12,19 +12,19 @@ afterEach(async () => {
   await app?.close();
 });
 
-async function registriere(email, extra = {}) {
+async function registriere(email, extra = {}, cookieName = 'ap_session') {
   const res = await app.inject({
     method: 'POST',
     url: '/api/auth/register',
     payload: { email, password: 'geheim1234', ...extra },
   });
-  const c = res.cookies.find((x) => x.name === 'ap_session');
-  return { res, cookie: c ? `ap_session=${c.value}` : '', roh: c };
+  const c = res.cookies.find((x) => x.name === cookieName);
+  return { res, cookie: c ? `${cookieName}=${c.value}` : '', roh: c };
 }
 
 test('Session-Cookie: HttpOnly, SameSite=Lax, Secure im Produktivbetrieb', async () => {
   app = await buildApp({ secureCookie: true });
-  const { roh } = await registriere('a@b.de');
+  const { roh } = await registriere('a@b.de', {}, '__Host-ap_session');
   assert.ok(roh, 'Cookie gesetzt');
   assert.equal(roh.httpOnly, true);
   assert.equal(String(roh.sameSite).toLowerCase(), 'lax');

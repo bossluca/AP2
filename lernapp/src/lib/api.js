@@ -32,10 +32,11 @@ export const authApi = {
     request('/auth/login', { method: 'POST', body: { email, password } }),
   logout: () => request('/auth/logout', { method: 'POST' }),
   me: () => request('/auth/me'),
-  deleteAccount: () => request('/auth/account', { method: 'DELETE' }),
+  // Beide sensiblen Aktionen verlangen das aktuelle Passwort (C2/S18).
+  deleteAccount: (password) => request('/auth/account', { method: 'DELETE', body: { password } }),
   recover: (email, recoveryCode, newPassword) =>
     request('/auth/recover', { method: 'POST', body: { email, recoveryCode, newPassword } }),
-  neuerRecoveryCode: () => request('/auth/recovery-code', { method: 'POST' }),
+  neuerRecoveryCode: (password) => request('/auth/recovery-code', { method: 'POST', body: { password } }),
 };
 
 export const progressApi = {

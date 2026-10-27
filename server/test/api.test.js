@@ -146,7 +146,7 @@ test('Konto löschen entfernt Konto + zugehörige Daten', async () => {
     payload: { activity: { '2026-06-28': 3 }, xp: 50, klausurBest: 70 },
   });
 
-  const del = await app.inject({ method: 'DELETE', url: '/api/auth/account', headers });
+  const del = await app.inject({ method: 'DELETE', url: '/api/auth/account', headers, payload: { password: 'geheim1234' } });
   assert.equal(del.statusCode, 200);
 
   // Cookie ist nun ungültig → me ist 401.

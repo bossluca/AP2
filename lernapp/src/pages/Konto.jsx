@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { authApi } from '../lib/api';
 import { ladeLoginPflichtBekannt } from '../lib/zugang';
 import DatenSicherung from '../components/DatenSicherung';
+import PasswortDialog from '../components/PasswortDialog';
 
 /**
  * Konto-Seite: Registrieren / Anmelden / Abmelden / Konto löschen. Im angemeldeten
@@ -42,7 +43,8 @@ export default function Konto() {
   const [einwilligung, setEinwilligung] = useState(false);
   const [fehler, setFehler] = useState(null);
   const [busy, setBusy] = useState(false);
-  const [loeschen, setLoeschen] = useState(false);
+  // Offener Passwort-Dialog: null | 'loeschen' | 'code' (C2: sensible Aktionen fragen das Passwort ab)
+  const [dialog, setDialog] = useState(null);
   // Einmalig anzuzeigender Recovery-Code (nach Registrierung/Reset/Erneuern)
   // liegt im AuthContext, damit er den Wechsel vom Login-Gate zur App übersteht.
 
@@ -85,17 +87,10 @@ export default function Konto() {
     }
   };
 
-  const kontoLoeschen = async () => {
-    setFehler(null);
-    setBusy(true);
-    try {
-      await deleteAccount(); // räumt auch den lokalen Stand auf (C1)
-      setLoeschen(false);
-    } catch (err) {
-      setFehler(err.message || 'Löschen fehlgeschlagen.');
-    } finally {
-      setBusy(false);
-    }
+  // Beide Funktionen werfen bei Fehler – der Passwort-Dialog zeigt ihn inline.
+  const kontoLoeschen = async (passwort) => {
+    await deleteAccount(passwort); // räumt auch den lokalen Stand auf (C1)
+    setDialog(null);
   };
 
   // Einmal-Anzeige des Recovery-Codes (nach Registrierung, Reset oder Erneuern).
@@ -116,17 +111,10 @@ export default function Konto() {
     </div>
   );
 
-  const codeErneuern = async () => {
-    setFehler(null);
-    setBusy(true);
-    try {
-      const d = await authApi.neuerRecoveryCode();
-      setNeuerCode(d.recoveryCode);
-    } catch (err) {
-      setFehler(err.message || 'Code konnte nicht erzeugt werden.');
-    } finally {
-      setBusy(false);
-    }
+  const codeErneuern = async (passwort) => {
+    const d = await authApi.neuerRecoveryCode(passwort);
+    setNeuerCode(d.recoveryCode);
+    setDialog(null);
   };
 
   if (user) {
@@ -155,7 +143,7 @@ export default function Konto() {
           <button onClick={() => logout()} className="btn-ghost px-4 py-2">
             Abmelden
           </button>
-          <button onClick={codeErneuern} disabled={busy} className="btn-ghost px-4 py-2">
+          <button onClick={() => setDialog('code')} className="btn-ghost px-4 py-2">
             Neuen Recovery-Code erzeugen
           </button>
         </div>
@@ -173,35 +161,44 @@ export default function Konto() {
             Entfernt dein Konto und alle serverseitig gespeicherten Daten (E-Mail, Fortschritt,
             XP/Streak) unwiderruflich. Der lokale Stand in diesem Browser wird ebenfalls geleert.
           </p>
-          {!loeschen ? (
+          {user.admin ? (
+            <p className="text-xs text-muted-foreground">
+              Admin-Konten (E-Mail in <code>ADMIN_EMAILS</code>) können nicht gelöscht werden. Entferne
+              die E-Mail zuerst aus <code>ADMIN_EMAILS</code>.
+            </p>
+          ) : (
             <button
-              onClick={() => setLoeschen(true)}
+              onClick={() => setDialog('loeschen')}
               className="px-3 py-1.5 rounded-md border border-zinc-300 dark:border-zinc-600 hover:border-red-400 text-sm"
             >
               Konto löschen …
             </button>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={kontoLoeschen}
-                disabled={busy}
-                className="px-3 py-1.5 rounded-md bg-red-600 text-white text-sm disabled:opacity-60"
-              >
-                {busy ? '…' : 'Endgültig löschen'}
-              </button>
-              <button
-                onClick={() => setLoeschen(false)}
-                className="px-3 py-1.5 rounded-md border border-zinc-300 dark:border-zinc-600 text-sm"
-              >
-                Abbrechen
-              </button>
-            </div>
           )}
         </div>
 
         <Link to="/info" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-accent">
           <ShieldCheck size={13} aria-hidden="true" /> Was wird gespeichert? – Über &amp; Datenschutz
         </Link>
+
+        {dialog === 'loeschen' && (
+          <PasswortDialog
+            titel="Konto endgültig löschen?"
+            beschreibung="Dein Konto und alle serverseitig gespeicherten Daten werden unwiderruflich gelöscht. Bestätige mit deinem aktuellen Passwort."
+            bestaetigenText="Endgültig löschen"
+            gefahr
+            onBestaetigen={kontoLoeschen}
+            onAbbrechen={() => setDialog(null)}
+          />
+        )}
+        {dialog === 'code' && (
+          <PasswortDialog
+            titel="Neuen Recovery-Code erzeugen"
+            beschreibung="Der bisherige Code wird dabei ungültig. Bestätige mit deinem aktuellen Passwort."
+            bestaetigenText="Code erzeugen"
+            onBestaetigen={codeErneuern}
+            onAbbrechen={() => setDialog(null)}
+          />
+        )}
       </div>
     );
   }

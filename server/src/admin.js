@@ -81,6 +81,13 @@ export async function adminRoutes(app) {
   app.delete('/api/admin/users/:id', async (req, reply) => {
     const konto = zielKonto(req, reply);
     if (!konto) return reply;
+    // Admin-Konten nie löschen: Die Rolle hängt an der E-Mail, ein neues Konto mit
+    // Einladungscode würde sie erben (S18).
+    if (app.config.adminEmails.has(konto.email)) {
+      return reply.code(409).send({
+        error: 'Admin-Konten können nicht gelöscht werden. Entferne die E-Mail zuerst aus ADMIN_EMAILS.',
+      });
+    }
     db.prepare('DELETE FROM users WHERE id = ?').run(konto.id);
     return { ok: true };
   });

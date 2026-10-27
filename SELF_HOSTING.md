@@ -163,6 +163,8 @@ API-Anfragen einer IP → ~40 durch, Rest 429; normale Nutzung bleibt weit darun
 - ⚠️ **Nie `docker compose down -v`** – das `-v` löscht das Volume mit allen Konten.
   Normales `down`/`up`/Rebuild lässt die Daten unangetastet (getestet).
 - `SESSION_COOKIE_NAME` nicht ändern (sonst sind alle abgemeldet – Daten bleiben aber).
+  Einmalig erwartet: Mit dem Update auf C2 heißt das Cookie in Produktion `__Host-ap_session`
+  → alle melden sich einmal neu an.
 - E-Mails werden klein geschrieben gespeichert; Login ist unabhängig von Groß/Klein.
 - **Passwort vergessen** → Recovery-Code (wird bei der Registrierung angezeigt). Ohne
   Code kann ein Admin das Konto aktuell nur löschen/sperren, nicht zurücksetzen

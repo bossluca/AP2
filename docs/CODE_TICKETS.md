@@ -21,7 +21,7 @@ eigenen Sitzung abgearbeitet werden.
 | Nr | Titel | Schwere | Bereich | Modell / Aufwand |
 |---|---|---|---|---|
 | C1 | Daten zwischen Konten trennen (Logout/Kontowechsel) – **umgesetzt** (Branch `claude/c1-konten-trennung`) | hoch | Frontend | Opus / mittel |
-| C2 | Sensible Konto-Aktionen absichern (Passwort, Origin, Cookie, Admin) | hoch–mittel | Backend + Frontend | Sonnet / mittel |
+| C2 | Sensible Konto-Aktionen absichern (Passwort, Origin, Cookie, Admin) – **umgesetzt** (Branch `claude/c2-konto-aktionen`) | hoch–mittel | Backend + Frontend | Sonnet / mittel |
 | C3 | Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig | mittel | Backend | Opus / mittel |
 | C4 | Importierte und vom Server geladene Daten validieren | mittel | Frontend | Opus / mittel |
 | C5 | Sync-Robustheit (Retry, Race, 401, Timeout, gelöschte Stapel) | mittel | Frontend | Opus / mittel |
@@ -108,6 +108,14 @@ d) Admin-Rolle hängt an einer unverifizierten E-Mail: Löscht ein Admin sein Ko
 4. Admin-Konten: `DELETE /api/auth/account` für Admins (E-Mail in `ADMIN_EMAILS`) verweigern
    (Hinweis: zuerst aus `ADMIN_EMAILS` entfernen), und im Admin-Bereich „Konto löschen“ eines
    Admins verbieten. Test: Registrierung mit Admin-E-Mail nach Löschversuch weiter unmöglich.
+
+**Stand:** umgesetzt – `server/src/lib/csrf.js` (reine Herkunftsprüfung + Cookie-Name), Hook in
+`app.js`, `bestaetigePasswort` in `auth.js` (Schlüssel `${ip}|konto:${userId}`), Admin-Schutz in
+`auth.js` und `admin.js` (409), Frontend `components/PasswortDialog.jsx`. Entscheidungen: bei
+`Sec-Fetch-Site` zusätzlich Ausnahme für den konfigurierten `CORS_ORIGIN` (Dev-Setup);
+`X-Forwarded-Proto` wird nur verglichen, wenn gesetzt; Admin-Prüfung kommt vor der
+Passwortprüfung (409 statt 401). Tests: `server/test/kontoSchutz.test.js`,
+`PasswortDialog.test.jsx`, `api.test.js`, `Konto.test.jsx`, `Admin.test.jsx`.
 
 **Akzeptanz.** Alle neuen Tests grün, `security.test.js` erweitert, `SECURITY.md` Befunde
 ergänzt (S17–S20).

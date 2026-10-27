@@ -34,7 +34,7 @@ import { bestimmeZugang, ladeLoginPflichtBekannt, merkeLoginPflicht } from '../l
  * @property {(email:string, code:string, newPassword:string)=>Promise<{recoveryCode?:string}>} recover
  *           Passwort-Reset per Recovery-Code; liefert den neuen Code mit.
  * @property {()=>Promise<void>} logout
- * @property {()=>Promise<void>} deleteAccount  Konto + Serverdaten löschen (DSGVO).
+ * @property {(password:string)=>Promise<void>} deleteAccount  Konto + Serverdaten löschen (DSGVO); verlangt das aktuelle Passwort.
  */
 
 // Default-Wert, damit useAuth auch ohne Provider funktioniert (z. B. in Tests
@@ -237,8 +237,8 @@ export function AuthProvider({ children }) {
 
   // Konto serverseitig löschen; danach abgemeldet und lokal aufgeräumt. Wirft
   // bei Fehler, damit die UI eine Rückmeldung geben kann.
-  const deleteAccount = useCallback(async () => {
-    await authApi.deleteAccount();
+  const deleteAccount = useCallback(async (password) => {
+    await authApi.deleteAccount(password);
     abmeldenLokal();
   }, [abmeldenLokal]);
 
