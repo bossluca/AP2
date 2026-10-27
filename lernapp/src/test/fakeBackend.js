@@ -11,7 +11,9 @@ export function erzeugeFakeBackend({ konfig = { registrierung: 'open' } } = {}) 
   let sitzung = null; // userId der aktuellen Cookie-Sitzung
   let naechsteId = 1;
   const log = [];
-  const zustand = { putsFehlschlagen: false, konfig };
+  // ablehnen: Item-IDs, deren Progress-PUT der Server inhaltlich ablehnt
+  // (400 wie bei ungültigen Einträgen, s. C3).
+  const zustand = { putsFehlschlagen: false, ablehnen: new Set(), konfig };
 
   function legeKontoAn(email, passwort = 'geheim1234') {
     const id = naechsteId++;
@@ -73,8 +75,15 @@ export function erzeugeFakeBackend({ konfig = { registrierung: 'open' } } = {}) 
     }
     if (pfad.startsWith('/progress/') && method === 'PUT') {
       if (zustand.putsFehlschlagen) return antwort(503, { error: 'offline' });
-      meins.progress[decodeURIComponent(pfad.slice('/progress/'.length))] = body;
-      return antwort(200, { ok: true });
+      // Wie der echte Server (C3): älterer updatedAt überschreibt keinen neueren.
+      const id = decodeURIComponent(pfad.slice('/progress/'.length));
+      if (zustand.ablehnen.has(id)) return antwort(400, { error: 'Ungültiger Eintrag' });
+      const alt = meins.progress[id]?.updatedAt;
+      if (alt && (!body.updatedAt || Date.parse(body.updatedAt) < Date.parse(alt))) {
+        return antwort(200, { ok: true, uebernommen: false });
+      }
+      meins.progress[id] = body;
+      return antwort(200, { ok: true, uebernommen: true });
     }
     if (pfad === '/gamification' && method === 'GET') {
       return antwort(200, { gamification: meins.gamification });

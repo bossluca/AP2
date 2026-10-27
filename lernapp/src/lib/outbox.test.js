@@ -74,6 +74,33 @@ describe('outbox', () => {
     const gesendet = [];
     const r = await flusheOutbox(liste, async (id) => gesendet.push(id), 2);
     expect(gesendet).toEqual(['b']);
-    expect(r).toEqual({ rest: [], gesendet: 1, verworfen: 2 });
+    expect(r).toEqual({ rest: [], gesendet: 1, verworfen: 2, abgelehnt: 0 });
+  });
+
+  it('verwirft vom Server endgültig abgelehnte Einträge (C3), behält vorübergehende Fehler', async () => {
+    const fehler = (status) => Object.assign(new Error('x'), { status });
+    const liste = ['a', 'b', 'c', 'd', 'e'].map((id) => ({ id, entry: {}, userId: 1 }));
+    const antworten = { a: fehler(400), b: null, c: fehler(413), d: fehler(503), e: null };
+    const gesendet = [];
+    const r = await flusheOutbox(
+      liste,
+      async (id) => {
+        if (antworten[id]) throw antworten[id];
+        gesendet.push(id);
+      },
+      1
+    );
+    expect(gesendet).toEqual(['b']);
+    expect(r.abgelehnt).toBe(2);
+    expect(r.rest.map((e) => e.id)).toEqual(['d', 'e']);
+  });
+
+  it('401 und Netzfehler gelten als vorübergehend', async () => {
+    const liste = [{ id: 'a', entry: {}, userId: 1 }];
+    for (const err of [Object.assign(new Error('x'), { status: 401 }), new Error('offline')]) {
+      const r = await flusheOutbox(liste, async () => { throw err; }, 1);
+      expect(r.rest).toHaveLength(1);
+      expect(r.abgelehnt).toBe(0);
+    }
   });
 });
