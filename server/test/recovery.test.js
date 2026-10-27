@@ -117,6 +117,7 @@ test('Angemeldet lässt sich ein neuer Recovery-Code erzeugen (rotiert den alten
     method: 'POST',
     url: '/api/auth/recovery-code',
     headers: { cookie: cookieHeader },
+    payload: { password: 'geheim1234' },
   });
   assert.equal(res.statusCode, 200);
   const neuer = res.json().recoveryCode;

@@ -12,6 +12,7 @@ import { datenRoutes } from './daten.js';
 import { gruppenRoutes } from './gruppen.js';
 import { registrierungsModus, adminEmails } from './lib/einladung.js';
 import { erstelleRateLimiter } from './lib/rateLimit.js';
+import { sitzungsCookieName, pruefeAnfrageHerkunft } from './lib/csrf.js';
 
 /**
  * Baut die Fastify-App (ohne sie zu starten) – so kann sie in Tests via
@@ -50,8 +51,13 @@ export async function buildApp(opts = {}) {
 
   // Konfiguration zentral ablegen (Routen lesen daraus).
   app.decorate('config', {
-    cookieName: opts.cookieName || 'ap_session',
+    // Effektiver Cookie-Name (ein Ort für Lesen und Setzen). Im Produktivbetrieb
+    // (secureCookie) mit `__Host-`-Präfix: Der Browser akzeptiert solche Cookies nur
+    // mit Secure, Pfad `/` und ohne Domain – Geschwister-Subdomains können sie nicht
+    // überschreiben (Cookie-Tossing, S18).
+    cookieName: sitzungsCookieName(opts.cookieName, opts.secureCookie ?? false),
     secureCookie: opts.secureCookie ?? false,
+    corsOrigin: opts.corsOrigin || null,
     registrierung: registrierungsModus(opts.registrierung),
     adminEmails: adminEmails(opts.adminEmails),
     loginPflicht: opts.requireLogin === true,
@@ -62,6 +68,13 @@ export async function buildApp(opts = {}) {
   app.addHook('onClose', () => db.close());
 
   await app.register(cookie);
+
+  // CSRF-Härtung (S18): schreibende Requests müssen same-origin kommen und, wenn sie
+  // einen Body haben, JSON sein (verhindert „einfache“ Cross-Site-Formulare/text/plain).
+  app.addHook('onRequest', async (req, reply) => {
+    const urteil = pruefeAnfrageHerkunft(req, { erlaubterOrigin: app.config.corsOrigin });
+    if (!urteil.ok) return reply.code(urteil.status).send({ error: urteil.fehler });
+  });
   if (opts.corsOrigin) {
     await app.register(cors, { origin: opts.corsOrigin, credentials: true });
   }
