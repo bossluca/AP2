@@ -96,9 +96,13 @@ Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
 | `POST` | `/api/admin/invites` | `{ maxUses 1–100, gueltigTage 0–365, notiz }` → Code (nur einmal im Klartext) |
 | `DELETE` | `/api/admin/invites/:id` | Einladung widerrufen |
 
-Registrierung: `GET /api/auth/config` liefert `{ registrierung }` (Env `REGISTRATION` =
-`open`/`invite`/`closed`); bei `invite` braucht `POST /api/auth/register` ein `inviteCode`
-(atomar eingelöst), auch für E-Mails aus `ADMIN_EMAILS`. Den ersten Code erzeugt der Betreiber per
+Registrierung: `GET /api/auth/config` liefert `{ registrierung, loginPflicht }` (Env
+`REGISTRATION` = `open`/`invite`/`closed`; Env `REQUIRE_LOGIN` = `true`/`false`, ohne Angabe
+`false`, in `docker-compose.yml` `true` – dann zeigt das Frontend ohne Sitzung nur die
+Konto-Seite und nginx liefert die Prüfungsdaten nur mit Sitzung aus). Bei `invite` braucht
+`POST /api/auth/register` ein `inviteCode` (atomar eingelöst), auch für E-Mails aus
+`ADMIN_EMAILS`; falsche Codes zählen gegen die Login-Bremse (`IP|invite`, 8 Fehlversuche /
+15 min → 429, Erfolg setzt zurück). Den ersten Code erzeugt der Betreiber per
 `node src/einladung-cli.js [notiz]` im Container (1x nutzbar, 1 Tag gültig). Gesperrte Konten können sich nicht anmelden/zurücksetzen.
 
 ### Sonstiges

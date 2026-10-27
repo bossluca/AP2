@@ -20,4 +20,19 @@ describe('Bundle-Hygiene', () => {
     );
     expect(treffer).toEqual([]);
   });
+
+  it('C9: exam_data.json wird außerhalb von Tests nie statisch importiert (nur nach Login per import())', () => {
+    const treffer = dateien(SRC)
+      .filter((p) => !/\.test\.jsx?$/.test(p) && !p.includes(`${join('src', 'test')}`))
+      .filter((p) => /^\s*import\s+[^(]*['"][^'"]*exam_data\.json['"]/m.test(readFileSync(p, 'utf8')));
+    expect(treffer).toEqual([]);
+  });
+
+  it('C9: vite.config nimmt den examdata-Chunk aus dem Precache und cacht ihn zur Laufzeit', () => {
+    const cfg = readFileSync(join(SRC, '..', 'vite.config.js'), 'utf8');
+    expect(cfg).toMatch(/globIgnores:\s*\[[^\]]*examdata-\*\.js/);
+    expect(cfg).toMatch(/runtimeCaching/);
+    expect(cfg).toMatch(/handler:\s*'CacheFirst'/);
+    expect(cfg).toMatch(/cacheName:\s*EXAMDATEN_CACHE/);
+  });
 });

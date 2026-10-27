@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react';
 import { getLearnableQuestions } from '../data/useExamData';
+import { useExamDatenGeladen } from '../data/examDaten';
 import { bewerten, istFaellig } from '../lib/fsrs';
 import { ladeResume, speichereResume, loescheResume } from '../lib/resume';
 import { useAuth } from './AuthContext';
@@ -122,6 +123,9 @@ function ProgressProviderInnen({ children }) {
   // „Weiterlernen": zuletzt begonnene Session (gerätelokal, best-effort).
   const [resume, setResumeState] = useState(() => ladeResume());
   const { user, syncModus } = useAuth();
+  // Prüfungsdaten kommen seit C9 erst nach dem Login (dynamischer Import) –
+  // die Statistik muss danach neu rechnen.
+  const datenGeladen = useExamDatenGeladen();
   const { resetGamification } = useGamification();
 
   // Ref auf den jeweils aktuellen Stand, damit `getStatus` refstabil bleibt
@@ -364,7 +368,9 @@ function ProgressProviderInnen({ children }) {
       else if (s === 'ueben') ueben += 1;
     }
     return { total, gelernt, ueben, offen: total - gelernt - ueben };
-  }, [progress]);
+    // datenGeladen: Neuberechnung, sobald die Daten nachgeladen sind.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progress, datenGeladen]);
 
   const value = useMemo(
     () => ({
