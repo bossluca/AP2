@@ -137,7 +137,7 @@ ob der Angreifer bei einem Container bleibt oder an deine PCs, das NAS und Proxm
 | **Datenschutzerklärung** (`/info` ist nur Vorlage): wer betreibt, welche Daten (E-Mail, Lernstand, IP in Logs), Zweck, Speicherdauer inkl. Backups, Rechte (Auskunft, Löschung), Kontakt | ⏳ 👤 vor dem Einladen |
 | **Impressum:** bei rein privater Nutzung im Freundes-/Klassenkreis meist nicht nötig, sobald es öffentlich beworben oder „geschäftsmäßig“ wird, Pflicht (DDG § 5) | ⏳ 👤 entscheiden |
 | **Urheberrecht Prüfungen:** AP1-Prüfungen paraphrasiert, AP2-Sets KI-generiert, gekennzeichnet (ADR-007) | ✅ |
-| **Urheberrecht Lernzettel:** werden unverändert aus den Quelldokumenten importiert → klären, ob du sie veröffentlichen darfst (eigene? Berufsschule? Verlag?). Seit C9 nur noch für angemeldete, eingeladene Nutzer abrufbar (kein öffentlicher Download mehr) – die Rechtsfrage bleibt trotzdem | ⏳ 👤 |
+| **Urheberrecht Lernzettel:** 111 AP1-Lernzettel stammen laut Quellfeld von einer **fremden Person** (Reddit „u/DeFyuseOW“, 2025) und sind wörtlich importiert; bei den 167 AP2-Lernzetteln ist die Herkunft nicht dokumentiert → Details und Optionen in `docs/INHALTE_PLAN.md` Abschnitt 2. Klären, ob du sie veröffentlichen darfst (Autor/in fragen, Lizenz prüfen, sonst neu formulieren). Seit C9 nur noch für angemeldete, eingeladene Nutzer abrufbar (kein öffentlicher Download mehr) – die Rechtsfrage bleibt trotzdem | ⏳ 👤 |
 | Git-Repo bleibt **privat** (enthält in der Historie wörtliche Originale) | ✅ 👤 so lassen |
 
 ## 10. Reihenfolge bis zum Einladen
