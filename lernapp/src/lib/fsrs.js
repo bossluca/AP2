@@ -143,12 +143,18 @@ function stabilitaetMisserfolg(D, S, R, w) {
  * für ein neues Objekt. Migriert Leitner-Altdaten (`box`) idempotent.
  */
 function vorzustand(entry) {
-  if (Number.isFinite(entry?.stability) && Number.isFinite(entry?.difficulty)) {
+  // Defensiv (C4): kaputte Werte aus Import/Server dürfen nie NaN erzeugen.
+  // Stabilität ≤ 0 gilt als „kein FSRS-Zustand“, die Schwierigkeit wird geklemmt.
+  if (
+    Number.isFinite(entry?.stability) &&
+    entry.stability > 0 &&
+    Number.isFinite(entry?.difficulty)
+  ) {
     return {
-      S: entry.stability,
-      D: entry.difficulty,
-      reps: entry.reps || 0,
-      lapses: entry.lapses || 0,
+      S: clamp(entry.stability, 0.1, MAX_STABILITY),
+      D: clamp(entry.difficulty, 1, 10),
+      reps: zaehler(entry.reps),
+      lapses: zaehler(entry.lapses),
       last: entry.last_review || entry.lastSeen || null,
     };
   }
@@ -166,6 +172,17 @@ function vorzustand(entry) {
   return null;
 }
 
+/** Nicht-negative ganze Zahl oder 0 (für reps/lapses aus Fremddaten). */
+function zaehler(v) {
+  return Number.isFinite(v) && v > 0 ? Math.round(v) : 0;
+}
+
+/** Gültiges Datum oder „jetzt“ (verhindert `RangeError` bei `toISOString`). */
+function gueltigesDatum(d) {
+  const t = d instanceof Date ? d.getTime() : new Date(d).getTime();
+  return Number.isFinite(t) ? new Date(t) : new Date();
+}
+
 /** Stärke-Bucket (1–5) aus der Stabilität – nur für die abwärtskompatible Anzeige/Statistik. */
 export function boxAusStabilitaet(S) {
   if (S < 1) return 1;
@@ -181,7 +198,10 @@ export function boxAusStabilitaet(S) {
  */
 export function istFaellig(entry, jetzt = new Date()) {
   if (!entry || !entry.due) return true;
-  return new Date(entry.due).getTime() <= jetzt.getTime();
+  const due = new Date(entry.due).getTime();
+  // Ungültiges `due` (z. B. "kaputt") → fällig, sonst wäre die Karte nie wieder dran.
+  if (!Number.isFinite(due)) return true;
+  return due <= gueltigesDatum(jetzt).getTime();
 }
 
 /**
@@ -201,9 +221,10 @@ export function istFaellig(entry, jetzt = new Date()) {
  * @returns {{stability:number, difficulty:number, due:string, reps:number,
  *            lapses:number, last_review:string, box:number}}
  */
-export function bewerten(entry, note, jetzt = new Date(), optionen = {}) {
+export function bewerten(entry, note, jetztRoh = new Date(), optionen = {}) {
+  const jetzt = gueltigesDatum(jetztRoh);
   const w = Array.isArray(optionen.weights) ? optionen.weights : FSRS_WEIGHTS;
-  const retention = optionen.retention ?? STANDARD_RETENTION;
+  const retention = Number.isFinite(optionen.retention) ? optionen.retention : STANDARD_RETENTION;
   const n = alsNote(note);
   const vor = vorzustand(entry);
 
@@ -231,6 +252,11 @@ export function bewerten(entry, note, jetzt = new Date(), optionen = {}) {
     D = naechsteSchwierigkeit(vor.D, n, w); // nutzt die alte Schwierigkeit
     reps = vor.reps + 1;
     lapses = vor.lapses + (n === NOTEN.NOCHMAL ? 1 : 0);
+  }
+  // Letzte Absicherung: nie NaN/Infinity speichern – sonst Startwerte.
+  if (!Number.isFinite(S) || !Number.isFinite(D)) {
+    S = initStabilitaet(n, FSRS_WEIGHTS);
+    D = initSchwierigkeit(n, FSRS_WEIGHTS);
   }
 
   const tage = intervallTage(S, retention);

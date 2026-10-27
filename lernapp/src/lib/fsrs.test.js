@@ -155,3 +155,41 @@ describe('Hilfsfunktionen', () => {
     expect(p).toBeLessThanOrEqual(1);
   });
 });
+
+describe('Defensiv gegen kaputte Eingaben (C4)', () => {
+  const endlich = (r) => {
+    for (const k of ['stability', 'difficulty', 'reps', 'lapses', 'box']) expect(Number.isFinite(r[k])).toBe(true);
+    expect(Number.isFinite(Date.parse(r.due))).toBe(true);
+  };
+
+  it('difficulty <= 0 wirft nicht und liefert endliche Werte', () => {
+    for (const difficulty of [0, -5]) {
+      for (const note of [1, 2, 3, 4]) {
+        endlich(bewerten({ stability: 3, difficulty, last_review: '2026-05-20T10:00:00Z' }, note, JETZT));
+      }
+    }
+  });
+
+  it('NaN/Infinity/Strings fallen auf Startwerte zurück', () => {
+    for (const e of [
+      { stability: NaN, difficulty: 5 },
+      { stability: Infinity, difficulty: 5 },
+      { stability: '3', difficulty: '5' },
+      { stability: 0, difficulty: 5 },
+      { stability: 3, difficulty: 5, reps: 'x', lapses: -2, last_review: 'kaputt' },
+    ]) {
+      endlich(bewerten(e, 3, JETZT));
+    }
+    expect(bewerten({ stability: NaN, difficulty: 5 }, 3, JETZT).reps).toBe(1);
+  });
+
+  it('ungültiges jetzt wirft keinen RangeError', () => {
+    endlich(bewerten({}, 3, new Date('kaputt')));
+    endlich(bewerten({ stability: 3, difficulty: 5 }, 3, 'x'));
+  });
+
+  it('istFaellig: due "kaputt" gilt als fällig', () => {
+    expect(istFaellig({ due: 'kaputt' }, JETZT)).toBe(true);
+    expect(istFaellig({ due: '2999-01-01T00:00:00.000Z' }, new Date('kaputt'))).toBe(false);
+  });
+});
