@@ -78,8 +78,15 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
   Sitzungen, rotiert den Code) + `POST /api/auth/recovery-code` (angemeldet: Code
   erzeugen/erneuern – auch für Bestandskonten; verlangt `password` im Body)
 - DB-Schema (`progress`) trägt neben `status/box/due/…` auch die **FSRS-Felder**
-  (`stability/difficulty/reps/lapses/last_review`); additive Migration in `db.js`
+  (`stability/difficulty/reps/lapses/last_review`) und **`client_updated_at`** (C3); additive Migration in `db.js`
   (`ALTER TABLE … ADD COLUMN`). Tabelle `gamification` (user_id, activity, xp, klausur_best)
+- **Eingabe-Validierung (C3):** reines, getestetes `src/lib/validierung.js` (`pruefeProgressEintrag`,
+  `pruefeItemId` – IDs mit Umlauten erlaubt, `pruefeGamification`, `istObjektOderListe`). `PUT /api/progress/:itemId`
+  → `400` bei Ungültigem, `413` über **5000 Einträge je Konto** (`PROGRESS_GRENZEN`, im Test überschreibbar),
+  **Konfliktschutz:** älterer Client-`updatedAt` überschreibt keinen neueren (`200 {uebernommen:false}`, Zukunfts-Zeitstempel
+  auf Server-Zeit gekappt); Merge → `{imported, skipped}`. Gamification: `xp` ≤ 10 Mio., `klausurBest` ≤ 100000,
+  `activity` auf jüngste 400 Tage gekürzt. Frontend-Outbox verwirft endgültig abgelehnte Writes (400/409/413/414/422).
+  Vertragstest `lernapp/src/lib/serverVertrag.test.js` importiert das Server-Modul
 - **Brute-Force-Schutz** auf `/api/auth/login`: reines, getestetes In-Memory-Sliding-Window
   `src/lib/rateLimit.js` (Zeit injizierbar, pro App-Instanz via `app.loginLimiter` dekoriert) –
   8 Fehlversuche je IP+E-Mail / 15 min → HTTP 429 + `Retry-After`; erfolgreicher Login resettet
