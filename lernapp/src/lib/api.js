@@ -65,6 +65,9 @@ export const adminApi = {
   einladen: (maxUses, gueltigTage, notiz) =>
     request('/admin/invites', { method: 'POST', body: { maxUses, gueltigTage, notiz } }),
   einladungLoeschen: (id) => request(`/admin/invites/${id}`, { method: 'DELETE' }),
+  // Sicherheitsprotokoll (C6): neueste zuerst, limit max 500, optional ein Ereignis.
+  audit: (limit = 100, ereignis = '') =>
+    request(`/admin/audit?limit=${Number(limit)}${ereignis ? `&ereignis=${encodeURIComponent(ereignis)}` : ''}`),
 };
 
 export const datenApi = {
