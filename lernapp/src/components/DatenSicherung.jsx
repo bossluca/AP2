@@ -8,6 +8,7 @@ import {
   exportDateiname,
   mergeStapel,
   neuereEinstufung,
+  pruefeDateiGroesse,
 } from '../lib/datensicherung';
 import { ladeStapel, speichereStapel } from '../lib/eigeneKarten';
 import { ladeEinstufung, speichereEinstufung } from '../lib/einstufung';
@@ -43,6 +44,12 @@ export default function DatenSicherung() {
     const datei = e.target.files?.[0];
     e.target.value = ''; // gleiche Datei erneut wählbar
     if (!datei) return;
+    // C4: Größe vor dem Einlesen prüfen.
+    const zuGross = pruefeDateiGroesse(datei.size);
+    if (zuGross) {
+      setMeldung({ typ: 'fehler', text: zuGross });
+      return;
+    }
     try {
       const text = await datei.text();
       const r = parseImport(text);
@@ -52,13 +59,28 @@ export default function DatenSicherung() {
       }
       importProgress(r.progress);
       importGamification(r.gamification);
-      speichereStapel(mergeStapel(ladeStapel(), r.eigeneKarten));
+      let speicherOk = true;
+      // Nur schreiben, wenn es etwas Neues gibt (leerer Import überschreibt nichts).
+      if (r.eigeneKarten.length > 0) {
+        speicherOk = speichereStapel(mergeStapel(ladeStapel(), r.eigeneKarten)) && speicherOk;
+      }
       const lokal = ladeEinstufung();
       const gewinner = neuereEinstufung(lokal, r.einstufung);
-      if (gewinner && gewinner !== lokal) speichereEinstufung(gewinner.auswertung, new Date(gewinner.datum));
+      if (gewinner && gewinner !== lokal) {
+        speichereEinstufung(gewinner.auswertung, new Date(gewinner.datum));
+        speicherOk = Date.parse(ladeEinstufung()?.datum) === Date.parse(gewinner.datum) && speicherOk;
+      }
+      if (!speicherOk) {
+        setMeldung({
+          typ: 'fehler',
+          text: 'Backup konnte nicht gespeichert werden, Speicher voll. Bitte Platz schaffen und erneut versuchen.',
+        });
+        return;
+      }
+      const verworfen = r.verworfen > 0 ? `, ${r.verworfen} ungültige Teile verworfen` : '';
       setMeldung({
         typ: 'ok',
-        text: `Backup übernommen (${r.anzahl} Einträge, nicht-destruktiv gemergt).`,
+        text: `Backup übernommen (${r.anzahl} Einträge${verworfen}; nicht-destruktiv gemergt).`,
       });
     } catch {
       setMeldung({ typ: 'fehler', text: 'Die Datei konnte nicht gelesen werden.' });

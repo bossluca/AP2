@@ -1,3 +1,5 @@
+import { istSichererSchluessel } from './validiere';
+
 /**
  * Nicht-destruktives Merge zweier Fortschritts-Stände (Backup-Import,
  * Geräte-Wechsel): je Eintrag gewinnt der mit dem jüngeren Zeitstempel
@@ -12,8 +14,9 @@ export function mergeProgress(basis, eingehend) {
   const ergebnis = { ...(basis && typeof basis === 'object' ? basis : {}) };
   if (!eingehend || typeof eingehend !== 'object') return ergebnis;
   for (const [id, entry] of Object.entries(eingehend)) {
-    if (!entry || typeof entry !== 'object') continue;
-    const vorhanden = ergebnis[id];
+    // `__proto__`/`constructor` nie übernehmen und nie als „vorhanden“ werten.
+    if (!istSichererSchluessel(id) || !entry || typeof entry !== 'object') continue;
+    const vorhanden = Object.hasOwn(ergebnis, id) ? ergebnis[id] : undefined;
     if (!vorhanden) {
       ergebnis[id] = entry;
       continue;

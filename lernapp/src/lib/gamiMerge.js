@@ -1,3 +1,5 @@
+import { istSichererSchluessel } from './validiere';
+
 /**
  * Mischt zwei Gamification-Stände (lokal ↔ Konto) zusammen. **Max-basiert** und
  * damit kommutativ & idempotent: kein Stand geht verloren, mehrfaches Mergen
@@ -14,6 +16,7 @@ export function mergeGamification(a, b) {
   const activity = {};
   const keys = new Set([...Object.keys(x.activity || {}), ...Object.keys(y.activity || {})]);
   for (const k of keys) {
+    if (!istSichererSchluessel(k)) continue;
     activity[k] = Math.max(Number(x.activity?.[k]) || 0, Number(y.activity?.[k]) || 0);
   }
   return {

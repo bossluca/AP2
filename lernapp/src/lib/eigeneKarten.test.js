@@ -29,6 +29,22 @@ describe('eigeneKarten', () => {
     expect(ladeStapel()).toEqual([]);
   });
 
+  it('ladeStapel bereinigt kaputte Stapel und Karten (C4)', () => {
+    localStorage.setItem(
+      'ap2_lernapp_eigene_karten_v1',
+      JSON.stringify([
+        null,
+        { id: 'a1', name: { x: 1 }, karten: [null, { id: 'eigen_a1_0', front: 'F', back: 'B' }] },
+        { id: 'ohne' },
+      ])
+    );
+    const s = ladeStapel();
+    expect(s).toHaveLength(1);
+    expect(s[0].name).toBe('Eigener Stapel');
+    expect(s[0].karten).toEqual([{ id: 'eigen_a1_0', front: 'F', back: 'B' }]);
+    expect(() => lernReihe(s[0], { getEntry: () => null, isDue: () => true })).not.toThrow();
+  });
+
   it('lernReihe: fällig vor neu vor Rest', () => {
     const stapel = {
       karten: [

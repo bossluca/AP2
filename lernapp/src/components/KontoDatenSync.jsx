@@ -4,6 +4,7 @@ import { datenApi } from '../lib/api';
 import { KONTODATEN_EVENT, mergeKontoDaten } from '../lib/kontoDaten';
 import { ladeStapel, speichereStapel } from '../lib/eigeneKarten';
 import { ladeEinstufung, speichereEinstufung } from '../lib/einstufung';
+import { bereinigeEinstufung } from '../lib/validiere';
 
 /** Aktueller lokaler Wert je synchronisiertem Schlüssel. */
 const LOKAL = {
@@ -34,12 +35,18 @@ export default function KontoDatenSync() {
           syncModus === 'laden'
             ? { einstufung: null, eigeneKarten: [] }
             : { einstufung: ladeEinstufung(), eigeneKarten: ladeStapel() };
+        // mergeKontoDaten bereinigt die Serverwerte (C4); zusätzlich hier nur
+        // die Einstufung zum Vergleichen mit dem lokalen Wert normalisieren.
         const m = mergeKontoDaten(lokal, daten || {});
         if (m.aenderungLokal) {
           // Ohne Meldung speichern, sonst löst die Übernahme selbst einen PUT aus.
-          speichereStapel(m.eigeneKarten, { melden: false });
-          if (m.einstufung && m.einstufung !== lokal.einstufung) {
-            speichereEinstufung(m.einstufung.auswertung, new Date(m.einstufung.datum), { melden: false });
+          const gespeichert = speichereStapel(m.eigeneKarten, { melden: false });
+          if (!gespeichert) {
+            window.dispatchEvent(new CustomEvent('fisidev:speicherfehler', { detail: { schluessel: 'eigeneKarten' } }));
+          }
+          const einstufung = bereinigeEinstufung(m.einstufung);
+          if (einstufung && einstufung !== lokal.einstufung) {
+            speichereEinstufung(einstufung.auswertung, new Date(einstufung.datum), { melden: false });
           }
         }
         if (m.aenderungServer) {

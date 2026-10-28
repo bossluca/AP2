@@ -33,3 +33,13 @@ describe('mergeProgress', () => {
     expect(basis.a).toEqual(alt);
   });
 });
+
+describe('mergeProgress – Prototyp-Schlüssel (C4)', () => {
+  it('übernimmt __proto__/constructor nicht und hält sie nicht für vorhanden', () => {
+    const ein = JSON.parse('{"__proto__":{"status":"gelernt"},"constructor":{"status":"ueben"},"q":{"status":"ueben"}}');
+    const m = mergeProgress({}, ein);
+    expect(Object.keys(m)).toEqual(['q']);
+    expect(Object.getPrototypeOf(m)).toBe(Object.prototype);
+    expect(m.status).toBeUndefined();
+  });
+});

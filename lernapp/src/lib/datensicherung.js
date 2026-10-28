@@ -10,7 +10,17 @@
  * ohne sie bleiben gültig).
  */
 
+import {
+  bereinigeProgress,
+  bereinigeGamification,
+  bereinigeStapelListe,
+  bereinigeEinstufung,
+  istSichererSchluessel,
+} from './validiere';
+
 export const BACKUP_FORMAT = 'fisidev-backup';
+/** Maximale Größe einer Backup-Datei (C4). */
+export const MAX_BACKUP_BYTES = 5 * 1024 * 1024;
 export const BACKUP_VERSION = 1;
 
 /**
@@ -39,19 +49,37 @@ export function baueExport(progress, gamification, jetzt = new Date(), extras = 
  * @param {Object[]} importiert
  */
 export function mergeStapel(lokal, importiert) {
-  const basis = Array.isArray(lokal) ? lokal : [];
+  const gueltig = (s) => s && istSichererSchluessel(s.id) && s.id && Array.isArray(s.karten);
+  const basis = (Array.isArray(lokal) ? lokal : []).filter(gueltig);
   const ids = new Set(basis.map((s) => s.id));
-  const neu = (Array.isArray(importiert) ? importiert : []).filter(
-    (s) => s && s.id && Array.isArray(s.karten) && !ids.has(s.id)
-  );
+  const neu = [];
+  for (const s of Array.isArray(importiert) ? importiert : []) {
+    if (gueltig(s) && !ids.has(s.id)) {
+      ids.add(s.id);
+      neu.push(s);
+    }
+  }
   return [...basis, ...neu];
 }
 
 /** Von zwei Einstufungen die jüngere (nach `datum`), null-sicher. */
 export function neuereEinstufung(a, b) {
-  if (!a?.datum) return b?.datum ? b : null;
-  if (!b?.datum) return a;
-  return new Date(b.datum) > new Date(a.datum) ? b : a;
+  const zeit = (e) => (e?.datum ? Date.parse(e.datum) : NaN);
+  if (!Number.isFinite(zeit(a))) return Number.isFinite(zeit(b)) ? b : null;
+  if (!Number.isFinite(zeit(b))) return a;
+  return zeit(b) > zeit(a) ? b : a;
+}
+
+/**
+ * Prüft die Dateigröße vor dem Einlesen.
+ * @param {number} bytes
+ * @returns {string|null} Fehlermeldung oder null.
+ */
+export function pruefeDateiGroesse(bytes) {
+  if (Number.isFinite(bytes) && bytes > MAX_BACKUP_BYTES) {
+    return `Die Datei ist zu groß (max. ${MAX_BACKUP_BYTES / 1024 / 1024} MB).`;
+  }
+  return null;
 }
 
 /**
@@ -63,19 +91,24 @@ export function exportDateiname(jetzt = new Date()) {
 }
 
 /**
- * Liest einen Backup-Text ein und validiert ihn defensiv.
+ * Liest einen Backup-Text ein und bereinigt ihn (C4, `lib/validiere`):
+ * ungültige Einträge, Stapel, Karten und Aktivitätstage werden verworfen und
+ * gezählt, gültige übernommen, Zahlen geklemmt.
  * @param {string} text  Roh-Inhalt der Datei.
- * @returns {{ok:true, progress:Object, gamification:Object, anzahl:number}
+ * @returns {{ok:true, progress:Object, gamification:Object, eigeneKarten:Object[],
+ *            einstufung:Object|null, anzahl:number, verworfen:number}
  *          |{ok:false, fehler:string}}
  */
 export function parseImport(text) {
+  if (typeof text !== 'string') return { ok: false, fehler: 'Die Datei konnte nicht gelesen werden.' };
+  if (text.length > MAX_BACKUP_BYTES) return { ok: false, fehler: pruefeDateiGroesse(text.length) };
   let daten;
   try {
     daten = JSON.parse(text);
   } catch {
     return { ok: false, fehler: 'Die Datei ist kein gültiges JSON.' };
   }
-  if (!daten || typeof daten !== 'object') {
+  if (!daten || typeof daten !== 'object' || Array.isArray(daten)) {
     return { ok: false, fehler: 'Die Datei enthält kein Backup-Objekt.' };
   }
   if (daten.format !== BACKUP_FORMAT) {
@@ -87,23 +120,18 @@ export function parseImport(text) {
       fehler: 'Das Backup stammt aus einer neueren App-Version. Bitte App aktualisieren.',
     };
   }
-  const progress = daten.progress && typeof daten.progress === 'object' ? daten.progress : {};
-  // Nur objektförmige Einträge übernehmen (defekte Zeilen still verwerfen).
-  const sauber = {};
-  for (const [id, entry] of Object.entries(progress)) {
-    if (entry && typeof entry === 'object' && !Array.isArray(entry)) sauber[id] = entry;
-  }
-  const gamification =
-    daten.gamification && typeof daten.gamification === 'object' ? daten.gamification : {};
-  const eigeneKarten = Array.isArray(daten.eigeneKarten) ? daten.eigeneKarten : [];
-  const einstufung =
-    daten.einstufung && daten.einstufung.datum && daten.einstufung.auswertung ? daten.einstufung : null;
+  const p = bereinigeProgress(daten.progress);
+  const g = bereinigeGamification(daten.gamification);
+  const k = bereinigeStapelListe(daten.eigeneKarten);
+  const einstufung = bereinigeEinstufung(daten.einstufung);
+  const einstufungVerworfen = daten.einstufung != null && !einstufung ? 1 : 0;
   return {
     ok: true,
-    progress: sauber,
-    gamification,
-    eigeneKarten,
+    progress: p.progress,
+    gamification: g.stand,
+    eigeneKarten: k.stapel,
     einstufung,
-    anzahl: Object.keys(sauber).length,
+    anzahl: p.uebernommen,
+    verworfen: p.verworfen + g.verworfen + k.verworfen + einstufungVerworfen,
   };
 }

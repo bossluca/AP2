@@ -7,6 +7,8 @@ import {
   exportDateiname,
   BACKUP_FORMAT,
   BACKUP_VERSION,
+  MAX_BACKUP_BYTES,
+  pruefeDateiGroesse,
 } from './datensicherung';
 
 const jetzt = new Date('2026-07-04T12:00:00.000Z');
@@ -66,7 +68,8 @@ describe('Backup: eigene Karten + Einstufung', () => {
     const text = JSON.stringify(baueExport({}, {}, new Date(), { eigeneKarten: stapel, einstufung }));
     const r = parseImport(text);
     expect(r.eigeneKarten).toEqual(stapel);
-    expect(r.einstufung).toEqual(einstufung);
+    // Bereinigt (C4): fehlende Summen werden aus den Themen ergänzt.
+    expect(r.einstufung).toEqual({ ...einstufung, auswertung: { ...einstufung.auswertung, richtig: 0, gesamt: 0 } });
   });
 
   it('ältere Backups ohne die Felder bleiben gültig', () => {
@@ -86,5 +89,57 @@ describe('Backup: eigene Karten + Einstufung', () => {
     expect(neuereEinstufung(einstufung, alt)).toBe(einstufung);
     expect(neuereEinstufung(null, alt)).toBe(alt);
     expect(neuereEinstufung(null, null)).toBeNull();
+  });
+});
+
+describe('Bösartige Backups (C4)', () => {
+  const backup = (teile) => JSON.stringify({ format: 'fisidev-backup', version: 1, ...teile });
+
+  it('Karte null und name als Objekt: kaputte Teile weg, gültige bleiben', () => {
+    const r = parseImport(
+      backup({
+        eigeneKarten: [
+          { id: 's1', name: { boese: 1 }, karten: [null, { id: 'eigen_s1_0', front: 'a', back: 'b' }] },
+          null,
+        ],
+      })
+    );
+    expect(r.ok).toBe(true);
+    expect(r.eigeneKarten).toEqual([{ id: 's1', name: 'Eigener Stapel', karten: [{ id: 'eigen_s1_0', front: 'a', back: 'b' }] }]);
+    expect(r.verworfen).toBe(2);
+  });
+
+  it('history: 5, difficulty <= 0, due: "kaputt" werden repariert', () => {
+    const r = parseImport(
+      backup({ progress: { q1: { status: 'gelernt', history: 5, difficulty: 0, stability: 2, due: 'kaputt' } } })
+    );
+    expect(r.progress.q1).toEqual({ status: 'gelernt', difficulty: 1, stability: 2 });
+    expect(r.anzahl).toBe(1);
+  });
+
+  it('kaputte Einstufung wird verworfen und gezählt', () => {
+    const r = parseImport(backup({ einstufung: { datum: 'x', auswertung: { themen: 5 } } }));
+    expect(r.einstufung).toBeNull();
+    expect(r.verworfen).toBe(1);
+  });
+
+  it('__proto__ und constructor werden nicht übernommen', () => {
+    const r = parseImport(
+      '{"format":"fisidev-backup","version":1,"progress":{"__proto__":{"status":"gelernt"},"constructor":{"status":"ueben"},"q":{"status":"ueben"}},' +
+        '"gamification":{"activity":{"__proto__":5,"2026-01-01":2},"xp":10}}'
+    );
+    expect(Object.keys(r.progress)).toEqual(['q']);
+    expect(r.progress.status).toBeUndefined();
+    expect(Object.getPrototypeOf(r.progress)).toBe(Object.prototype);
+    expect(r.gamification.activity).toEqual({ '2026-01-01': 2 });
+    expect(r.verworfen).toBe(3);
+  });
+
+  it('zu große Datei wird abgelehnt', () => {
+    expect(pruefeDateiGroesse(MAX_BACKUP_BYTES + 1)).toMatch(/zu groß/);
+    expect(pruefeDateiGroesse(1000)).toBeNull();
+    const r = parseImport(' '.repeat(MAX_BACKUP_BYTES + 1));
+    expect(r.ok).toBe(false);
+    expect(r.fehler).toMatch(/zu groß/);
   });
 });

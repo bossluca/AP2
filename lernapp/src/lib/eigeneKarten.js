@@ -6,6 +6,7 @@
  */
 
 import { meldeKontoDatenAenderung } from './kontoDaten';
+import { bereinigeStapelListe } from './validiere';
 
 const KEY = 'ap2_lernapp_eigene_karten_v1';
 
@@ -46,11 +47,13 @@ export function stapelEntfernen(stapel, id) {
   return (stapel || []).filter((s) => s.id !== id);
 }
 
-/** Alle Stapel laden (leer bei fehlendem/kaputtem Storage). */
+/**
+ * Alle Stapel laden (leer bei fehlendem/kaputtem Storage). Defensiv bereinigt
+ * (C4): kaputte Stapel/Karten fallen heraus, Texte werden zu Strings.
+ */
 export function ladeStapel() {
   try {
-    const wert = JSON.parse(localStorage.getItem(KEY) || '[]');
-    return Array.isArray(wert) ? wert.filter((s) => s && s.id && Array.isArray(s.karten)) : [];
+    return bereinigeStapelListe(JSON.parse(localStorage.getItem(KEY) || '[]')).stapel;
   } catch {
     return [];
   }

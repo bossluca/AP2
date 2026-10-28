@@ -16,6 +16,14 @@ verständliche Ergebnis inklusive Verifikation.
 
 ### Sicherheit
 
+- 2026-10-28: **Importierte und vom Server geladene Daten validieren (C4, S20).** Neues
+  reines Modul `lernapp/src/lib/validiere.js` mit denselben Wertebereichen wie der Server
+  (Vertragstest). Backup-Import, Serverstand, Konto-Sync und localStorage werden bereinigt:
+  ungültige Teile verworfen und gezählt, Zahlen geklemmt, `__proto__`/`constructor` nie
+  übernommen. Backup-Datei max. 5 MB, Importergebnis und Speicherfehler (Quota) in der
+  Oberfläche, `Home` stürzt bei kaputter Einstufung nicht mehr ab, `fsrs.js` rechnet nie
+  mit NaN. Verifiziert: lernapp 464 Tests, Lint, Build, 48 E2E; server 117 Tests.
+
 - 2026-10-28: **Sitzungs-Tokens nur als Hash + Sicherheitsprotokoll (C6, S7/S8).** Die DB speichert
   nur noch `sha256(token)` (`sessions.token_hash`); ein gelesenes Backup erlaubt keine
   Sitzungsübernahme mehr. **Verhaltensänderung:** Beim ersten Start wird die alte Sitzungstabelle

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Play,
@@ -29,7 +29,7 @@ import { baueTagesplan } from '../lib/tagesplan';
 import { baueTagesquests, questFortschritt } from '../lib/quests';
 import { baueWochenChallenges } from '../lib/challenges';
 import ProgressRing from '../components/ProgressRing';
-import { ladeEinstufung, planAusErgebnis, aktuelleWoche } from '../lib/einstufung';
+import { ladeEinstufung, loescheEinstufung, planAusErgebnis, aktuelleWoche } from '../lib/einstufung';
 import { themaPerId } from '../lib/themen';
 
 /** Icon-Auflösung für den Primär-CTA (aus `naechsteAktion`). */
@@ -443,7 +443,30 @@ export default function Home() {
 
 /** Lernplan aus dem Einstufungstest: Fokus der laufenden Woche – oder Einladung zum Test. */
 function LernplanKarte({ einstufung, termin }) {
-  const plan = useMemo(() => planAusErgebnis(einstufung, termin), [einstufung, termin]);
+  // C4: Ein kaputter Plan darf die Startseite nie abstürzen lassen.
+  const { plan, planFehler } = useMemo(() => {
+    try {
+      return { plan: planAusErgebnis(einstufung, termin), planFehler: false };
+    } catch {
+      return { plan: null, planFehler: true };
+    }
+  }, [einstufung, termin]);
+  useEffect(() => {
+    if (planFehler) loescheEinstufung();
+  }, [planFehler]);
+  if (planFehler) {
+    return (
+      <section className="card p-4 space-y-2" role="status">
+        <div className="font-medium">Dein Lernplan konnte nicht geladen werden</div>
+        <p className="text-sm text-muted-foreground">
+          Die gespeicherten Daten waren beschädigt und wurden verworfen. Mach einfach einen neuen Einstufungstest.
+        </p>
+        <Link to="/einstufung" className="btn-primary w-full sm:w-auto">
+          Einstufungstest starten
+        </Link>
+      </section>
+    );
+  }
   if (!einstufung) {
     return (
       <Link to="/einstufung" className="card-interactive p-4 flex items-center gap-3">
