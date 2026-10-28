@@ -53,4 +53,29 @@ describe('App-Rauchtest (kritischer Pfad)', () => {
     });
     expect(screen.queryByText(/etwas schiefgelaufen/i)).not.toBeInTheDocument();
   });
+
+  it('übersteht bösartige Daten im localStorage auf allen Hauptseiten (C4)', async () => {
+    localStorage.setItem(
+      'ap2_lernapp_progress_v1',
+      JSON.stringify({ q1: { history: 5, difficulty: 0, stability: 2, due: 'kaputt', status: 'gelernt' }, x: null })
+    );
+    localStorage.setItem('ap2_lernapp_gamification_v1', JSON.stringify({ activity: { kaputt: 'x' }, xp: 'viel' }));
+    localStorage.setItem(
+      'ap2_lernapp_einstufung_v1',
+      JSON.stringify({ datum: 'x', auswertung: { themen: 5 } })
+    );
+    localStorage.setItem(
+      'ap2_lernapp_eigene_karten_v1',
+      JSON.stringify([null, { id: 's1', name: { a: 1 }, karten: [null, { id: 'eigen_s1_0', front: 'F', back: 'B' }] }])
+    );
+    for (const route of ['#/', '#/eigene-karten', '#/wiederholen', '#/einstufung', '#/statistik']) {
+      window.location.hash = route;
+      const { unmount } = renderApp();
+      await waitFor(() => {
+        expect(document.querySelector('main')).not.toBeEmptyDOMElement();
+      });
+      expect(screen.queryByText(/etwas schiefgelaufen/i)).not.toBeInTheDocument();
+      unmount();
+    }
+  });
 });

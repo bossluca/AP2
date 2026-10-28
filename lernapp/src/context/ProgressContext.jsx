@@ -18,6 +18,7 @@ import { GamificationProvider, useGamification } from './GamificationContext';
 import { mergeProgress } from '../lib/progressMerge';
 import { ladeOutbox, speichereOutbox, merkeEintrag, flusheOutbox } from '../lib/outbox';
 import { NUTZERDATEN_GELOESCHT_EVENT } from '../lib/besitzer';
+import { bereinigeProgress } from '../lib/validiere';
 
 /**
  * Versionierter localStorage-Schlüssel. Bei inkompatiblen Schema-Änderungen
@@ -67,25 +68,36 @@ function loadProgress() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object' ? parsed : {};
+    // Defensiv (C4): nur reparieren, nie kürzen (kein Fortschrittsverlust).
+    return bereinigeProgress(JSON.parse(raw), { maxEintraege: Infinity }).progress;
   } catch {
     return {};
   }
 }
 
+/** Event, wenn der Fortschritt nicht gespeichert werden konnte (Quota/Privatmodus). */
+export const SPEICHERFEHLER_EVENT = 'fisidev:speicherfehler';
+
 /**
- * Persistiert den Fortschritt. Fehler (Quota, Privatmodus) werden geschluckt,
- * damit die App auch ohne funktionierenden Storage nutzbar bleibt.
+ * Persistiert den Fortschritt. Fehler (Quota, Privatmodus) brechen die App
+ * nicht ab, werden aber nicht mehr verschluckt: Rückgabewert `false` und
+ * Ereignis {@link SPEICHERFEHLER_EVENT} (C4).
  * @param {ProgressMap} progress
+ * @returns {boolean} false, wenn der Speicher voll/gesperrt ist.
  */
-function saveProgress(progress) {
+export function saveProgress(progress) {
   try {
     // Leerer Stand → Schlüssel entfernen (nach Logout bleibt nichts liegen).
     if (!progress || Object.keys(progress).length === 0) localStorage.removeItem(STORAGE_KEY);
     else localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    return true;
   } catch {
-    /* ignore */
+    try {
+      window.dispatchEvent(new CustomEvent(SPEICHERFEHLER_EVENT, { detail: { schluessel: STORAGE_KEY } }));
+    } catch {
+      /* kein Browser-Kontext */
+    }
+    return false;
   }
 }
 
@@ -96,7 +108,7 @@ function saveProgress(progress) {
  * @property {(id:string, result:'richtig'|'teilweise'|'falsch') => void} recordQuizResult
  * @property {(id:string, note:boolean|number) => void} recordReview  FSRS-Bewertung (boolean oder Note 1–4).
  * @property {() => void} resetProgress  Löscht Fortschritt UND Gamification.
- * @property {(map:ProgressMap) => void} importProgress  Nicht-destruktives Merge (Backup-Import).
+ * @property {(map:ProgressMap) => {uebernommen:number, verworfen:number}} importProgress  Bereinigt + nicht-destruktives Merge (Backup-Import).
  * @property {() => ProgressMap} getProgressRoh  Refstabil – roher Stand für Export.
  * @property {(id:string) => (string|null)} getStatus  Refstabil.
  * @property {(id:string) => (QuestionProgress|null)} getEntry   Refstabil.
@@ -209,7 +221,8 @@ function ProgressProviderInnen({ children }) {
         await flusheAusstehende(); // liegengebliebene Writes zuerst
         if (syncModus !== 'laden') await progressApi.merge(progressRef.current);
         const { progress: server } = await progressApi.getAll();
-        if (aktiv && server) setProgress(server);
+        // C4: Serverstand nie ungeprüft übernehmen.
+        if (aktiv && server) setProgress(bereinigeProgress(server, { maxEintraege: Infinity }).progress);
       } catch {
         /* offline: lokalen Stand behalten */
       }
@@ -318,12 +331,15 @@ function ProgressProviderInnen({ children }) {
    * @param {ProgressMap} map
    */
   const importProgress = useCallback((map) => {
+    // C4: Auch direkte Aufrufer (nicht nur parseImport) bekommen bereinigte Daten.
+    const { progress: sauber, uebernommen, verworfen } = bereinigeProgress(map);
     setProgress((prev) => {
-      const gemergt = mergeProgress(prev, map);
+      const gemergt = mergeProgress(prev, sauber);
       // Angemeldet: gemergten Stand best-effort ins Konto migrieren.
       if (userRef.current) progressApi.merge(gemergt).catch(() => {});
       return gemergt;
     });
+    return { uebernommen, verworfen };
   }, []);
 
   /** Refstabil: roher Fortschritts-Stand (für den Export). */

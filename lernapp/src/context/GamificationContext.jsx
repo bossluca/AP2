@@ -21,6 +21,7 @@ import { useAuth } from './AuthContext';
 import { gamificationApi } from '../lib/api';
 import { mergeGamification } from '../lib/gamiMerge';
 import { NUTZERDATEN_GELOESCHT_EVENT } from '../lib/besitzer';
+import { bereinigeGamification } from '../lib/validiere';
 
 /**
  * Lokaler Gamification-Stand (Lern-Aktivität pro Tag, XP, bestes
@@ -41,11 +42,9 @@ function loadGamification() {
     const raw = localStorage.getItem(GAMIFICATION_KEY);
     const parsed = raw ? JSON.parse(raw) : null;
     if (parsed && typeof parsed === 'object') {
-      return {
-        activity: parsed.activity && typeof parsed.activity === 'object' ? parsed.activity : {},
-        klausurBest: Number(parsed.klausurBest) || 0,
-        xp: Number(parsed.xp) || 0,
-      };
+      // C4: reparieren, aber lokal nichts kürzen.
+      const { stand } = bereinigeGamification(parsed, { maxTage: Infinity });
+      return { activity: stand.activity, klausurBest: stand.klausurBest, xp: stand.xp };
     }
   } catch {
     /* ignore */
@@ -161,7 +160,10 @@ export function GamificationProvider({ children }) {
         const { gamification: serverGami } = await gamificationApi.get();
         if (aktiv) {
           setGamification((lokal) =>
-            mergeGamification(syncModus === 'laden' ? leererGamificationStand() : lokal, serverGami)
+            mergeGamification(
+              syncModus === 'laden' ? leererGamificationStand() : lokal,
+              bereinigeGamification(serverGami, { maxTage: Infinity }).stand
+            )
           );
         }
       } catch {
@@ -206,7 +208,8 @@ export function GamificationProvider({ children }) {
    * gleiche Semantik wie der Login-Merge). Für Fortschritts-Import/Backup.
    */
   const importGamification = useCallback((stand) => {
-    setGamification((lokal) => mergeGamification(lokal, stand));
+    const { stand: sauber } = bereinigeGamification(stand);
+    setGamification((lokal) => mergeGamification(lokal, sauber));
   }, []);
 
   /** Refstabil: roher Stand (activity/xp/klausurBest) für den Export. */

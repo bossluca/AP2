@@ -51,3 +51,25 @@ describe('KontoDatenSync', () => {
     await waitFor(() => expect(api.put).toHaveBeenCalledWith('eigeneKarten', [stapel('neu')]));
   });
 });
+
+describe('KontoDatenSync – kaputte Serverwerte (C4)', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    api.get.mockReset();
+    api.put.mockReset().mockResolvedValue({ ok: true });
+  });
+
+  it('übernimmt gültige Stapel, verwirft Karte null/kaputte Einstufung', async () => {
+    auth.user = { id: 1 };
+    api.get.mockResolvedValue({
+      daten: {
+        eigeneKarten: { wert: [{ id: 'a', name: { x: 1 }, karten: [null, { id: 'eigen_a_0', front: 'f', back: 'b' }] }, null] },
+        einstufung: { wert: { datum: 'x', auswertung: { themen: 5 } } },
+      },
+    });
+    render(<KontoDatenSync />);
+    await waitFor(() => expect(ladeStapel()).toHaveLength(1));
+    expect(ladeStapel()[0].karten).toHaveLength(1);
+    expect(ladeEinstufung()).toBeNull();
+  });
+});
