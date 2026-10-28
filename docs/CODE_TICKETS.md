@@ -25,7 +25,7 @@ eigenen Sitzung abgearbeitet werden.
 | C3 | Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig – **umgesetzt** (Branch `claude/c3-server-validierung`) | mittel | Backend | Opus / mittel |
 | C4 | Importierte und vom Server geladene Daten validieren – **umgesetzt** (Branch `claude/c4-import-validierung`) | mittel | Frontend | Opus / mittel |
 | C5 | Sync-Robustheit (Retry, Race, 401, Timeout, gelöschte Stapel) | mittel | Frontend | Opus / mittel |
-| C6 | Sitzungs-Tokens hashen + Audit-Log | mittel | Backend + Frontend | Opus / mittel |
+| C6 | Sitzungs-Tokens hashen + Audit-Log – **umgesetzt** (Branch `claude/c6-sitzung-audit`) | mittel | Backend + Frontend | Opus / mittel |
 | C7 | Docker-/Deploy-Härtung | niedrig–mittel | Compose, nginx | Sonnet / niedrig |
 | C8 | Kleinere Fehler (PDF-Import, Plan ab Termin, SW-Fallback) | niedrig | Frontend | Sonnet / niedrig |
 | C9 | Nutzung nur mit Konto (Login-Pflicht) + Schutz des Servers – **umgesetzt** (Branch `claude/c9-login-pflicht`, gestapelt auf C1) | hoch | Backend + Frontend + nginx | Opus / mittel |

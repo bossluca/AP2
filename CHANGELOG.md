@@ -24,6 +24,18 @@ verständliche Ergebnis inklusive Verifikation.
   Oberfläche, `Home` stürzt bei kaputter Einstufung nicht mehr ab, `fsrs.js` rechnet nie
   mit NaN. Verifiziert: lernapp 464 Tests, Lint, Build, 48 E2E; server 117 Tests.
 
+- 2026-10-28: **Sitzungs-Tokens nur als Hash + Sicherheitsprotokoll (C6, S7/S8).** Die DB speichert
+  nur noch `sha256(token)` (`sessions.token_hash`); ein gelesenes Backup erlaubt keine
+  Sitzungsübernahme mehr. **Verhaltensänderung:** Beim ersten Start wird die alte Sitzungstabelle
+  verworfen – alle Nutzer müssen sich einmal neu anmelden (mit dem `__Host-`-Cookie aus C2 ohnehin
+  der Fall). Neue Tabelle `audit` (Zeit, Ereignis, Konto-ID, IP, kurzes Detail) für Login
+  ok/fehlgeschlagen/gebremst, Registrierung (auch abgelehnt), Recovery, Recovery-Code erneuert,
+  Passwort-Bestätigung fehlgeschlagen, Konto gelöscht, Sperren/Entsperren, Einladung
+  erzeugt/gelöscht; nie Passwörter, Codes, Tokens oder E-Mails. Aufbewahrung 90 Tage (max. 50 000
+  Zeilen, Aufräumjob alle 6 h). Neu: `GET /api/admin/audit` und Tabelle im Admin-Bereich;
+  Datenschutz-Vorlage (`/info`) ergänzt. Verifikation: Server-Tests (Hash statt Klartext,
+  Migration einer alten DB, keine Geheimnisse im Log, 90-Tage-Aufräumen, nur Admin, Audit-Fehler
+  bricht keine Anfrage ab), Frontend-Test der Tabelle.
 - 2026-10-27: **Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig (C3,
   S19).** Fortschritts-Einträge werden geprüft (`server/src/lib/validierung.js`; ungültig →
   `400` statt 500/Datenmüll), je Konto höchstens 5000 Einträge (neue darüber → `413`,

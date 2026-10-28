@@ -2,7 +2,7 @@ import { test, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildApp } from '../src/app.js';
 import { erstelleRateLimiter } from '../src/lib/rateLimit.js';
-import { raeumeSessionsAuf } from '../src/session.js';
+import { raeumeSessionsAuf, hashToken } from '../src/session.js';
 
 let app;
 beforeEach(async () => {
@@ -293,8 +293,8 @@ test('Session-Aufräumjob entfernt nur abgelaufene Sitzungen', async () => {
 
   // Eine künstlich abgelaufene Sitzung direkt einfügen.
   app.db
-    .prepare('INSERT INTO sessions (token, user_id, created_at, expires_at) VALUES (?, 1, ?, ?)')
-    .run('abgelaufen', new Date().toISOString(), new Date(Date.now() - 1000).toISOString());
+    .prepare('INSERT INTO sessions (token_hash, user_id, created_at, expires_at) VALUES (?, 1, ?, ?)')
+    .run(hashToken('abgelaufen'), new Date().toISOString(), new Date(Date.now() - 1000).toISOString());
 
   const entfernt = raeumeSessionsAuf(app.db);
   assert.equal(entfernt, 1);
