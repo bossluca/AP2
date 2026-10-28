@@ -40,7 +40,7 @@ Alles darunter ist entweder schon erledigt oder Härtung für danach.
 | **Bekannte Lücken in Bibliotheken** | `npm audit` in CI (jeder Push + wöchentlich), Stand 2026-10-20 im ausgelieferten Code **0 Treffer**. | CI-Job | ✅ im Code · ⏳ Rollout 8.1 |
 | **Server-Fehlkonfiguration** | Keine Versions-Header, keine Verzeichnislisten, Geheimnis-Pfade (`/.env`, `/.git`, DB) nicht abrufbar, Body-Limit 1 MiB. | `security-check.sh` | ✅ |
 | **SSRF / Datei-Upload** | Der Server ruft keine fremden URLs auf. PDF-Upload („Eigene Karten“) wird **nur im Browser** verarbeitet, nichts landet auf dem Server. | Architektur | ✅ |
-| **Protokollierung** | Nur Container-Logs; kein Audit-Log für Logins/Admin-Aktionen. | — | ⏳ 🔧 S8 |
+| **Protokollierung** | Sicherheitsprotokoll (Tabelle `audit`): Logins, Fehlversuche, Bremse, Registrierung, Recovery, Löschung, Sperren, Einladungen; 90 Tage; nie Passwörter/Codes/Tokens/E-Mails; Ansicht im Admin-Bereich. | Tests „Audit-Einträge enthalten keine Geheimnisse“, „nur Admin darf lesen“ | ✅ im Code (C6) · ⏳ Rollout |
 
 ## 2. Login, Konten & Sitzungen
 
@@ -54,7 +54,7 @@ Alles darunter ist entweder schon erledigt oder Härtung für danach.
 | Geteilte Geräte | Logout/Konto löschen leeren alle lokalen Lerndaten; fremde Daten werden nie ins eigene Konto gemergt | ✅ im Code (C1) · ⏳ Rollout |
 | Passwort vergessen | Recovery-Code (~80 Bit, nur Hash gespeichert), widerruft alle Sitzungen; kein Mail-Reset-Angriffsweg | ✅ Test |
 | Sitzungen | Zufalls-Token 256 Bit, `HttpOnly`/`Secure`/`SameSite=Lax`, 30 Tage, Logout + Sperre beenden sie serverseitig | ✅ Test |
-| Sitzungen in der DB | Token liegen im Klartext → wer ein Backup liest, kann Sitzungen übernehmen | ⏳ 🔧 S7 (nur Hash speichern) |
+| Sitzungen in der DB | Nur `sha256(token)` in der DB; wer ein Backup liest, kann keine Sitzung übernehmen. Beim ersten Start nach dem Update werden alte Sitzungen verworfen (einmal neu anmelden). | ✅ Test „DB-Inhalt enthält den Cookie-Wert nicht“ · ⏳ Rollout |
 | Passwort-Mindestlänge | 8 Zeichen | ⏳ 🔧 Empfehlung: 10, plus Hinweis „Passphrase“ |
 | Admin-Konto | normales Passwort | ⏳ 🔧 Phase 3: 2FA (TOTP) |
 | Konto löschen (DSGVO) | Nutzer löscht selbst, alle Daten per CASCADE; Backups rotieren nach 14 Tagen bzw. 12 Monaten raus → in der Datenschutzerklärung nennen | ✅ / 👤 Text |

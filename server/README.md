@@ -112,6 +112,7 @@ Gamification-Stands (`src/lib/rangliste.js`, rein/getestet).
 | `DELETE` | `/api/admin/users/:id` | Konto samt Daten löschen (nicht das eigene) |
 | `POST` | `/api/admin/invites` | `{ maxUses 1–100, gueltigTage 0–365, notiz }` → Code (nur einmal im Klartext) |
 | `DELETE` | `/api/admin/invites/:id` | Einladung widerrufen |
+| `GET` | `/api/admin/audit?limit=100&ereignis=` | **Sicherheitsprotokoll** (C6): neueste zuerst, `limit` 1–500 (Default 100), optional ein Ereignis (`400` bei Unbekanntem). Felder `id, zeit, ereignis, kontoId, email (per Join), ip, detail`. Aufbewahrung 90 Tage, max. 50 000 Zeilen |
 
 Registrierung: `GET /api/auth/config` liefert `{ registrierung, loginPflicht }` (Env
 `REGISTRATION` = `open`/`invite`/`closed`; Env `REQUIRE_LOGIN` = `true`/`false`, ohne Angabe
@@ -138,7 +139,8 @@ Konto-Seite und nginx liefert die Prüfungsdaten nur mit Sitzung aus). Bei `invi
 - **`gruppen`** (`name`, `code`, `created_by`) + **`gruppen_mitglieder`** (PK `(gruppe_id, user_id)`)
 - **`invites`** — `code_hash` (SHA-256), `hinweis` (erste 4 Zeichen), `notiz`, `max_uses`,
   `uses`, `created_by`, `created_at`, `expires_at`
-- **`sessions`** — `token` (PK), `user_id`, `created_at`, `expires_at` (30 Tage)
+- **`sessions`** — `token_hash` (PK, `sha256` des Cookie-Tokens; der Klartext liegt nie in der DB), `user_id`, `created_at`, `expires_at` (30 Tage). Ältere DBs mit Klartext-Spalte `token` werden beim Start verworfen (einmal neu anmelden)
+- **`audit`** — `id`, `zeit` (ISO), `ereignis` (feste Liste in `src/lib/audit.js`), `konto_id` (nullable, ohne FK; beim Konto-Löschen auf NULL), `ip` (`req.ip`), `detail` (≤ 120 Zeichen). Nie Passwörter, Codes, Tokens, Cookie-Werte oder E-Mail-Adressen. Aufräumjob in `index.js` (Start + alle 6 h)
 - **`progress`** — PK `(user_id, item_id)`; Felder `status`, `box`, `due`,
   `last_seen`, `last_result`, `history` (JSON), FSRS-Felder
   (`stability`, `difficulty`, `reps`, `lapses`, `last_review`), `updated_at` (Server-Zeit),
@@ -151,7 +153,7 @@ Lernzettel teilen sich denselben Fortschritts-Schlüsselraum.
 
 - `src/app.js` — testbare Fastify-Factory (`buildApp`, via `app.inject` ohne Netzwerk testbar)
 - `src/index.js` — Entrypoint (liest `.env`, startet den Server)
-- `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen · `src/backup.js` — Online-Backup (`VACUUM INTO`) + Integritätsprüfung (CLI für `scripts/backup.sh`/`restore.sh`)
+- `src/db.js` — DB-Init + Schema · `src/session.js` — Sitzungen (Token-Hash) · `src/lib/audit.js` — Sicherheitsprotokoll · `src/backup.js` — Online-Backup (`VACUUM INTO`) + Integritätsprüfung (CLI für `scripts/backup.sh`/`restore.sh`)
 - `src/auth.js` · `src/progress.js` · `src/gamification.js` · `src/rangliste.js` · `src/admin.js` · `src/daten.js` · `src/gruppen.js` — Routen ·
   `test/api.test.js` · `test/recovery.test.js` · `test/rateLimit.test.js` ·
   `test/rangliste.test.js` · `test/admin.test.js` · `test/daten.test.js` · `test/gruppen.test.js` · `test/backup.test.js` · `test/validierung.test.js` · `test/eingaben.test.js` — Tests
