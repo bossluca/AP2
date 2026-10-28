@@ -23,7 +23,7 @@ eigenen Sitzung abgearbeitet werden.
 | C1 | Daten zwischen Konten trennen (Logout/Kontowechsel) – **umgesetzt** (Branch `claude/c1-konten-trennung`) | hoch | Frontend | Opus / mittel |
 | C2 | Sensible Konto-Aktionen absichern (Passwort, Origin, Cookie, Admin) – **umgesetzt** (Branch `claude/c2-konto-aktionen`) | hoch–mittel | Backend + Frontend | Sonnet / mittel |
 | C3 | Server-Eingaben validieren, Speicher begrenzen, `updatedAt` serverseitig – **umgesetzt** (Branch `claude/c3-server-validierung`) | mittel | Backend | Opus / mittel |
-| C4 | Importierte und vom Server geladene Daten validieren | mittel | Frontend | Opus / mittel |
+| C4 | Importierte und vom Server geladene Daten validieren – **umgesetzt** (Branch `claude/c4-import-validierung`) | mittel | Frontend | Opus / mittel |
 | C5 | Sync-Robustheit (Retry, Race, 401, Timeout, gelöschte Stapel) | mittel | Frontend | Opus / mittel |
 | C6 | Sitzungs-Tokens hashen + Audit-Log | mittel | Backend + Frontend | Opus / mittel |
 | C7 | Docker-/Deploy-Härtung | niedrig–mittel | Compose, nginx | Sonnet / niedrig |
@@ -206,6 +206,8 @@ bestehenden Datenbank (Test mit voraufgebauter DB).
 **Akzeptanz.** Tests mit bösartigen Backups (jeder oben genannte Fall) → App rendert weiter
 (`App.smoke.test.jsx` erweitern), ungültige Teile werden verworfen, gültige bleiben. Test für
 Größenlimit und Quota-Fehler (localStorage-Mock wirft).
+
+**Stand:** umgesetzt – `lib/validiere.js` (+ Vertragstest gegen `server/src/lib/validierung.js`), Eingänge: `parseImport`, `importProgress`, `mergeKontoDaten`, Serverstand in Progress-/GamificationContext, `ladeEinstufung`/`ladeStapel`/Start-Laden; `Home` mit try/catch; `DatenSicherung` mit 5-MB-Limit, Ergebnis- und Quota-Meldung; `saveProgress` meldet Fehler (Rückgabewert + Ereignis `fisidev:speicherfehler`); `fsrs.js` defensiv. Zahlen werden geklemmt statt Einträge verworfen (kein Fortschrittsverlust); `difficulty <= 0` → 1. Beim Laden aus dem eigenen localStorage wird nichts gekürzt (nur repariert).
 
 ---
 
