@@ -34,6 +34,30 @@ function normalisiereCode(code) {
   return typeof code === 'string' ? code.toUpperCase().replace(/[^A-Z2-9]/g, '') : '';
 }
 
+/**
+ * Löscht ein Konto (per ON DELETE CASCADE alle Daten) und entkoppelt seine
+ * Audit-Einträge (`konto_id` → NULL): Die Ereignisse bleiben für die
+ * Aufbewahrungsfrist nachvollziehbar, werden aber keinem späteren Konto mit
+ * wiederverwendeter ID zugeordnet. Atomar.
+ * @param {import('node:sqlite').DatabaseSync} db
+ * @param {number} kontoId
+ */
+export function loescheKonto(db, kontoId) {
+  db.exec('BEGIN');
+  try {
+    db.prepare('DELETE FROM users WHERE id = ?').run(kontoId);
+    try {
+      db.prepare('UPDATE audit SET konto_id = NULL WHERE konto_id = ?').run(kontoId);
+    } catch {
+      /* Audit-Tabelle defekt/fehlt – Löschen des Kontos hat Vorrang. */
+    }
+    db.exec('COMMIT');
+  } catch (err) {
+    db.exec('ROLLBACK');
+    throw err;
+  }
+}
+
 /** Limiter-Schlüssel aus Client-IP und (ggf.) E-Mail. */
 function limitSchluessel(req, email) {
   return `${req.ip}|${typeof email === 'string' ? email.trim().toLowerCase() : ''}`;
@@ -55,11 +79,13 @@ function setSessionCookie(reply, token, expires) {
  * Prüft das im Body gelieferte aktuelle Passwort für sensible Konto-Aktionen
  * (Recovery-Code erneuern, Konto löschen). Gleiche Bremse wie der Login, aber mit
  * eigenem Schlüssel je IP+Konto. Antwortet bei Fehlern selbst und liefert dann false.
+ * `aktion` ist ein kurzer, fester Text fürs Audit-Log (z. B. „Konto löschen“).
  */
-async function bestaetigePasswort(app, req, reply) {
+async function bestaetigePasswort(app, req, reply, aktion) {
   const schluessel = `${req.ip}|konto:${req.user.id}`;
   const limit = app.loginLimiter.pruefe(schluessel);
   if (!limit.erlaubt) {
+    app.audit(req, { ereignis: 'passwort_bestaetigung_gebremst', kontoId: req.user.id, detail: aktion });
     reply.header('Retry-After', String(limit.retryNachSek));
     reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
     return false;
@@ -71,6 +97,7 @@ async function bestaetigePasswort(app, req, reply) {
       ? await verify(row.password_hash, passwort).catch(() => false)
       : false;
   if (!ok) {
+    app.audit(req, { ereignis: 'passwort_bestaetigung_fehlgeschlagen', kontoId: req.user.id, detail: aktion });
     reply.code(401).send({ error: 'Passwort falsch oder fehlend.' });
     return false;
   }
@@ -89,6 +116,15 @@ export async function authRoutes(app) {
   // Login-Versuche je IP+E-Mail in 15 Minuten. Pro App-Instanz (nicht modulweit),
   // damit Tests/Mehrfach-Apps sich nicht denselben Zähler teilen.
   const loginLimiter = app.loginLimiter || erstelleRateLimiter({ maxVersuche: 8, fensterMs: 15 * 60 * 1000 });
+
+  /** Konto-ID zu einer E-Mail – nur fürs Audit-Log, nie für Antworten. */
+  const kontoIdZuEmail = (normEmail) => {
+    try {
+      return db.prepare('SELECT id FROM users WHERE email = ?').get(normEmail)?.id ?? null;
+    } catch {
+      return null;
+    }
+  };
 
   // Öffentliche Konfiguration fürs Frontend (welches Registrierungsformular?
   // Nur mit Konto nutzbar → Frontend zeigt ohne Sitzung nur die Konto-Seite).
@@ -125,11 +161,17 @@ export async function authRoutes(app) {
     if (modus === 'invite') {
       const limit = loginLimiter.pruefe(inviteSchluessel);
       if (!limit.erlaubt) {
+        app.audit(req, { ereignis: 'registrierung_gebremst' });
         reply.header('Retry-After', String(limit.retryNachSek));
         return reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
       }
       einladung = db.prepare('SELECT * FROM invites WHERE code_hash = ?').get(hashEinladung(inviteCode));
       if (!einladungGueltig(einladung)) {
+        // Nur der Grund, nie der eingegebene Code oder die E-Mail.
+        app.audit(req, {
+          ereignis: 'registrierung_abgelehnt',
+          detail: einladung ? 'Einladung abgelaufen/aufgebraucht' : 'Einladungscode ungültig',
+        });
         return reply.code(403).send({ error: 'Einladungscode ungültig, abgelaufen oder aufgebraucht.' });
       }
     }
@@ -160,6 +202,7 @@ export async function authRoutes(app) {
     } catch (err) {
       db.exec('ROLLBACK');
       if (err.einladung) {
+        app.audit(req, { ereignis: 'registrierung_abgelehnt', detail: 'Einladung aufgebraucht (parallel)' });
         return reply.code(403).send({ error: 'Einladungscode ungültig, abgelaufen oder aufgebraucht.' });
       }
       if (String(err.message).includes('UNIQUE')) {
@@ -169,6 +212,11 @@ export async function authRoutes(app) {
     }
 
     if (einladung) loginLimiter.erfolg(inviteSchluessel);
+    app.audit(req, {
+      ereignis: 'registrierung',
+      kontoId: userId,
+      detail: einladung ? `mit Einladung #${einladung.id}` : `Modus ${modus}`,
+    });
     const { token, expires } = createSession(db, userId);
     setSessionCookie(reply, token, expires);
     return reply.code(201).send({
@@ -184,11 +232,14 @@ export async function authRoutes(app) {
     }
     const schluessel = limitSchluessel(req, email);
     const limit = loginLimiter.pruefe(schluessel);
+    const normEmail = email.trim().toLowerCase();
     if (!limit.erlaubt) {
+      // Konto-ID nur fürs Protokoll (nie in der Antwort) – die Antwort ist für
+      // bekannte und unbekannte E-Mails identisch.
+      app.audit(req, { ereignis: 'login_gebremst', kontoId: kontoIdZuEmail(normEmail) });
       reply.header('Retry-After', String(limit.retryNachSek));
       return reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
     }
-    const normEmail = email.trim().toLowerCase();
     const user = db
       .prepare('SELECT id, email, password_hash, gesperrt FROM users WHERE email = ?')
       .get(normEmail);
@@ -196,14 +247,21 @@ export async function authRoutes(app) {
     // sonst verrät die Antwortzeit, ob ein Konto existiert.
     const ok = await verify(user?.password_hash || await dummyHash(), password).catch(() => false);
     if (!user || !ok) {
+      app.audit(req, {
+        ereignis: 'login_fehlgeschlagen',
+        kontoId: user?.id ?? null,
+        detail: user ? 'Passwort falsch' : 'Konto unbekannt',
+      });
       return reply.code(401).send({ error: 'E-Mail oder Passwort falsch.' });
     }
     loginLimiter.erfolg(schluessel); // gültiger Login → Zähler leeren
     if (user.gesperrt) {
+      app.audit(req, { ereignis: 'login_fehlgeschlagen', kontoId: user.id, detail: 'Konto gesperrt' });
       return reply.code(403).send({ error: 'Dieses Konto ist gesperrt. Bitte wende dich an den Betreiber.' });
     }
     const { token, expires } = createSession(db, user.id);
     setSessionCookie(reply, token, expires);
+    app.audit(req, { ereignis: 'login_ok', kontoId: user.id });
     return reply.send({
       user: { id: user.id, email: user.email, admin: app.config.adminEmails.has(user.email) },
     });
@@ -223,11 +281,12 @@ export async function authRoutes(app) {
     }
     const schluessel = limitSchluessel(req, email);
     const limit = loginLimiter.pruefe(schluessel);
+    const normEmail = email.trim().toLowerCase();
     if (!limit.erlaubt) {
+      app.audit(req, { ereignis: 'recovery_gebremst', kontoId: kontoIdZuEmail(normEmail) });
       reply.header('Retry-After', String(limit.retryNachSek));
       return reply.code(429).send({ error: 'Zu viele Versuche. Bitte später erneut versuchen.' });
     }
-    const normEmail = email.trim().toLowerCase();
     const user = db
       .prepare('SELECT id, email, recovery_hash, gesperrt FROM users WHERE email = ?')
       .get(normEmail);
@@ -235,10 +294,16 @@ export async function authRoutes(app) {
       () => false
     );
     if (!ok) {
+      app.audit(req, {
+        ereignis: 'recovery_fehlgeschlagen',
+        kontoId: user?.id ?? null,
+        detail: user ? 'Code falsch' : 'Konto unbekannt',
+      });
       return reply.code(401).send({ error: 'E-Mail oder Recovery-Code falsch.' });
     }
     loginLimiter.erfolg(schluessel);
     if (user.gesperrt) {
+      app.audit(req, { ereignis: 'recovery_fehlgeschlagen', kontoId: user.id, detail: 'Konto gesperrt' });
       return reply.code(403).send({ error: 'Dieses Konto ist gesperrt. Bitte wende dich an den Betreiber.' });
     }
 
@@ -253,6 +318,7 @@ export async function authRoutes(app) {
 
     const { token, expires } = createSession(db, user.id);
     setSessionCookie(reply, token, expires);
+    app.audit(req, { ereignis: 'recovery_ok', kontoId: user.id, detail: 'Passwort neu, Sitzungen widerrufen' });
     return reply.send({ user: { id: user.id, email: user.email }, recoveryCode: neuerCode });
   });
 
@@ -260,12 +326,13 @@ export async function authRoutes(app) {
   // Feature oder wenn der notierte Code verloren ging. Rotiert den alten.
   app.post('/api/auth/recovery-code', async (req, reply) => {
     if (!req.user) return reply.code(401).send({ error: 'Nicht angemeldet.' });
-    if (!(await bestaetigePasswort(app, req, reply))) return reply;
+    if (!(await bestaetigePasswort(app, req, reply, 'Recovery-Code erneuern'))) return reply;
     const recoveryCode = erzeugeRecoveryCode();
     db.prepare('UPDATE users SET recovery_hash = ? WHERE id = ?').run(
       await hash(normalisiereCode(recoveryCode)),
       req.user.id
     );
+    app.audit(req, { ereignis: 'recovery_code_erneuert', kontoId: req.user.id });
     return reply.send({ recoveryCode });
   });
 
@@ -293,8 +360,10 @@ export async function authRoutes(app) {
         error: 'Admin-Konten können nicht gelöscht werden. Entferne die E-Mail zuerst aus ADMIN_EMAILS.',
       });
     }
-    if (!(await bestaetigePasswort(app, req, reply))) return reply;
-    db.prepare('DELETE FROM users WHERE id = ?').run(req.user.id);
+    if (!(await bestaetigePasswort(app, req, reply, 'Konto löschen'))) return reply;
+    loescheKonto(db, req.user.id);
+    // Nach dem Löschen ohne konto_id protokollieren (s. loescheKonto).
+    app.audit(req, { ereignis: 'konto_geloescht', detail: `Konto #${req.user.id} (selbst)` });
     reply.clearCookie(app.config.cookieName, { path: '/' });
     return reply.send({ ok: true });
   });

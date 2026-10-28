@@ -56,8 +56,18 @@ export default function Info() {
             </li>
           </ul>
           <p>
+            <strong>Sicherheitsprotokoll (Ereignisse, IP-Adresse, 90 Tage):</strong> Zum Schutz vor
+            Missbrauch (z.&nbsp;B. Passwort-Ausprobieren) protokolliert der Server sicherheitsrelevante
+            Ereignisse – Anmeldung (erfolgreich/fehlgeschlagen), Registrierung, Passwort-Reset,
+            Konto-Löschung sowie Admin-Aktionen wie Sperren – mit Zeitpunkt, IP-Adresse und ggf.
+            Konto-Nummer. <strong>Nie</strong> gespeichert werden Passwörter, Codes, Sitzungs-Tokens
+            oder E-Mail-Adressen. Einträge werden nach <strong>90 Tagen</strong> automatisch gelöscht;
+            einsehen kann sie nur der Betreiber (Admin). Wird ein Konto gelöscht, verlieren die
+            verbleibenden Einträge den Bezug zum Konto.
+          </p>
+          <p>
             Die Anmeldung nutzt ein technisch notwendiges <strong>Session-Cookie</strong>{' '}
-            (httpOnly, SameSite). Es gibt <strong>kein Tracking, keine Werbung, keine Analyse-Cookies</strong>.
+            (httpOnly, SameSite); auf dem Server liegt davon nur ein Hash. Es gibt <strong>kein Tracking, keine Werbung, keine Analyse-Cookies</strong>.
           </p>
           <p>
             <strong>Geteilte Geräte:</strong> Beim <strong>Abmelden</strong> und beim Löschen des
@@ -67,7 +77,8 @@ export default function Info() {
           </p>
           <p>
             <strong>Zweck &amp; Sparsamkeit:</strong> Daten werden ausschließlich zum Bereitstellen
-            und Synchronisieren deines Lernstands verarbeitet. Je nach Instanz ist das Konto
+            und Synchronisieren deines Lernstands und – beim Sicherheitsprotokoll – zum Schutz der
+            Konten verarbeitet. Je nach Instanz ist das Konto
             freiwillig (dann funktioniert die App vollständig auch ohne) oder – bei Instanzen mit
             Login-Pflicht – Voraussetzung für die Nutzung (Zugang per Einladung).
           </p>

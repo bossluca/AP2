@@ -84,8 +84,8 @@ Exit-Code ≠ 0 bei einem Fehler → als Cron mit Log oder als Kuma-„Push“-M
 | S4 | Sophos-Regel WAN → NPM: GeoIP, IPS, DoS-Schutz nicht geprüft | mittel | offen → Ticket 7.4 |
 | S5 | Kein Alarm bei Ausfall/Zertifikatsablauf (Kuma überwacht die App nicht) | mittel | offen → Luca (Kuma-Monitor) |
 | S6 | Wiederherstellung aus Backup nie geprobt | mittel | offen → Ticket 8.3 |
-| S7 | Session-Tokens liegen im Klartext in der DB → wer DB/Backup liest, kann Sitzungen übernehmen (30 Tage) | mittel | offen → Code (Token-Hash), alle müssen sich danach neu anmelden |
-| S8 | Kein Audit-Log (Logins, Fehlversuche, Admin-Aktionen) → Vorfälle nicht nachvollziehbar | mittel | offen → Code |
+| S7 | Session-Tokens liegen im Klartext in der DB → wer DB/Backup liest, kann Sitzungen übernehmen (30 Tage) | mittel | **behoben im Code** (C6: nur `sha256(token)` in `sessions.token_hash`; alte Tabelle wird beim Start verworfen), Rollout: alle müssen sich einmal neu anmelden |
+| S8 | Kein Audit-Log (Logins, Fehlversuche, Admin-Aktionen) → Vorfälle nicht nachvollziehbar | mittel | **behoben im Code** (C6: Tabelle `audit`, 90 Tage, Ansicht unter `/admin`, `GET /api/admin/audit`), Rollout mit dem nächsten Deploy |
 | S9 | Datenschutzerklärung `/info` ist nur Vorlage; bei Nutzung durch andere nötig (DSGVO Art. 13) | mittel (rechtlich) | offen → Luca |
 | S10 | Basis-Images (node/nginx) und VM-Pakete werden nur bei Deploys aktualisiert | mittel | offen → Routine (Abschnitt 5) |
 | S11 | Test-Werkzeuge (vitest/tinypool) mit bekannten Lücken | niedrig (nicht ausgeliefert) | offen → vitest-Major-Update |

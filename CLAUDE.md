@@ -66,7 +66,7 @@ Fastify 5 + `node:sqlite` (keine native Build-Abhängigkeit). Bietet Auth
   Einladungen) – Env **`REGISTRATION`** (`open`/`invite`/`closed`; Compose-Default `invite`) + **`REQUIRE_LOGIN`** (Login-Pflicht, C9; Server ohne Env `false`, Compose-Default `true`) + **`ADMIN_EMAILS`**
   (Admin-Flag in `req.user.admin`); Einladungen in Tabelle `invites` (nur SHA-256-Hash,
   atomar eingelöst; falsche Codes zählen gegen `app.loginLimiter` (Schlüssel `IP|invite`, 8/15 min → 429); **auch Admin-E-Mails brauchen einen Code** – den ersten erzeugt der Betreiber per `node src/einladung-cli.js` im Container), Sperre `users.gesperrt` (beendet Sitzungen; `userFromToken`
-  ignoriert gesperrte Konten). Reine Helfer `src/lib/einladung.js`,
+  ignoriert gesperrte Konten). **Sitzungs-Tokens (C6/S7):** Cookie trägt das Zufalls-Token, `sessions.token_hash` nur `sha256(token)` (`hashToken` in `session.js`; alte Klartext-Tabelle wird in `db.js` beim Start verworfen). **Audit-Log (C6/S8):** Tabelle `audit`, zentral `app.audit(req, {ereignis, kontoId, detail})` über `src/lib/audit.js` (Ereignis-Whitelist, Detail ≤ 120 Zeichen mit Maskierung, fehlertolerant, nie Passwörter/Codes/Tokens/E-Mails), 90 Tage + max. 50 000 Zeilen (Aufräumjob in `index.js`), `GET /api/admin/audit` + Tabelle in `Admin.jsx`. Reine Helfer `src/lib/einladung.js`,
   **`/api/daten`** (GET + PUT `/:schluessel`, nur `einstufung`/`eigeneKarten`, Größenlimit;
   Tabelle `user_daten`), **`/api/gruppen`** (anlegen/`beitreten`/`:id/mitgliedschaft`
   DELETE; Tabellen `gruppen` + `gruppen_mitglieder`, Beitritt braucht Anzeigename,

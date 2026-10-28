@@ -8,7 +8,8 @@ import { dirname } from 'node:path';
  *
  * Tabellen:
  *  - users     (Konten; Passwort als argon2-Hash)
- *  - sessions  (serverseitige Sitzungen; Token im httpOnly-Cookie)
+ *  - sessions  (serverseitige Sitzungen; Token im httpOnly-Cookie, in der DB nur sha256(token))
+ *  - audit     (Sicherheitsprotokoll, 90 Tage; nie Passwörter/Codes/Tokens/E-Mails)
  *  - progress  (Fortschritt pro Nutzer & Lernobjekt; spiegelt die Client-Struktur)
  *
  * @param {string} path  Dateipfad oder ":memory:".
@@ -21,6 +22,20 @@ export function openDb(path) {
   const db = new DatabaseSync(path || ':memory:');
   db.exec('PRAGMA journal_mode = WAL;');
   db.exec('PRAGMA foreign_keys = ON;');
+
+  // Migration S7 (C6): Ältere DBs speichern das Sitzungs-Token im Klartext
+  // (Spalte `token` als Primärschlüssel). Diese Sitzungen lassen sich nicht in
+  // Hashes überführen, ohne den Klartext weiter zu lesen – die Tabelle wird
+  // daher verworfen und unten mit `token_hash` neu angelegt. Folge: alle Nutzer
+  // melden sich einmal neu an. `secure_delete` überschreibt die freigegebenen
+  // Seiten, damit die alten Tokens nicht im Dateirest verbleiben. Idempotent.
+  const sessionSpalten = new Set(db.prepare('PRAGMA table_info(sessions)').all().map((c) => c.name));
+  if (sessionSpalten.has('token') && !sessionSpalten.has('token_hash')) {
+    db.exec('PRAGMA secure_delete = ON;');
+    db.exec('DROP TABLE sessions;');
+    db.exec('PRAGMA secure_delete = OFF;');
+  }
+
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id            INTEGER PRIMARY KEY,
@@ -30,12 +45,13 @@ export function openDb(path) {
     );
 
     CREATE TABLE IF NOT EXISTS sessions (
-      token      TEXT PRIMARY KEY,
+      token_hash TEXT PRIMARY KEY,
       user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       created_at TEXT NOT NULL,
       expires_at TEXT NOT NULL
     );
     CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+    CREATE INDEX IF NOT EXISTS idx_sessions_expires ON sessions(expires_at);
 
     CREATE TABLE IF NOT EXISTS progress (
       user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -152,6 +168,21 @@ export function openDb(path) {
       created_at TEXT NOT NULL,
       expires_at TEXT
     );
+  `);
+  // Sicherheitsprotokoll (S8/C6). `konto_id` bewusst ohne Fremdschlüssel: Das
+  // Ereignis „Konto gelöscht“ soll die Löschung überdauern. Beim Löschen eines
+  // Kontos werden seine `konto_id`s auf NULL gesetzt (keine Fehlzuordnung, falls
+  // SQLite die ID neu vergibt). Aufbewahrung 90 Tage (Aufräumjob in index.js).
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS audit (
+      id       INTEGER PRIMARY KEY,
+      zeit     TEXT NOT NULL,
+      ereignis TEXT NOT NULL,
+      konto_id INTEGER,
+      ip       TEXT,
+      detail   TEXT
+    );
+    CREATE INDEX IF NOT EXISTS idx_audit_zeit ON audit(zeit);
   `);
   return db;
 }

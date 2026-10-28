@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ const api = vi.hoisted(() => ({
   loeschen: vi.fn(),
   einladen: vi.fn(),
   einladungLoeschen: vi.fn(),
+  audit: vi.fn(),
 }));
 vi.mock('../lib/api', () => ({ adminApi: api }));
 
@@ -37,6 +38,7 @@ describe('Admin', () => {
   beforeEach(() => {
     Object.values(api).forEach((f) => f.mockReset());
     api.uebersicht.mockResolvedValue(UEBERSICHT);
+    api.audit.mockResolvedValue({ eintraege: [] });
   });
 
   it('sperrt Nicht-Admins aus', () => {
@@ -72,5 +74,48 @@ describe('Admin', () => {
     expect(await screen.findByText('lea@fisi.dev')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'lea@fisi.dev löschen' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'zweiter@fisi.dev löschen' })).not.toBeInTheDocument();
+  });
+
+  it('zeigt das Sicherheitsprotokoll als Tabelle und filtert nach Ereignis (C6)', async () => {
+    auth.user = { id: 1, email: 'admin@fisi.dev', admin: true };
+    api.audit.mockImplementation((limit, ereignis) =>
+      Promise.resolve({
+        eintraege: [
+          { id: 2, zeit: '2026-10-27T10:05:00.000Z', ereignis: 'login_fehlgeschlagen', kontoId: null, email: null, ip: '203.0.113.7', detail: 'Konto unbekannt' },
+          { id: 1, zeit: '2026-10-27T10:00:00.000Z', ereignis: 'login_ok', kontoId: 2, email: 'lea@fisi.dev', ip: '198.51.100.2', detail: '' },
+        ].filter((z) => !ereignis || z.ereignis === ereignis),
+      })
+    );
+    const user = userEvent.setup();
+    renderPage();
+    const tabelle = await screen.findByRole('table', { name: /Sicherheitsprotokoll/ });
+    for (const spalte of ['Zeit', 'Ereignis', 'Konto', 'IP', 'Detail']) {
+      expect(within(tabelle).getByRole('columnheader', { name: spalte })).toBeInTheDocument();
+    }
+    expect(await within(tabelle).findByText('Login fehlgeschlagen')).toBeInTheDocument();
+    expect(within(tabelle).getByText('203.0.113.7')).toBeInTheDocument();
+    expect(within(tabelle).getByText('Konto unbekannt')).toBeInTheDocument();
+    expect(within(tabelle).getByText('Login erfolgreich')).toBeInTheDocument();
+    expect(within(tabelle).getByText('lea@fisi.dev')).toBeInTheDocument();
+    expect(api.audit).toHaveBeenCalledWith(100, '');
+
+    await user.selectOptions(screen.getByLabelText('Ereignis'), 'login_ok');
+    expect(api.audit).toHaveBeenLastCalledWith(100, 'login_ok');
+    expect(await within(tabelle).findByText('Login erfolgreich')).toBeInTheDocument();
+    expect(within(tabelle).queryByText('Login fehlgeschlagen')).not.toBeInTheDocument();
+  });
+
+  it('Fehler beim Protokoll blockiert die Konten-Verwaltung nicht', async () => {
+    auth.user = { id: 1, email: 'admin@fisi.dev', admin: true };
+    api.audit.mockRejectedValue(new Error('Protokoll kaputt'));
+    renderPage();
+    expect(await screen.findByText('lea@fisi.dev')).toBeInTheDocument();
+    expect(await screen.findByText('Protokoll kaputt')).toBeInTheDocument();
+  });
+
+  it('lädt für Nicht-Admins kein Protokoll', () => {
+    auth.user = { id: 2, email: 'lea@fisi.dev', admin: false };
+    renderPage();
+    expect(api.audit).not.toHaveBeenCalled();
   });
 });

@@ -49,6 +49,7 @@ test('Keine Hashes oder Geheimnisse in API-Antworten', async () => {
     (await app.inject({ url: '/api/auth/me', headers: { cookie } })).body,
     (await app.inject({ url: '/api/admin/uebersicht', headers: { cookie } })).body,
     (await app.inject({ method: 'POST', url: '/api/auth/login', payload: { email: 'admin@fisi.dev', password: 'geheim1234' } })).body,
+    (await app.inject({ url: '/api/admin/audit', headers: { cookie } })).body,
   ];
   for (const body of antworten) {
     assert.doesNotMatch(body, /argon2|password_hash|recovery_hash|code_hash|"token"/i, body);
@@ -74,6 +75,7 @@ test('Admin-API: ohne Login 401, als normales Konto 403 – für jede Route', as
     ['DELETE', '/api/admin/users/1'],
     ['POST', '/api/admin/invites'],
     ['DELETE', '/api/admin/invites/1'],
+    ['GET', '/api/admin/audit'],
   ];
   for (const [method, url] of routen) {
     const anonym = await app.inject({ method, url, payload: {} });

@@ -1,10 +1,36 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Shield, UserX, UserCheck, Trash2, Copy, Ticket } from 'lucide-react';
+import { Shield, UserX, UserCheck, Trash2, Copy, Ticket, ScrollText, RefreshCw } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { adminApi } from '../lib/api';
 import LeerZustand from '../components/LeerZustand';
 
 const datum = (iso) => (iso ? new Date(iso).toLocaleDateString('de-DE') : '–');
+
+const zeitpunkt = (iso) =>
+  iso
+    ? new Date(iso).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'medium' })
+    : '–';
+
+/** Lesbare Namen der Audit-Ereignisse (Reihenfolge = Filter-Auswahl). */
+const EREIGNIS_TEXT = {
+  login_ok: 'Login erfolgreich',
+  login_fehlgeschlagen: 'Login fehlgeschlagen',
+  login_gebremst: 'Login gebremst (429)',
+  registrierung: 'Registrierung',
+  registrierung_abgelehnt: 'Registrierung abgelehnt',
+  registrierung_gebremst: 'Registrierung gebremst (429)',
+  recovery_ok: 'Passwort-Reset erfolgreich',
+  recovery_fehlgeschlagen: 'Passwort-Reset fehlgeschlagen',
+  recovery_gebremst: 'Passwort-Reset gebremst (429)',
+  recovery_code_erneuert: 'Recovery-Code erneuert',
+  passwort_bestaetigung_fehlgeschlagen: 'Passwort-Bestätigung fehlgeschlagen',
+  passwort_bestaetigung_gebremst: 'Passwort-Bestätigung gebremst (429)',
+  konto_geloescht: 'Konto gelöscht',
+  konto_gesperrt: 'Konto gesperrt',
+  konto_entsperrt: 'Konto entsperrt',
+  einladung_erzeugt: 'Einladung erzeugt',
+  einladung_geloescht: 'Einladung gelöscht',
+};
 
 const MODUS_TEXT = {
   open: 'offen – jede/r kann sich registrieren',
@@ -23,6 +49,9 @@ export default function Admin() {
   const [fehler, setFehler] = useState('');
   const [neu, setNeu] = useState(null); // frisch erzeugte Einladung {code, laeuftAb}
   const [form, setForm] = useState({ maxUses: 1, gueltigTage: 14, notiz: '' });
+  const [protokoll, setProtokoll] = useState(null); // Audit-Einträge oder null (lädt)
+  const [protokollFehler, setProtokollFehler] = useState('');
+  const [filter, setFilter] = useState('');
 
   const laden = useCallback(
     () =>
@@ -35,6 +64,36 @@ export default function Admin() {
         .catch((e) => setFehler(e.message || 'Admin-Daten nicht erreichbar.')),
     []
   );
+
+  // Sicherheitsprotokoll getrennt laden: Ein Fehler dort blockiert die
+  // Konten-Verwaltung nicht.
+  const protokollLaden = useCallback(
+    (ereignis) =>
+      adminApi
+        .audit(100, ereignis)
+        .then((d) => {
+          setProtokoll(d?.eintraege || []);
+          setProtokollFehler('');
+        })
+        .catch((e) => setProtokollFehler(e.message || 'Sicherheitsprotokoll nicht erreichbar.')),
+    []
+  );
+
+  useEffect(() => {
+    if (!user?.admin) return undefined;
+    let aktiv = true;
+    adminApi
+      .audit(100, filter)
+      .then((d) => {
+        if (!aktiv) return;
+        setProtokoll(d?.eintraege || []);
+        setProtokollFehler('');
+      })
+      .catch((e) => aktiv && setProtokollFehler(e.message || 'Sicherheitsprotokoll nicht erreichbar.'));
+    return () => {
+      aktiv = false;
+    };
+  }, [user, filter]);
 
   useEffect(() => {
     if (!user?.admin) return undefined;
@@ -52,7 +111,7 @@ export default function Admin() {
     if (frage && !window.confirm(frage)) return;
     try {
       await fn();
-      await laden();
+      await Promise.all([laden(), protokollLaden(filter)]);
     } catch (e) {
       setFehler(e.message);
     }
@@ -63,7 +122,7 @@ export default function Admin() {
     try {
       setNeu(await adminApi.einladen(Number(form.maxUses), Number(form.gueltigTage), form.notiz));
       setForm((f) => ({ ...f, notiz: '' }));
-      await laden();
+      await Promise.all([laden(), protokollLaden(filter)]);
     } catch (err) {
       setFehler(err.message);
     }
@@ -244,6 +303,81 @@ export default function Admin() {
                       </div>
                     )}
                   </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="card overflow-hidden" aria-labelledby="protokoll-titel">
+        <div className="px-5 py-3 border-b flex flex-wrap items-center gap-3">
+          <h2 id="protokoll-titel" className="font-semibold flex items-center gap-2 flex-1 min-w-48">
+            <ScrollText size={18} aria-hidden="true" /> Sicherheitsprotokoll
+          </h2>
+          <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            Ereignis
+            <select className="input w-auto py-1" value={filter} onChange={(e) => setFilter(e.target.value)}>
+              <option value="">alle</option>
+              {Object.entries(EREIGNIS_TEXT).map(([wert, text]) => (
+                <option key={wert} value={wert}>
+                  {text}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button type="button" className="btn-ghost px-2.5" onClick={() => protokollLaden(filter)}>
+            <RefreshCw size={16} aria-hidden="true" /> Neu laden
+          </button>
+        </div>
+        <p className="px-5 pt-3 text-xs text-muted-foreground">
+          Die letzten 100 sicherheitsrelevanten Ereignisse, neueste zuerst. Aufbewahrung 90 Tage; Passwörter,
+          Codes, Tokens und E-Mail-Adressen werden nie protokolliert (die E-Mail wird hier nur zur Anzeige
+          zugeordnet).
+        </p>
+        {protokollFehler && (
+          <p role="alert" className="px-5 pt-2 text-sm text-red-700 dark:text-red-300">
+            {protokollFehler}
+          </p>
+        )}
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <caption className="sr-only">Sicherheitsprotokoll: Zeit, Ereignis, Konto, IP-Adresse, Detail</caption>
+            <thead className="text-muted-foreground">
+              <tr className="border-b">
+                <th scope="col" className="text-left font-medium px-4 py-2">Zeit</th>
+                <th scope="col" className="text-left font-medium px-4 py-2">Ereignis</th>
+                <th scope="col" className="text-left font-medium px-4 py-2">Konto</th>
+                <th scope="col" className="text-left font-medium px-4 py-2">IP</th>
+                <th scope="col" className="text-left font-medium px-4 py-2">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {protokoll === null && !protokollFehler && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-3 text-muted-foreground">
+                    Lädt …
+                  </td>
+                </tr>
+              )}
+              {protokoll?.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-3 text-muted-foreground">
+                    Keine Einträge.
+                  </td>
+                </tr>
+              )}
+              {(protokoll || []).map((z) => (
+                <tr key={z.id} className="border-b last:border-0 align-top">
+                  <td className="px-4 py-2 whitespace-nowrap font-mono text-xs">
+                    <time dateTime={z.zeit}>{zeitpunkt(z.zeit)}</time>
+                  </td>
+                  <td className="px-4 py-2">{EREIGNIS_TEXT[z.ereignis] || z.ereignis}</td>
+                  <td className="px-4 py-2 break-all">
+                    {z.email || (z.kontoId ? `#${z.kontoId}` : <span className="text-muted-foreground">–</span>)}
+                  </td>
+                  <td className="px-4 py-2 font-mono text-xs whitespace-nowrap">{z.ip || '–'}</td>
+                  <td className="px-4 py-2 text-muted-foreground">{z.detail || ''}</td>
                 </tr>
               ))}
             </tbody>
