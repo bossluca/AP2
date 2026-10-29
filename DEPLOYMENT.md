@@ -156,7 +156,7 @@ Was der Stack **bereits mitbringt** (Stand 2026-07-04):
   startet erst, wenn das Backend gesund ist. `restart: unless-stopped`.
 - ✅ **Security-Header** (nginx im web-Container, `nginx-security-headers.conf`,
   in **jedem** location-Block – seit 2026-10-20 auch an `index.html`): CSP (nur
-  eigene Ressourcen + Google Fonts), `X-Content-Type-Options`, `X-Frame-Options`,
+  nur eigene Ressourcen, Systemschrift ohne externe Fonts), `X-Content-Type-Options`, `X-Frame-Options`,
   `Referrer-Policy`, `Permissions-Policy`, `server_tokens off`.
 - ✅ **Rate-Limits & Timeouts** (nginx): 20 req/s je IP auf `/api` (Burst 80),
   30/min auf `/api/auth/*`, 60 Verbindungen je IP, Slowloris-Timeouts 10 s;

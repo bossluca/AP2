@@ -111,7 +111,7 @@ export default function CommandPalette({ offen, onClose, onToggle }) {
   return (
     <div className="fixed inset-0 z-40" role="dialog" aria-modal="true" aria-label="Befehle">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={schliessen} />
-      <div className="absolute left-1/2 top-[12vh] -translate-x-1/2 w-[min(92vw,40rem)] card shadow-2xl overflow-hidden animate-in">
+      <div className="absolute left-1/2 top-[12vh] -translate-x-1/2 w-[min(92vw,40rem)] material-dick text-popover-foreground rounded-2xl overflow-hidden animate-in">
         {/* Eingabezeile mit Terminal-Prompt */}
         <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border">
           <span className="font-mono text-accent shrink-0" aria-hidden="true">

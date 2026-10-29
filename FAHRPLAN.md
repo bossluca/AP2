@@ -15,7 +15,7 @@ parallel immer Inhalte.** Jede Stufe ist einzeln auslieferbar.
   Heatmap, **neu: opt-in Wochen-Rangliste**.
 - Lernmodi: Heute lernen, Schwächen, Lernpfade, Karteikarten, FSRS-Wiederholen,
   Quiz, Lückentext, Drill, **neu: Zuordnen**, Klausur-Simulation.
-- Design: **shadcn/ui-Stil** (Tokens, zinc + grüner Primary, Geist-Fonts).
+- Design: **Apple-Stil** (Tokens, Systemschrift, Material, Federn; grüner Primary).
 - **Neu:** Einstufungstest + Lernplan bis zur Prüfung, eigene Karten aus PDF/Text,
   Rechen-Trainer, Einladungs-Codes + Admin-Bereich, Lerngruppen, Konto-Sync für
   Lernplan/eigene Karten, Playwright-E2E in CI (Stand 2026-10-20).
