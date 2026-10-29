@@ -6,6 +6,22 @@ verständliche Ergebnis inklusive Verifikation.
 
 ## Unveröffentlicht
 
+### Design
+
+- 2026-10-29: **Apple-Design (Skill „apple-design“).** Neue Tokens (hell `#f5f5f7` mit weißen
+  Karten, dunkel Schwarz mit erhöhten Flächen), Systemschrift statt Geist (keine externen
+  Fonts mehr: Google-Fonts-Link entfernt, **CSP verschärft** – `style-src`/`font-src` nur
+  `'self'`), größenabhängige Laufweite, Karten mit feiner Kontur und weichem Schatten,
+  Kapsel-Buttons mit sofortigem Druck-Feedback, transluzente Leisten (`material`:
+  `backdrop-filter`) für Navigation, Bottom-Nav, Sheets und Befehlspalette. Das „Mehr“-Fenster
+  ist mobil ein ziehbares Bottom-Sheet (1:1 am Finger, elastisch nach oben, Schließen nach
+  Schwung statt nach Position, Federn mit Geschwindigkeits-Übergabe, jederzeit unterbrechbar,
+  gleicher Weg raus wie rein; Escape/Knopf/Hintergrund schließen ebenfalls animiert), ab `lg`
+  Popover. Neue Fallbacks für `prefers-reduced-motion` (Einblenden statt Verschieben),
+  `prefers-reduced-transparency` und `prefers-contrast: more`. Neu: `src/lib/bewegung.js`
+  (15 Tests), `src/hooks/useSheetZiehen.js`, `e2e/design.spec.js`. Verifikation: 482+
+  Vitest-Tests, Lint, Build, Playwright inkl. axe (WCAG AA, hell + dunkel) grün.
+
 ### Betrieb
 
 - 2026-10-26: **`scripts/update.sh`:** Update in einem Schritt (Vorprüfung, Backup,

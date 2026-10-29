@@ -27,6 +27,7 @@ import { useTheme } from './context/ThemeContext';
 import { useGamification } from './context/GamificationContext';
 import ErfolgWatcher from './components/ErfolgWatcher';
 import KontoDatenSync from './components/KontoDatenSync';
+import { useSheetZiehen } from './hooks/useSheetZiehen';
 import UebernahmeDialog from './components/UebernahmeDialog';
 import ExamDatenGrenze from './components/ExamDatenGrenze';
 import { useZugang } from './context/AuthContext';
@@ -82,7 +83,7 @@ function StreakBadge() {
 /** Obere Leiste: Marke, Desktop-Linkleiste (ab lg), rechte Icon-Gruppe. */
 function TopBar({ onPalette, onMehr }) {
   return (
-    <nav className="border-b sticky top-0 bg-background/80 backdrop-blur z-20">
+    <nav className="border-b border-border/60 sticky top-0 material z-20">
       <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex items-center gap-1 sm:gap-2">
         <NavLink
           to="/"
@@ -140,7 +141,7 @@ const bottomItemClass = ({ isActive }) =>
 function BottomNav({ onMehr }) {
   const items = BOTTOM_ROUTES.map((to) => NAV.find((n) => n.to === to));
   return (
-    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 border-t bg-background/90 backdrop-blur pb-[env(safe-area-inset-bottom)]">
+    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 border-t border-border/60 material pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-4xl mx-auto grid grid-cols-5">
         {items.map((it) => (
           <NavLink key={it.to} to={it.to} end={it.end} className={bottomItemClass}>
@@ -158,8 +159,10 @@ function BottomNav({ onMehr }) {
             )}
           </NavLink>
         ))}
-        <button onClick={onMehr} className="flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-muted-foreground">
-          <Menu size={20} aria-hidden="true" />
+        <button onClick={onMehr} className="flex min-h-14 touch-manipulation flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-muted-foreground transition-transform active:scale-95">
+          <span className="grid place-items-center h-7 w-12 rounded-full">
+            <Menu size={20} aria-hidden="true" />
+          </span>
           <span>Mehr</span>
         </button>
       </div>
@@ -167,17 +170,28 @@ function BottomNav({ onMehr }) {
   );
 }
 
-/** „Mehr"-Sheet: alle Bereiche als Kachelraster (mobil). */
+/**
+ * „Mehr"-Sheet: alle Bereiche als Kachelraster. Mobil ein Bottom-Sheet, das sich
+ * am Griff ziehen lässt (Schwung, Feder, jederzeit unterbrechbar, s.
+ * `useSheetZiehen`); ab lg ein Popover.
+ */
 function MehrSheet({ onClose }) {
+  const { panelRef, hintergrundRef, griffProps, schliessen } = useSheetZiehen(onClose);
   return (
     <div className="fixed inset-0 z-30" role="dialog" aria-modal="true" aria-label="Alle Bereiche">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
-      <div className="absolute bottom-0 inset-x-0 lg:bottom-auto lg:top-16 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-[36rem] lg:rounded-xl lg:border bg-popover text-popover-foreground border-t rounded-t-2xl p-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl animate-in">
-        <div className="flex items-center justify-between mb-3">
-          <span className="font-semibold">Alle Bereiche</span>
-          <button onClick={onClose} aria-label="Schließen" className="grid place-items-center w-8 h-8 rounded-lg hover:bg-muted">
-            <X size={18} />
-          </button>
+      <div ref={hintergrundRef} className="sheet-scrim absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={schliessen} />
+      <div
+        ref={panelRef}
+        className="sheet-panel material-dick absolute bottom-0 inset-x-0 lg:bottom-auto lg:top-16 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-[36rem] lg:rounded-2xl text-popover-foreground rounded-t-3xl p-4 pt-2 pb-[calc(1.5rem+env(safe-area-inset-bottom))] will-change-transform"
+      >
+        <div {...griffProps} className="-mx-4 px-4 cursor-grab active:cursor-grabbing">
+          <div className="mx-auto mb-2 h-1.5 w-10 rounded-full bg-muted-foreground/40 lg:hidden" aria-hidden="true" />
+          <div className="flex items-center justify-between mb-3">
+            <span className="font-semibold">Alle Bereiche</span>
+            <button onClick={schliessen} aria-label="Schließen" className="grid place-items-center w-9 h-9 rounded-full bg-muted/70 hover:bg-muted transition-colors">
+              <X size={18} />
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
           {[...NAV, ...NAV_SEKUNDAER].map((it) => (
@@ -187,10 +201,10 @@ function MehrSheet({ onClose }) {
               end={it.end}
               onClick={onClose}
               className={({ isActive }) =>
-                `flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3 text-xs font-medium transition-colors ${
+                `flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3 text-xs font-medium transition-[transform,background-color,color] duration-150 active:scale-[0.96] ${
                   isActive
                     ? 'border-accent text-accent bg-muted'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    : 'border-transparent bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
                 }`
               }
             >
@@ -275,7 +289,7 @@ function AppFooter() {
 function LoginGate() {
   return (
     <div className="relative z-10">
-      <nav className="border-b bg-background/80 backdrop-blur">
+      <nav className="border-b border-border/60 material">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 py-2 flex items-center gap-2">
           <span className="font-bold text-base sm:text-lg flex items-center gap-1.5">
             <span className="font-mono text-accent" aria-hidden="true">

@@ -8,32 +8,39 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Design-System im **shadcn/ui-Stil** (New-York, Basis „zinc", Primary grün).
- * Alle Farben liegen als semantische Tokens auf CSS-Variablen (Namen wie bei
- * shadcn: background/foreground/card/muted/border/input/ring/primary …) und
- * werden per `@theme inline` als Tailwind-Farben verfügbar (`bg-card`,
- * `text-muted-foreground`, `border-border` …). Dark-Mode tauscht nur die Tokens.
+ * Design-System: **Apple-Stil** (Prinzipien aus Apples „Designing Fluid
+ * Interfaces“, als Web-Übersetzung) auf den semantischen Tokens der shadcn-
+ * Struktur. Alle Farben liegen als Tokens auf CSS-Variablen (background/
+ * foreground/card/muted/border/input/ring/primary …) und werden per
+ * `@theme inline` als Tailwind-Farben verfügbar (`bg-card`,
+ * `text-muted-foreground` …). Dark-Mode tauscht nur die Tokens.
  *
- * Achtung Namenskonflikt: `--accent` ist hier – anders als bei shadcn – die
- * **Markenfarbe** (= primary, grün) und wird über die `@utility`-Helfer
- * `text-accent`/`bg-accent`/`border-accent` genutzt. Die neutrale
- * Hover-Fläche heißt `muted`.
+ * Merkmale: Systemschrift mit größenabhängiger Laufweite, gruppierter
+ * Hintergrund (hellgrau mit weißen Karten, im Dunkeln Schwarz mit erhöhten
+ * Flächen), großzügige Rundungen und weiche Schatten statt harter Rahmen,
+ * transluzente Leisten (`.material`), Druck-Feedback beim Antippen, Federn
+ * statt fester Dauer (`lib/bewegung.js`) und Fallbacks für „weniger Bewegung“,
+ * „weniger Transparenz“ und „mehr Kontrast“.
+ *
+ * Achtung Namenskonflikt: `--accent` ist hier die **Markenfarbe** (= primary,
+ * grün) und wird über die `@utility`-Helfer `text-accent`/`bg-accent`/
+ * `border-accent` genutzt. Die neutrale Hover-Fläche heißt `muted`.
  */
 :root {
   color-scheme: light;
-  --radius: 0.625rem;
-  --background: #ffffff;
-  --foreground: #09090b; /* zinc-950 */
+  --radius: 1rem;
+  --background: #f5f5f7; /* gruppierter Hintergrund */
+  --foreground: #1d1d1f;
   --card: #ffffff;
-  --card-foreground: #09090b;
+  --card-foreground: #1d1d1f;
   --popover: #ffffff;
-  --popover-foreground: #09090b;
-  --muted: #f4f4f5; /* zinc-100 */
-  --muted-foreground: #71717a; /* zinc-500 */
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
-  --border: #e4e4e7; /* zinc-200 */
-  --input: #e4e4e7;
+  --popover-foreground: #1d1d1f;
+  --muted: #ececf0;
+  --muted-foreground: #636366; /* ≥ 4.5:1 auf Hintergrund und Karte */
+  --secondary: #ececf0;
+  --secondary-foreground: #1d1d1f;
+  --border: rgb(0 0 0 / 0.1);
+  --input: rgb(0 0 0 / 0.2);
   --primary: #15803d; /* green-700 – WCAG-AA-Kontrast für Text auf Weiß und weißen Text */
   --primary-foreground: #f0fdf4;
   --ring: #16a34a;
@@ -44,21 +51,29 @@
   --accent-contrast: var(--primary-foreground);
   --selection: rgba(34, 197, 94, 0.22);
   --line-rest: var(--border); /* ungelaufener Teil der Pfad-Linie */
+
+  /* Tiefe: feine Kontur + weicher, großer Schatten (kein harter Rahmen). */
+  --shadow-card: 0 0 0 0.5px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04), 0 10px 28px -14px rgb(0 0 0 / 0.16);
+  --shadow-float: 0 0 0 0.5px rgb(0 0 0 / 0.08), 0 24px 60px -12px rgb(0 0 0 / 0.28);
+  --material-rand: rgb(255 255 255 / 0.55); /* helle Oberkante: Licht fängt sich im Material */
+
+  /* Bewegung: Ausklang ohne Überschwingen (kritisch gedämpft). */
+  --ease-ausklang: cubic-bezier(0.22, 1, 0.36, 1);
 }
 .dark {
   color-scheme: dark;
-  --background: #09090b; /* zinc-950 */
-  --foreground: #fafafa;
-  --card: #111113;
-  --card-foreground: #fafafa;
-  --popover: #18181b;
-  --popover-foreground: #fafafa;
-  --muted: #27272a; /* zinc-800 */
-  --muted-foreground: #a1a1aa; /* zinc-400 */
-  --secondary: #27272a;
-  --secondary-foreground: #fafafa;
-  --border: rgb(255 255 255 / 0.1);
-  --input: rgb(255 255 255 / 0.15);
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --card: #1c1c1e; /* erhöhte Fläche */
+  --card-foreground: #f5f5f7;
+  --popover: #2c2c2e;
+  --popover-foreground: #f5f5f7;
+  --muted: #2c2c2e;
+  --muted-foreground: #98989f;
+  --secondary: #2c2c2e;
+  --secondary-foreground: #f5f5f7;
+  --border: rgb(255 255 255 / 0.12);
+  --input: rgb(255 255 255 / 0.22);
   --primary: #22c55e; /* green-500 */
   --primary-foreground: #052e16;
   --ring: #22c55e;
@@ -66,6 +81,9 @@
 
   --accent-strong: #4ade80;
   --selection: rgba(34, 197, 94, 0.28);
+  --shadow-card: 0 0 0 0.5px rgb(255 255 255 / 0.07), 0 10px 28px -14px rgb(0 0 0 / 0.7);
+  --shadow-float: 0 0 0 0.5px rgb(255 255 255 / 0.12), 0 24px 60px -12px rgb(0 0 0 / 0.8);
+  --material-rand: rgb(255 255 255 / 0.12);
 }
 
 @theme inline {
@@ -89,16 +107,38 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: 'Geist', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+  /* Systemschrift: bringt optisches Größen-Design und Laufweiten-Tabellen mit. */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-/* shadcn-Basis: Rahmenfarbe aller Elemente = Token `border`. */
+/* Basis: Rahmenfarbe aller Elemente = Token `border`; Laufweite und Zeilenhöhe
+   hängen von der Größe ab (große Schrift enger, kleine etwas weiter). */
 @layer base {
   *,
   ::after,
   ::before {
     border-color: var(--border);
+  }
+  html {
+    font-optical-sizing: auto;
+    -webkit-text-size-adjust: 100%;
+  }
+  h1 {
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  h2 {
+    letter-spacing: -0.022em;
+    line-height: 1.15;
+  }
+  h3 {
+    letter-spacing: -0.014em;
+    line-height: 1.25;
+  }
+  .text-xs,
+  .text-\[11px\] {
+    letter-spacing: 0.01em;
   }
 }
 
@@ -107,7 +147,10 @@ body {
   font-family: var(--font-sans);
   background: var(--background);
   color: var(--foreground);
+  line-height: 1.5;
+  letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .font-mono,
@@ -115,6 +158,7 @@ code,
 kbd,
 pre {
   font-family: var(--font-mono);
+  letter-spacing: 0;
 }
 
 /* Markierte Textauswahl in der Akzentfarbe. */
@@ -130,11 +174,9 @@ details > summary {
   cursor: pointer;
 }
 
-/* --- Design-System: shadcn-artige Bausteine als Utilities (Tailwind 4) ---- */
+/* --- Design-System: Bausteine als Utilities (Tailwind 4) ------------------ */
 /* Bestehende Klassennamen bleiben (card, btn-…, chip, input), damit alle Seiten
-   ohne Umbau den neuen Look bekommen. Entsprechung zu shadcn:
-   card = <Card>, btn-primary = <Button>, btn-ghost = <Button variant="outline">,
-   chip = <Badge variant="secondary">, input = <Input>. */
+   ohne Umbau den neuen Look bekommen. */
 @utility text-accent {
   color: var(--accent);
 }
@@ -145,29 +187,52 @@ details > summary {
   border-color: var(--accent);
 }
 
+/* Karte: erhöhte Fläche, feine Kontur und weicher Schatten statt hartem Rahmen. */
 @utility card {
-  @apply rounded-xl border border-border bg-card text-card-foreground shadow-sm;
+  @apply rounded-xl bg-card text-card-foreground;
+  border: 0.5px solid var(--border);
+  box-shadow: var(--shadow-card);
 }
 @utility card-interactive {
-  @apply card transition-colors duration-150 hover:bg-muted/50;
+  @apply card transition-[transform,background-color,border-color,box-shadow] duration-200 hover:bg-muted/50 active:scale-[0.985];
+  transition-timing-function: var(--ease-ausklang);
   &:hover {
     border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
   }
 }
 
-/* Früher Farbverlauf; im shadcn-Look schlicht in Vordergrundfarbe. */
+/* Früher Farbverlauf; schlicht in Vordergrundfarbe. */
 @utility text-gradient {
   color: var(--foreground);
 }
 
+/* Material: transluzente Leiste, Inhalt scrollt darunter durch. Helle Oberkante
+   (Licht fängt sich), Hintergrund nie vollständig durchsichtig (Lesbarkeit). */
+@utility material {
+  background: color-mix(in srgb, var(--background) 72%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+/* Dickeres Material für größere, schwebende Flächen (Sheets, Palette). */
+@utility material-dick {
+  background: color-mix(in srgb, var(--popover) 82%, transparent);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  backdrop-filter: blur(32px) saturate(180%);
+  box-shadow: var(--shadow-float), inset 0 0.5px 0 var(--material-rand);
+}
+
+/* Buttons: Reaktion beim Drücken sofort (nicht erst beim Loslassen), Ausklang
+   ohne Überschwingen. Kapselform wie bei Apples Standard-Schaltflächen. */
 @utility btn {
-  @apply inline-flex min-h-10 touch-manipulation items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-[color,background-color,border-color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50;
+  @apply inline-flex min-h-10 touch-manipulation items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium outline-none transition-[color,background-color,border-color,box-shadow,transform] duration-150 select-none focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+  transition-timing-function: var(--ease-ausklang);
 }
 @utility btn-primary {
-  @apply btn bg-primary text-primary-foreground shadow-xs hover:bg-primary/90;
+  @apply btn bg-primary text-primary-foreground hover:bg-primary/90;
 }
 @utility btn-ghost {
-  @apply btn border border-input bg-background text-foreground shadow-xs hover:bg-muted dark:bg-input/30 dark:hover:bg-input/50;
+  @apply btn bg-secondary text-secondary-foreground hover:bg-muted;
+  border: 0.5px solid var(--border);
 }
 @utility btn-soft-green {
   @apply btn bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-500/15 dark:text-green-300 dark:hover:bg-green-500/25;
@@ -180,11 +245,11 @@ details > summary {
 }
 
 @utility chip {
-  @apply inline-flex items-center rounded-md border border-transparent bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground;
+  @apply inline-flex items-center rounded-full border border-transparent bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground;
 }
 
 @utility input {
-  @apply min-h-10 w-auto rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:bg-input/30;
+  @apply min-h-10 w-auto rounded-xl border border-input bg-card px-3.5 py-1 text-sm transition-[color,box-shadow,border-color] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50;
 }
 
 /* Mobile Lernaktionen bleiben im Daumenbereich oberhalb der Bottom-Navigation. */
@@ -200,9 +265,10 @@ details > summary {
     z-index: 10;
     margin-inline: -0.25rem;
     padding: 0.5rem 0.25rem;
-    border-radius: 0.75rem;
-    background: color-mix(in srgb, var(--background) 92%, transparent);
-    backdrop-filter: blur(12px);
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--background) 78%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
   }
 
   .learning-actions > button {
@@ -257,7 +323,39 @@ details > summary {
   }
 }
 .animate-in {
-  animation: fadeInUp 0.35s ease both;
+  animation: fadeInUp 0.4s var(--ease-ausklang) both;
+}
+
+/* Sheet/Popover: kommen von unten bzw. aus der Auslöser-Richtung und gehen
+   denselben Weg zurück (Schließen: `useSheetZiehen`). Mit `backwards` greift die
+   Animation nur vor dem Start, danach gilt die per Geste gesetzte Verschiebung. */
+@keyframes sheet-in {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+}
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+.sheet-panel {
+  animation: sheet-in 0.44s var(--ease-ausklang) backwards;
+}
+.sheet-scrim {
+  animation: scrim-in 0.3s ease-out backwards;
+}
+@media (min-width: 1024px) {
+  .sheet-panel {
+    transform-origin: top center;
+    animation: popover-in 0.22s var(--ease-ausklang) backwards;
+  }
 }
 
 /* Pulsierender Ring um das aktive Lernpfad-Modul (sanfter „du bist hier"-Hinweis). */
@@ -290,15 +388,73 @@ details > summary {
   animation: treffer-pop 0.28s ease both;
 }
 
+/* Weniger Bewegung heißt sanfter, nicht leer: Ein-/Ausblenden bleibt, Verschieben,
+   Federn und Skalieren entfallen. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-in {
-    animation: none;
+  .animate-in,
+  .sheet-panel,
+  .sheet-scrim {
+    animation: fadeOnly 0.2s ease-out both;
+  }
+  .btn:active,
+  .card-interactive:active {
+    transform: none;
   }
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    animation-duration: 0.2s !important;
+    scroll-behavior: auto !important;
+  }
+  .node-pulse,
+  .treffer-pop {
+    animation: none !important;
+  }
+}
+@keyframes fadeOnly {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Weniger Transparenz: Materialien werden deckend (Lesbarkeit zuerst). */
+@media (prefers-reduced-transparency: reduce) {
+  .material,
+  .material-dick,
+  .learning-actions {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: var(--background) !important;
+  }
+  .material-dick {
+    background: var(--popover) !important;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .material,
+  .learning-actions {
+    background: var(--background);
+  }
+  .material-dick {
+    background: var(--popover);
+  }
+}
+
+/* Mehr Kontrast: definierte Konturen, kräftiger Text. */
+@media (prefers-contrast: more) {
+  :root {
+    --border: rgb(0 0 0 / 0.5);
+    --input: rgb(0 0 0 / 0.6);
+    --muted-foreground: #48484a;
+  }
+  .dark {
+    --border: rgb(255 255 255 / 0.55);
+    --input: rgb(255 255 255 / 0.65);
+    --muted-foreground: #c7c7cc;
+  }
+  .card {
+    border-width: 1px;
   }
 }
 

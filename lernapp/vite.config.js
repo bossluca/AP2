@@ -31,8 +31,8 @@ export default defineConfig({
         description:
           'Deine AP2-Vorbereitung für Fachinformatiker Systemintegration: Lernpfade, Klausursimulation, Spaced Repetition und Karteikarten.',
         lang: 'de',
-        theme_color: '#5BE38A',
-        background_color: '#0B0F0C',
+        theme_color: '#f5f5f7',
+        background_color: '#f5f5f7',
         display: 'standalone',
         start_url: '.',
         scope: '.',
